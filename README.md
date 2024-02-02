@@ -22,9 +22,7 @@ yarn add axios frontend-js
 
 ## Usage Example
 
-```jsx
-```
-                                                      |
+
 ## License
 
 The MIT License.
