@@ -4,7 +4,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ResourceProvider = exports.ResourceContext = exports.AuthProvider = exports.AuthContext = exports.ApiProvider = exports.ApiContext = void 0;
-// Common
 var ApiContext_1 = require("./ApiContext");
 Object.defineProperty(exports, "ApiContext", { enumerable: true, get: function () { return __importDefault(ApiContext_1).default; } });
 var ApiProvider_1 = require("./ApiProvider");
