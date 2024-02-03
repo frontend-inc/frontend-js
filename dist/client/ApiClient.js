@@ -787,10 +787,8 @@ var ApiClient = /** @class */ (function () {
     return ApiClient;
 }());
 exports.ApiClient = ApiClient;
-// End ApiClient
-var createClient = function (baseUrl, fetchToken, apiKey, authToken) {
-    if (apiKey === void 0) { apiKey = null; }
-    if (authToken === void 0) { authToken = null; }
-    return new ApiClient(baseUrl, fetchToken, apiKey, authToken);
+var createClient = function (params) {
+    var url = params.url, fetchToken = params.fetchToken, apiKey = params.apiKey, authToken = params.authToken;
+    return new ApiClient(url, fetchToken, apiKey, authToken);
 };
 exports.createClient = createClient;

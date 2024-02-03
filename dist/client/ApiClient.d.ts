@@ -70,4 +70,11 @@ export declare class ApiClient {
     handleMultipartData(): Promise<void>;
     isJsonObject(value: any): boolean;
 }
-export declare const createClient: (baseUrl: string, fetchToken: () => string | null, apiKey?: string | null, authToken?: string | null) => ApiClient;
+declare type ApiClientParams = {
+    url: string;
+    apiKey: string | null;
+    fetchToken?: () => string | null;
+    authToken?: string | null;
+};
+export declare const createClient: (params: ApiClientParams) => ApiClient;
+export {};

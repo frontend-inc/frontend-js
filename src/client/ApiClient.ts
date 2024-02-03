@@ -534,11 +534,22 @@ export class ApiClient {
 }
 // End ApiClient
 
-export const createClient = (
-	baseUrl: string,
-	fetchToken: () => string | null,
-	apiKey: string | null = null,
-	authToken: string | null = null
-): ApiClient => {
-	return new ApiClient(baseUrl, fetchToken, apiKey, authToken)
+
+type ApiClientParams = {
+  url: string  
+  apiKey: string | null
+  fetchToken?: () => string | null
+  authToken?: string | null
+}
+
+export const createClient = (params: ApiClientParams): ApiClient => {
+
+  const {
+	  url,
+	  fetchToken,
+	  apiKey,
+	  authToken
+  } = params
+
+	return new ApiClient(url, fetchToken, apiKey, authToken)
 }
