@@ -129,7 +129,7 @@ export declare type ResourceResponse = Record<string, any> & {
     addAttachment: (id: ID, fieldName: string, attachmentId: ID) => Resource;
     removeAttachment: (id: ID, fieldName: string) => Resource;
     updatePositions: (sorted: Resource[]) => Promise<any>;
-    query: (params: QueryParams) => Resource[];
+    query: QueryParams;
     setQuery: (params: QueryParams) => void;
     meta: Record<string, any>;
     page: number;
