@@ -101,7 +101,7 @@ var useResource = function (params) {
                     if (queryParams) {
                         setQuery(__assign(__assign({}, query), queryParams));
                     }
-                    return [4 /*yield*/, api.url(url).findMany(__assign(__assign({}, query), queryParams))];
+                    return [4 /*yield*/, api.url(url).findMany(__assign(__assign({}, query), (queryParams || {})))];
                 case 2:
                     res = _a.sent();
                     if (res.data) {
@@ -248,21 +248,21 @@ var useResource = function (params) {
             }
         });
     }); };
-    var addLinks = function (id, contentType, dataIds) { return __awaiter(void 0, void 0, void 0, function () {
+    var addLinks = function (sourceId, targetIds) { return __awaiter(void 0, void 0, void 0, function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0: return [4 /*yield*/, loadingWrapper(function () {
-                        return api.collection('links').url(url).addLinks(id, contentType, dataIds);
+                        return api.collection('links').url(url).addLinks(sourceId, targetIds);
                     })];
                 case 1: return [2 /*return*/, _a.sent()];
             }
         });
     }); };
-    var removeLinks = function (id, dataIds) { return __awaiter(void 0, void 0, void 0, function () {
+    var removeLinks = function (sourceId, targetIds) { return __awaiter(void 0, void 0, void 0, function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0: return [4 /*yield*/, loadingWrapper(function () {
-                        return api.collection('links').url(url).removeLinks(id, dataIds);
+                        return api.collection('links').url(url).removeLinks(sourceId, targetIds);
                     })];
                 case 1: return [2 /*return*/, _a.sent()];
             }

@@ -99,6 +99,7 @@ export declare type User = {
 export declare type Resource = Record<string, any> & {
     id?: number | string;
 };
+export declare type ID = string | number;
 export declare type ResourceResponse = Record<string, any> & {
     id?: string;
     loading: boolean;
@@ -112,21 +113,21 @@ export declare type ResourceResponse = Record<string, any> & {
     resources: Resource[];
     setResource: (value: Resource) => void;
     setResources: (value: Resource[]) => void;
-    findOne: (id: number) => Resource | null;
+    findOne: (id: ID) => Resource | null;
     findMany: (queryParams: QueryParams, loadMore?: boolean) => Promise<any>;
     reloadMany: () => Promise<any>;
     save: (resource: Resource) => Resource;
     update: (resource: Resource) => Resource;
     create: (resource: Resource) => Resource;
-    destroy: (id: number) => Promise<any>;
-    updateMany: (ids: number[], data: Resource) => Promise<any>;
-    deleteMany: (ids: number[]) => void;
-    publish: (ids: number[]) => Promise<any>;
-    unpublish: (id: number[]) => Promise<any>;
-    addLinks: (id: number, contentType: string, data: number[]) => Promise<any>;
-    removeLinks: (id: number, dataIds: number[]) => Promise<any>;
-    addAttachment: (id: number, fieldName: string, attachmentId: number) => Resource;
-    removeAttachment: (id: number, fieldName: string) => Resource;
+    destroy: (id: ID) => Promise<any>;
+    updateMany: (ids: ID[], data: Resource) => Promise<any>;
+    deleteMany: (ids: ID[]) => void;
+    publish: (ids: ID[]) => Promise<any>;
+    unpublish: (id: ID[]) => Promise<any>;
+    addLinks: (sourceId: ID, targetIds: ID[]) => Promise<any>;
+    removeLinks: (sourceId: ID, targetIds: ID[]) => Promise<any>;
+    addAttachment: (id: ID, fieldName: string, attachmentId: ID) => Resource;
+    removeAttachment: (id: ID, fieldName: string) => Resource;
     updatePositions: (sorted: Resource[]) => Promise<any>;
     query: (params: QueryParams) => Resource[];
     setQuery: (params: QueryParams) => void;

@@ -1,7 +1,7 @@
 import React, { useContext } from 'react'
 import { useState } from 'react'
 import { ApiContext } from '../context'
-import { ResourceResponse, QueryParams, Resource, PageInfo } from '../types'
+import { ID, ResourceResponse, QueryParams, Resource, PageInfo } from '../types'
 
 type UseResourceParams = {
 	url?: string
@@ -28,12 +28,12 @@ const useResource = (params: UseResourceParams): ResourceResponse => {
 	const showLoading = () => setLoading(true)
 	const hideLoading = () => setLoading(false)
 
-	const findOne = async (id: number) => {
+	const findOne = async (id: ID) => {
 		if (!id) return null
 		return await loadingWrapper(() => api.collection(name).url(url).findOne(id))
 	}
 
-	const findMany = async (queryParams: QueryParams, loadMore?: boolean) => {
+	const findMany = async (queryParams?: QueryParams, loadMore?: boolean) => {
 		if (url.includes('undefined')) {
 			console.log('Error: the URL contains undefined', url)
 			return
@@ -45,10 +45,10 @@ const useResource = (params: UseResourceParams): ResourceResponse => {
 					...query,
 					...queryParams,
 				})
-			}
+			}      
 			const res = await api.url(url).findMany({
 				...query,
-				...queryParams,
+				...(queryParams || {}),
 			})
 			if (res.data) {
 				if (loadMore !== true ) {
@@ -120,56 +120,55 @@ const useResource = (params: UseResourceParams): ResourceResponse => {
 		)
 	}
 
-	const destroy = async (id: number) => {
+	const destroy = async (id: ID) => {
 		return await loadingWrapper(() => 
       api.collection(name).url(url).destroy(id)
     )
 	}
 
-	const updateMany = async (ids: number[], data: Resource) => {
+	const updateMany = async (ids: ID[], data: Resource) => {
 		return await loadingWrapper(() =>
 			api.collection(name).url(url).updateMany(ids, data)
 		)
 	}
 
-	const deleteMany = async (ids: number[]) => {
+	const deleteMany = async (ids: ID[]) => {
 		return await loadingWrapper(() =>
 			api.collection(name).url(url).destroyMany(ids)
 		)
 	}
 
-	const publish = async (ids: number[]) => {
+	const publish = async (ids: ID[]) => {
 		return await loadingWrapper(() =>
 			api.collection(name).url(url).publish(ids)
 		)
 	}
 
-	const unpublish = async (ids: number[]) => {
+	const unpublish = async (ids: ID[]) => {
 		return await loadingWrapper(() =>
 			api.collection(name).url(url).unpublish(ids)
 		)
 	}
 
 	const addLinks = async (
-		id: number,
-		contentType: string,
-		dataIds: number[]
+		sourceId: ID,
+		targetIds: ID[]
 	) => {
 		return await loadingWrapper(() =>
-			api.collection('links').url(url).addLinks(id, contentType, dataIds)
+			api.collection('links').url(url).addLinks(sourceId, targetIds)
 		)
 	}
 
-	const removeLinks = async (id: number, dataIds: number[]) => {
+	const removeLinks = async (sourceId: ID, targetIds: ID[]) => {
 		return await loadingWrapper(() =>
-			api.collection('links').url(url).removeLinks(id, dataIds)
+			api.collection('links').url(url).removeLinks(sourceId, targetIds)
 		)
 	}
 
 	const addAttachment = async (
-		id: number,
+		id: ID,
 		fieldName: string,
-		attachmentId: number
+		attachmentId: ID
 	) => {
 		return await loadingWrapper(() =>
 			api
@@ -179,7 +178,7 @@ const useResource = (params: UseResourceParams): ResourceResponse => {
 		)
 	}
 
-	const removeAttachment = async (id: number, fieldName: string) => {
+	const removeAttachment = async (id: ID, fieldName: string) => {
 		return await loadingWrapper(() =>
 			api.collection('attachment').url(url).removeAttachment(id, fieldName)
 		)
