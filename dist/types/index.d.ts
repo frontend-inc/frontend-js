@@ -85,7 +85,7 @@ export declare type SearchFilterInputProps = {
     options?: Option[];
     handleSubmit: (value: any) => void;
 };
-export declare type User = Record<string, any> & {
+export declare type User = any & {
     id?: number;
     first_name?: string;
     last_name?: string;
