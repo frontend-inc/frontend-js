@@ -33,7 +33,7 @@ const useAuth = () => {
 		name: 'user',
 	})
 
-	const updateMe = async (user: any) => {
+	const updateMe = async (user: User) => {
 		return await loadingWrapper(() => api.url(serverPath).updateMe(user))
 	}
 
@@ -41,15 +41,15 @@ const useAuth = () => {
 		return await loadingWrapper(() => api.url(serverPath).fetchMe())
 	}
 
-	const login = async (user: any) => {
+	const login = async (user: User) => {
 		return await loadingWrapper(() => api.url(serverPath).login(user))
 	}
 
-	const signup = async (user: any) => {
+	const signup = async (user: User) => {
 		return await loadingWrapper(() => api.url(serverPath).signup(user))
 	}
 
-	const sendPin = async (user: any) => {
+	const sendPin = async (user: User) => {
 		return await loadingWrapper(() => api.url(serverPath).sendPin(user))
 	}
 
@@ -81,7 +81,7 @@ const useAuth = () => {
 		)
 	}
 
-	const forgotPassword = async (user: any) => {
+	const forgotPassword = async (user: User) => {
 		return await loadingWrapper(() => api.url(serverPath).forgotPassword(user))
 	}
 

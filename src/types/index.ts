@@ -170,7 +170,7 @@ export type SearchFilterInputProps = {
 	handleSubmit: (value: any) => void
 }
 
-export type User = {
+export type User = Record<string,any> & {
 	id?: number
 	first_name?: string
 	last_name?: string
