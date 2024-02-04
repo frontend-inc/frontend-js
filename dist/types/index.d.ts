@@ -46,7 +46,7 @@ export declare type Filters = {
 };
 export declare type QueryParams = {
     sort_by?: string;
-    sort_direction?: 'asc' | 'desc' | null;
+    sort_direction?: 'asc' | 'desc';
     keywords?: string | null;
     filters?: Filters | Record<string, any>;
     page?: number | null;
@@ -89,7 +89,7 @@ export declare type User = {
     id?: number;
     first_name?: string;
     last_name?: string;
-    email: string;
+    email?: string;
     token?: string;
     image?: {
         id?: number;
@@ -136,7 +136,7 @@ export declare type ResourceResponse = Record<string, any> & {
     perPage: number;
     totalCount: number;
     numPages: number;
-    sort: (sortBy: string, sortDirection: 'asc' | 'desc') => Promise<any>;
+    sort: (sortBy: string, sortDirection: 'asc' | 'desc' | null) => Promise<any>;
     paginate: (page: number) => Promise<any>;
     loadMore: () => void;
 };
