@@ -14,7 +14,7 @@ declare const useResourceContext: (params?: UseResourceContextParams) => {
     resources: any;
     setResources: any;
     findOne: (id: import("..").ID) => import("..").Resource;
-    findMany: (queryParams: import("..").QueryParams, loadMore?: boolean) => Promise<any>;
+    findMany: (queryParams?: import("..").QueryParams, loadMore?: boolean) => Promise<any>;
     save: (resource: import("..").Resource) => import("..").Resource;
     update: (resource: import("..").Resource) => import("..").Resource;
     create: (resource: import("..").Resource) => import("..").Resource;
