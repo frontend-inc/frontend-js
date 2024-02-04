@@ -1,16 +1,16 @@
 import { User } from '../types';
 declare const useAuth: () => {
-    loading: any;
-    errors: any;
+    loading: boolean;
+    errors: Record<string, any>;
     authCookie: any;
-    user: any;
-    setUser: any;
+    user: import("../types").Resource;
+    setUser: (value: import("../types").Resource) => void;
     currentUser: any;
     setCurrentUser: any;
     fetchMe: () => Promise<any>;
     updateMe: (user: any) => Promise<any>;
     forgotPassword: (user: any) => Promise<any>;
-    handleChange: any;
+    handleChange: (e: any) => void;
     authenticateFromToken: (token: string) => Promise<void>;
     login: (user: any) => Promise<any>;
     logout: () => Promise<void>;

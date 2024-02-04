@@ -1,3 +1,4 @@
+import React from 'react';
 export declare type ConfigParams = {
     collection?: string;
     path?: string;
@@ -16,9 +17,6 @@ export declare type QueryProps = {
     url: string;
     name: string;
     skip?: boolean;
-};
-export declare type Resource = Record<string, any> & {
-    id?: string;
 };
 export declare type PageInfo = {
     page: number;
@@ -97,4 +95,53 @@ export declare type User = {
         id?: number;
         url?: string;
     };
+};
+export declare type Resource = Record<string, any> & {
+    id?: number | string;
+};
+export declare type ResourceResponse = Record<string, any> & {
+    id?: string;
+    loading: boolean;
+    setLoading: (value: boolean) => void;
+    loadingWrapper: (fn: () => void) => void;
+    errors: Record<string, any>;
+    setErrors: (value: Record<string, any>) => void;
+    handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+    handleErrors: (error: any) => void;
+    resource: Resource;
+    resources: Resource[];
+    setResource: (value: Resource) => void;
+    setResources: (value: Resource[]) => void;
+    findOne: (id: number) => Resource | null;
+    findMany: (queryParams: QueryParams, loadMore?: boolean) => Promise<any>;
+    reloadMany: () => Promise<any>;
+    save: (resource: Resource) => Resource;
+    update: (resource: Resource) => Resource;
+    create: (resource: Resource) => Resource;
+    destroy: (id: number) => Promise<any>;
+    updateMany: (ids: number[], data: Resource) => Promise<any>;
+    deleteMany: (ids: number[]) => void;
+    publish: (ids: number[]) => Promise<any>;
+    unpublish: (id: number[]) => Promise<any>;
+    addLinks: (id: number, contentType: string, data: number[]) => Promise<any>;
+    removeLinks: (id: number, dataIds: number[]) => Promise<any>;
+    addAttachment: (id: number, fieldName: string, attachmentId: number) => Resource;
+    removeAttachment: (id: number, fieldName: string) => Resource;
+    updatePositions: (sorted: Resource[]) => Promise<any>;
+    query: (params: QueryParams) => Resource[];
+    setQuery: (params: QueryParams) => void;
+    meta: Record<string, any>;
+    page: number;
+    perPage: number;
+    totalCount: number;
+    numPages: number;
+    sort: (sortBy: string, sortDirection: 'asc' | 'desc') => Promise<any>;
+    paginate: (page: number) => Promise<any>;
+    loadMore: () => void;
+};
+export declare type LoadingWrapperResponse = {
+    data: any;
+    loading: boolean;
+    errors: any;
+    loadingWrapper: (fn: () => void) => void;
 };

@@ -1,15 +1,15 @@
 import React, { useContext } from 'react'
 import { useState } from 'react'
 import { ApiContext } from '../context'
-import { QueryParams, Resource, PageInfo } from '../types'
+import { ResourceResponse, QueryParams, Resource, PageInfo } from '../types'
 
-type ResourceProps = {
+type UseResourceParams = {
 	url?: string
 	name?: string
 }
 
-const useResource = (props: ResourceProps): Record<string, any> => {
-	const { url, name = 'resource' } = props || {}
+const useResource = (params: UseResourceParams): ResourceResponse => {
+	const { url, name = 'resource' } = params || {}
 
 	const { api } = useContext(ApiContext)
 	const [loading, setLoading] = useState<boolean>(false)
@@ -33,10 +33,7 @@ const useResource = (props: ResourceProps): Record<string, any> => {
 		return await loadingWrapper(() => api.collection(name).url(url).findOne(id))
 	}
 
-	const findMany = async (
-		queryParams: QueryParams,
-		loadMore: boolean = false
-	) => {
+	const findMany = async (queryParams: QueryParams, loadMore?: boolean) => {
 		if (url.includes('undefined')) {
 			console.log('Error: the URL contains undefined', url)
 			return
@@ -54,7 +51,7 @@ const useResource = (props: ResourceProps): Record<string, any> => {
 				...queryParams,
 			})
 			if (res.data) {
-				if (!loadMore) {
+				if (loadMore !== true ) {
 					setResources(res.data)
 				} else {
 					setResources([...resources, ...res.data])
@@ -75,25 +72,28 @@ const useResource = (props: ResourceProps): Record<string, any> => {
 		}
 	}
 
-	const loadMore = () => {
+	const loadMore = async () => {
 		let nextPage = page + 1
 		let loadMoreResults = true
-		findMany({ ...query, page: nextPage }, loadMoreResults)
+		await findMany({ 
+      ...query, 
+      page: nextPage 
+    }, loadMoreResults)
 	}
 
-	const reloadMany = () => {
-		findMany(query)
+	const reloadMany = async () => {
+		return await findMany(query)
 	}
 
-	const paginate = (page: number) => {
-		findMany({
+	const paginate = async (page: number) => {
+		return await findMany({
 			...query,
 			page: page,
 		})
 	}
 
-	const sort = (sortBy: string, sortDirection: 'asc' | 'desc') => {
-		findMany({
+	const sort = async (sortBy: string, sortDirection: 'asc' | 'desc') => {
+		return await findMany({
 			...query,
 			sort_by: sortBy,
 			sort_direction: sortDirection,
@@ -120,8 +120,10 @@ const useResource = (props: ResourceProps): Record<string, any> => {
 		)
 	}
 
-	const destroy = async (id: Resource) => {
-		return await loadingWrapper(() => api.collection(name).url(url).destroy(id))
+	const destroy = async (id: number) => {
+		return await loadingWrapper(() => 
+      api.collection(name).url(url).destroy(id)
+    )
 	}
 
 	const updateMany = async (ids: number[], data: Resource) => {
@@ -158,9 +160,9 @@ const useResource = (props: ResourceProps): Record<string, any> => {
 		)
 	}
 
-	const removeLinks = async (id: number, targetIds: number[]) => {
+	const removeLinks = async (id: number, dataIds: number[]) => {
 		return await loadingWrapper(() =>
-			api.collection('links').url(url).removeLinks(id, targetIds)
+			api.collection('links').url(url).removeLinks(id, dataIds)
 		)
 	}
 
@@ -183,7 +185,7 @@ const useResource = (props: ResourceProps): Record<string, any> => {
 		)
 	}
 
-	const updatePositions = async (sorted: Record<string, any>[]) => {
+	const updatePositions = async (sorted: Resource[]) => {
 		// Intentionally avoid loading for drag-drop UIs
 		return await api.collection(name).url(url).updatePositions(sorted)
 	}
@@ -226,7 +228,6 @@ const useResource = (props: ResourceProps): Record<string, any> => {
 	}
 
 	return {
-		api,
 		loading,
 		setLoading,
 		loadingWrapper,

@@ -1,6 +1,7 @@
-declare type ResourceProps = {
+import { ResourceResponse } from '../types';
+declare type UseResourceParams = {
     url?: string;
     name?: string;
 };
-declare const useResource: (props: ResourceProps) => Record<string, any>;
+declare const useResource: (params: UseResourceParams) => ResourceResponse;
 export default useResource;

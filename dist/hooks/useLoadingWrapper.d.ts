@@ -1,7 +1,3 @@
-declare const useLoadingWrapper: () => {
-    data: any;
-    loading: any;
-    errors: any;
-    loadingWrapper: (fn: any) => Promise<any>;
-};
+import { LoadingWrapperResponse } from '../types';
+declare const useLoadingWrapper: () => LoadingWrapperResponse;
 export default useLoadingWrapper;

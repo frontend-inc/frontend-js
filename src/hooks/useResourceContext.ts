@@ -1,14 +1,14 @@
 import React, { useEffect, useContext } from 'react'
 import { ResourceContext } from '../context'
-import { useResource } from '.'
+import useResource from './useResource'
 
-type UseResourceContextProps = {
+type UseResourceContextParams = {
 	name?: string
 	url?: string
 }
 
-const useResourceContext = (props?: UseResourceContextProps) => {
-	const { name, url: _url } = props || {}
+const useResourceContext = (params?: UseResourceContextParams) => {
+	const { name, url: _url } = params || {}
 
 	const {
 		loading,

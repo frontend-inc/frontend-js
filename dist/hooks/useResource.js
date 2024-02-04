@@ -59,8 +59,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var react_1 = require("react");
 var react_2 = require("react");
 var context_1 = require("../context");
-var useResource = function (props) {
-    var _a = props || {}, url = _a.url, _b = _a.name, name = _b === void 0 ? 'resource' : _b;
+var useResource = function (params) {
+    var _a = params || {}, url = _a.url, _b = _a.name, name = _b === void 0 ? 'resource' : _b;
     var api = (0, react_1.useContext)(context_1.ApiContext).api;
     var _c = (0, react_2.useState)(false), loading = _c[0], setLoading = _c[1];
     var _d = (0, react_2.useState)(), errors = _d[0], setErrors = _d[1];
@@ -85,70 +85,91 @@ var useResource = function (props) {
             }
         });
     }); };
-    var findMany = function (queryParams, loadMore) {
-        if (loadMore === void 0) { loadMore = false; }
-        return __awaiter(void 0, void 0, void 0, function () {
-            var res, e_1;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0:
-                        if (url.includes('undefined')) {
-                            console.log('Error: the URL contains undefined', url);
-                            return [2 /*return*/];
+    var findMany = function (queryParams, loadMore) { return __awaiter(void 0, void 0, void 0, function () {
+        var res, e_1;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    if (url.includes('undefined')) {
+                        console.log('Error: the URL contains undefined', url);
+                        return [2 /*return*/];
+                    }
+                    _a.label = 1;
+                case 1:
+                    _a.trys.push([1, 3, 4, 5]);
+                    setLoading(true);
+                    if (queryParams) {
+                        setQuery(__assign(__assign({}, query), queryParams));
+                    }
+                    return [4 /*yield*/, api.url(url).findMany(__assign(__assign({}, query), queryParams))];
+                case 2:
+                    res = _a.sent();
+                    if (res.data) {
+                        if (loadMore !== true) {
+                            setResources(res.data);
                         }
-                        _a.label = 1;
-                    case 1:
-                        _a.trys.push([1, 3, 4, 5]);
-                        setLoading(true);
-                        if (queryParams) {
-                            setQuery(__assign(__assign({}, query), queryParams));
+                        else {
+                            setResources(__spreadArray(__spreadArray([], resources, true), res.data, true));
                         }
-                        return [4 /*yield*/, api.url(url).findMany(__assign(__assign({}, query), queryParams))];
-                    case 2:
-                        res = _a.sent();
-                        if (res.data) {
-                            if (!loadMore) {
-                                setResources(res.data);
-                            }
-                            else {
-                                setResources(__spreadArray(__spreadArray([], resources, true), res.data, true));
-                            }
-                            if (res.meta) {
-                                setMeta(res.meta);
-                                setPage(res.meta.page);
-                                setPerPage(res.meta.per_page);
-                                setTotalCount(res.meta.total_count);
-                                setNumPages(res.meta.num_pages);
-                            }
-                            return [2 /*return*/, res.data];
+                        if (res.meta) {
+                            setMeta(res.meta);
+                            setPage(res.meta.page);
+                            setPerPage(res.meta.per_page);
+                            setTotalCount(res.meta.total_count);
+                            setNumPages(res.meta.num_pages);
                         }
-                        return [3 /*break*/, 5];
-                    case 3:
-                        e_1 = _a.sent();
-                        handleErrors(e_1);
-                        return [3 /*break*/, 5];
-                    case 4:
-                        setLoading(false);
-                        return [7 /*endfinally*/];
-                    case 5: return [2 /*return*/];
-                }
-            });
+                        return [2 /*return*/, res.data];
+                    }
+                    return [3 /*break*/, 5];
+                case 3:
+                    e_1 = _a.sent();
+                    handleErrors(e_1);
+                    return [3 /*break*/, 5];
+                case 4:
+                    setLoading(false);
+                    return [7 /*endfinally*/];
+                case 5: return [2 /*return*/];
+            }
         });
-    };
-    var loadMore = function () {
-        var nextPage = page + 1;
-        var loadMoreResults = true;
-        findMany(__assign(__assign({}, query), { page: nextPage }), loadMoreResults);
-    };
-    var reloadMany = function () {
-        findMany(query);
-    };
-    var paginate = function (page) {
-        findMany(__assign(__assign({}, query), { page: page }));
-    };
-    var sort = function (sortBy, sortDirection) {
-        findMany(__assign(__assign({}, query), { sort_by: sortBy, sort_direction: sortDirection }));
-    };
+    }); };
+    var loadMore = function () { return __awaiter(void 0, void 0, void 0, function () {
+        var nextPage, loadMoreResults;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    nextPage = page + 1;
+                    loadMoreResults = true;
+                    return [4 /*yield*/, findMany(__assign(__assign({}, query), { page: nextPage }), loadMoreResults)];
+                case 1:
+                    _a.sent();
+                    return [2 /*return*/];
+            }
+        });
+    }); };
+    var reloadMany = function () { return __awaiter(void 0, void 0, void 0, function () {
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, findMany(query)];
+                case 1: return [2 /*return*/, _a.sent()];
+            }
+        });
+    }); };
+    var paginate = function (page) { return __awaiter(void 0, void 0, void 0, function () {
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, findMany(__assign(__assign({}, query), { page: page }))];
+                case 1: return [2 /*return*/, _a.sent()];
+            }
+        });
+    }); };
+    var sort = function (sortBy, sortDirection) { return __awaiter(void 0, void 0, void 0, function () {
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, findMany(__assign(__assign({}, query), { sort_by: sortBy, sort_direction: sortDirection }))];
+                case 1: return [2 /*return*/, _a.sent()];
+            }
+        });
+    }); };
     var save = function (data) {
         if (data === null || data === void 0 ? void 0 : data.id) {
             return update(data);
@@ -180,7 +201,9 @@ var useResource = function (props) {
     var destroy = function (id) { return __awaiter(void 0, void 0, void 0, function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, loadingWrapper(function () { return api.collection(name).url(url).destroy(id); })];
+                case 0: return [4 /*yield*/, loadingWrapper(function () {
+                        return api.collection(name).url(url).destroy(id);
+                    })];
                 case 1: return [2 /*return*/, _a.sent()];
             }
         });
@@ -235,11 +258,11 @@ var useResource = function (props) {
             }
         });
     }); };
-    var removeLinks = function (id, targetIds) { return __awaiter(void 0, void 0, void 0, function () {
+    var removeLinks = function (id, dataIds) { return __awaiter(void 0, void 0, void 0, function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0: return [4 /*yield*/, loadingWrapper(function () {
-                        return api.collection('links').url(url).removeLinks(id, targetIds);
+                        return api.collection('links').url(url).removeLinks(id, dataIds);
                     })];
                 case 1: return [2 /*return*/, _a.sent()];
             }
@@ -324,7 +347,6 @@ var useResource = function (props) {
         console.log('handleErrors', e);
     };
     return {
-        api: api,
         loading: loading,
         setLoading: setLoading,
         loadingWrapper: loadingWrapper,
