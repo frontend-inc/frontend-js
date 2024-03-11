@@ -7,7 +7,7 @@ export declare class RestClient {
     private apiKey?;
     private options;
     private baseUrl;
-    private fetchToken;
+    private fetchToken?;
     constructor(baseUrl: string | null, fetchToken: () => string | null, apiKey?: string | null, authToken?: string | null);
     get(endpoint: string, params?: string, headers?: Record<string, any> | null): Promise<ExecuteResponse>;
     put(endpoint: string, payload: object, headers?: Record<string, any> | null): Promise<ExecuteResponse>;

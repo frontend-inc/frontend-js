@@ -9,7 +9,7 @@ export class RestClient {
 	private apiKey?: string
 	private options: any
 	private baseUrl: string
-	private fetchToken: () => string | null
+	private fetchToken?: () => string | null
 
 	constructor(
 		baseUrl: string | null = null,
