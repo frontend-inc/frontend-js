@@ -55,6 +55,7 @@ var axios_1 = __importDefault(require("./axios"));
 var RestClient = /** @class */ (function () {
     function RestClient(baseUrl, fetchToken, apiKey, authToken) {
         if (baseUrl === void 0) { baseUrl = null; }
+        if (fetchToken === void 0) { fetchToken = function () { return null; }; }
         if (apiKey === void 0) { apiKey = null; }
         if (authToken === void 0) { authToken = null; }
         this.method = 'GET';

@@ -13,7 +13,7 @@ export class RestClient {
 
 	constructor(
 		baseUrl: string | null = null,
-		fetchToken: () => string | null,
+		fetchToken: () => string | null = () => null,
 		apiKey: string | null = null,
 		authToken: string | null = null
 	) {
