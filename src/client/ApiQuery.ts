@@ -1,9 +1,9 @@
 import {
-	QueryURLParams,
-	QueryParams,
+	QueryURLParamsType,
+	QueryParamsType,
 	Filters,
 	Filter,
-	QueryFilterArrayParams,
+	QueryFilterArrayParamsType,
 } from '../types'
 
 export class ApiQuery {
@@ -15,7 +15,7 @@ export class ApiQuery {
 	private _per_page?: number
 	private _params?: any
 
-	constructor(params: QueryParams = {}) {
+	constructor(params: QueryParamsType = {}) {
 		const {
 			sort_by,
 			sort_direction,
@@ -110,7 +110,7 @@ export class ApiQuery {
 		return this._sort_direction
 	}
 
-	where(searchParams: QueryParams | QueryFilterArrayParams): ApiQuery {
+	where(searchParams: QueryParamsType | QueryFilterArrayParamsType): ApiQuery {
 		let {
 			sort_by = 'id',
 			sort_direction = 'desc',
@@ -253,7 +253,7 @@ export class ApiQuery {
 	}
 
 	url() {
-		let searchParams: QueryURLParams = {
+		let searchParams: QueryURLParamsType = {
 			page: this._page || 1,
 			per_page: this._per_page || 20,
 		}

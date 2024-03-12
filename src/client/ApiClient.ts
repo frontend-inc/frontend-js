@@ -1,7 +1,7 @@
 import { ApiQuery } from './ApiQuery'
 import { RestClient } from './RestClient'
-import { User, QueryParams } from '../types'
-import { ConfigParams, ExecuteResponse } from '../types'
+import { UserType, QueryParamsType } from '../types'
+import { ConfigParamsType, ExecuteResponseType } from '../types'
 
 export class ApiClient {
 	private payload?: object
@@ -45,7 +45,7 @@ export class ApiClient {
 	}
 
 	// Manually set the collection params
-	config(params: ConfigParams) {
+	config(params: ConfigParamsType) {
 		if (typeof params !== 'object') {
 			throw Error('Collection must be an object')
 		}
@@ -76,7 +76,7 @@ export class ApiClient {
 		return this
 	}
 
-	query(params: QueryParams): ApiClient {
+	query(params: QueryParamsType): ApiClient {
 		this.apiQuery = new ApiQuery(params)
 		return this
 	}
@@ -146,18 +146,18 @@ export class ApiClient {
 		return this
 	}
 
-	async findOne(id: any): Promise<ExecuteResponse> {
+	async findOne(id: any): Promise<ExecuteResponseType> {
 		this.endpoint = `${this._url}/${id}`
 		return await this.get(this.endpoint)
 	}
 
-	async findMany(searchParams: QueryParams): Promise<ExecuteResponse> {
+	async findMany(searchParams: QueryParamsType): Promise<ExecuteResponseType> {
 		this.apiQuery.where(searchParams)
 		this.endpoint = this._url
 		return await this.get(this.endpoint, this.apiQuery.url())
 	}
 
-	async create(data: Record<string, any>): Promise<ExecuteResponse> {
+	async create(data: Record<string, any>): Promise<ExecuteResponseType> {
 		this.payload = {
 			[this._collection]: data,
 		}
@@ -166,7 +166,7 @@ export class ApiClient {
 		return await this.post(this._url, this.payload, this.headers)
 	}
 
-	async update(data: Record<string, any>): Promise<ExecuteResponse> {
+	async update(data: Record<string, any>): Promise<ExecuteResponseType> {
 		this.payload = {
 			[this._collection]: data,
 		}
@@ -175,14 +175,14 @@ export class ApiClient {
 		return await this.put(this.endpoint, this.payload, this.headers)
 	}
 
-	async destroy(id: number): Promise<ExecuteResponse> {
+	async destroy(id: number): Promise<ExecuteResponseType> {
 		this.endpoint = `${this._url}/${id}`
 		return await this.delete(this.endpoint)
 	}
 
 	async updatePositions(
 		sorted: Record<string, any>[]
-	): Promise<ExecuteResponse> {
+	): Promise<ExecuteResponseType> {
 		this.payload = {
 			ids: sorted.map((resource) => resource.id),
 			positions: sorted.map((_, index) => index),
@@ -191,7 +191,7 @@ export class ApiClient {
 		return await this.post(this.endpoint, this.payload, this.headers)
 	}
 
-	async updateMany(ids: number[], resource: object): Promise<ExecuteResponse> {
+	async updateMany(ids: number[], resource: object): Promise<ExecuteResponseType> {
 		this.payload = {
 			ids: ids,
 			resoure: resource,
@@ -200,7 +200,7 @@ export class ApiClient {
 		return await this.post(this.endpoint, this.payload, this.headers)
 	}
 
-	async destroyMany(ids: number[]): Promise<ExecuteResponse> {
+	async destroyMany(ids: number[]): Promise<ExecuteResponseType> {
 		if (!Array.isArray(ids)) {
 			throw Error('Ids must be an array')
 		}
@@ -211,7 +211,7 @@ export class ApiClient {
 		return await this.post(this.endpoint, this.payload, this.headers)
 	}
 
-	async publish(ids: number[]): Promise<ExecuteResponse> {
+	async publish(ids: number[]): Promise<ExecuteResponseType> {
 		this.endpoint = `${this._url}/publish`
 		this.payload = {
 			ids: ids,
@@ -219,7 +219,7 @@ export class ApiClient {
 		return await this.post(this.endpoint, this.payload, this.headers)
 	}
 
-	async unpublish(ids: number[]): Promise<ExecuteResponse> {
+	async unpublish(ids: number[]): Promise<ExecuteResponseType> {
 		this.endpoint = `${this._url}/unpublish`
 		this.payload = {
 			ids: ids,
@@ -227,32 +227,32 @@ export class ApiClient {
 		return await this.post(this.endpoint, this.payload, this.headers)
 	}
 
-	async like(id: number): Promise<ExecuteResponse> {
+	async like(id: number): Promise<ExecuteResponseType> {
 		this.endpoint = `${this._url}/${id}/like`
 		return await this.post(this.endpoint, null, this.headers)
 	}
 
-	async unlike(id: number): Promise<ExecuteResponse> {
+	async unlike(id: number): Promise<ExecuteResponseType> {
 		this.endpoint = `${this._url}/${id}/unlike`
 		return await this.post(this.endpoint, null, this.headers)
 	}
 
-	async favorite(id: number): Promise<ExecuteResponse> {
+	async favorite(id: number): Promise<ExecuteResponseType> {
 		this.endpoint = `${this._url}/${id}/favorite`
 		return await this.post(this.endpoint, null, this.headers)
 	}
 
-	async unfavorite(id: number): Promise<ExecuteResponse> {
+	async unfavorite(id: number): Promise<ExecuteResponseType> {
 		this.endpoint = `${this._url}/${id}/unfavorite`
 		return await this.post(this.endpoint, null, this.headers)
 	}
 
-	async follow(id: number): Promise<ExecuteResponse> {
+	async follow(id: number): Promise<ExecuteResponseType> {
 		this.endpoint = `${this._url}/${id}/follow`
 		return await this.post(this.endpoint, null, this.headers)
 	}
 
-	async unfollow(id: number): Promise<ExecuteResponse> {
+	async unfollow(id: number): Promise<ExecuteResponseType> {
 		this.endpoint = `${this._url}/${id}/unfollow`
 		return await this.post(this.endpoint, null, this.headers)
 	}
@@ -260,7 +260,7 @@ export class ApiClient {
 	async addLinks(
 		sourceId: number,
 		targetIds: number[]
-	): Promise<ExecuteResponse> {
+	): Promise<ExecuteResponseType> {
 		this.payload = {
 			[this._collection]: {
 				ids: targetIds,
@@ -273,7 +273,7 @@ export class ApiClient {
 	async removeLinks(
 		sourceId: number,
 		targetIds: number[]
-	): Promise<ExecuteResponse> {
+	): Promise<ExecuteResponseType> {
 		this.payload = {
 			[this._collection]: {
 				ids: targetIds,
@@ -287,7 +287,7 @@ export class ApiClient {
 		id: number,
 		name: string,
 		attachmentId: number
-	): Promise<ExecuteResponse> {
+	): Promise<ExecuteResponseType> {
 		this.payload = {
 			[this._collection]: {
 				name: name,
@@ -298,7 +298,7 @@ export class ApiClient {
 		return await this.post(this.endpoint, this.payload, this.headers)
 	}
 
-	async removeAttachment(id: number, name: string): Promise<ExecuteResponse> {
+	async removeAttachment(id: number, name: string): Promise<ExecuteResponseType> {
 		this.payload = {
 			[this._collection]: {
 				name: name,
@@ -308,7 +308,7 @@ export class ApiClient {
 		return await this.post(this.endpoint, this.payload, this.headers)
 	}
 
-	async addImage(id: number, attachmentId: number): Promise<ExecuteResponse> {
+	async addImage(id: number, attachmentId: number): Promise<ExecuteResponseType> {
 		this.payload = {
 			[this._collection]: {
 				id: attachmentId,
@@ -318,19 +318,19 @@ export class ApiClient {
 		return await this.post(this.endpoint, this.payload, this.headers)
 	}
 
-	async removeImage(id: number): Promise<ExecuteResponse> {
+	async removeImage(id: number): Promise<ExecuteResponseType> {
 		this.payload = {}
 		this.endpoint = `${this._url}/${id}/remove_image`
 		return await this.post(this.endpoint, this.payload, this.headers)
 	}
 
 	// Auth methods
-	async fetchMe(): Promise<ExecuteResponse> {
+	async fetchMe(): Promise<ExecuteResponseType> {
 		this.endpoint = `${this._url}/me`
 		return await this.get(this.endpoint)
 	}
 
-	async updateMe(user: User): Promise<ExecuteResponse> {
+	async updateMe(user: UserType): Promise<ExecuteResponseType> {
 		this._collection = 'user'
 		this.payload = {
 			[this._collection]: user,
@@ -340,7 +340,7 @@ export class ApiClient {
 		return await this.put(this.endpoint, this.payload, this.headers)
 	}
 
-	async login(user: User): Promise<ExecuteResponse> {
+	async login(user: UserType): Promise<ExecuteResponseType> {
 		this._collection = 'user'
 		this.payload = {
 			[this._collection]: user,
@@ -349,7 +349,7 @@ export class ApiClient {
 		return await this.post(this.endpoint, this.payload, this.headers)
 	}
 
-	async signup(user: User): Promise<ExecuteResponse> {
+	async signup(user: UserType): Promise<ExecuteResponseType> {
 		this._collection = 'user'
 		this.payload = {
 			[this._collection]: user,
@@ -358,7 +358,7 @@ export class ApiClient {
 		return await this.post(this.endpoint, this.payload, this.headers)
 	}
 
-	async sendPin(user: User): Promise<ExecuteResponse> {
+	async sendPin(user: UserType): Promise<ExecuteResponseType> {
 		this._collection = 'user'
 		this.payload = {
 			[this._collection]: {
@@ -370,7 +370,7 @@ export class ApiClient {
 		return await this.post(this.endpoint, this.payload, this.headers)
 	}
 
-	async verifyPin(email: string, pin: string): Promise<ExecuteResponse> {
+	async verifyPin(email: string, pin: string): Promise<ExecuteResponseType> {
 		this._collection = 'user'
 		this.payload = {
 			[this._collection]: {
@@ -386,7 +386,7 @@ export class ApiClient {
 		currentPassword: string,
 		password: string,
 		passwordConfirmation: string
-	): Promise<ExecuteResponse> {
+	): Promise<ExecuteResponseType> {
 		this._collection = 'user'
 		this.payload = {
 			[this._collection]: {
@@ -399,7 +399,7 @@ export class ApiClient {
 		return await this.post(this.endpoint, this.payload, this.headers)
 	}
 
-	async forgotPassword(user: User): Promise<ExecuteResponse> {
+	async forgotPassword(user: UserType): Promise<ExecuteResponseType> {
 		this._collection = 'user'
 		this.payload = {
 			[this._collection]: {
@@ -416,7 +416,7 @@ export class ApiClient {
 		password: string,
 		passwordConfirmation: string,
 		changePasswordToken: string
-	): Promise<ExecuteResponse> {
+	): Promise<ExecuteResponseType> {
 		this._collection = 'user'
 		this.payload = {
 			[this._collection]: {
@@ -430,7 +430,7 @@ export class ApiClient {
 		return await this.post(this.endpoint, this.payload, this.headers)
 	}
 
-	async sendOneTimePassword(user: User): Promise<ExecuteResponse> {
+	async sendOneTimePassword(user: UserType): Promise<ExecuteResponseType> {
 		this._collection = 'user'
 		this.payload = {
 			[this._collection]: {
@@ -442,7 +442,7 @@ export class ApiClient {
 		return await this.post(this.endpoint, this.payload, this.headers)
 	}
 
-	async verifyOneTimePassword(otp: string): Promise<ExecuteResponse> {
+	async verifyOneTimePassword(otp: string): Promise<ExecuteResponseType> {
 		this._collection = 'user'
 		this.payload = {
 			[this._collection]: {
@@ -458,7 +458,7 @@ export class ApiClient {
 		return this
 	}
 
-	async get(endpoint: string, params?: string): Promise<ExecuteResponse> {
+	async get(endpoint: string, params?: string): Promise<ExecuteResponseType> {
 		this.init()
 		return await this.restClient.get(endpoint, params)
 	}
@@ -467,7 +467,7 @@ export class ApiClient {
 		endpoint: string,
 		payload?: object,
 		headers?: any
-	): Promise<ExecuteResponse> {
+	): Promise<ExecuteResponseType> {
 		this.init()
 		return await this.restClient.post(endpoint, payload, headers)
 	}
@@ -476,12 +476,12 @@ export class ApiClient {
 		endpoint: string,
 		payload: object,
 		headers: any
-	): Promise<ExecuteResponse> {
+	): Promise<ExecuteResponseType> {
 		this.init()
 		return await this.restClient.put(endpoint, payload, headers)
 	}
 
-	async delete(endpoint: string): Promise<ExecuteResponse> {
+	async delete(endpoint: string): Promise<ExecuteResponseType> {
 		this.init()
 		return await this.restClient.delete(endpoint)
 	}

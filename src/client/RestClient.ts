@@ -1,5 +1,5 @@
 import axios from './axios'
-import { ExecuteResponse } from '../types'
+import { ExecuteResponseType } from '../types'
 
 export class RestClient {
 	private method?: string
@@ -37,7 +37,7 @@ export class RestClient {
 		endpoint: string,
 		params?: string,
 		headers?: Record<string, any> | null
-	): Promise<ExecuteResponse> {
+	): Promise<ExecuteResponseType> {
 		this.method = 'GET'
 		this.params = params
 		this.options.headers = headers || this.options.headers
@@ -48,7 +48,7 @@ export class RestClient {
 		endpoint: string,
 		payload: object,
 		headers?: Record<string, any> | null
-	): Promise<ExecuteResponse> {
+	): Promise<ExecuteResponseType> {
 		this.method = 'PUT'
 		this.payload = payload
 		this.options.headers = headers || this.options.headers
@@ -59,20 +59,20 @@ export class RestClient {
 		endpoint: string,
 		payload?: object,
 		headers?: Record<string, any> | null
-	): Promise<ExecuteResponse> {
+	): Promise<ExecuteResponseType> {
 		this.method = 'POST'
 		this.payload = payload
 		this.options.headers = headers || this.options.headers
 		return await this.execute(endpoint)
 	}
 
-	async delete(endpoint: string): Promise<ExecuteResponse> {
+	async delete(endpoint: string): Promise<ExecuteResponseType> {
 		this.method = 'DELETE'
 		return await this.execute(endpoint)
 	}
 
-	async execute(endpoint: string = ''): Promise<ExecuteResponse> {
-		let response: ExecuteResponse = {
+	async execute(endpoint: string = ''): Promise<ExecuteResponseType> {
+		let response: ExecuteResponseType = {
 			data: null,
 			error: null,
 			meta: null,

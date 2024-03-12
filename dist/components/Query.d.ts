@@ -1,10 +1,10 @@
 import React from 'react';
-declare type QueryProps = {
+declare type QueryPropsType = {
     url: string;
     handle: string | string[];
     ready?: boolean;
     query?: any;
     children: React.ReactNode | React.ReactNode[];
 };
-declare const Query: React.FC<QueryProps>;
+declare const Query: React.FC<QueryPropsType>;
 export default Query;

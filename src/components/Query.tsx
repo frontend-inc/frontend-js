@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { useResourceContext } from '../hooks'
 
-type QueryProps = {
+type QueryPropsType = {
 	url: string
 	handle: string | string[]	
   ready?: boolean
@@ -9,7 +9,7 @@ type QueryProps = {
   children: React.ReactNode | React.ReactNode[]
 }
 
-const Query: React.FC<QueryProps> = (props) => {
+const Query: React.FC<QueryPropsType> = (props) => {
 	const { children, url, handle, query={}, ready=true } = props
 
 	const { findOne, findMany } = useResourceContext({

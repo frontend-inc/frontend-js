@@ -1,50 +1,40 @@
 import React from 'react';
-export declare type ConfigParams = {
+export declare type ConfigParamsType = {
     collection?: string;
     path?: string;
 };
-export declare type FetchOption = {
+export declare type FetchOptionType = {
     method: string;
     headers: Record<string, any>;
     body: any;
 };
-export declare type ExecuteResponse = {
+export declare type ExecuteResponseType = {
     meta: any;
     data: any;
     error: any;
 };
-export declare type QueryProps = {
+export declare type QueryPropsType = {
     url: string;
     name: string;
     skip?: boolean;
 };
-export declare type PageInfo = {
+export declare type PageInfoType = {
     page: number;
     per_page: number;
     total_count: number;
     num_pages: number;
 };
-export declare type MutationParams = {
-    url: string;
-    name: string;
-};
-export declare type Option = {
-    label: string;
-    value: string | number | boolean;
-    icon?: string;
-};
-export declare type Operator = 'asc' | 'desc' | 'true' | 'false' | 'eq' | 'neq' | 'like' | 'gt' | 'gte' | 'lt' | 'lte' | 'in' | 'nin' | 'include' | '1_day_ago' | '7_days_ago' | '14_days_ago' | '30_days_ago' | '60_days_ago' | '90_days_ago';
-export declare type Value = string | number | string[] | number[];
+export declare type OperatorType = 'asc' | 'desc' | 'true' | 'false' | 'eq' | 'neq' | 'like' | 'gt' | 'gte' | 'lt' | 'lte' | 'in' | 'nin' | 'include' | '1_day_ago' | '7_days_ago' | '14_days_ago' | '30_days_ago' | '60_days_ago' | '90_days_ago';
 export declare type Filter = {
     [field: string]: {
-        [operator in Operator]?: Value;
+        [operator in OperatorType]?: string | number;
     };
 };
 export declare type Filters = {
     AND?: Filter[];
     OR?: Filter[];
 };
-export declare type QueryParams = {
+export declare type QueryParamsType = {
     sort_by?: string;
     sort_direction?: 'asc' | 'desc';
     keywords?: string | null;
@@ -53,7 +43,7 @@ export declare type QueryParams = {
     per_page?: number | null;
     rest?: any;
 };
-export declare type QueryFilterArrayParams = {
+export declare type QueryFilterArrayParamsType = {
     sort_by?: string;
     sort_direction?: 'asc' | 'desc';
     keywords?: string;
@@ -61,31 +51,35 @@ export declare type QueryFilterArrayParams = {
     page?: number;
     per_page?: number;
 };
-export declare type QueryURLParams = {
+export declare type QueryURLParamsType = {
     order?: string;
     keywords?: string;
     filters?: string;
     page?: number;
     per_page?: number;
 };
-export declare type FilterOperator = 'asc' | 'desc' | 'true' | 'false' | 'eq' | 'neq' | 'like' | 'gt' | 'gte' | 'lt' | 'lte' | 'in' | 'nin' | '1_day_ago' | '7_days_ago' | '14_days_ago' | '30_days_ago' | '60_days_ago' | '90_days_ago' | 'current_year' | '1_day' | '7_days' | '14_days' | '30_days' | '60_days' | '90_days' | 'next_year';
-export declare type FilterWhere = 'AND' | 'OR';
+export declare type FilterOperatorType = 'asc' | 'desc' | 'true' | 'false' | 'eq' | 'neq' | 'like' | 'gt' | 'gte' | 'lt' | 'lte' | 'in' | 'nin' | '1_day_ago' | '7_days_ago' | '14_days_ago' | '30_days_ago' | '60_days_ago' | '90_days_ago' | 'current_year' | '1_day' | '7_days' | '14_days' | '30_days' | '60_days' | '90_days' | 'next_year';
+export declare type FilterWhereType = 'AND' | 'OR';
 export declare type FilterOption = {
-    where: FilterWhere;
+    where: FilterWhereType;
     field: string;
-    operator: FilterOperator;
+    operator: FilterOperatorType;
     value: any;
+};
+export declare type OptionType = {
+    label: string;
+    value: string | number;
 };
 export declare type SearchFilterInputProps = {
     filter?: FilterOption;
     field?: string;
     label?: string;
-    where?: FilterWhere;
-    operator?: FilterOperator;
-    options?: Option[];
+    where?: FilterWhereType;
+    operator?: FilterOperatorType;
+    options?: OptionType[];
     handleSubmit: (value: any) => void;
 };
-export declare type User = any & {
+export declare type UserType = any & {
     id?: number;
     first_name?: string;
     last_name?: string;
@@ -96,7 +90,7 @@ export declare type User = any & {
         url?: string;
     };
 };
-export declare type Resource = Record<string, any> & {
+export declare type ResourceType = Record<string, any> & {
     id?: number | string;
 };
 export declare type ID = string | number;
@@ -109,28 +103,28 @@ export declare type ResourceResponse = Record<string, any> & {
     setErrors: (value: Record<string, any>) => void;
     handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
     handleErrors: (error: any) => void;
-    resource: Resource;
-    resources: Resource[];
-    setResource: (value: Resource) => void;
-    setResources: (value: Resource[]) => void;
-    findOne: (id: ID) => Resource | null;
-    findMany: (queryParams?: QueryParams, loadMore?: boolean) => Promise<any>;
+    resource: ResourceType;
+    resources: ResourceType[];
+    setResource: (value: ResourceType) => void;
+    setResources: (value: ResourceType[]) => void;
+    findOne: (id: ID) => ResourceType | null;
+    findMany: (queryParams?: QueryParamsType, loadMore?: boolean) => Promise<any>;
     reloadMany: () => Promise<any>;
-    save: (resource: Resource) => Resource;
-    update: (resource: Resource) => Resource;
-    create: (resource: Resource) => Resource;
+    save: (resource: ResourceType) => ResourceType;
+    update: (resource: ResourceType) => ResourceType;
+    create: (resource: ResourceType) => ResourceType;
     destroy: (id: ID) => Promise<any>;
-    updateMany: (ids: ID[], data: Resource) => Promise<any>;
+    updateMany: (ids: ID[], data: ResourceType) => Promise<any>;
     deleteMany: (ids: ID[]) => void;
     publish: (ids: ID[]) => Promise<any>;
     unpublish: (id: ID[]) => Promise<any>;
     addLinks: (sourceId: ID, targetIds: ID[]) => Promise<any>;
     removeLinks: (sourceId: ID, targetIds: ID[]) => Promise<any>;
-    addAttachment: (id: ID, fieldName: string, attachmentId: ID) => Resource;
-    removeAttachment: (id: ID, fieldName: string) => Resource;
-    updatePositions: (sorted: Resource[]) => Promise<any>;
-    query: QueryParams;
-    setQuery: (params: QueryParams) => void;
+    addAttachment: (id: ID, fieldName: string, attachmentId: ID) => ResourceType;
+    removeAttachment: (id: ID, fieldName: string) => ResourceType;
+    updatePositions: (sorted: ResourceType[]) => Promise<any>;
+    query: QueryParamsType;
+    setQuery: (params: QueryParamsType) => void;
     meta: Record<string, any>;
     page: number;
     perPage: number;
@@ -140,7 +134,7 @@ export declare type ResourceResponse = Record<string, any> & {
     paginate: (page: number) => Promise<any>;
     loadMore: () => void;
 };
-export declare type LoadingWrapperResponse = {
+export declare type LoadingWrapperResponseType = {
     data: any;
     loading: boolean;
     errors: any;

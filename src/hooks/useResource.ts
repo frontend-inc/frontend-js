@@ -1,7 +1,7 @@
 import React, { useContext } from 'react'
 import { useState } from 'react'
 import { ApiContext } from '../context'
-import { ID, ResourceResponse, QueryParams, Resource, PageInfo } from '../types'
+import { ID, QueryParamsType, ResourceResponse, ResourceType, PageInfoType } from '../types'
 
 type UseResourceParams = {
 	url?: string
@@ -15,11 +15,11 @@ const useResource = (params: UseResourceParams): ResourceResponse => {
 	const [loading, setLoading] = useState<boolean>(false)
 	const [errors, setErrors] = useState<Record<string, any> | null>()
 
-	const [resource, setResource] = useState<Resource>({})
-	const [resources, setResources] = useState<Resource[]>([])
+	const [resource, setResource] = useState<ResourceType>({})
+	const [resources, setResources] = useState<ResourceType[]>([])
 
-	const [query, setQuery] = useState<QueryParams>({})
-	const [meta, setMeta] = useState<PageInfo>(null)
+	const [query, setQuery] = useState<QueryParamsType>({})
+	const [meta, setMeta] = useState<PageInfoType>(null)
 	const [page, setPage] = useState<number>(1)
 	const [perPage, setPerPage] = useState<number>(10)
 	const [totalCount, setTotalCount] = useState<number>(0)
@@ -33,7 +33,7 @@ const useResource = (params: UseResourceParams): ResourceResponse => {
 		return await loadingWrapper(() => api.collection(name).url(url).findOne(id))
 	}
 
-	const findMany = async (queryParams?: QueryParams, loadMore?: boolean) => {
+	const findMany = async (queryParams?: QueryParamsType, loadMore?: boolean) => {
 		if (url.includes('undefined')) {
 			console.log('Error: the URL contains undefined', url)
 			return
@@ -100,7 +100,7 @@ const useResource = (params: UseResourceParams): ResourceResponse => {
 		})
 	}
 
-	const save = (data: Resource) => {
+	const save = (data: ResourceType) => {
 		if (data?.id) {
 			return update(data)
 		} else {
@@ -108,13 +108,13 @@ const useResource = (params: UseResourceParams): ResourceResponse => {
 		}
 	}
 
-	const create = async (data: Resource) => {
+	const create = async (data: ResourceType) => {
 		return await loadingWrapper(() =>
 			api.collection(name).url(url).create(data)
 		)
 	}
 
-	const update = async (data: Resource) => {
+	const update = async (data: ResourceType) => {
 		return await loadingWrapper(() =>
 			api.collection(name).url(url).update(data)
 		)
@@ -126,7 +126,7 @@ const useResource = (params: UseResourceParams): ResourceResponse => {
     )
 	}
 
-	const updateMany = async (ids: ID[], data: Resource) => {
+	const updateMany = async (ids: ID[], data: ResourceType) => {
 		return await loadingWrapper(() =>
 			api.collection(name).url(url).updateMany(ids, data)
 		)
@@ -184,7 +184,7 @@ const useResource = (params: UseResourceParams): ResourceResponse => {
 		)
 	}
 
-	const updatePositions = async (sorted: Resource[]) => {
+	const updatePositions = async (sorted: ResourceType[]) => {
 		// Intentionally avoid loading for drag-drop UIs
 		return await api.collection(name).url(url).updatePositions(sorted)
 	}

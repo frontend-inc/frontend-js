@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
-import { LoadingWrapperResponse } from '../types'
+import { LoadingWrapperResponseType } from '../types'
 
-const useLoadingWrapper = (): LoadingWrapperResponse => {
+const useLoadingWrapper = (): LoadingWrapperResponseType => {
 	const [data, setData] = useState(null)
 	const [loading, setLoading] = useState(false)
 	const [errors, setErrors] = useState(null)

@@ -1,4 +1,4 @@
-import { QueryParams, Filters, Filter, QueryFilterArrayParams } from '../types';
+import { QueryParamsType, Filters, Filter, QueryFilterArrayParamsType } from '../types';
 export declare class ApiQuery {
     private _sort_by?;
     private _sort_direction?;
@@ -7,7 +7,7 @@ export declare class ApiQuery {
     private _page?;
     private _per_page?;
     private _params?;
-    constructor(params?: QueryParams);
+    constructor(params?: QueryParamsType);
     set page(value: number);
     set per_page(value: number);
     get page(): number;
@@ -20,7 +20,7 @@ export declare class ApiQuery {
     set sort_by(value: string);
     set sort_direction(value: string);
     get sort_direction(): string;
-    where(searchParams: QueryParams | QueryFilterArrayParams): ApiQuery;
+    where(searchParams: QueryParamsType | QueryFilterArrayParamsType): ApiQuery;
     filter(filters: Filter | {}): ApiQuery;
     sort(field: string, direction?: string | null): ApiQuery;
     search(query: string): ApiQuery;

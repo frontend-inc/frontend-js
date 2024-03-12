@@ -2,7 +2,7 @@ import React, { useContext, useEffect } from 'react'
 import { ApiContext, AuthContext } from '../context'
 import useResource from './useResource'
 import { deleteCookie, getCookie, setCookie } from 'cookies-next'
-import { User } from '../types'
+import { UserType } from '../types'
 
 const useAuth = () => {
 	const { api, authCookie } = useContext(ApiContext)
@@ -14,8 +14,8 @@ const useAuth = () => {
 	const {
 		authenticated,
 		setAuthenticated,
-		currentUser,
-		setCurrentUser,
+		currentUserType,
+		setCurrentUserType,
 		setToken,
 	} = useContext(AuthContext)
 
@@ -25,7 +25,7 @@ const useAuth = () => {
 		loading,
 		setLoading,
 		resource: user,
-		setResource: setUser,
+		setResource: setUserType,
 		handleChange,
 		handleErrors,
 	} = useResource({
@@ -33,7 +33,7 @@ const useAuth = () => {
 		name: 'user',
 	})
 
-	const updateMe = async (user: User) => {
+	const updateMe = async (user: UserType) => {
 		return await loadingWrapper(() => api.url(serverPath).updateMe(user))
 	}
 
@@ -41,15 +41,15 @@ const useAuth = () => {
 		return await loadingWrapper(() => api.url(serverPath).fetchMe())
 	}
 
-	const login = async (user: User) => {
+	const login = async (user: UserType) => {
 		return await loadingWrapper(() => api.url(serverPath).login(user))
 	}
 
-	const signup = async (user: User) => {
+	const signup = async (user: UserType) => {
 		return await loadingWrapper(() => api.url(serverPath).signup(user))
 	}
 
-	const sendPin = async (user: User) => {
+	const sendPin = async (user: UserType) => {
 		return await loadingWrapper(() => api.url(serverPath).sendPin(user))
 	}
 
@@ -69,7 +69,7 @@ const useAuth = () => {
 		)
 	}
 
-	const sendOneTimePassword = async (user: User) => {
+	const sendOneTimePassword = async (user: UserType) => {
 		return await loadingWrapper(() =>
 			api.url(serverPath).sendOneTimePassword(user)
 		)
@@ -81,7 +81,7 @@ const useAuth = () => {
 		)
 	}
 
-	const forgotPassword = async (user: User) => {
+	const forgotPassword = async (user: UserType) => {
 		return await loadingWrapper(() => api.url(serverPath).forgotPassword(user))
 	}
 
@@ -105,7 +105,7 @@ const useAuth = () => {
 
 	const logout = async () => {
 		deleteCookie(authCookie)
-		setCurrentUser({})
+		setCurrentUserType({})
 		setAuthenticated(false)
 	}
 
@@ -130,8 +130,8 @@ const useAuth = () => {
 			setErrors(null)
 			const resp = await apiMethod()
 			if (resp?.data?.id) {
-				setUser(resp.data)
-				setCurrentUser(resp.data)
+				setUserType(resp.data)
+				setCurrentUserType(resp.data)
 				setAuthenticated(true)
 				setToken(resp.data.jwt_token)
 				setCookie(authCookie, resp.data.jwt_token)
@@ -147,26 +147,26 @@ const useAuth = () => {
 	}
 
 	useEffect(() => {
-		if (currentUser && !authenticated) {
-			setToken(currentUser?.token)
+		if (currentUserType && !authenticated) {
+			setToken(currentUserType?.token)
 			setAuthenticated(true)
 		}
-		if (!currentUser && !authenticated) {
+		if (!currentUserType && !authenticated) {
 			let jwtToken = getCookie(authCookie)
 			if (jwtToken) {
 				authenticateFromToken(String(jwtToken))
 			}
 		}
-	}, [currentUser])
+	}, [currentUserType])
 
 	return {
 		loading,
 		errors,
 		authCookie,
 		user,
-		setUser,
-		currentUser,
-		setCurrentUser,
+		setUserType,
+		currentUserType,
+		setCurrentUserType,
 		fetchMe,
 		updateMe,
 		forgotPassword,

@@ -1,48 +1,37 @@
 import React from 'react'
 
-export type ConfigParams = {
+export type ConfigParamsType = {
 	collection?: string
 	path?: string
 }
 
-export type FetchOption = {
+export type FetchOptionType = {
 	method: string
 	headers: Record<string, any>
 	body: any
 }
 
-export type ExecuteResponse = {
+export type ExecuteResponseType = {
 	meta: any
 	data: any
 	error: any
 }
 
-export type QueryProps = {
+export type QueryPropsType = {
 	url: string
 	name: string
 	skip?: boolean
 }
 
 
-export type PageInfo = {
+export type PageInfoType = {
 	page: number
 	per_page: number
 	total_count: number
 	num_pages: number
 }
 
-export type MutationParams = {
-	url: string
-	name: string
-}
-
-export type Option = {
-	label: string
-	value: string | number | boolean
-	icon?: string
-}
-
-export type Operator =
+export type OperatorType =
 	| 'asc'
 	| 'desc'
 	| 'true'
@@ -64,11 +53,9 @@ export type Operator =
 	| '60_days_ago'
 	| '90_days_ago'
 
-export type Value = string | number | string[] | number[]
-
 export type Filter = {
 	[field: string]: {
-		[operator in Operator]?: Value
+		[operator in OperatorType]?: string | number
 	}
 }
 
@@ -95,7 +82,7 @@ export type Filters = {
   }
 */
 
-export type QueryParams = {
+export type QueryParamsType = {
 	sort_by?: string
 	sort_direction?: 'asc' | 'desc'
 	keywords?: string | null
@@ -105,7 +92,7 @@ export type QueryParams = {
 	rest?: any
 }
 
-export type QueryFilterArrayParams = {
+export type QueryFilterArrayParamsType = {
 	sort_by?: string
 	sort_direction?: 'asc' | 'desc'
 	keywords?: string
@@ -114,7 +101,7 @@ export type QueryFilterArrayParams = {
 	per_page?: number
 }
 
-export type QueryURLParams = {
+export type QueryURLParamsType = {
 	order?: string
 	keywords?: string
 	filters?: string
@@ -122,7 +109,7 @@ export type QueryURLParams = {
 	per_page?: number
 }
 
-export type FilterOperator =
+export type FilterOperatorType =
 	| 'asc'
 	| 'desc'
 	| 'true'
@@ -151,26 +138,31 @@ export type FilterOperator =
 	| '90_days'
 	| 'next_year'
 
-export type FilterWhere = 'AND' | 'OR'
+export type FilterWhereType = 'AND' | 'OR'
 
 export type FilterOption = {
-	where: FilterWhere
+	where: FilterWhereType
 	field: string
-	operator: FilterOperator
+	operator: FilterOperatorType
 	value: any
+}
+
+export type OptionType = {
+  label: string
+  value: string | number  
 }
 
 export type SearchFilterInputProps = {
 	filter?: FilterOption
 	field?: string
 	label?: string
-	where?: FilterWhere
-	operator?: FilterOperator
-	options?: Option[]
+	where?: FilterWhereType
+	operator?: FilterOperatorType
+	options?: OptionType[]
 	handleSubmit: (value: any) => void
 }
 
-export type User = any & {
+export type UserType = any & {
 	id?: number
 	first_name?: string
 	last_name?: string
@@ -182,7 +174,7 @@ export type User = any & {
   }
 }
 
-export type Resource = Record<string, any> & {
+export type ResourceType = Record<string, any> & {
   id?: number | string
 }
 
@@ -197,28 +189,28 @@ export type ResourceResponse = Record<string, any> & {
   setErrors: (value: Record<string, any>) => void
   handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void
   handleErrors: (error: any) => void
-  resource: Resource 
-  resources: Resource[]
-  setResource: (value: Resource) => void
-  setResources: (value: Resource[]) => void
-  findOne: (id: ID) => Resource | null
-  findMany: (queryParams?: QueryParams, loadMore?: boolean) => Promise<any>
+  resource: ResourceType 
+  resources: ResourceType[]
+  setResource: (value: ResourceType) => void
+  setResources: (value: ResourceType[]) => void
+  findOne: (id: ID) => ResourceType | null
+  findMany: (queryParams?: QueryParamsType, loadMore?: boolean) => Promise<any>
   reloadMany: () => Promise<any>
-  save: (resource: Resource) => Resource
-  update: (resource: Resource) => Resource
-  create: (resource: Resource) => Resource
+  save: (resource: ResourceType) => ResourceType
+  update: (resource: ResourceType) => ResourceType
+  create: (resource: ResourceType) => ResourceType
   destroy: (id: ID) => Promise<any>
-  updateMany: (ids: ID[], data: Resource) => Promise<any>
+  updateMany: (ids: ID[], data: ResourceType) => Promise<any>
   deleteMany: (ids: ID[]) => void
   publish: (ids: ID[]) => Promise<any>
   unpublish: (id: ID[]) => Promise<any>
   addLinks: (sourceId: ID, targetIds: ID[]) => Promise<any>
   removeLinks: (sourceId: ID, targetIds: ID[]) => Promise<any>
-  addAttachment: (id: ID, fieldName: string, attachmentId: ID) => Resource
-  removeAttachment: (id: ID, fieldName: string) => Resource
-  updatePositions: (sorted: Resource[]) => Promise<any>
-  query: QueryParams
-  setQuery: (params: QueryParams) => void
+  addAttachment: (id: ID, fieldName: string, attachmentId: ID) => ResourceType
+  removeAttachment: (id: ID, fieldName: string) => ResourceType
+  updatePositions: (sorted: ResourceType[]) => Promise<any>
+  query: QueryParamsType
+  setQuery: (params: QueryParamsType) => void
   meta: Record<string, any>
   page: number 
   perPage: number
@@ -229,7 +221,7 @@ export type ResourceResponse = Record<string, any> & {
   loadMore: () => void
 }
 
-export type LoadingWrapperResponse = {
+export type LoadingWrapperResponseType = {
   data: any 
   loading: boolean
   errors: any
