@@ -52,7 +52,7 @@ var useAuth = function () {
     var _c = (0, useResource_1.default)({
         url: serverPath,
         name: 'user',
-    }), errors = _c.errors, setErrors = _c.setErrors, loading = _c.loading, setLoading = _c.setLoading, user = _c.resource, setUserType = _c.setResource, handleChange = _c.handleChange, handleErrors = _c.handleErrors;
+    }), errors = _c.errors, setErrors = _c.setErrors, loading = _c.loading, setLoading = _c.setLoading, user = _c.resource, setUser = _c.setResource, handleChange = _c.handleChange, handleErrors = _c.handleErrors;
     var updateMe = function (user) { return __awaiter(void 0, void 0, void 0, function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
@@ -203,7 +203,7 @@ var useAuth = function () {
                 case 1:
                     resp = _b.sent();
                     if ((_a = resp === null || resp === void 0 ? void 0 : resp.data) === null || _a === void 0 ? void 0 : _a.id) {
-                        setUserType(resp.data);
+                        setUser(resp.data);
                         setCurrentUserType(resp.data);
                         setAuthenticated(true);
                         setToken(resp.data.jwt_token);
@@ -241,7 +241,7 @@ var useAuth = function () {
         errors: errors,
         authCookie: authCookie,
         user: user,
-        setUserType: setUserType,
+        setUser: setUser,
         currentUserType: currentUserType,
         setCurrentUserType: setCurrentUserType,
         fetchMe: fetchMe,

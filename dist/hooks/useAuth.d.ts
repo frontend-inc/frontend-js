@@ -4,7 +4,7 @@ declare const useAuth: () => {
     errors: Record<string, any>;
     authCookie: any;
     user: import("../types").ResourceType;
-    setUserType: (value: import("../types").ResourceType) => void;
+    setUser: (value: import("../types").ResourceType) => void;
     currentUserType: any;
     setCurrentUserType: any;
     fetchMe: () => Promise<any>;

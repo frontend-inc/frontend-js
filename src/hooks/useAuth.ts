@@ -25,7 +25,7 @@ const useAuth = () => {
 		loading,
 		setLoading,
 		resource: user,
-		setResource: setUserType,
+		setResource: setUser,
 		handleChange,
 		handleErrors,
 	} = useResource({
@@ -130,7 +130,7 @@ const useAuth = () => {
 			setErrors(null)
 			const resp = await apiMethod()
 			if (resp?.data?.id) {
-				setUserType(resp.data)
+				setUser(resp.data)
 				setCurrentUserType(resp.data)
 				setAuthenticated(true)
 				setToken(resp.data.jwt_token)
@@ -164,7 +164,7 @@ const useAuth = () => {
 		errors,
 		authCookie,
 		user,
-		setUserType,
+		setUser,
 		currentUserType,
 		setCurrentUserType,
 		fetchMe,
