@@ -27,14 +27,14 @@ var AuthContext_1 = __importDefault(require("./AuthContext"));
 var AuthProvider = function (props) {
     var _a = props || {}, children = _a.children, serverPath = _a.serverPath;
     var _b = (0, react_1.useState)(), authenticated = _b[0], setAuthenticated = _b[1];
-    var _c = (0, react_1.useState)(), currentUserType = _c[0], setCurrentUserType = _c[1];
+    var _c = (0, react_1.useState)(), currentUser = _c[0], setCurrentUser = _c[1];
     var _d = (0, react_1.useState)(), token = _d[0], setToken = _d[1];
     var value = {
         serverPath: serverPath,
         authenticated: authenticated,
         setAuthenticated: setAuthenticated,
-        currentUserType: currentUserType,
-        setCurrentUserType: setCurrentUserType,
+        currentUser: currentUser,
+        setCurrentUser: setCurrentUser,
         token: token,
         setToken: setToken,
     };

@@ -14,8 +14,8 @@ const useAuth = () => {
 	const {
 		authenticated,
 		setAuthenticated,
-		currentUserType,
-		setCurrentUserType,
+		currentUser,
+		setCurrentUser,
 		setToken,
 	} = useContext(AuthContext)
 
@@ -105,7 +105,7 @@ const useAuth = () => {
 
 	const logout = async () => {
 		deleteCookie(authCookie)
-		setCurrentUserType({})
+		setCurrentUser({})
 		setAuthenticated(false)
 	}
 
@@ -131,7 +131,7 @@ const useAuth = () => {
 			const resp = await apiMethod()
 			if (resp?.data?.id) {
 				setUser(resp.data)
-				setCurrentUserType(resp.data)
+				setCurrentUser(resp.data)
 				setAuthenticated(true)
 				setToken(resp.data.jwt_token)
 				setCookie(authCookie, resp.data.jwt_token)
@@ -147,17 +147,17 @@ const useAuth = () => {
 	}
 
 	useEffect(() => {
-		if (currentUserType && !authenticated) {
-			setToken(currentUserType?.token)
+		if (currentUser && !authenticated) {
+			setToken(currentUser?.token)
 			setAuthenticated(true)
 		}
-		if (!currentUserType && !authenticated) {
+		if (!currentUser && !authenticated) {
 			let jwtToken = getCookie(authCookie)
 			if (jwtToken) {
 				authenticateFromToken(String(jwtToken))
 			}
 		}
-	}, [currentUserType])
+	}, [currentUser])
 
 	return {
 		loading,
@@ -165,8 +165,8 @@ const useAuth = () => {
 		authCookie,
 		user,
 		setUser,
-		currentUserType,
-		setCurrentUserType,
+		currentUser,
+		setCurrentUser,
 		fetchMe,
 		updateMe,
 		forgotPassword,

@@ -48,7 +48,7 @@ var useAuth = function () {
     var serverPath = (0, react_1.useContext)(context_1.AuthContext).serverPath;
     var showLoading = function () { return setLoading(true); };
     var hideLoading = function () { return setLoading(false); };
-    var _b = (0, react_1.useContext)(context_1.AuthContext), authenticated = _b.authenticated, setAuthenticated = _b.setAuthenticated, currentUserType = _b.currentUserType, setCurrentUserType = _b.setCurrentUserType, setToken = _b.setToken;
+    var _b = (0, react_1.useContext)(context_1.AuthContext), authenticated = _b.authenticated, setAuthenticated = _b.setAuthenticated, currentUser = _b.currentUser, setCurrentUser = _b.setCurrentUser, setToken = _b.setToken;
     var _c = (0, useResource_1.default)({
         url: serverPath,
         name: 'user',
@@ -156,7 +156,7 @@ var useAuth = function () {
     var logout = function () { return __awaiter(void 0, void 0, void 0, function () {
         return __generator(this, function (_a) {
             (0, cookies_next_1.deleteCookie)(authCookie);
-            setCurrentUserType({});
+            setCurrentUser({});
             setAuthenticated(false);
             return [2 /*return*/];
         });
@@ -204,7 +204,7 @@ var useAuth = function () {
                     resp = _b.sent();
                     if ((_a = resp === null || resp === void 0 ? void 0 : resp.data) === null || _a === void 0 ? void 0 : _a.id) {
                         setUser(resp.data);
-                        setCurrentUserType(resp.data);
+                        setCurrentUser(resp.data);
                         setAuthenticated(true);
                         setToken(resp.data.jwt_token);
                         (0, cookies_next_1.setCookie)(authCookie, resp.data.jwt_token);
@@ -225,25 +225,25 @@ var useAuth = function () {
         });
     }); };
     (0, react_1.useEffect)(function () {
-        if (currentUserType && !authenticated) {
-            setToken(currentUserType === null || currentUserType === void 0 ? void 0 : currentUserType.token);
+        if (currentUser && !authenticated) {
+            setToken(currentUser === null || currentUser === void 0 ? void 0 : currentUser.token);
             setAuthenticated(true);
         }
-        if (!currentUserType && !authenticated) {
+        if (!currentUser && !authenticated) {
             var jwtToken = (0, cookies_next_1.getCookie)(authCookie);
             if (jwtToken) {
                 authenticateFromToken(String(jwtToken));
             }
         }
-    }, [currentUserType]);
+    }, [currentUser]);
     return {
         loading: loading,
         errors: errors,
         authCookie: authCookie,
         user: user,
         setUser: setUser,
-        currentUserType: currentUserType,
-        setCurrentUserType: setCurrentUserType,
+        currentUser: currentUser,
+        setCurrentUser: setCurrentUser,
         fetchMe: fetchMe,
         updateMe: updateMe,
         forgotPassword: forgotPassword,

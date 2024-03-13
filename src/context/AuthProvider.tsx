@@ -9,15 +9,15 @@ type AuthProviderProps = {
 const AuthProvider = (props: AuthProviderProps) => {
 	const { children, serverPath } = props || {}
 	const [authenticated, setAuthenticated] = useState()
-	const [currentUserType, setCurrentUserType] = useState()
+	const [currentUser, setCurrentUser] = useState()
 	const [token, setToken] = useState()
 
 	const value = {
 		serverPath,
 		authenticated,
 		setAuthenticated,
-		currentUserType,
-		setCurrentUserType,
+		currentUser,
+		setCurrentUser,
 		token,
 		setToken,
 	}

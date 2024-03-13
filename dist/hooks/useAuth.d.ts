@@ -5,8 +5,8 @@ declare const useAuth: () => {
     authCookie: any;
     user: import("../types").ResourceType;
     setUser: (value: import("../types").ResourceType) => void;
-    currentUserType: any;
-    setCurrentUserType: any;
+    currentUser: any;
+    setCurrentUser: any;
     fetchMe: () => Promise<any>;
     updateMe: (user: UserType) => Promise<any>;
     forgotPassword: (user: UserType) => Promise<any>;
