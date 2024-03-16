@@ -29,8 +29,7 @@ export class RestClient {
 			method: 'GET',
 			headers: {
 				'Content-Type': 'application/json',
-			},
-			data: this.payload,
+			}			
 		}
 		this.baseUrl = url || process.env.NEXT_PUBLIC_API_BASE_URL
 	}
@@ -90,15 +89,15 @@ export class RestClient {
 		if (this.params && this.method == 'GET') {
 			url += '?' + this.params
 		}
-		this.options = {
-			...this.options,
-			method: this.method as 'GET' | 'POST' | 'PUT' | 'DELETE',
+		this.options = {      
+      method: this.method as 'GET' | 'POST' | 'PUT' | 'DELETE',
+			headers: this.options.headers			
 		}
 		if (this.method === 'POST' || this.method === 'PUT') {
 			this.options = {
-				...this.options,			
-        body: JSON.stringify(this.payload),
-				method: this.method as 'GET' | 'POST' | 'PUT' | 'DELETE',
+        ...this.options,
+        method: this.method as 'GET' | 'POST' | 'PUT' | 'DELETE',
+        body: JSON.stringify(this.payload)				
 			}
 		}
 		try {			

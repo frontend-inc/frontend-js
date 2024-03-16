@@ -61,8 +61,7 @@ var RestClient = /** @class */ (function () {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
-            },
-            data: this.payload,
+            }
         };
         this.baseUrl = url || process.env.NEXT_PUBLIC_API_BASE_URL;
     }
@@ -143,9 +142,12 @@ var RestClient = /** @class */ (function () {
                         if (this.params && this.method == 'GET') {
                             url += '?' + this.params;
                         }
-                        this.options = __assign(__assign({}, this.options), { method: this.method });
+                        this.options = {
+                            method: this.method,
+                            headers: this.options.headers
+                        };
                         if (this.method === 'POST' || this.method === 'PUT') {
-                            this.options = __assign(__assign({}, this.options), { body: JSON.stringify(this.payload), method: this.method });
+                            this.options = __assign(__assign({}, this.options), { method: this.method, body: JSON.stringify(this.payload) });
                         }
                         _a.label = 1;
                     case 1:
