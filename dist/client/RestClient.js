@@ -49,11 +49,8 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.RestClient = void 0;
 var RestClient = /** @class */ (function () {
-    function RestClient(baseUrl, fetchToken, apiKey, authToken) {
-        if (baseUrl === void 0) { baseUrl = null; }
-        if (fetchToken === void 0) { fetchToken = function () { return null; }; }
-        if (apiKey === void 0) { apiKey = null; }
-        if (authToken === void 0) { authToken = null; }
+    function RestClient(params) {
+        var url = params.url, _a = params.fetchToken, fetchToken = _a === void 0 ? function () { return null; } : _a, apiKey = params.apiKey, authToken = params.authToken;
         this.method = 'GET';
         this.payload = null;
         this.authToken = authToken;
@@ -67,7 +64,7 @@ var RestClient = /** @class */ (function () {
             },
             data: this.payload,
         };
-        this.baseUrl = baseUrl || process.env.NEXT_PUBLIC_API_BASE_URL;
+        this.baseUrl = url || process.env.NEXT_PUBLIC_API_BASE_URL;
     }
     RestClient.prototype.get = function (endpoint, params, headers) {
         return __awaiter(this, void 0, void 0, function () {

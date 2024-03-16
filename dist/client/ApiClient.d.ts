@@ -1,5 +1,5 @@
 import { UserType, QueryParamsType } from '../types';
-import { ConfigParamsType, ExecuteResponseType } from '../types';
+import { ApiClientParamsType, ConfigParamsType, ExecuteResponseType } from '../types';
 export declare class ApiClient {
     private payload?;
     private _url?;
@@ -8,7 +8,7 @@ export declare class ApiClient {
     private headers?;
     private apiQuery;
     private restClient;
-    constructor(baseUrl: string | null, fetchToken: () => string | null, apiKey?: string | null, authToken?: string | null);
+    constructor(params: ApiClientParamsType);
     init(): ApiClient;
     config(params: ConfigParamsType): this;
     clearQuery(): this;
@@ -70,11 +70,4 @@ export declare class ApiClient {
     handleMultipartData(): Promise<void>;
     isJsonObject(value: any): boolean;
 }
-declare type ApiClientParams = {
-    url: string;
-    apiKey: string | null;
-    fetchToken?: () => string | null;
-    authToken?: string | null;
-};
-export declare const createClient: (params: ApiClientParams) => ApiClient;
-export {};
+export declare const createClient: (params: ApiClientParamsType) => ApiClient;

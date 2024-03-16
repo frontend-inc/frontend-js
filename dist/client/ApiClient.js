@@ -51,10 +51,14 @@ exports.createClient = exports.ApiClient = void 0;
 var ApiQuery_1 = require("./ApiQuery");
 var RestClient_1 = require("./RestClient");
 var ApiClient = /** @class */ (function () {
-    function ApiClient(baseUrl, fetchToken, apiKey, authToken) {
-        if (apiKey === void 0) { apiKey = null; }
-        if (authToken === void 0) { authToken = null; }
-        this.restClient = new RestClient_1.RestClient(baseUrl, fetchToken, apiKey, authToken);
+    function ApiClient(params) {
+        var url = params.url, fetchToken = params.fetchToken, apiKey = params.apiKey, authToken = params.authToken;
+        this.restClient = new RestClient_1.RestClient({
+            url: url,
+            fetchToken: fetchToken,
+            apiKey: apiKey,
+            authToken: authToken
+        });
         this.init();
         return new Proxy(this, {
             get: function (target, prop) {
@@ -787,8 +791,14 @@ var ApiClient = /** @class */ (function () {
     return ApiClient;
 }());
 exports.ApiClient = ApiClient;
+// End ApiClient
 var createClient = function (params) {
     var url = params.url, fetchToken = params.fetchToken, apiKey = params.apiKey, authToken = params.authToken;
-    return new ApiClient(url, fetchToken, apiKey, authToken);
+    return new ApiClient({
+        url: url,
+        fetchToken: fetchToken,
+        apiKey: apiKey,
+        authToken: authToken
+    });
 };
 exports.createClient = createClient;

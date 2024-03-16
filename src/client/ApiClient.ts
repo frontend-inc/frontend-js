@@ -1,7 +1,7 @@
 import { ApiQuery } from './ApiQuery'
 import { RestClient } from './RestClient'
 import { UserType, QueryParamsType } from '../types'
-import { ConfigParamsType, ExecuteResponseType } from '../types'
+import { ApiClientParamsType, ConfigParamsType, ExecuteResponseType } from '../types'
 
 export class ApiClient {
 	private payload?: object
@@ -12,13 +12,21 @@ export class ApiClient {
 	private apiQuery: ApiQuery
 	private restClient: RestClient
 
-	constructor(
-		baseUrl: string | null,
-		fetchToken: () => string | null,
-		apiKey: string | null = null,
-		authToken: string | null = null
-	) {
-		this.restClient = new RestClient(baseUrl, fetchToken, apiKey, authToken)
+	constructor(params: ApiClientParamsType) {
+    
+    const {
+      url,
+      fetchToken,
+      apiKey,
+      authToken
+    } = params
+
+		this.restClient = new RestClient({ 
+      url, 
+      fetchToken, 
+      apiKey, 
+      authToken
+    })
 		this.init()
 		return new Proxy(this, {
 			get(target, prop) {
@@ -534,15 +542,7 @@ export class ApiClient {
 }
 // End ApiClient
 
-
-type ApiClientParams = {
-  url: string  
-  apiKey: string | null
-  fetchToken?: () => string | null
-  authToken?: string | null
-}
-
-export const createClient = (params: ApiClientParams): ApiClient => {
+export const createClient = (params: ApiClientParamsType): ApiClient => {
 
   const {
 	  url,
@@ -551,5 +551,10 @@ export const createClient = (params: ApiClientParams): ApiClient => {
 	  authToken
   } = params
 
-	return new ApiClient(url, fetchToken, apiKey, authToken)
+	return new ApiClient({ 
+    url, 
+    fetchToken, 
+    apiKey, 
+    authToken 
+  })
 }

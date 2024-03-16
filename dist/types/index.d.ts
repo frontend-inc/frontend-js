@@ -1,4 +1,10 @@
 import React from 'react';
+export declare type ApiClientParamsType = {
+    url: string;
+    fetchToken?: () => string | null;
+    apiKey?: string | null;
+    authToken?: string | null;
+};
 export declare type ConfigParamsType = {
     collection?: string;
     path?: string;

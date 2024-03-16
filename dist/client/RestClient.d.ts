@@ -1,4 +1,4 @@
-import { ExecuteResponseType } from '../types';
+import { ApiClientParamsType, ExecuteResponseType } from '../types';
 export declare class RestClient {
     private method?;
     private payload?;
@@ -8,7 +8,7 @@ export declare class RestClient {
     private options;
     private baseUrl;
     private fetchToken?;
-    constructor(baseUrl?: string | null, fetchToken?: () => string | null, apiKey?: string | null, authToken?: string | null);
+    constructor(params: ApiClientParamsType);
     get(endpoint: string, params?: string, headers?: Record<string, any> | null): Promise<ExecuteResponseType>;
     put(endpoint: string, payload: object, headers?: Record<string, any> | null): Promise<ExecuteResponseType>;
     post(endpoint: string, payload?: object, headers?: Record<string, any> | null): Promise<ExecuteResponseType>;

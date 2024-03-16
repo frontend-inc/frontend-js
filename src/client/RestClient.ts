@@ -1,4 +1,4 @@
-import { ExecuteResponseType } from '../types'
+import { ApiClientParamsType, ExecuteResponseType } from '../types'
 
 export class RestClient {
 	private method?: string
@@ -10,12 +10,15 @@ export class RestClient {
 	private baseUrl: string
 	private fetchToken?: () => string | null
 
-	constructor(
-		baseUrl: string | null = null,
-		fetchToken: () => string | null = () => null,
-		apiKey: string | null = null,
-		authToken: string | null = null
-	) {
+	constructor(params: ApiClientParamsType) {
+
+    const { 
+      url, 
+      fetchToken = () => null, 
+      apiKey, 
+      authToken 
+    } = params    
+
 		this.method = 'GET'
 		this.payload = null
 		this.authToken = authToken
@@ -29,7 +32,7 @@ export class RestClient {
 			},
 			data: this.payload,
 		}
-		this.baseUrl = baseUrl || process.env.NEXT_PUBLIC_API_BASE_URL
+		this.baseUrl = url || process.env.NEXT_PUBLIC_API_BASE_URL
 	}
 
 	async get(
