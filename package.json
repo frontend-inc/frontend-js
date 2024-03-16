@@ -1,6 +1,6 @@
 {
     "name": "frontend-js",
-    "version": "0.0.17",
+    "version": "0.0.18",
     "license": "MIT",
     "description": "A JavaScript REST client for Frontend.co.",
     "homepage": "https://github.com/frontend-inc/frontend-js",
@@ -61,8 +61,7 @@
     "dependencies": {
         "cookies-next": "^2.1.1"
     },
-    "devDependencies": {
-        "axios": "^0.21.4",
+    "devDependencies": {        
         "babel-cli": "^6.26.0",
         "babel-preset-env": "^1.7.0",
         "babel-preset-react": "^6.24.1",

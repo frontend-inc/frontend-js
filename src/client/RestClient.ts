@@ -1,4 +1,3 @@
-import axios from './axios'
 import { ExecuteResponseType } from '../types'
 
 export class RestClient {
@@ -94,20 +93,12 @@ export class RestClient {
 		}
 		if (this.method === 'POST' || this.method === 'PUT') {
 			this.options = {
-				...this.options,
-				//data: this.payload,
+				...this.options,			
         body: JSON.stringify(this.payload),
 				method: this.method as 'GET' | 'POST' | 'PUT' | 'DELETE',
 			}
 		}
-		try {
-			/*const fetchResponse = await axios({
-				url,
-				...this.options,
-			})
-			response.data = fetchResponse?.data
-      //@ts-ignore
-			response.meta = fetchResponse?.meta*/
+		try {			
       const fetchResponse = await fetch(url, this.options)
       const resp = await fetchResponse.json()
       response.data = resp?.data 

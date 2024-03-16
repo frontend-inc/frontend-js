@@ -148,9 +148,7 @@ var RestClient = /** @class */ (function () {
                         }
                         this.options = __assign(__assign({}, this.options), { method: this.method });
                         if (this.method === 'POST' || this.method === 'PUT') {
-                            this.options = __assign(__assign({}, this.options), { 
-                                //data: this.payload,
-                                body: JSON.stringify(this.payload), method: this.method });
+                            this.options = __assign(__assign({}, this.options), { body: JSON.stringify(this.payload), method: this.method });
                         }
                         _a.label = 1;
                     case 1:
