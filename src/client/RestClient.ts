@@ -95,18 +95,23 @@ export class RestClient {
 		if (this.method === 'POST' || this.method === 'PUT') {
 			this.options = {
 				...this.options,
-				data: this.payload,
+				//data: this.payload,
+        body: JSON.stringify(this.payload),
 				method: this.method as 'GET' | 'POST' | 'PUT' | 'DELETE',
 			}
 		}
 		try {
-			const fetchResponse = await axios({
+			/*const fetchResponse = await axios({
 				url,
 				...this.options,
 			})
 			response.data = fetchResponse?.data
       //@ts-ignore
-			response.meta = fetchResponse?.meta
+			response.meta = fetchResponse?.meta*/
+      const fetchResponse = await fetch(url, this.options)
+      const resp = await fetchResponse.json()
+      response.data = resp?.data 
+      response.meta = resp?.meta
 		} catch (error) {
 			response.error = error
 		}
