@@ -15,7 +15,12 @@ export class ApiQuery {
 	private _per_page?: number
 	private _params?: any
 
-	constructor(params: QueryParamsType = {}) {
+	constructor(params: QueryParamsType = {
+    sort_by: 'id',
+    sort_direction: 'desc',
+    page: 1,
+    per_page: 20,
+  }) {
 		const {
 			sort_by,
 			sort_direction,
@@ -236,7 +241,7 @@ export class ApiQuery {
 		return this
 	}
 
-	AND_filter(filter: Filter): ApiQuery {
+	AND_filter(filter: Filter): ApiQuery {    
 		this._filters = {
 			...this._filters,
 			AND: [...(this._filters['AND'] || []), filter],

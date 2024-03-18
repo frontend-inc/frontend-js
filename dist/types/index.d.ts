@@ -41,21 +41,21 @@ export declare type Filters = {
     OR?: Filter[];
 };
 export declare type QueryParamsType = {
-    sort_by?: string;
-    sort_direction?: 'asc' | 'desc';
     keywords?: string | null;
     filters?: Filters | Record<string, any>;
-    page?: number | null;
-    per_page?: number | null;
+    page: number;
+    per_page: number;
+    sort_by: string;
+    sort_direction: 'asc' | 'desc';
     rest?: any;
 };
 export declare type QueryFilterArrayParamsType = {
-    sort_by?: string;
-    sort_direction?: 'asc' | 'desc';
+    sort_by: string;
+    sort_direction: 'asc' | 'desc';
     keywords?: string;
     filters?: FilterOption[];
-    page?: number;
-    per_page?: number;
+    page: number;
+    per_page: number;
 };
 export declare type QueryURLParamsType = {
     order?: string;

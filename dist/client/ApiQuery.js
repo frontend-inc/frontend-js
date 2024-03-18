@@ -34,7 +34,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.ApiQuery = void 0;
 var ApiQuery = /** @class */ (function () {
     function ApiQuery(params) {
-        if (params === void 0) { params = {}; }
+        if (params === void 0) { params = {
+            sort_by: 'id',
+            sort_direction: 'desc',
+            page: 1,
+            per_page: 20,
+        }; }
         this.isValidFilter = function (filter) {
             if (typeof filter !== 'object') {
                 return false;
