@@ -525,6 +525,7 @@ export class ApiClient {
 			}
 		}
 		this.payload = formData
+    console.log('this.payload', this.payload)
 		this.headers['Content-Type'] = 'multipart/form-data'
 	}
 

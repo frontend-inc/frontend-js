@@ -771,6 +771,7 @@ var ApiClient = /** @class */ (function () {
                     }
                 }
                 this.payload = formData;
+                console.log('this.payload', this.payload);
                 this.headers['Content-Type'] = 'multipart/form-data';
                 return [2 /*return*/];
             });
