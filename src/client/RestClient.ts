@@ -2,7 +2,7 @@ import { ApiClientParamsType, ExecuteResponseType } from '../types'
 
 export class RestClient {
 	private method?: string
-	private payload?: Record<string, any>
+	private payload?: Record<string, any> | string
 	private params?: string
 	private authToken?: string
 	private apiKey?: string
@@ -93,11 +93,14 @@ export class RestClient {
       method: this.method as 'GET' | 'POST' | 'PUT' | 'DELETE',
 			headers: this.options.headers			
 		}
+    if(this.options.headers['Content-Type'] === 'application/json') {
+      this.payload = JSON.stringify(this.payload)
+    }
 		if (this.method === 'POST' || this.method === 'PUT') {
 			this.options = {
         ...this.options,
         method: this.method as 'GET' | 'POST' | 'PUT' | 'DELETE',
-        body: JSON.stringify(this.payload)				
+        body: this.payload	
 			}
 		}
 		try {			
