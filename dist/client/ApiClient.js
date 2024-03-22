@@ -197,6 +197,7 @@ var ApiClient = /** @class */ (function () {
             return __generator(this, function (_b) {
                 switch (_b.label) {
                     case 0:
+                        console.log("CREATE", data, this._collection);
                         this.payload = (_a = {},
                             _a[this._collection] = data,
                             _a);
@@ -745,12 +746,14 @@ var ApiClient = /** @class */ (function () {
     };
     ApiClient.prototype.handleFormatData = function () {
         var multipart = false;
+        console.log("handleFormatData", this.payload[this._collection]);
         for (var key in this.payload[this._collection]) {
             if (this.payload[this._collection][key] instanceof File) {
                 multipart = true;
                 break;
             }
         }
+        console.log("handleFormatData, is multipart", multipart);
         if (multipart) {
             this.handleMultipartData();
         }
