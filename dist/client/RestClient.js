@@ -150,6 +150,8 @@ var RestClient = /** @class */ (function () {
                             this.payload = JSON.stringify(this.payload);
                         }
                         else if (this.options.headers['Content-Type'] === 'multipart/form-data') {
+                            // When using Fetch API you must not set the Content-Type header to multipart/form-data
+                            // https://muffinman.io/blog/uploading-files-using-fetch-multipart-form-data/
                             delete this.options.headers['Content-Type'];
                         }
                         if (this.method === 'POST' || this.method === 'PUT') {
@@ -158,7 +160,6 @@ var RestClient = /** @class */ (function () {
                         _a.label = 1;
                     case 1:
                         _a.trys.push([1, 4, , 5]);
-                        console.log('Posting with Fetch:', url, this.options);
                         return [4 /*yield*/, fetch(url, this.options)];
                     case 2:
                         fetchResponse = _a.sent();

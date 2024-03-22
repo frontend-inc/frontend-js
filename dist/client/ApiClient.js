@@ -197,7 +197,6 @@ var ApiClient = /** @class */ (function () {
             return __generator(this, function (_b) {
                 switch (_b.label) {
                     case 0:
-                        console.log("CREATE", data, this._collection);
                         this.payload = (_a = {},
                             _a[this._collection] = data,
                             _a);
@@ -746,14 +745,12 @@ var ApiClient = /** @class */ (function () {
     };
     ApiClient.prototype.handleFormatData = function () {
         var multipart = false;
-        console.log("handleFormatData", this.payload[this._collection]);
         for (var key in this.payload[this._collection]) {
             if (this.payload[this._collection][key] instanceof File) {
                 multipart = true;
                 break;
             }
         }
-        console.log("handleFormatData, is multipart", multipart);
         if (multipart) {
             this.handleMultipartData();
         }
@@ -764,20 +761,16 @@ var ApiClient = /** @class */ (function () {
             return __generator(this, function (_a) {
                 formData = new FormData();
                 for (formKey in this.payload[this._collection]) {
-                    console.log("handleMultipartData, formKey", formKey);
                     // Form objects can only send string key / value pairs
                     // so we stringify the object
                     if (this.isJsonObject(this.payload[this._collection][formKey])) {
-                        console.log("handleMultipartData, isJSON", this.payload[this._collection][formKey]);
                         formData.append(this._collection + "[" + formKey + "_string]", JSON.stringify(this.payload[this._collection][formKey]));
                     }
                     else {
-                        console.log("handleMultipartData, isFile", this.payload[this._collection][formKey]);
                         formData.append(this._collection + "[" + formKey + "]", this.payload[this._collection][formKey]);
                     }
                 }
                 this.payload = formData;
-                console.log('formDATA', formData);
                 this.headers['Content-Type'] = 'multipart/form-data';
                 return [2 /*return*/];
             });

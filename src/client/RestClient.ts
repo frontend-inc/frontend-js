@@ -96,6 +96,8 @@ export class RestClient {
     if(this.options.headers['Content-Type'] !== 'multipart/form-data') {
       this.payload = JSON.stringify(this.payload)      
     }else if(this.options.headers['Content-Type'] === 'multipart/form-data') {
+      // When using Fetch API you must not set the Content-Type header to multipart/form-data
+      // https://muffinman.io/blog/uploading-files-using-fetch-multipart-form-data/
       delete this.options.headers['Content-Type']
     }    
 		if (this.method === 'POST' || this.method === 'PUT') {
@@ -105,8 +107,7 @@ export class RestClient {
         body: this.payload	
 			}
 		}
-		try {			
-      console.log('Posting with Fetch:', url, this.options)
+		try {			      
       const fetchResponse = await fetch(url, this.options)
       const resp = await fetchResponse.json()
       response.data = resp?.data 

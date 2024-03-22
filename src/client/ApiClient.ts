@@ -165,8 +165,7 @@ export class ApiClient {
 		return await this.get(this.endpoint, this.apiQuery.url())
 	}
 
-	async create(data: Record<string, any>): Promise<ExecuteResponseType> {
-    console.log("CREATE", data, this._collection)
+	async create(data: Record<string, any>): Promise<ExecuteResponseType> {    
 		this.payload = {
 			[this._collection]: data,
 		}
@@ -497,14 +496,12 @@ export class ApiClient {
 
 	handleFormatData(): void {
 		let multipart = false
-    console.log("handleFormatData", this.payload[this._collection])
 		for (const key in this.payload[this._collection]) {
 			if (this.payload[this._collection][key] instanceof File) {
 				multipart = true
 				break
 			}
 		}
-    console.log("handleFormatData, is multipart", multipart)
 		if (multipart) {
 			this.handleMultipartData()
 		}
@@ -513,25 +510,21 @@ export class ApiClient {
 	async handleMultipartData() {
 		const formData = new FormData()
 		for (const formKey in this.payload[this._collection]) {
-      console.log("handleMultipartData, formKey", formKey)
 			// Form objects can only send string key / value pairs
 			// so we stringify the object
 			if (this.isJsonObject(this.payload[this._collection][formKey])) {
-        console.log("handleMultipartData, isJSON", this.payload[this._collection][formKey])
 				formData.append(
 					`${this._collection}[${formKey}_string]`,
 					JSON.stringify(this.payload[this._collection][formKey])
 				)
-			} else {
-        console.log("handleMultipartData, isFile", this.payload[this._collection][formKey])
+			} else {        
 				formData.append(
 					`${this._collection}[${formKey}]`,
 					this.payload[this._collection][formKey]
 				)
 			}
 		}
-		this.payload = formData
-    console.log('formDATA', formData)
+		this.payload = formData    
 		this.headers['Content-Type'] = 'multipart/form-data'
 	}
 
