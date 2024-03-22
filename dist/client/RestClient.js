@@ -146,7 +146,7 @@ var RestClient = /** @class */ (function () {
                             method: this.method,
                             headers: this.options.headers
                         };
-                        if (this.options.headers['Content-Type'] === 'application/json') {
+                        if (this.options.headers['Content-Type'] !== 'multipart/form-data') {
                             this.payload = JSON.stringify(this.payload);
                         }
                         if (this.method === 'POST' || this.method === 'PUT') {
@@ -155,6 +155,7 @@ var RestClient = /** @class */ (function () {
                         _a.label = 1;
                     case 1:
                         _a.trys.push([1, 4, , 5]);
+                        console.log('Posting with Fetch:', url, this.options);
                         return [4 /*yield*/, fetch(url, this.options)];
                     case 2:
                         fetchResponse = _a.sent();

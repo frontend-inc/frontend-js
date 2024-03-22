@@ -93,7 +93,7 @@ export class RestClient {
       method: this.method as 'GET' | 'POST' | 'PUT' | 'DELETE',
 			headers: this.options.headers			
 		}
-    if(this.options.headers['Content-Type'] === 'application/json') {
+    if(this.options.headers['Content-Type'] !== 'multipart/form-data') {
       this.payload = JSON.stringify(this.payload)
     }
 		if (this.method === 'POST' || this.method === 'PUT') {
@@ -104,6 +104,7 @@ export class RestClient {
 			}
 		}
 		try {			
+      console.log('Posting with Fetch:', url, this.options)
       const fetchResponse = await fetch(url, this.options)
       const resp = await fetchResponse.json()
       response.data = resp?.data 
