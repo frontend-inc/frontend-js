@@ -94,8 +94,10 @@ export class RestClient {
 			headers: this.options.headers			
 		}
     if(this.options.headers['Content-Type'] !== 'multipart/form-data') {
-      this.payload = JSON.stringify(this.payload)
-    }
+      this.payload = JSON.stringify(this.payload)      
+    }else if(this.options.headers['Content-Type'] === 'multipart/form-data') {
+      delete this.options.headers['Content-Type']
+    }    
 		if (this.method === 'POST' || this.method === 'PUT') {
 			this.options = {
         ...this.options,
