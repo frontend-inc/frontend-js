@@ -337,12 +337,11 @@ var useResource = function (params) {
         });
     }); };
     var handleErrors = function (e) {
-        // Use Fetch API to detect if the response code is a 401
         if ((e === null || e === void 0 ? void 0 : e.status) === 401) {
             setErrors([{ code: 401, message: 'Unauthorized' }]);
         }
-        if (e === null || e === void 0 ? void 0 : e.errors) {
-            setErrors(e === null || e === void 0 ? void 0 : e.errors);
+        else if (e) {
+            setErrors(e);
         }
         console.log('handleErrors', e);
     };

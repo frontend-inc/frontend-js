@@ -217,13 +217,11 @@ const useResource = (params: UseResourceParams): ResourceResponse => {
 	}
 
 	const handleErrors = (e: any) => {    
-    // Use Fetch API to detect if the response code is a 401
 		if(e?.status === 401) {      
       setErrors([{ code: 401, message: 'Unauthorized' }])
+    }else if(e){
+      setErrors(e)
     }
-    if (e?.errors) {
-			setErrors(e?.errors)
-		}
 		console.log('handleErrors', e)
 	}
 
