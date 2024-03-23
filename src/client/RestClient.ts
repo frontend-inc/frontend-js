@@ -113,6 +113,7 @@ export class RestClient {
       response.data = resp?.data 
       response.meta = resp?.meta
 		} catch (error) {
+      console.log("Eception", error, error?.data)
 			response.error = error
 		}
 		return response

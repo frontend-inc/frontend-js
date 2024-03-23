@@ -171,6 +171,7 @@ var RestClient = /** @class */ (function () {
                         return [3 /*break*/, 5];
                     case 4:
                         error_1 = _a.sent();
+                        console.log("Eception", error_1, error_1 === null || error_1 === void 0 ? void 0 : error_1.data);
                         response.error = error_1;
                         return [3 /*break*/, 5];
                     case 5: return [2 /*return*/, response];
