@@ -112,8 +112,8 @@ export class RestClient {
       const resp = await fetchResponse.json()
       response.data = resp?.data 
       response.meta = resp?.meta
+      response.error = resp?.errors      
 		} catch (error) {
-      console.log("Eception", error, error?.data)
 			response.error = error
 		}
 		return response
