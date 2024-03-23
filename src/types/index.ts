@@ -21,7 +21,7 @@ export type FetchOptionType = {
 export type ExecuteResponseType = {
 	meta: any
 	data: any
-	error: any
+	errors: any
 }
 
 export type QueryPropsType = {

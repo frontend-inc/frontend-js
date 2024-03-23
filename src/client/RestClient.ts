@@ -74,9 +74,9 @@ export class RestClient {
 
 	async execute(endpoint: string = ''): Promise<ExecuteResponseType> {
 		let response: ExecuteResponseType = {
-			data: null,
-			error: null,
+			data: null,			
 			meta: null,
+      errors: null
 		}
 		this.authToken = this.authToken || this.fetchToken()
 		if (this.authToken) {
@@ -112,9 +112,9 @@ export class RestClient {
       const resp = await fetchResponse.json()
       response.data = resp?.data 
       response.meta = resp?.meta
-      response.error = resp?.errors      
+      response.errors = resp?.errors      
 		} catch (error) {
-			response.error = error
+			response.errors = error
 		}
 		return response
 	}

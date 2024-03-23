@@ -135,8 +135,8 @@ const useAuth = () => {
 				setAuthenticated(true)
 				setToken(resp.data.jwt_token)
 				setCookie(authCookie, resp.data.jwt_token)
-			} else if (resp?.error) {
-				handleErrors(resp?.error)
+			} else if (resp?.errors) {
+				handleErrors(resp?.errors)
 			}
 			return resp?.data
 		} catch (e) {

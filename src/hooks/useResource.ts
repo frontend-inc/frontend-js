@@ -206,8 +206,8 @@ const useResource = (params: UseResourceParams): ResourceResponse => {
 			const res = await apiMethod()
 			if (res?.data?.id) {
 				setResource(res.data)
-			} else if (res?.error) {
-				handleErrors(res?.error)
+			} else if (res?.errors) {
+				handleErrors(res?.errors)
 			}
 			return res?.data
 		} catch (e) {
@@ -216,12 +216,13 @@ const useResource = (params: UseResourceParams): ResourceResponse => {
 		}
 	}
 
-	const handleErrors = (e: any) => {
-		if (e?.response?.status === 401) {
-			setErrors([{ code: 401, message: 'Unauthorized' }])
-		}
-		if (e?.data?.errors) {
-			setErrors(e?.data?.errors)
+	const handleErrors = (e: any) => {    
+    // Use Fetch API to detect if the response code is a 401
+		if(e?.status === 401) {      
+      setErrors([{ code: 401, message: 'Unauthorized' }])
+    }
+    if (e?.errors) {
+			setErrors(e?.errors)
 		}
 		console.log('handleErrors', e)
 	}

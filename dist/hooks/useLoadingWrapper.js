@@ -53,8 +53,8 @@ var useLoadingWrapper = function () {
                     return [4 /*yield*/, fn()];
                 case 1:
                     resp = _a.sent();
-                    if (resp === null || resp === void 0 ? void 0 : resp.error) {
-                        setErrors(resp === null || resp === void 0 ? void 0 : resp.error);
+                    if (resp === null || resp === void 0 ? void 0 : resp.errors) {
+                        setErrors(resp === null || resp === void 0 ? void 0 : resp.errors);
                     }
                     else {
                         setData(resp === null || resp === void 0 ? void 0 : resp.data);

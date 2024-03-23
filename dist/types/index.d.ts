@@ -17,7 +17,7 @@ export declare type FetchOptionType = {
 export declare type ExecuteResponseType = {
     meta: any;
     data: any;
-    error: any;
+    errors: any;
 };
 export declare type QueryPropsType = {
     url: string;

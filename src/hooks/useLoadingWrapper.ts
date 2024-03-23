@@ -12,8 +12,8 @@ const useLoadingWrapper = (): LoadingWrapperResponseType => {
 			setErrors(null)
 			setData(null)
 			const resp = await fn()
-			if (resp?.error) {
-				setErrors(resp?.error)
+			if (resp?.errors) {
+				setErrors(resp?.errors)
 			} else {
 				setData(resp?.data)
 			}

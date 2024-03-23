@@ -322,8 +322,8 @@ var useResource = function (params) {
                     if ((_a = res === null || res === void 0 ? void 0 : res.data) === null || _a === void 0 ? void 0 : _a.id) {
                         setResource(res.data);
                     }
-                    else if (res === null || res === void 0 ? void 0 : res.error) {
-                        handleErrors(res === null || res === void 0 ? void 0 : res.error);
+                    else if (res === null || res === void 0 ? void 0 : res.errors) {
+                        handleErrors(res === null || res === void 0 ? void 0 : res.errors);
                     }
                     return [2 /*return*/, res === null || res === void 0 ? void 0 : res.data];
                 case 2:
@@ -337,12 +337,12 @@ var useResource = function (params) {
         });
     }); };
     var handleErrors = function (e) {
-        var _a, _b, _c;
-        if (((_a = e === null || e === void 0 ? void 0 : e.response) === null || _a === void 0 ? void 0 : _a.status) === 401) {
+        // Use Fetch API to detect if the response code is a 401
+        if ((e === null || e === void 0 ? void 0 : e.status) === 401) {
             setErrors([{ code: 401, message: 'Unauthorized' }]);
         }
-        if ((_b = e === null || e === void 0 ? void 0 : e.data) === null || _b === void 0 ? void 0 : _b.errors) {
-            setErrors((_c = e === null || e === void 0 ? void 0 : e.data) === null || _c === void 0 ? void 0 : _c.errors);
+        if (e === null || e === void 0 ? void 0 : e.errors) {
+            setErrors(e === null || e === void 0 ? void 0 : e.errors);
         }
         console.log('handleErrors', e);
     };

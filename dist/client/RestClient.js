@@ -128,8 +128,8 @@ var RestClient = /** @class */ (function () {
                     case 0:
                         response = {
                             data: null,
-                            error: null,
                             meta: null,
+                            errors: null
                         };
                         this.authToken = this.authToken || this.fetchToken();
                         if (this.authToken) {
@@ -168,11 +168,11 @@ var RestClient = /** @class */ (function () {
                         resp = _a.sent();
                         response.data = resp === null || resp === void 0 ? void 0 : resp.data;
                         response.meta = resp === null || resp === void 0 ? void 0 : resp.meta;
-                        response.error = resp === null || resp === void 0 ? void 0 : resp.errors;
+                        response.errors = resp === null || resp === void 0 ? void 0 : resp.errors;
                         return [3 /*break*/, 5];
                     case 4:
                         error_1 = _a.sent();
-                        response.error = error_1;
+                        response.errors = error_1;
                         return [3 /*break*/, 5];
                     case 5: return [2 /*return*/, response];
                 }
