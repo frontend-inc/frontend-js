@@ -423,7 +423,7 @@ export class ApiClient {
 		this._collection = 'user'
 		this.payload = {
 			[this._collection]: {
-        accessToken: accessToken
+        access_token: accessToken
       },
 		}
 		this.endpoint = `${this._url}/google_login`

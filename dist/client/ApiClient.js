@@ -642,7 +642,7 @@ var ApiClient = /** @class */ (function () {
                         this._collection = 'user';
                         this.payload = (_a = {},
                             _a[this._collection] = {
-                                accessToken: accessToken
+                                access_token: accessToken
                             },
                             _a);
                         this.endpoint = this._url + "/google_login";
