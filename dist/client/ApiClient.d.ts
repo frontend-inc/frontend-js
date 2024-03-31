@@ -58,6 +58,7 @@ export declare class ApiClient {
     verifyPin(email: string, pin: string): Promise<ExecuteResponseType>;
     changePassword(currentPassword: string, password: string, passwordConfirmation: string): Promise<ExecuteResponseType>;
     forgotPassword(user: UserType): Promise<ExecuteResponseType>;
+    googleLogin(accessToken: string): Promise<ExecuteResponseType>;
     resetPassword(email: string, password: string, passwordConfirmation: string, changePasswordToken: string): Promise<ExecuteResponseType>;
     sendOneTimePassword(user: UserType): Promise<ExecuteResponseType>;
     verifyOneTimePassword(otp: string): Promise<ExecuteResponseType>;

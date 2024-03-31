@@ -419,6 +419,17 @@ export class ApiClient {
 		return await this.post(this.endpoint, this.payload, this.headers)
 	}
 
+  async googleLogin(accessToken: string): Promise<ExecuteResponseType> {
+		this._collection = 'user'
+		this.payload = {
+			[this._collection]: {
+        accessToken: accessToken
+      },
+		}
+		this.endpoint = `${this._url}/google_login`
+		return await this.post(this.endpoint, this.payload, this.headers)
+	}
+
 	async resetPassword(
 		email: string,
 		password: string,

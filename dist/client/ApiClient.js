@@ -633,6 +633,25 @@ var ApiClient = /** @class */ (function () {
             });
         });
     };
+    ApiClient.prototype.googleLogin = function (accessToken) {
+        return __awaiter(this, void 0, void 0, function () {
+            var _a;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
+                    case 0:
+                        this._collection = 'user';
+                        this.payload = (_a = {},
+                            _a[this._collection] = {
+                                accessToken: accessToken
+                            },
+                            _a);
+                        this.endpoint = this._url + "/google_login";
+                        return [4 /*yield*/, this.post(this.endpoint, this.payload, this.headers)];
+                    case 1: return [2 /*return*/, _b.sent()];
+                }
+            });
+        });
+    };
     ApiClient.prototype.resetPassword = function (email, password, passwordConfirmation, changePasswordToken) {
         return __awaiter(this, void 0, void 0, function () {
             var _a;

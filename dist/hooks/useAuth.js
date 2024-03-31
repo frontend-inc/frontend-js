@@ -161,13 +161,10 @@ var useAuth = function () {
             return [2 /*return*/];
         });
     }); };
-    var googleLogin = function (user) { return __awaiter(void 0, void 0, void 0, function () {
-        var url;
+    var googleLogin = function (accessToken) { return __awaiter(void 0, void 0, void 0, function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0:
-                    url = serverPath + '/google/login';
-                    return [4 /*yield*/, loadingWrapper(function () { return api.post(url, { user: user }); })];
+                case 0: return [4 /*yield*/, loadingWrapper(function () { return api.googleLogin(accessToken); })];
                 case 1: return [2 /*return*/, _a.sent()];
             }
         });

@@ -109,9 +109,8 @@ const useAuth = () => {
 		setAuthenticated(false)
 	}
 
-	const googleLogin = async (user: any) => {
-		let url = serverPath + '/google/login'
-		return await loadingWrapper(() => api.post(url, { user }))
+	const googleLogin = async (accessToken: string) => {		
+		return await loadingWrapper(() => api.googleLogin(accessToken))
 	}
 
 	const deleteAvatar = async () => {

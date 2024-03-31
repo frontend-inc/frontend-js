@@ -21,7 +21,7 @@ declare const useAuth: () => {
     verifyPin: (email: string, pin: string) => Promise<any>;
     sendOneTimePassword: (user: UserType) => Promise<any>;
     verifyOneTimePassword: (otp: string) => Promise<any>;
-    googleLogin: (user: any) => Promise<any>;
+    googleLogin: (accessToken: string) => Promise<any>;
     deleteAvatar: () => Promise<any>;
     loadingWrapper: (apiMethod: () => any) => Promise<any>;
 };
