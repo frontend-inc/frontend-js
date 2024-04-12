@@ -59,6 +59,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var react_1 = require("react");
 var react_2 = require("react");
 var context_1 = require("../context");
+var hooks_1 = require("../hooks");
 var useResource = function (params) {
     var _a = params || {}, url = _a.url, _b = _a.name, name = _b === void 0 ? 'resource' : _b;
     var api = (0, react_1.useContext)(context_1.ApiContext).api;
@@ -345,8 +346,12 @@ var useResource = function (params) {
         }
         console.log('handleErrors', e);
     };
+    var delayedLoading = (0, hooks_1.useDelayedLoading)({
+        loading: loading
+    }).loading;
     return {
         loading: loading,
+        delayedLoading: delayedLoading,
         setLoading: setLoading,
         loadingWrapper: loadingWrapper,
         errors: errors,

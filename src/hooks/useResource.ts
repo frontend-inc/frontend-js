@@ -1,6 +1,7 @@
 import React, { useContext } from 'react'
 import { useState } from 'react'
 import { ApiContext } from '../context'
+import { useDelayedLoading } from '../hooks'
 import { ID, QueryParamsType, ResourceResponse, ResourceType, PageInfoType } from '../types'
 
 type UseResourceParams = {
@@ -225,8 +226,13 @@ const useResource = (params: UseResourceParams): ResourceResponse => {
 		console.log('handleErrors', e)
 	}
 
+  const { loading: delayedLoading } = useDelayedLoading({
+    loading
+  })
+
 	return {
 		loading,
+    delayedLoading,
 		setLoading,
 		loadingWrapper,
 		errors,
