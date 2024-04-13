@@ -43,10 +43,10 @@ export declare type Filters = {
 export declare type QueryParamsType = {
     keywords?: string | null;
     filters?: Filters | Record<string, any>;
-    page: number;
-    per_page: number;
-    sort_by: string;
-    sort_direction: 'asc' | 'desc';
+    page?: number;
+    per_page?: number;
+    sort_by?: string;
+    sort_direction?: 'asc' | 'desc';
     rest?: any;
 };
 export declare type QueryFilterArrayParamsType = {
