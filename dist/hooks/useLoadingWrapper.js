@@ -35,8 +35,12 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 var react_1 = require("react");
+var useDelayedLoading_1 = __importDefault(require("./useDelayedLoading"));
 var useLoadingWrapper = function () {
     var _a = (0, react_1.useState)(null), data = _a[0], setData = _a[1];
     var _b = (0, react_1.useState)(false), loading = _b[0], setLoading = _b[1];
@@ -72,9 +76,13 @@ var useLoadingWrapper = function () {
             }
         });
     }); };
+    var delayedLoading = (0, useDelayedLoading_1.default)({
+        loading: loading
+    }).loading;
     return {
         data: data,
         loading: loading,
+        delayedLoading: delayedLoading,
         errors: errors,
         loadingWrapper: loadingWrapper,
     };

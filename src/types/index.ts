@@ -231,6 +231,7 @@ export type ResourceResponse = Record<string, any> & {
 export type LoadingWrapperResponseType = {
   data: any 
   loading: boolean
+  delayedLoading: boolean
   errors: any
   loadingWrapper: (fn: () => void) => void
 }

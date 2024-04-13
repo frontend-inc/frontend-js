@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { LoadingWrapperResponseType } from '../types'
+import useDelayedLoading from './useDelayedLoading'
 
 const useLoadingWrapper = (): LoadingWrapperResponseType => {
 	const [data, setData] = useState(null)
@@ -26,9 +27,14 @@ const useLoadingWrapper = (): LoadingWrapperResponseType => {
 		}
 	}
 
+  const { loading: delayedLoading } = useDelayedLoading({
+    loading 
+  })
+
 	return {
 		data,
 		loading,
+    delayedLoading,
 		errors,
 		loadingWrapper,
 	}
