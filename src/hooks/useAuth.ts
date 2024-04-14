@@ -105,7 +105,7 @@ const useAuth = () => {
 
 	const logout = async () => {
 		deleteCookie(authCookie)
-		setCurrentUser({})
+		setCurrentUser(null)
 		setAuthenticated(false)
 	}
 

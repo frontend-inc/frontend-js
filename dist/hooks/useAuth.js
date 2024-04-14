@@ -156,7 +156,7 @@ var useAuth = function () {
     var logout = function () { return __awaiter(void 0, void 0, void 0, function () {
         return __generator(this, function (_a) {
             (0, cookies_next_1.deleteCookie)(authCookie);
-            setCurrentUser({});
+            setCurrentUser(null);
             setAuthenticated(false);
             return [2 /*return*/];
         });
