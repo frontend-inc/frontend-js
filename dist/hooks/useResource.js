@@ -91,7 +91,7 @@ var useResource = function (params) {
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    if (url.includes('undefined')) {
+                    if (url === null || url === void 0 ? void 0 : url.includes('undefined')) {
                         console.log('Error: the URL contains undefined', url);
                         return [2 /*return*/];
                     }

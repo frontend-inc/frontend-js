@@ -1,6 +1,7 @@
 import { UserType } from '../types';
 declare const useAuth: () => {
     loading: boolean;
+    delayedLoading: any;
     errors: Record<string, any>;
     authCookie: any;
     user: import("../types").ResourceType;

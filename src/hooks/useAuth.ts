@@ -23,6 +23,7 @@ const useAuth = () => {
 		errors,
 		setErrors,
 		loading,
+    delayedLoading,
 		setLoading,
 		resource: user,
 		setResource: setUser,
@@ -163,6 +164,7 @@ const useAuth = () => {
 
 	return {
 		loading,
+    delayedLoading,
 		errors,
 		authCookie,
 		user,

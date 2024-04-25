@@ -52,7 +52,7 @@ var useAuth = function () {
     var _c = (0, useResource_1.default)({
         url: serverPath,
         name: 'user',
-    }), errors = _c.errors, setErrors = _c.setErrors, loading = _c.loading, setLoading = _c.setLoading, user = _c.resource, setUser = _c.setResource, handleChange = _c.handleChange, handleErrors = _c.handleErrors;
+    }), errors = _c.errors, setErrors = _c.setErrors, loading = _c.loading, delayedLoading = _c.delayedLoading, setLoading = _c.setLoading, user = _c.resource, setUser = _c.setResource, handleChange = _c.handleChange, handleErrors = _c.handleErrors;
     var updateMe = function (user) { return __awaiter(void 0, void 0, void 0, function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
@@ -237,6 +237,7 @@ var useAuth = function () {
     }, [currentUser]);
     return {
         loading: loading,
+        delayedLoading: delayedLoading,
         errors: errors,
         authCookie: authCookie,
         user: user,

@@ -35,7 +35,7 @@ const useResource = (params: UseResourceParams): ResourceResponse => {
 	}
 
 	const findMany = async (queryParams?: QueryParamsType, loadMore?: boolean) => {
-		if (url.includes('undefined')) {
+		if (url?.includes('undefined')) {
 			console.log('Error: the URL contains undefined', url)
 			return
 		}
