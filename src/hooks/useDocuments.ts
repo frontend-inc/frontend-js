@@ -7,11 +7,11 @@ import {
   flattenDocuments 
 } from '../helpers'
 
-type UseDocumentParams = {	
+type UseDocumentsParams = {	
   collection?: string
 }
 
-const useDocument = (params: UseDocumentParams): ResourceResponse => {
+const useDocuments = (params: UseDocumentsParams): ResourceResponse => {
 
   const [_resource, _setResource] = useState({})
   const [_resources, _setResources] = useState([])
@@ -71,4 +71,4 @@ const useDocument = (params: UseDocumentParams): ResourceResponse => {
   }
 }
 
-export default useDocument
+export default useDocuments

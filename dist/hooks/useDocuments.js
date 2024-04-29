@@ -29,7 +29,7 @@ var react_1 = require("react");
 var useResource_1 = __importDefault(require("./useResource"));
 var constants_1 = require("../constants");
 var helpers_1 = require("../helpers");
-var useDocument = function (params) {
+var useDocuments = function (params) {
     var _a = (0, react_1.useState)({}), _resource = _a[0], _setResource = _a[1];
     var _b = (0, react_1.useState)([]), _resources = _b[0], _setResources = _b[1];
     var collection = (params || {}).collection;
@@ -61,4 +61,4 @@ var useDocument = function (params) {
     }, [resources]);
     return __assign({ setResource: setResource, resource: resource, resources: resources, handleChange: handleChange, _handleChange: _handleChange, _resource: _resource, _resources: _resources }, rest);
 };
-exports.default = useDocument;
+exports.default = useDocuments;
