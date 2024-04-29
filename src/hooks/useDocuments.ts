@@ -34,7 +34,7 @@ const useDocuments = (params: UseDocumentsParams): DocumentResponse => {
     setResource,
     ...rest 
   }: ResourceResponse = useResource({
-    name: 'documents',
+    name: 'document',
     url: `/api/v1/cms/${collection}`,
   })
 

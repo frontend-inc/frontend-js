@@ -34,7 +34,7 @@ var useDocuments = function (params) {
     var _b = (0, react_1.useState)([]), _resources = _b[0], _setResources = _b[1];
     var collection = (params || {}).collection;
     var _c = (0, useResource_1.default)({
-        name: 'documents',
+        name: 'document',
         url: "/api/v1/cms/" + collection,
     }), setResource = _c.setResource, rest = __rest(_c, ["setResource"]);
     var handleDataChange = function (ev) {
