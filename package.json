@@ -1,6 +1,6 @@
 {
     "name": "frontend-js",
-    "version": "0.0.51",
+    "version": "0.0.52",
     "license": "MIT",
     "description": "A JavaScript REST client for Frontend.co.",
     "homepage": "https://github.com/frontend-inc/frontend-js",
@@ -20,8 +20,10 @@
         ".": "./dist/index.js",
         "./client": "./dist/client/index.js",
         "./components": "./dist/components/index.js",
-        "./context": "./dist/context/index.js",
-        "./hooks": "./dist/hooks/index.js",
+        "./constants": "./dist/constants/index.js",
+        "./context": "./dist/context/index.js",        
+        "./helpers": "./dist/helpers/index.js",        
+        "./hooks": "./dist/hooks/index.js",        
         "./types": "./dist/types/index.js"
     },
     "module": "dist/index.js",
