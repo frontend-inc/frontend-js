@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import useResource from './useResource'
-import { ResourceResponse } from '../types'
 import { SYSTEM_FIELDS } from '../constants'
+import { ResourceResponse } from '../types'
 import {
+  filterDocumentLinks,
+  getDocumentValue,
   flattenDocument, 
   flattenDocuments 
 } from '../helpers'
@@ -11,7 +13,15 @@ type UseDocumentsParams = {
   collection?: string
 }
 
-const useDocuments = (params: UseDocumentsParams): ResourceResponse => {
+type DocumentResponse = ResourceResponse & {
+  handleDataChange: (ev: React.ChangeEvent<HTMLInputElement>) => void
+  filterDocumentLinks: (document: any, contentType: string) => any
+  getDocumentValue: (document: any, field: any) => any
+  flattenDocument: (resource: any) => any
+  flattenDocuments: (resources: any) => any
+}
+
+const useDocuments = (params: UseDocumentsParams): DocumentResponse => {
 
   const [_resource, _setResource] = useState({})
   const [_resources, _setResources] = useState([])
@@ -20,18 +30,15 @@ const useDocuments = (params: UseDocumentsParams): ResourceResponse => {
     collection, 
    } = params || {}
 
-  const { 
-    resource,
-    resources,
+  const {
     setResource,
-    handleChange,
-    ...rest  
+    ...rest 
   }: ResourceResponse = useResource({
     name: 'documents',
     url: `/api/v1/cms/${collection}`,
   })
 
-	const _handleChange = (ev) => {
+	const handleDataChange = (ev) => {
 		const { name } = ev.target
 		const value =
 			ev.target.type === 'checkbox' ? ev.target.checked : ev.target.value
@@ -51,24 +58,13 @@ const useDocuments = (params: UseDocumentsParams): ResourceResponse => {
 		}
 	}
 
-  useEffect(() => {
-    _setResource(flattenDocument(resource))
-  }, [resource])
-
-  useEffect(() => {
-    _setResources(flattenDocuments(resources))
-  }, [resources])
-
   return {
-    setResource,    
-    resource,
-    resources,
-    handleChange,
-    _handleChange,
-    _resource,
-    _setResource,
-    _resources,  
-    _setResources,  
+    handleDataChange,
+    filterDocumentLinks,
+    getDocumentValue,
+    flattenDocument,
+    flattenDocuments,
+    setResource,
     ...rest
   }
 }

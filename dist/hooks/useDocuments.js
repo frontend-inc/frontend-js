@@ -36,8 +36,8 @@ var useDocuments = function (params) {
     var _c = (0, useResource_1.default)({
         name: 'documents',
         url: "/api/v1/cms/" + collection,
-    }), resource = _c.resource, resources = _c.resources, setResource = _c.setResource, handleChange = _c.handleChange, rest = __rest(_c, ["resource", "resources", "setResource", "handleChange"]);
-    var _handleChange = function (ev) {
+    }), setResource = _c.setResource, rest = __rest(_c, ["setResource"]);
+    var handleDataChange = function (ev) {
         var name = ev.target.name;
         var value = ev.target.type === 'checkbox' ? ev.target.checked : ev.target.value;
         if (constants_1.SYSTEM_FIELDS.includes(name)) {
@@ -53,12 +53,6 @@ var useDocuments = function (params) {
             });
         }
     };
-    (0, react_1.useEffect)(function () {
-        _setResource((0, helpers_1.flattenDocument)(resource));
-    }, [resource]);
-    (0, react_1.useEffect)(function () {
-        _setResources((0, helpers_1.flattenDocuments)(resources));
-    }, [resources]);
-    return __assign({ setResource: setResource, resource: resource, resources: resources, handleChange: handleChange, _handleChange: _handleChange, _resource: _resource, _setResource: _setResource, _resources: _resources, _setResources: _setResources }, rest);
+    return __assign({ handleDataChange: handleDataChange, filterDocumentLinks: helpers_1.filterDocumentLinks, getDocumentValue: helpers_1.getDocumentValue, flattenDocument: helpers_1.flattenDocument, flattenDocuments: helpers_1.flattenDocuments, setResource: setResource }, rest);
 };
 exports.default = useDocuments;
