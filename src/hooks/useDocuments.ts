@@ -66,7 +66,9 @@ const useDocuments = (params: UseDocumentsParams): ResourceResponse => {
     handleChange,
     _handleChange,
     _resource,
-    _resources,    
+    _setResource,
+    _resources,  
+    _setResources,  
     ...rest
   }
 }

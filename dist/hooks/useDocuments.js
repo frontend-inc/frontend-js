@@ -59,6 +59,6 @@ var useDocuments = function (params) {
     (0, react_1.useEffect)(function () {
         _setResources((0, helpers_1.flattenDocuments)(resources));
     }, [resources]);
-    return __assign({ setResource: setResource, resource: resource, resources: resources, handleChange: handleChange, _handleChange: _handleChange, _resource: _resource, _resources: _resources }, rest);
+    return __assign({ setResource: setResource, resource: resource, resources: resources, handleChange: handleChange, _handleChange: _handleChange, _resource: _resource, _setResource: _setResource, _resources: _resources, _setResources: _setResources }, rest);
 };
 exports.default = useDocuments;
