@@ -25,6 +25,7 @@ const useResource = (params: UseResourceParams): ResourceResponse => {
 	const [perPage, setPerPage] = useState<number>(10)
 	const [totalCount, setTotalCount] = useState<number>(0)
 	const [numPages, setNumPages] = useState<number>(0)
+  const [numResults, setNumResults] = useState<number>(0)
 
 	const showLoading = () => setLoading(true)
 	const hideLoading = () => setLoading(false)
@@ -63,6 +64,7 @@ const useResource = (params: UseResourceParams): ResourceResponse => {
 					setPerPage(res.meta.per_page)
 					setTotalCount(res.meta.total_count)
 					setNumPages(res.meta.num_pages)
+          setNumResults(res.meta.num_results)
 				}
 				return res.data
 			}
