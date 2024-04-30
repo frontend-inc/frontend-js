@@ -387,6 +387,7 @@ var useResource = function (params) {
         perPage: perPage,
         totalCount: totalCount,
         numPages: numPages,
+        numResults: numResults,
         sort: sort,
         paginate: paginate,
         loadMore: loadMore,

@@ -268,6 +268,7 @@ const useResource = (params: UseResourceParams): ResourceResponse => {
 		perPage,
 		totalCount,
 		numPages,
+    numResults,
 		sort,
 		paginate,
 		loadMore,
