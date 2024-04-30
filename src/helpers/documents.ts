@@ -11,8 +11,11 @@ export const flattenDocuments = (resources) => {
 }
 
 export const flattenDocument = (resource) => {
-	let { data, ...rest } = resource || {}
+	let { data, image, video, file, ...rest } = resource || {}
 	return {
+    image: image?.url,
+    video: video?.url,
+    file: file?.url,
 		...rest,
 		...data,
 	}
