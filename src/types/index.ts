@@ -221,8 +221,9 @@ export type ResourceResponse = Record<string, any> & {
   meta: Record<string, any>
   page: number 
   perPage: number
-  totalCount: number
   numPages: number
+  numResults: number 
+  totalCount: number  
   sort: (sortBy: string, sortDirection: 'asc' | 'desc' | null) => Promise<any>
   paginate: (page: number) => Promise<any>
   loadMore: () => void
