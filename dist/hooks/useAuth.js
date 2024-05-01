@@ -155,10 +155,14 @@ var useAuth = function () {
     }); };
     var logout = function () { return __awaiter(void 0, void 0, void 0, function () {
         return __generator(this, function (_a) {
-            (0, cookies_next_1.deleteCookie)(authCookie);
-            setCurrentUser(null);
-            setAuthenticated(false);
-            return [2 /*return*/];
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, (0, cookies_next_1.deleteCookie)(authCookie)];
+                case 1:
+                    _a.sent();
+                    setCurrentUser(null);
+                    setAuthenticated(false);
+                    return [2 /*return*/];
+            }
         });
     }); };
     var googleLogin = function (accessToken) { return __awaiter(void 0, void 0, void 0, function () {
