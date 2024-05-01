@@ -1,5 +1,4 @@
 import {
-	ATTACHMENT_FIELDS,
 	REFERENCE_FIELDS,
 	SYSTEM_FIELDS,
 } from '../constants'

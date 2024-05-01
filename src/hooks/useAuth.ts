@@ -16,6 +16,7 @@ const useAuth = () => {
 		setAuthenticated,
 		currentUser,
 		setCurrentUser,
+    token,
 		setToken,
 	} = useContext(AuthContext)
 
@@ -166,7 +167,11 @@ const useAuth = () => {
 		loading,
     delayedLoading,
 		errors,
+
+    token,
+    setToken,
 		authCookie,
+
 		user,
 		setUser,
 		currentUser,

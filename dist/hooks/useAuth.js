@@ -48,7 +48,7 @@ var useAuth = function () {
     var serverPath = (0, react_1.useContext)(context_1.AuthContext).serverPath;
     var showLoading = function () { return setLoading(true); };
     var hideLoading = function () { return setLoading(false); };
-    var _b = (0, react_1.useContext)(context_1.AuthContext), authenticated = _b.authenticated, setAuthenticated = _b.setAuthenticated, currentUser = _b.currentUser, setCurrentUser = _b.setCurrentUser, setToken = _b.setToken;
+    var _b = (0, react_1.useContext)(context_1.AuthContext), authenticated = _b.authenticated, setAuthenticated = _b.setAuthenticated, currentUser = _b.currentUser, setCurrentUser = _b.setCurrentUser, token = _b.token, setToken = _b.setToken;
     var _c = (0, useResource_1.default)({
         url: serverPath,
         name: 'user',
@@ -239,6 +239,8 @@ var useAuth = function () {
         loading: loading,
         delayedLoading: delayedLoading,
         errors: errors,
+        token: token,
+        setToken: setToken,
         authCookie: authCookie,
         user: user,
         setUser: setUser,
