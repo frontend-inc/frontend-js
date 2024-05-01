@@ -517,7 +517,7 @@ var ApiClient = /** @class */ (function () {
                             _a[this._collection] = user,
                             _a);
                         this.handleFormatData();
-                        this.endpoint = this._url + "/" + user.id;
+                        this.endpoint = this._url + "/me";
                         return [4 /*yield*/, this.put(this.endpoint, this.payload, this.headers)];
                     case 1: return [2 /*return*/, _b.sent()];
                 }

@@ -344,7 +344,7 @@ export class ApiClient {
 			[this._collection]: user,
 		}
 		this.handleFormatData()
-		this.endpoint = `${this._url}/${user.id}`
+		this.endpoint = `${this._url}/me`
 		return await this.put(this.endpoint, this.payload, this.headers)
 	}
 
