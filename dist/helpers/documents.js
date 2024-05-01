@@ -30,8 +30,8 @@ var flattenDocuments = function (resources) {
 };
 exports.flattenDocuments = flattenDocuments;
 var flattenDocument = function (resource) {
-    var _a = resource || {}, data = _a.data, image = _a.image, video = _a.video, file = _a.file, rest = __rest(_a, ["data", "image", "video", "file"]);
-    return __assign(__assign({ image: image === null || image === void 0 ? void 0 : image.url, video: video === null || video === void 0 ? void 0 : video.url, file: file === null || file === void 0 ? void 0 : file.url }, rest), data);
+    var _a = resource || {}, data = _a.data, rest = __rest(_a, ["data"]);
+    return __assign(__assign({}, rest), data);
 };
 exports.flattenDocument = flattenDocument;
 var getDocumentValue = function (document, field) {
