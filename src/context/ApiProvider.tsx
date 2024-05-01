@@ -15,17 +15,16 @@ const ApiProvider = (props: ApiProviderProps) => {
 	const {
 		url,
 		clientUrl,
-		authCookie = 'authToken',
+		authCookie = 'auth-token',
 		apiKey,
 		children,
 	} = props || {}
 
-	const fetchAuthToken = () => String(getCookie(authCookie))
-	const api = createClient({
+  const api = createClient({
     url, 
-    fetchToken: fetchAuthToken, 
+    fetchToken: () => String(getCookie(authCookie)), 
     apiKey
-  })
+   })
 
 	const value = {
     url,
