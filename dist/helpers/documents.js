@@ -35,12 +35,9 @@ var flattenDocument = function (resource) {
 };
 exports.flattenDocument = flattenDocument;
 var getDocumentValue = function (document, field) {
-    var _a, _b, _c;
-    if (constants_1.ATTACHMENT_FIELDS.includes(field === null || field === void 0 ? void 0 : field.variant)) {
-        return (_a = (0, lodash_1.get)(document, field === null || field === void 0 ? void 0 : field.name)) === null || _a === void 0 ? void 0 : _a.url;
-    }
-    else if (constants_1.REFERENCE_FIELDS.includes(field === null || field === void 0 ? void 0 : field.variant)) {
-        var documents = (_c = (_b = document === null || document === void 0 ? void 0 : document.document_links) === null || _b === void 0 ? void 0 : _b.filter(function (d) { var _a; return ((_a = d === null || d === void 0 ? void 0 : d.target) === null || _a === void 0 ? void 0 : _a.content_type) === (field === null || field === void 0 ? void 0 : field.foreign_content_type); })) === null || _c === void 0 ? void 0 : _c.map(function (d) { return d.target; });
+    var _a, _b;
+    if (constants_1.REFERENCE_FIELDS.includes(field === null || field === void 0 ? void 0 : field.variant)) {
+        var documents = (_b = (_a = document === null || document === void 0 ? void 0 : document.document_links) === null || _a === void 0 ? void 0 : _a.filter(function (d) { var _a; return ((_a = d === null || d === void 0 ? void 0 : d.target) === null || _a === void 0 ? void 0 : _a.content_type) === (field === null || field === void 0 ? void 0 : field.foreign_content_type); })) === null || _b === void 0 ? void 0 : _b.map(function (d) { return d.target; });
         return documents;
     }
     else if (constants_1.SYSTEM_FIELDS.includes(field === null || field === void 0 ? void 0 : field.name)) {
