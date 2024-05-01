@@ -131,8 +131,8 @@ var RestClient = /** @class */ (function () {
                             meta: null,
                             errors: null
                         };
-                        if (this.authToken !== undefined) {
-                            this.authToken = this.authToken || this.fetchToken();
+                        if (this.authToken != null && this.authToken != undefined) {
+                            this.authToken = this.authToken;
                         }
                         else {
                             this.authToken = this.fetchToken();
