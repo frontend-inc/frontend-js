@@ -3,9 +3,6 @@ declare const useAuth: () => {
     loading: boolean;
     delayedLoading: any;
     errors: Record<string, any>;
-    token: any;
-    setToken: any;
-    authCookie: any;
     user: import("../types").ResourceType;
     setUser: (value: import("../types").ResourceType) => void;
     currentUser: any;
@@ -27,5 +24,9 @@ declare const useAuth: () => {
     googleLogin: (accessToken: string) => Promise<any>;
     deleteAvatar: () => Promise<any>;
     loadingWrapper: (apiMethod: () => any) => Promise<any>;
+    authenticated: any;
+    token: any;
+    setToken: any;
+    authCookie: any;
 };
 export default useAuth;

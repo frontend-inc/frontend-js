@@ -168,10 +168,6 @@ const useAuth = () => {
     delayedLoading,
 		errors,
 
-    token,
-    setToken,
-		authCookie,
-
 		user,
 		setUser,
 		currentUser,
@@ -199,6 +195,11 @@ const useAuth = () => {
 
 		deleteAvatar,
 		loadingWrapper,
+
+    authenticated,
+    token,
+    setToken,
+		authCookie,
 	}
 }
 

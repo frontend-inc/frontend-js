@@ -239,9 +239,6 @@ var useAuth = function () {
         loading: loading,
         delayedLoading: delayedLoading,
         errors: errors,
-        token: token,
-        setToken: setToken,
-        authCookie: authCookie,
         user: user,
         setUser: setUser,
         currentUser: currentUser,
@@ -263,6 +260,10 @@ var useAuth = function () {
         googleLogin: googleLogin,
         deleteAvatar: deleteAvatar,
         loadingWrapper: loadingWrapper,
+        authenticated: authenticated,
+        token: token,
+        setToken: setToken,
+        authCookie: authCookie,
     };
 };
 exports.default = useAuth;
