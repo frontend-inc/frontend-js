@@ -78,7 +78,7 @@ export class RestClient {
 			meta: null,
       errors: null
 		}
-		this.authToken = this.authToken || this.fetchToken()
+		this.authToken = this.fetchToken()
 		if (this.authToken) {
 			this.options.headers['Authorization'] = `Bearer ${this.authToken}`
 		}
