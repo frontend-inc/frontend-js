@@ -20,9 +20,18 @@ const ApiProvider = (props: ApiProviderProps) => {
 		children,
 	} = props || {}
 
+  const fetchAuthToken = () => {
+    let token = getCookie(authCookie)
+    if(token == null || token == undefined){
+      return null
+    }else{
+      return String(token)
+    }
+  }
+
   const api = createClient({
     url, 
-    fetchToken: () => String(getCookie(authCookie)), 
+    fetchToken: fetchAuthToken,
     apiKey
    })
 

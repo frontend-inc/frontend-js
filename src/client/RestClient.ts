@@ -83,7 +83,6 @@ export class RestClient {
     }else{
       this.authToken = this.fetchToken()
     }		
-    console.log("Auth Token", this.authToken)
 		if (this.authToken != null && this.authToken != undefined) {
 			this.options.headers['Authorization'] = `Bearer ${this.authToken}`
 		}
