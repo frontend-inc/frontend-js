@@ -22,11 +22,7 @@ const ApiProvider = (props: ApiProviderProps) => {
 
   const fetchAuthToken = () => {
     let token = getCookie(authCookie)
-    if(token == null || token == undefined){
-      return null
-    }else{
-      return String(token)
-    }
+    return token ? String(token) : null 
   }
 
   const api = createClient({
