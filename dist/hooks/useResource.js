@@ -153,7 +153,10 @@ var useResource = function (params) {
                     case 1:
                         _a.trys.push([1, 3, 4, 5]);
                         setLoading(true);
-                        return [4 /*yield*/, api.url(url).findLinks(id, contentType, queryParams)];
+                        if (queryParams) {
+                            setQuery(__assign(__assign({}, query), queryParams));
+                        }
+                        return [4 /*yield*/, api.url(url).findLinks(id, contentType, __assign(__assign({}, query), queryParams))];
                     case 2:
                         res = _a.sent();
                         if (res.data) {

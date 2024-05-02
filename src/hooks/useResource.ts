@@ -82,7 +82,16 @@ const useResource = (params: UseResourceParams): ResourceResponse => {
 		}
 		try {
 			setLoading(true)
-			const res = await api.url(url).findLinks(id, contentType, queryParams)
+      if (queryParams) {
+				setQuery({
+					...query,
+					...queryParams,
+				})
+			}  
+			const res = await api.url(url).findLinks(id, contentType, {
+        ...query,
+        ...queryParams,
+      })
 			if (res.data) {
 				if (loadMore !== true ) {
 					setResources(res.data)
