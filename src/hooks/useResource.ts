@@ -35,7 +35,7 @@ const useResource = (params: UseResourceParams): ResourceResponse => {
 		return await loadingWrapper(() => api.collection(name).url(url).findOne(id))
 	}
 
-	const findMany = async (queryParams?: QueryParamsType, loadMore?: boolean) => {
+	const findMany = async (queryParams: QueryParamsType = {}, loadMore?: boolean) => {
 		if (url?.includes('undefined')) {
 			console.log('Error: the URL contains undefined', url)
 			return
@@ -50,7 +50,7 @@ const useResource = (params: UseResourceParams): ResourceResponse => {
 			}      
 			const res = await api.url(url).findMany({
 				...query,
-				...(queryParams || {}),
+				...queryParams,
 			})
 			if (res.data) {
 				if (loadMore !== true ) {
@@ -74,6 +74,38 @@ const useResource = (params: UseResourceParams): ResourceResponse => {
 			setLoading(false)
 		}
 	}
+
+  const findLinks = async (id: ID, contentType: string, queryParams: QueryParamsType = {}, loadMore?: boolean) => {
+		if (url?.includes('undefined')) {
+			console.log('Error: the URL contains undefined', url)
+			return
+		}
+		try {
+			setLoading(true)
+			const res = await api.url(url).findLinks(id, contentType, queryParams)
+			if (res.data) {
+				if (loadMore !== true ) {
+					setResources(res.data)
+				} else {
+					setResources([...resources, ...res.data])
+				}
+				if (res.meta) {
+					setMeta(res.meta)
+					setPage(res.meta.page)
+					setPerPage(res.meta.per_page)
+					setTotalCount(res.meta.total_count)
+					setNumPages(res.meta.num_pages)
+          setNumResults(res.meta.num_results)
+				}
+				return res.data
+			}
+		} catch (e) {
+			handleErrors(e)
+		} finally {
+			setLoading(false)
+		}
+	}
+
 
 	const loadMore = async () => {
 		let nextPage = page + 1
@@ -256,6 +288,7 @@ const useResource = (params: UseResourceParams): ResourceResponse => {
 		deleteMany,
 		publish,
 		unpublish,
+    findLinks,
 		addLinks,
 		removeLinks,
 		addAttachment,

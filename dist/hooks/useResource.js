@@ -87,54 +87,105 @@ var useResource = function (params) {
             }
         });
     }); };
-    var findMany = function (queryParams, loadMore) { return __awaiter(void 0, void 0, void 0, function () {
-        var res, e_1;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0:
-                    if (url === null || url === void 0 ? void 0 : url.includes('undefined')) {
-                        console.log('Error: the URL contains undefined', url);
-                        return [2 /*return*/];
-                    }
-                    _a.label = 1;
-                case 1:
-                    _a.trys.push([1, 3, 4, 5]);
-                    setLoading(true);
-                    if (queryParams) {
-                        setQuery(__assign(__assign({}, query), queryParams));
-                    }
-                    return [4 /*yield*/, api.url(url).findMany(__assign(__assign({}, query), (queryParams || {})))];
-                case 2:
-                    res = _a.sent();
-                    if (res.data) {
-                        if (loadMore !== true) {
-                            setResources(res.data);
+    var findMany = function (queryParams, loadMore) {
+        if (queryParams === void 0) { queryParams = {}; }
+        return __awaiter(void 0, void 0, void 0, function () {
+            var res, e_1;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        if (url === null || url === void 0 ? void 0 : url.includes('undefined')) {
+                            console.log('Error: the URL contains undefined', url);
+                            return [2 /*return*/];
                         }
-                        else {
-                            setResources(__spreadArray(__spreadArray([], resources, true), res.data, true));
+                        _a.label = 1;
+                    case 1:
+                        _a.trys.push([1, 3, 4, 5]);
+                        setLoading(true);
+                        if (queryParams) {
+                            setQuery(__assign(__assign({}, query), queryParams));
                         }
-                        if (res.meta) {
-                            setMeta(res.meta);
-                            setPage(res.meta.page);
-                            setPerPage(res.meta.per_page);
-                            setTotalCount(res.meta.total_count);
-                            setNumPages(res.meta.num_pages);
-                            setNumResults(res.meta.num_results);
+                        return [4 /*yield*/, api.url(url).findMany(__assign(__assign({}, query), queryParams))];
+                    case 2:
+                        res = _a.sent();
+                        if (res.data) {
+                            if (loadMore !== true) {
+                                setResources(res.data);
+                            }
+                            else {
+                                setResources(__spreadArray(__spreadArray([], resources, true), res.data, true));
+                            }
+                            if (res.meta) {
+                                setMeta(res.meta);
+                                setPage(res.meta.page);
+                                setPerPage(res.meta.per_page);
+                                setTotalCount(res.meta.total_count);
+                                setNumPages(res.meta.num_pages);
+                                setNumResults(res.meta.num_results);
+                            }
+                            return [2 /*return*/, res.data];
                         }
-                        return [2 /*return*/, res.data];
-                    }
-                    return [3 /*break*/, 5];
-                case 3:
-                    e_1 = _a.sent();
-                    handleErrors(e_1);
-                    return [3 /*break*/, 5];
-                case 4:
-                    setLoading(false);
-                    return [7 /*endfinally*/];
-                case 5: return [2 /*return*/];
-            }
+                        return [3 /*break*/, 5];
+                    case 3:
+                        e_1 = _a.sent();
+                        handleErrors(e_1);
+                        return [3 /*break*/, 5];
+                    case 4:
+                        setLoading(false);
+                        return [7 /*endfinally*/];
+                    case 5: return [2 /*return*/];
+                }
+            });
         });
-    }); };
+    };
+    var findLinks = function (id, contentType, queryParams, loadMore) {
+        if (queryParams === void 0) { queryParams = {}; }
+        return __awaiter(void 0, void 0, void 0, function () {
+            var res, e_2;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        if (url === null || url === void 0 ? void 0 : url.includes('undefined')) {
+                            console.log('Error: the URL contains undefined', url);
+                            return [2 /*return*/];
+                        }
+                        _a.label = 1;
+                    case 1:
+                        _a.trys.push([1, 3, 4, 5]);
+                        setLoading(true);
+                        return [4 /*yield*/, api.url(url).findLinks(id, contentType, queryParams)];
+                    case 2:
+                        res = _a.sent();
+                        if (res.data) {
+                            if (loadMore !== true) {
+                                setResources(res.data);
+                            }
+                            else {
+                                setResources(__spreadArray(__spreadArray([], resources, true), res.data, true));
+                            }
+                            if (res.meta) {
+                                setMeta(res.meta);
+                                setPage(res.meta.page);
+                                setPerPage(res.meta.per_page);
+                                setTotalCount(res.meta.total_count);
+                                setNumPages(res.meta.num_pages);
+                                setNumResults(res.meta.num_results);
+                            }
+                            return [2 /*return*/, res.data];
+                        }
+                        return [3 /*break*/, 5];
+                    case 3:
+                        e_2 = _a.sent();
+                        handleErrors(e_2);
+                        return [3 /*break*/, 5];
+                    case 4:
+                        setLoading(false);
+                        return [7 /*endfinally*/];
+                    case 5: return [2 /*return*/];
+                }
+            });
+        });
+    };
     var loadMore = function () { return __awaiter(void 0, void 0, void 0, function () {
         var nextPage, loadMoreResults;
         return __generator(this, function (_a) {
@@ -311,7 +362,7 @@ var useResource = function (params) {
         setResource(__assign(__assign({}, resource), (_a = {}, _a[name] = value, _a)));
     };
     var loadingWrapper = function (apiMethod) { return __awaiter(void 0, void 0, void 0, function () {
-        var res, e_2;
+        var res, e_3;
         var _a;
         return __generator(this, function (_b) {
             switch (_b.label) {
@@ -330,7 +381,7 @@ var useResource = function (params) {
                     }
                     return [2 /*return*/, res === null || res === void 0 ? void 0 : res.data];
                 case 2:
-                    e_2 = _b.sent();
+                    e_3 = _b.sent();
                     return [3 /*break*/, 4];
                 case 3:
                     hideLoading();
@@ -375,6 +426,7 @@ var useResource = function (params) {
         deleteMany: deleteMany,
         publish: publish,
         unpublish: unpublish,
+        findLinks: findLinks,
         addLinks: addLinks,
         removeLinks: removeLinks,
         addAttachment: addAttachment,

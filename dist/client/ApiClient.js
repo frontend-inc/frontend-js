@@ -191,6 +191,19 @@ var ApiClient = /** @class */ (function () {
             });
         });
     };
+    ApiClient.prototype.findLinks = function (id, contentType, searchParams) {
+        return __awaiter(this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        this.apiQuery.where(searchParams);
+                        this.endpoint = this._url + "/" + id + "/" + contentType;
+                        return [4 /*yield*/, this.get(this.endpoint, this.apiQuery.url())];
+                    case 1: return [2 /*return*/, _a.sent()];
+                }
+            });
+        });
+    };
     ApiClient.prototype.create = function (data) {
         return __awaiter(this, void 0, void 0, function () {
             var _a;

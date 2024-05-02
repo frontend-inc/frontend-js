@@ -165,6 +165,12 @@ export class ApiClient {
 		return await this.get(this.endpoint, this.apiQuery.url())
 	}
 
+  async findLinks(id: number, contentType: string, searchParams: QueryParamsType): Promise<ExecuteResponseType> {
+		this.apiQuery.where(searchParams)
+		this.endpoint = `${this._url}/${id}/${contentType}`
+		return await this.get(this.endpoint, this.apiQuery.url())
+	}
+
 	async create(data: Record<string, any>): Promise<ExecuteResponseType> {    
 		this.payload = {
 			[this._collection]: data,

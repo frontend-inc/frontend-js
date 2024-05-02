@@ -30,6 +30,7 @@ export declare class ApiClient {
     per(perPage: any): this;
     findOne(id: any): Promise<ExecuteResponseType>;
     findMany(searchParams: QueryParamsType): Promise<ExecuteResponseType>;
+    findLinks(id: number, contentType: string, searchParams: QueryParamsType): Promise<ExecuteResponseType>;
     create(data: Record<string, any>): Promise<ExecuteResponseType>;
     update(data: Record<string, any>): Promise<ExecuteResponseType>;
     destroy(id: number): Promise<ExecuteResponseType>;
