@@ -11,9 +11,9 @@ export const flattenDocuments = (resources) => {
 
 export const flattenDocument = (resource) => {
 	let { data, ...rest } = resource || {}
-	return {
-		...rest,
+	return {		
 		...data,
+    ...rest,
 	}
 }
 

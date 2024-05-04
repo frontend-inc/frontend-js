@@ -31,7 +31,7 @@ var flattenDocuments = function (resources) {
 exports.flattenDocuments = flattenDocuments;
 var flattenDocument = function (resource) {
     var _a = resource || {}, data = _a.data, rest = __rest(_a, ["data"]);
-    return __assign(__assign({}, rest), data);
+    return __assign(__assign({}, data), rest);
 };
 exports.flattenDocument = flattenDocument;
 var getDocumentValue = function (document, field) {
