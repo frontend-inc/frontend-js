@@ -8,6 +8,8 @@ exports.SYSTEM_FIELDS = [
     'title',
     'description',
     'handle',
+    'user',
+    'team',
     'user_id',
     'team_id',
     'label',
