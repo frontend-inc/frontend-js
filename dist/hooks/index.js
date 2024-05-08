@@ -3,11 +3,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.useLoadingWrapper = exports.useResourceContext = exports.useResource = exports.useDelayedLoading = exports.useDocuments = exports.useAuth = exports.useApi = void 0;
+exports.useLoadingWrapper = exports.useResourceContext = exports.useResource = exports.useDelayedLoading = exports.useDocuments = exports.useTeams = exports.useAuth = exports.useApi = void 0;
 var useApi_1 = require("./useApi");
 Object.defineProperty(exports, "useApi", { enumerable: true, get: function () { return __importDefault(useApi_1).default; } });
 var useAuth_1 = require("./useAuth");
 Object.defineProperty(exports, "useAuth", { enumerable: true, get: function () { return __importDefault(useAuth_1).default; } });
+var useTeams_1 = require("./useTeams");
+Object.defineProperty(exports, "useTeams", { enumerable: true, get: function () { return __importDefault(useTeams_1).default; } });
 var useDocuments_1 = require("./useDocuments");
 Object.defineProperty(exports, "useDocuments", { enumerable: true, get: function () { return __importDefault(useDocuments_1).default; } });
 var useDelayedLoading_1 = require("./useDelayedLoading");

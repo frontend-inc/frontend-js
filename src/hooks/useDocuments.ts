@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import useResource from './useResource'
 import { SYSTEM_FIELDS } from '../constants'
 import { ResourceResponse } from '../types'

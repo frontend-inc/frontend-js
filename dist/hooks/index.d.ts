@@ -1,5 +1,6 @@
 export { default as useApi } from './useApi';
 export { default as useAuth } from './useAuth';
+export { default as useTeams } from './useTeams';
 export { default as useDocuments } from './useDocuments';
 export { default as useDelayedLoading } from './useDelayedLoading';
 export { default as useResource } from './useResource';
