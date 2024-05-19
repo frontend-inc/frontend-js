@@ -70,6 +70,9 @@ var RestClient = /** @class */ (function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
+                        console.log("Endpoint", endpoint);
+                        console.log("Params", params);
+                        console.log("Headers", headers);
                         this.method = 'GET';
                         this.params = params;
                         this.options.headers = headers || this.options.headers;
@@ -151,11 +154,18 @@ var RestClient = /** @class */ (function () {
                             method: this.method,
                             headers: this.options.headers
                         };
-                        if (this.options.headers['Content-Type'] !== 'multipart/form-data') {
-                            console.log('this.payload', this.payload);
-                            this.payload = JSON.stringify(this.payload || {});
+                        if ((this.method === 'POST' || this.method === 'PUT') && this.options.headers['Content-Type'] !== 'multipart/form-data') {
+                            if (this.method === 'POST' || this.method === 'PUT') {
+                                try {
+                                    //@ts-ignore
+                                    this.payload = JSON.stringify(this.payload);
+                                }
+                                catch (e) {
+                                    console.log('Error', e);
+                                }
+                            }
                         }
-                        else if (this.options.headers['Content-Type'] === 'multipart/form-data') {
+                        else if ((this.method === 'POST' || this.method === 'PUT') && this.options.headers['Content-Type'] === 'multipart/form-data') {
                             // When using Fetch API you must not set the Content-Type header to multipart/form-data
                             // https://muffinman.io/blog/uploading-files-using-fetch-multipart-form-data/
                             delete this.options.headers['Content-Type'];
