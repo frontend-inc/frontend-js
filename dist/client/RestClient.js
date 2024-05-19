@@ -155,14 +155,12 @@ var RestClient = /** @class */ (function () {
                             headers: this.options.headers
                         };
                         if ((this.method === 'POST' || this.method === 'PUT') && this.options.headers['Content-Type'] !== 'multipart/form-data') {
-                            if (this.method === 'POST' || this.method === 'PUT') {
-                                try {
-                                    //@ts-ignore
-                                    this.payload = JSON.stringify(this.payload);
-                                }
-                                catch (e) {
-                                    console.log('Error', e);
-                                }
+                            try {
+                                //@ts-ignore
+                                this.payload = JSON.stringify(this.payload);
+                            }
+                            catch (e) {
+                                console.log('Error', e);
                             }
                         }
                         else if ((this.method === 'POST' || this.method === 'PUT') && this.options.headers['Content-Type'] === 'multipart/form-data') {

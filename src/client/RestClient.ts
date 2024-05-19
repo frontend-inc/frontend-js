@@ -102,15 +102,12 @@ export class RestClient {
       method: this.method as 'GET' | 'POST' | 'PUT' | 'DELETE',
 			headers: this.options.headers			
 		}
-    if((this.method === 'POST' || this.method === 'PUT') && this.options.headers['Content-Type'] !== 'multipart/form-data') {
-      
-      if (this.method === 'POST' || this.method === 'PUT') {
-        try{
-          //@ts-ignore
-          this.payload = JSON.stringify(this.payload)      
-        }catch(e){
-          console.log('Error', e)
-        }
+    if((this.method === 'POST' || this.method === 'PUT') && this.options.headers['Content-Type'] !== 'multipart/form-data') {      
+      try{
+        //@ts-ignore
+        this.payload = JSON.stringify(this.payload)      
+      }catch(e){
+        console.log('Error', e)
       }
     }else if((this.method === 'POST' || this.method === 'PUT') && this.options.headers['Content-Type'] === 'multipart/form-data') {
       // When using Fetch API you must not set the Content-Type header to multipart/form-data
