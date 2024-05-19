@@ -152,7 +152,7 @@ var RestClient = /** @class */ (function () {
                             headers: this.options.headers
                         };
                         if (this.options.headers['Content-Type'] !== 'multipart/form-data') {
-                            this.payload = JSON.stringify(this.payload);
+                            this.payload = JSON.stringify(this.payload || {});
                         }
                         else if (this.options.headers['Content-Type'] === 'multipart/form-data') {
                             // When using Fetch API you must not set the Content-Type header to multipart/form-data

@@ -4,7 +4,6 @@ import {
 } from '../constants'
 import { get } from 'lodash'
 
-
 export const flattenDocuments = (resources) => {
   return resources.map((resource) => flattenDocument(resource))
 }
