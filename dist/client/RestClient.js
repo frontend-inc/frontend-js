@@ -152,6 +152,7 @@ var RestClient = /** @class */ (function () {
                             headers: this.options.headers
                         };
                         if (this.options.headers['Content-Type'] !== 'multipart/form-data') {
+                            console.log('this.payload', this.payload);
                             this.payload = JSON.stringify(this.payload || {});
                         }
                         else if (this.options.headers['Content-Type'] === 'multipart/form-data') {

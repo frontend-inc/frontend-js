@@ -98,6 +98,7 @@ export class RestClient {
 			headers: this.options.headers			
 		}
     if(this.options.headers['Content-Type'] !== 'multipart/form-data') {
+      console.log('this.payload', this.payload)
       this.payload = JSON.stringify(this.payload || {})      
     }else if(this.options.headers['Content-Type'] === 'multipart/form-data') {
       // When using Fetch API you must not set the Content-Type header to multipart/form-data
