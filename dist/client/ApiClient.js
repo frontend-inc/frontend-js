@@ -183,7 +183,9 @@ var ApiClient = /** @class */ (function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
+                        console.log("FindMany", searchParams);
                         this.apiQuery.where(searchParams);
+                        console.log("ApiQuery", this.apiQuery.url());
                         this.endpoint = this._url;
                         return [4 /*yield*/, this.get(this.endpoint, this.apiQuery.url())];
                     case 1: return [2 /*return*/, _a.sent()];
