@@ -160,9 +160,7 @@ export class ApiClient {
 	}
 
 	async findMany(searchParams: QueryParamsType): Promise<ExecuteResponseType> {
-    console.log("FindMany", searchParams)
 		this.apiQuery.where(searchParams)
-    console.log("ApiQuery", this.apiQuery.url())
 		this.endpoint = this._url
 		return await this.get(this.endpoint, this.apiQuery.url())
 	}

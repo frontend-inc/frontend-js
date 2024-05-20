@@ -39,11 +39,6 @@ export class RestClient {
 		params?: string,
 		headers?: Record<string, any> | null
 	): Promise<ExecuteResponseType> {
-
-    console.log("Endpoint", endpoint)
-    console.log("Params", params)
-    console.log("Headers", headers)
-
 		this.method = 'GET'
 		this.params = params
 		this.options.headers = headers || this.options.headers

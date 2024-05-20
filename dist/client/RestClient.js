@@ -70,9 +70,6 @@ var RestClient = /** @class */ (function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        console.log("Endpoint", endpoint);
-                        console.log("Params", params);
-                        console.log("Headers", headers);
                         this.method = 'GET';
                         this.params = params;
                         this.options.headers = headers || this.options.headers;
