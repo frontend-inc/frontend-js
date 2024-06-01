@@ -32,10 +32,10 @@ var helpers_1 = require("../helpers");
 var useDocuments = function (params) {
     var _a = (0, react_1.useState)({}), _resource = _a[0], _setResource = _a[1];
     var _b = (0, react_1.useState)([]), _resources = _b[0], _setResources = _b[1];
-    var collection = (params || {}).collection;
+    var url = (params || {}).url;
     var _c = (0, useResource_1.default)({
         name: 'document',
-        url: "/api/v1/cms/" + collection,
+        url: url
     }), setResource = _c.setResource, rest = __rest(_c, ["setResource"]);
     var handleDataChange = function (ev) {
         var name = ev.target.name;

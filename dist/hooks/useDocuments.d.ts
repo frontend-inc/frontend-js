@@ -1,7 +1,7 @@
 import React from 'react';
 import { ResourceResponse } from '../types';
 declare type UseDocumentsParams = {
-    collection?: string;
+    url?: string;
 };
 declare type DocumentResponse = ResourceResponse & {
     handleDataChange: (ev: React.ChangeEvent<HTMLInputElement>) => void;

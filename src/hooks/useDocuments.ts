@@ -10,7 +10,7 @@ import {
 } from '../helpers'
 
 type UseDocumentsParams = {	
-  collection?: string
+  url?: string
 }
 
 type DocumentResponse = ResourceResponse & {
@@ -27,7 +27,7 @@ const useDocuments = (params: UseDocumentsParams): DocumentResponse => {
   const [_resources, _setResources] = useState([])
 
   const { 
-    collection, 
+    url, 
    } = params || {}
 
   const {
@@ -35,7 +35,7 @@ const useDocuments = (params: UseDocumentsParams): DocumentResponse => {
     ...rest 
   }: ResourceResponse = useResource({
     name: 'document',
-    url: `/api/v1/cms/${collection}`,
+    url
   })
 
 	const handleDataChange = (ev) => {
