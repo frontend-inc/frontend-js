@@ -26,7 +26,6 @@ export const SYSTEM_FIELDS = [
 	'lng',
   'enable_stripe',
   'stripe_payment_link',
-  'stripe_price_id',
   'stripe_amount',
   'track_inventory',
   'quantity'
