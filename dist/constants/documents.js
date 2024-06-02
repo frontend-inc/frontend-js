@@ -25,4 +25,9 @@ exports.SYSTEM_FIELDS = [
     'file',
     'lat',
     'lng',
+    'enable_stripe',
+    'stripe_payment_link',
+    'stripe_price_id',
+    'track_inventory',
+    'quantity'
 ];
