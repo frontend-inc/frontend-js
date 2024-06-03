@@ -5,6 +5,7 @@ export const ATTACHMENT_FIELDS = ['image', 'video', 'file']
 export const SYSTEM_FIELDS = [
 	'id',
 	'title',
+  'subtitle',
 	'description',
 	'handle',
   'user',
