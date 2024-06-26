@@ -31,12 +31,19 @@ export const getDocumentValue = (document, field) => {
 
 export const changeDocumentValue = (document, fieldName, value) => {
   if(!document || !fieldName) return null;
+  let newDocument = { ...document }
   if(SYSTEM_FIELDS.includes(fieldName)) {
-    document[fieldName] = value
+    newDocument[fieldName] = value
   }else{
-    document.data[fieldName] = value
+    newDocument = {
+      ...newDocument,
+      data: {
+        ...newDocument.data,
+        [fieldName]: value      
+      }
+    }
   }
-  return document
+  return newDocument
 }
 
 export const filterDocumentLinks = (document, contentType) => {

@@ -49,15 +49,17 @@ var getDocumentValue = function (document, field) {
 };
 exports.getDocumentValue = getDocumentValue;
 var changeDocumentValue = function (document, fieldName, value) {
+    var _a;
     if (!document || !fieldName)
         return null;
+    var newDocument = __assign({}, document);
     if (constants_1.SYSTEM_FIELDS.includes(fieldName)) {
-        document[fieldName] = value;
+        newDocument[fieldName] = value;
     }
     else {
-        document.data[fieldName] = value;
+        newDocument = __assign(__assign({}, newDocument), { data: __assign(__assign({}, newDocument.data), (_a = {}, _a[fieldName] = value, _a)) });
     }
-    return document;
+    return newDocument;
 };
 exports.changeDocumentValue = changeDocumentValue;
 var filterDocumentLinks = function (document, contentType) {
