@@ -31,7 +31,9 @@ export const getDocumentValue = (document, field) => {
 
 export const changeDocumentValue = (document, fieldName, value) => {
   if(!document || !fieldName) return null;
-  let newDocument = { ...document }
+  let newDocument = { 
+    ...document 
+  }
   if(SYSTEM_FIELDS.includes(fieldName)) {
     newDocument[fieldName] = value
   }else{

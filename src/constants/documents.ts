@@ -15,6 +15,7 @@ export const SYSTEM_FIELDS = [
 	'label',
 	'shopify_handle',
 	'published',
+  'status',
 	'locale',
   'location',
 	'tags',
