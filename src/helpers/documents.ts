@@ -29,6 +29,16 @@ export const getDocumentValue = (document, field) => {
 	}
 }
 
+export const changeDocumentValue = (document, fieldName, value) => {
+  if(!document || !fieldName) return null;
+  if(SYSTEM_FIELDS.includes(fieldName)) {
+    document[fieldName] = value
+  }else{
+    document.data[fieldName] = value
+  }
+  return document
+}
+
 export const filterDocumentLinks = (document, contentType) => {
   if(!document?.document_links || document?.document_links?.length == 0 || !contentType) return null;
 	let documents = document
