@@ -347,7 +347,7 @@ export class ApiClient {
 	async updateMe(user: UserType): Promise<ExecuteResponseType> {
 		this._collection = 'user'
 		this.payload = {
-			[this._collection]: user,
+			user: user,
 		}
 		this.handleFormatData()
 		this.endpoint = `${this._url}/me`

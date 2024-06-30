@@ -521,18 +521,17 @@ var ApiClient = /** @class */ (function () {
     };
     ApiClient.prototype.updateMe = function (user) {
         return __awaiter(this, void 0, void 0, function () {
-            var _a;
-            return __generator(this, function (_b) {
-                switch (_b.label) {
+            return __generator(this, function (_a) {
+                switch (_a.label) {
                     case 0:
                         this._collection = 'user';
-                        this.payload = (_a = {},
-                            _a[this._collection] = user,
-                            _a);
+                        this.payload = {
+                            user: user,
+                        };
                         this.handleFormatData();
                         this.endpoint = this._url + "/me";
                         return [4 /*yield*/, this.put(this.endpoint, this.payload, this.headers)];
-                    case 1: return [2 /*return*/, _b.sent()];
+                    case 1: return [2 /*return*/, _a.sent()];
                 }
             });
         });
