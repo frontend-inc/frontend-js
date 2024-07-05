@@ -11,7 +11,7 @@ var useQuery = function (params) {
     var _b = (0, react_1.useContext)(context_1.QueryContext), loading = _b.loading, setLoading = _b.setLoading, delayedLoading = _b.delayedLoading, setDelayedLoading = _b.setDelayedLoading, url = _b.url, setUrl = _b.setUrl, query = _b.query, setQuery = _b.setQuery, resources = _b.resources, setResources = _b.setResources;
     var _c = (0, useResource_1.default)({
         name: name,
-        url: _url,
+        url: _url || url,
     }), _loading = _c.loading, _delayedLoading = _c.delayedLoading, loadingWrapper = _c.loadingWrapper, _resources = _c.resources, findMany = _c.findMany, reloadMany = _c.reloadMany, updateMany = _c.updateMany, deleteMany = _c.deleteMany, findLinks = _c.findLinks, updatePositions = _c.updatePositions, _query = _c.query, _setQuery = _c.setQuery, meta = _c.meta, page = _c.page, perPage = _c.perPage, totalCount = _c.totalCount, numPages = _c.numPages, numResults = _c.numResults, sort = _c.sort, paginate = _c.paginate, loadMore = _c.loadMore;
     (0, react_1.useEffect)(function () {
         setLoading(_loading);

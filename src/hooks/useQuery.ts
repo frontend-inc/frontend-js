@@ -47,7 +47,7 @@ const useQuery = (params?: UseQueryContextParams) => {
 		loadMore,
 	} = useResource({
 		name,
-		url: _url,
+		url: _url || url,
 	})
 
 	useEffect(() => {
