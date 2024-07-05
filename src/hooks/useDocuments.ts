@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import useResource from './useResource'
+import React from 'react'
+import useResourceContext from './useResourceContext'
 import { SYSTEM_FIELDS } from '../constants'
 import { ResourceResponse } from '../types'
 import {
@@ -23,17 +23,12 @@ type DocumentResponse = ResourceResponse & {
 
 const useDocuments = (params: UseDocumentsParams): DocumentResponse => {
 
-  const [_resource, _setResource] = useState({})
-  const [_resources, _setResources] = useState([])
-
-  const { 
-    url, 
-   } = params || {}
+  const { url } = params || {}
 
   const {
     setResource,
     ...rest 
-  }: ResourceResponse = useResource({
+  }: ResourceResponse = useResourceContext({
     name: 'document',
     url
   })

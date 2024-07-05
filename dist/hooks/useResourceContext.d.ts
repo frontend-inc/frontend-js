@@ -4,8 +4,9 @@ declare type UseResourceContextParams = {
 };
 declare const useResourceContext: (params?: UseResourceContextParams) => {
     loading: any;
-    delayedLoading: any;
     setLoading: any;
+    delayedLoading: any;
+    setDelayedLoading: any;
     loadingWrapper: (fn: () => void) => void;
     errors: any;
     setErrors: any;

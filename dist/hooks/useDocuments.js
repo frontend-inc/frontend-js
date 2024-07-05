@@ -25,18 +25,15 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var react_1 = require("react");
-var useResource_1 = __importDefault(require("./useResource"));
+var useResourceContext_1 = __importDefault(require("./useResourceContext"));
 var constants_1 = require("../constants");
 var helpers_1 = require("../helpers");
 var useDocuments = function (params) {
-    var _a = (0, react_1.useState)({}), _resource = _a[0], _setResource = _a[1];
-    var _b = (0, react_1.useState)([]), _resources = _b[0], _setResources = _b[1];
     var url = (params || {}).url;
-    var _c = (0, useResource_1.default)({
+    var _a = (0, useResourceContext_1.default)({
         name: 'document',
         url: url
-    }), setResource = _c.setResource, rest = __rest(_c, ["setResource"]);
+    }), setResource = _a.setResource, rest = __rest(_a, ["setResource"]);
     var handleDataChange = function (ev) {
         var name = ev.target.name;
         var value = ev.target.type === 'checkbox' ? ev.target.checked : ev.target.value;

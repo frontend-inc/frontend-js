@@ -28,13 +28,16 @@ var ResourceProvider = function (props) {
     var children = props.children;
     var _a = (0, react_1.useState)(''), url = _a[0], setUrl = _a[1];
     var _b = (0, react_1.useState)(false), loading = _b[0], setLoading = _b[1];
-    var _c = (0, react_1.useState)({}), query = _c[0], setQuery = _c[1];
-    var _d = (0, react_1.useState)({}), errors = _d[0], setErrors = _d[1];
-    var _e = (0, react_1.useState)(), resource = _e[0], setResource = _e[1];
-    var _f = (0, react_1.useState)(), resources = _f[0], setResources = _f[1];
+    var _c = (0, react_1.useState)(false), delayedLoading = _c[0], setDelayedLoading = _c[1];
+    var _d = (0, react_1.useState)({}), query = _d[0], setQuery = _d[1];
+    var _e = (0, react_1.useState)({}), errors = _e[0], setErrors = _e[1];
+    var _f = (0, react_1.useState)(), resource = _f[0], setResource = _f[1];
+    var _g = (0, react_1.useState)(), resources = _g[0], setResources = _g[1];
     var value = {
         loading: loading,
         setLoading: setLoading,
+        delayedLoading: delayedLoading,
+        setDelayedLoading: setDelayedLoading,
         errors: errors,
         setErrors: setErrors,
         url: url,

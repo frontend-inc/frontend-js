@@ -13,6 +13,8 @@ const useResourceContext = (params?: UseResourceContextParams) => {
 	const {
 		loading,
 		setLoading,
+    delayedLoading,
+    setDelayedLoading,
 		errors,
 		setErrors,
 		url,
@@ -27,7 +29,7 @@ const useResourceContext = (params?: UseResourceContextParams) => {
 
 	const {
 		loading: _loading,
-    delayedLoading,		
+    delayedLoading: _delayedLoading,		
 		loadingWrapper,
 		errors: _errors,
 		handleChange,
@@ -64,12 +66,16 @@ const useResourceContext = (params?: UseResourceContextParams) => {
 		loadMore,
 	} = useResource({
 		name,
-		url: url || _url,
+		url: _url || url,
 	})
 
 	useEffect(() => {
 		setLoading(_loading)
 	}, [_loading])
+
+  useEffect(() => {
+		setDelayedLoading(_delayedLoading)
+	}, [_delayedLoading])
 
 	useEffect(() => {
 		setErrors(_errors)
@@ -95,8 +101,9 @@ const useResourceContext = (params?: UseResourceContextParams) => {
 
 	return {
 		loading,
-    delayedLoading,
 		setLoading,
+    delayedLoading,
+    setDelayedLoading,
 		loadingWrapper,
 		errors,
 		setErrors,

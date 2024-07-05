@@ -402,12 +402,12 @@ var useResource = function (params) {
         }
         console.log('handleErrors', e);
     };
-    var delayedLoading = (0, hooks_1.useDelayedLoading)({
+    var delayLoading = (0, hooks_1.useDelayedLoading)({
         loading: loading
     }).loading;
     return {
         loading: loading,
-        delayedLoading: delayedLoading,
+        delayLoading: delayLoading,
         setLoading: setLoading,
         loadingWrapper: loadingWrapper,
         errors: errors,

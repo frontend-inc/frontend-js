@@ -10,6 +10,7 @@ const ResourceProvider = (props: ResourceProviderProps) => {
 
 	const [url, setUrl] = useState('')
 	const [loading, setLoading] = useState(false)
+  const [delayedLoading, setDelayedLoading] = useState(false)
 	const [query, setQuery] = useState({})
 	const [errors, setErrors] = useState({})
 	const [resource, setResource] = useState()
@@ -18,6 +19,9 @@ const ResourceProvider = (props: ResourceProviderProps) => {
 	const value = {
 		loading,
 		setLoading,
+
+    delayedLoading,
+    setDelayedLoading,
 
 		errors,
 		setErrors,
