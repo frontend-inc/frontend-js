@@ -66,7 +66,7 @@ const useResourceContext = (params?: UseResourceContextParams) => {
 		loadMore,
 	} = useResource({
 		name,
-		url: _url || url,
+		url: _url,
 	})
 
 	useEffect(() => {
