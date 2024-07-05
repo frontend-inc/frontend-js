@@ -1,8 +1,8 @@
 import React from 'react'
 import useResourceContext from './useResourceContext'
-import { SYSTEM_FIELDS } from '../constants'
 import { ResourceResponse } from '../types'
 import {
+  changeDocumentValue,
   filterDocumentLinks,
   getDocumentValue,
   flattenDocument, 
@@ -35,22 +35,12 @@ const useDocuments = (params: UseDocumentsParams): DocumentResponse => {
 
 	const handleDataChange = (ev) => {
 		const { name } = ev.target
-		const value =
-			ev.target.type === 'checkbox' ? ev.target.checked : ev.target.value
-		if (SYSTEM_FIELDS.includes(name)) {
-			setResource((prev) => ({
-				...prev,
-				[name]: value,
-			}))
-		} else {
-			setResource((prev) => ({
-				...prev,
-				data: {
-					...prev.data,
-					[name]: value,
-				},
-			}))
-		}
+		const value = ev.target.type === 'checkbox' ? 
+      ev.target.checked : 
+      ev.target.value    
+    setResource(prev => 
+      changeDocumentValue(prev, name, value)
+    )		
 	}
 
   return {

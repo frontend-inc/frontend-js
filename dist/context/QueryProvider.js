@@ -23,26 +23,26 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var react_1 = __importStar(require("react"));
-var ResourceContext_1 = __importDefault(require("./ResourceContext"));
-var ResourceProvider = function (props) {
+var QueryContext_1 = __importDefault(require("./QueryContext"));
+var QueryProvider = function (props) {
     var children = props.children;
     var _a = (0, react_1.useState)(''), url = _a[0], setUrl = _a[1];
     var _b = (0, react_1.useState)(false), loading = _b[0], setLoading = _b[1];
     var _c = (0, react_1.useState)(false), delayedLoading = _c[0], setDelayedLoading = _c[1];
-    var _d = (0, react_1.useState)({}), errors = _d[0], setErrors = _d[1];
-    var _e = (0, react_1.useState)(), resource = _e[0], setResource = _e[1];
+    var _d = (0, react_1.useState)({}), query = _d[0], setQuery = _d[1];
+    var _e = (0, react_1.useState)(), resources = _e[0], setResources = _e[1];
     var value = {
         loading: loading,
         setLoading: setLoading,
         delayedLoading: delayedLoading,
         setDelayedLoading: setDelayedLoading,
-        errors: errors,
-        setErrors: setErrors,
         url: url,
         setUrl: setUrl,
-        resource: resource,
-        setResource: setResource,
+        query: query,
+        setQuery: setQuery,
+        resources: resources,
+        setResources: setResources,
     };
-    return (react_1.default.createElement(ResourceContext_1.default.Provider, { value: value }, children));
+    return (react_1.default.createElement(QueryContext_1.default.Provider, { value: value }, children));
 };
-exports.default = ResourceProvider;
+exports.default = QueryProvider;

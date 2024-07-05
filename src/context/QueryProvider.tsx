@@ -1,18 +1,18 @@
 import React, { useState } from 'react'
-import ResourceContext from './ResourceContext'
+import QueryContext from './QueryContext'
 
-type ResourceProviderProps = {
+type QueryProviderProps = {
 	children: React.ReactNode
 }
 
-const ResourceProvider = (props: ResourceProviderProps) => {
+const QueryProvider = (props: QueryProviderProps) => {
 	const { children } = props
 
 	const [url, setUrl] = useState('')
 	const [loading, setLoading] = useState(false)
   const [delayedLoading, setDelayedLoading] = useState(false)
-	const [errors, setErrors] = useState({})
-	const [resource, setResource] = useState()
+	const [query, setQuery] = useState({})
+	const [resources, setResources] = useState()
 
 	const value = {
 		loading,
@@ -21,21 +21,21 @@ const ResourceProvider = (props: ResourceProviderProps) => {
     delayedLoading,
     setDelayedLoading,
 
-		errors,
-		setErrors,
-
 		url,
 		setUrl,
 
-		resource,
-		setResource,
+		query,
+		setQuery,
+
+		resources,
+		setResources,
 	}
 
 	return (
-		<ResourceContext.Provider value={value}>
+		<QueryContext.Provider value={value}>
 			{children}
-		</ResourceContext.Provider>
+		</QueryContext.Provider>
 	)
 }
 
-export default ResourceProvider
+export default QueryProvider

@@ -26,7 +26,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var useResourceContext_1 = __importDefault(require("./useResourceContext"));
-var constants_1 = require("../constants");
 var helpers_1 = require("../helpers");
 var useDocuments = function (params) {
     var url = (params || {}).url;
@@ -36,19 +35,12 @@ var useDocuments = function (params) {
     }), setResource = _a.setResource, rest = __rest(_a, ["setResource"]);
     var handleDataChange = function (ev) {
         var name = ev.target.name;
-        var value = ev.target.type === 'checkbox' ? ev.target.checked : ev.target.value;
-        if (constants_1.SYSTEM_FIELDS.includes(name)) {
-            setResource(function (prev) {
-                var _a;
-                return (__assign(__assign({}, prev), (_a = {}, _a[name] = value, _a)));
-            });
-        }
-        else {
-            setResource(function (prev) {
-                var _a;
-                return (__assign(__assign({}, prev), { data: __assign(__assign({}, prev.data), (_a = {}, _a[name] = value, _a)) }));
-            });
-        }
+        var value = ev.target.type === 'checkbox' ?
+            ev.target.checked :
+            ev.target.value;
+        setResource(function (prev) {
+            return (0, helpers_1.changeDocumentValue)(prev, name, value);
+        });
     };
     return __assign({ handleDataChange: handleDataChange, filterDocumentLinks: helpers_1.filterDocumentLinks, getDocumentValue: helpers_1.getDocumentValue, flattenDocument: helpers_1.flattenDocument, flattenDocuments: helpers_1.flattenDocuments, setResource: setResource }, rest);
 };

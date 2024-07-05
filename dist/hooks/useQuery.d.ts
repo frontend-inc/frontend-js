@@ -1,0 +1,32 @@
+declare type UseQueryContextParams = {
+    name?: string;
+    url?: string;
+};
+declare const useQuery: (params?: UseQueryContextParams) => {
+    url: any;
+    loading: any;
+    setLoading: any;
+    delayedLoading: any;
+    setDelayedLoading: any;
+    loadingWrapper: (fn: () => void) => void;
+    resources: any;
+    setResources: any;
+    findMany: (queryParams?: import("..").QueryParamsType, loadMore?: boolean) => Promise<any>;
+    reloadMany: () => Promise<any>;
+    updateMany: (ids: import("..").ID[], data: import("..").ResourceType) => Promise<any>;
+    deleteMany: (ids: import("..").ID[]) => void;
+    findLinks: any;
+    updatePositions: (sorted: import("..").ResourceType[]) => Promise<any>;
+    query: any;
+    setQuery: any;
+    meta: Record<string, any>;
+    page: number;
+    perPage: number;
+    totalCount: number;
+    numPages: number;
+    numResults: number;
+    sort: (sortBy: string, sortDirection: "asc" | "desc") => Promise<any>;
+    paginate: (page: number) => Promise<any>;
+    loadMore: () => void;
+};
+export default useQuery;
