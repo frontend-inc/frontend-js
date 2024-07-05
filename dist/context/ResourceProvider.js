@@ -32,7 +32,6 @@ var ResourceProvider = function (props) {
     var _d = (0, react_1.useState)({}), errors = _d[0], setErrors = _d[1];
     var _e = (0, react_1.useState)(), resource = _e[0], setResource = _e[1];
     var _f = (0, react_1.useState)(), resources = _f[0], setResources = _f[1];
-    var _g = (0, react_1.useState)(false), showModal = _g[0], setShowModal = _g[1];
     var value = {
         loading: loading,
         setLoading: setLoading,
@@ -46,8 +45,6 @@ var ResourceProvider = function (props) {
         setResource: setResource,
         resources: resources,
         setResources: setResources,
-        showModal: showModal,
-        setShowModal: setShowModal,
     };
     return (react_1.default.createElement(ResourceContext_1.default.Provider, { value: value }, children));
 };

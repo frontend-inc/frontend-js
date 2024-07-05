@@ -4,17 +4,20 @@ declare type UseResourceContextParams = {
 };
 declare const useResourceContext: (params?: UseResourceContextParams) => {
     loading: any;
+    delayedLoading: any;
+    setLoading: any;
     loadingWrapper: (fn: () => void) => void;
     errors: any;
     setErrors: any;
     handleChange: (e: any) => void;
     handleErrors: (error: any) => void;
     resource: any;
-    setResource: any;
     resources: any;
+    setResource: any;
     setResources: any;
     findOne: (id: import("..").ID) => import("..").ResourceType;
     findMany: (queryParams?: import("..").QueryParamsType, loadMore?: boolean) => Promise<any>;
+    reloadMany: () => Promise<any>;
     save: (resource: import("..").ResourceType) => import("..").ResourceType;
     update: (resource: import("..").ResourceType) => import("..").ResourceType;
     create: (resource: import("..").ResourceType) => import("..").ResourceType;
@@ -23,6 +26,7 @@ declare const useResourceContext: (params?: UseResourceContextParams) => {
     deleteMany: (ids: import("..").ID[]) => void;
     publish: (ids: import("..").ID[]) => Promise<any>;
     unpublish: (id: import("..").ID[]) => Promise<any>;
+    findLinks: any;
     addLinks: (sourceId: import("..").ID, targetIds: import("..").ID[]) => Promise<any>;
     removeLinks: (sourceId: import("..").ID, targetIds: import("..").ID[]) => Promise<any>;
     addAttachment: (id: import("..").ID, fieldName: string, attachmentId: import("..").ID) => import("..").ResourceType;
@@ -35,10 +39,9 @@ declare const useResourceContext: (params?: UseResourceContextParams) => {
     perPage: number;
     totalCount: number;
     numPages: number;
+    numResults: number;
     sort: (sortBy: string, sortDirection: "asc" | "desc") => Promise<any>;
     paginate: (page: number) => Promise<any>;
     loadMore: () => void;
-    showModal: any;
-    setShowModal: any;
 };
 export default useResourceContext;

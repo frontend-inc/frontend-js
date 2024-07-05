@@ -14,7 +14,6 @@ const ResourceProvider = (props: ResourceProviderProps) => {
 	const [errors, setErrors] = useState({})
 	const [resource, setResource] = useState()
 	const [resources, setResources] = useState()
-	const [showModal, setShowModal] = useState(false)
 
 	const value = {
 		loading,
@@ -35,8 +34,6 @@ const ResourceProvider = (props: ResourceProviderProps) => {
 		resources,
 		setResources,
 
-		showModal,
-		setShowModal,
 	}
 
 	return (
