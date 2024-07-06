@@ -1,8 +1,6 @@
-declare type UseResourceContextParams = {
-    name?: string;
-    url?: string;
-};
-declare const useResourceContext: (params?: UseResourceContextParams) => {
+declare const useResourceContext: () => {
+    url: any;
+    name: any;
     loading: any;
     setLoading: any;
     delayedLoading: any;

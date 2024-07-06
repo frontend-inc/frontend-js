@@ -1,14 +1,15 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import ResourceContext from './ResourceContext'
 
 type ResourceProviderProps = {
+  url: string
+  name: string
 	children: React.ReactNode
 }
 
 const ResourceProvider = (props: ResourceProviderProps) => {
-	const { children } = props
-
-	const [url, setUrl] = useState('')
+	const { url, name, children } = props
+	
 	const [loading, setLoading] = useState(false)
   const [delayedLoading, setDelayedLoading] = useState(false)
   const [query, setQuery] = useState({})
@@ -17,6 +18,9 @@ const ResourceProvider = (props: ResourceProviderProps) => {
   const [resources, setResources] = useState([])
 
 	const value = {
+		url,
+    name,
+
 		loading,
 		setLoading,
 
@@ -28,9 +32,6 @@ const ResourceProvider = (props: ResourceProviderProps) => {
 
 		errors,
 		setErrors,
-
-		url,
-		setUrl,
 
 		resource,
 		setResource,

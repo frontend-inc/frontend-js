@@ -25,19 +25,17 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var react_1 = __importStar(require("react"));
 var QueryContext_1 = __importDefault(require("./QueryContext"));
 var QueryProvider = function (props) {
-    var children = props.children;
-    var _a = (0, react_1.useState)(''), url = _a[0], setUrl = _a[1];
-    var _b = (0, react_1.useState)(false), loading = _b[0], setLoading = _b[1];
-    var _c = (0, react_1.useState)(false), delayedLoading = _c[0], setDelayedLoading = _c[1];
-    var _d = (0, react_1.useState)({}), query = _d[0], setQuery = _d[1];
-    var _e = (0, react_1.useState)(), resources = _e[0], setResources = _e[1];
+    var url = props.url, children = props.children;
+    var _a = (0, react_1.useState)(false), loading = _a[0], setLoading = _a[1];
+    var _b = (0, react_1.useState)(false), delayedLoading = _b[0], setDelayedLoading = _b[1];
+    var _c = (0, react_1.useState)({}), query = _c[0], setQuery = _c[1];
+    var _d = (0, react_1.useState)(), resources = _d[0], setResources = _d[1];
     var value = {
         loading: loading,
         setLoading: setLoading,
         delayedLoading: delayedLoading,
         setDelayedLoading: setDelayedLoading,
         url: url,
-        setUrl: setUrl,
         query: query,
         setQuery: setQuery,
         resources: resources,

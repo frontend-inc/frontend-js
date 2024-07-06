@@ -2,23 +2,18 @@ import React, { useEffect, useContext } from 'react'
 import { ResourceContext } from '../context'
 import useResource from './useResource'
 
-type UseResourceContextParams = {
-	name?: string
-	url?: string
-}
 
-const useResourceContext = (params?: UseResourceContextParams) => {
-	const { name, url: _url } = params || {}
-
+const useResourceContext = () => {
+	
 	const {
+    url,
+    name,
 		loading,
 		setLoading,
     delayedLoading,
     setDelayedLoading,
 		errors,
 		setErrors,
-		url,
-		setUrl,
 		query,
 		setQuery,
 		resource,
@@ -66,7 +61,7 @@ const useResourceContext = (params?: UseResourceContextParams) => {
 		loadMore,
 	} = useResource({
 		name,
-		url: _url,
+		url
 	})
 
 	useEffect(() => {
@@ -93,13 +88,9 @@ const useResourceContext = (params?: UseResourceContextParams) => {
 		setResources(_resources)
 	}, [_resources])
 
-	useEffect(() => {
-		if (_url) {
-			setUrl(_url)
-		}
-	}, [_url])
-
 	return {
+    url,
+    name,
 		loading,
 		setLoading,
     delayedLoading,

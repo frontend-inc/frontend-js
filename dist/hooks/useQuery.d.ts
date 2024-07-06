@@ -1,8 +1,4 @@
-declare type UseQueryContextParams = {
-    name?: string;
-    url?: string;
-};
-declare const useQuery: (params?: UseQueryContextParams) => {
+declare const useQuery: () => {
     url: any;
     loading: any;
     setLoading: any;

@@ -2,21 +2,15 @@ import React, { useEffect, useContext } from 'react'
 import { QueryContext } from '../context'
 import useResource from './useResource'
 
-type UseQueryContextParams = {
-	name?: string
-	url?: string
-}
 
-const useQuery = (params?: UseQueryContextParams) => {
-	const { name, url: _url } = params || {}
+const useQuery = () => {	
 
 	const {
+    url,
 		loading,
 		setLoading,
     delayedLoading,
     setDelayedLoading,
-		url,
-		setUrl,
 		query,
 		setQuery,
 		resources,
@@ -46,8 +40,8 @@ const useQuery = (params?: UseQueryContextParams) => {
 		paginate,
 		loadMore,
 	} = useResource({
-		name,
-		url: _url || url,
+		name: 'document',
+		url,
 	})
 
 	useEffect(() => {
@@ -65,12 +59,6 @@ const useQuery = (params?: UseQueryContextParams) => {
 	useEffect(() => {
 		setResources(_resources)
 	}, [_resources])
-
-	useEffect(() => {
-		if (_url) {
-			setUrl(_url)
-		}
-	}, [_url])
 
 	return {
     url,

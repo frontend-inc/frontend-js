@@ -27,12 +27,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var useResourceContext_1 = __importDefault(require("./useResourceContext"));
 var helpers_1 = require("../helpers");
-var useDocuments = function (params) {
-    var url = (params || {}).url;
-    var _a = (0, useResourceContext_1.default)({
-        name: 'document',
-        url: url
-    }), setResource = _a.setResource, rest = __rest(_a, ["setResource"]);
+var useDocuments = function () {
+    var _a = (0, useResourceContext_1.default)(), setResource = _a.setResource, rest = __rest(_a, ["setResource"]);
     var handleDataChange = function (ev) {
         var name = ev.target.name;
         var value = ev.target.type === 'checkbox' ?

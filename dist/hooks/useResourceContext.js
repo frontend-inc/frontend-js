@@ -6,13 +6,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var react_1 = require("react");
 var context_1 = require("../context");
 var useResource_1 = __importDefault(require("./useResource"));
-var useResourceContext = function (params) {
-    var _a = params || {}, name = _a.name, _url = _a.url;
-    var _b = (0, react_1.useContext)(context_1.ResourceContext), loading = _b.loading, setLoading = _b.setLoading, delayedLoading = _b.delayedLoading, setDelayedLoading = _b.setDelayedLoading, errors = _b.errors, setErrors = _b.setErrors, url = _b.url, setUrl = _b.setUrl, query = _b.query, setQuery = _b.setQuery, resource = _b.resource, resources = _b.resources, setResource = _b.setResource, setResources = _b.setResources;
-    var _c = (0, useResource_1.default)({
+var useResourceContext = function () {
+    var _a = (0, react_1.useContext)(context_1.ResourceContext), url = _a.url, name = _a.name, loading = _a.loading, setLoading = _a.setLoading, delayedLoading = _a.delayedLoading, setDelayedLoading = _a.setDelayedLoading, errors = _a.errors, setErrors = _a.setErrors, query = _a.query, setQuery = _a.setQuery, resource = _a.resource, resources = _a.resources, setResource = _a.setResource, setResources = _a.setResources;
+    var _b = (0, useResource_1.default)({
         name: name,
-        url: _url,
-    }), _loading = _c.loading, _delayedLoading = _c.delayedLoading, loadingWrapper = _c.loadingWrapper, _errors = _c.errors, handleChange = _c.handleChange, handleErrors = _c.handleErrors, _resource = _c.resource, _resources = _c.resources, findOne = _c.findOne, findMany = _c.findMany, reloadMany = _c.reloadMany, save = _c.save, update = _c.update, create = _c.create, destroy = _c.destroy, updateMany = _c.updateMany, deleteMany = _c.deleteMany, publish = _c.publish, unpublish = _c.unpublish, findLinks = _c.findLinks, addLinks = _c.addLinks, removeLinks = _c.removeLinks, addAttachment = _c.addAttachment, removeAttachment = _c.removeAttachment, updatePositions = _c.updatePositions, _query = _c.query, _setQuery = _c.setQuery, meta = _c.meta, page = _c.page, perPage = _c.perPage, totalCount = _c.totalCount, numPages = _c.numPages, numResults = _c.numResults, sort = _c.sort, paginate = _c.paginate, loadMore = _c.loadMore;
+        url: url
+    }), _loading = _b.loading, _delayedLoading = _b.delayedLoading, loadingWrapper = _b.loadingWrapper, _errors = _b.errors, handleChange = _b.handleChange, handleErrors = _b.handleErrors, _resource = _b.resource, _resources = _b.resources, findOne = _b.findOne, findMany = _b.findMany, reloadMany = _b.reloadMany, save = _b.save, update = _b.update, create = _b.create, destroy = _b.destroy, updateMany = _b.updateMany, deleteMany = _b.deleteMany, publish = _b.publish, unpublish = _b.unpublish, findLinks = _b.findLinks, addLinks = _b.addLinks, removeLinks = _b.removeLinks, addAttachment = _b.addAttachment, removeAttachment = _b.removeAttachment, updatePositions = _b.updatePositions, _query = _b.query, _setQuery = _b.setQuery, meta = _b.meta, page = _b.page, perPage = _b.perPage, totalCount = _b.totalCount, numPages = _b.numPages, numResults = _b.numResults, sort = _b.sort, paginate = _b.paginate, loadMore = _b.loadMore;
     (0, react_1.useEffect)(function () {
         setLoading(_loading);
     }, [_loading]);
@@ -31,12 +30,9 @@ var useResourceContext = function (params) {
     (0, react_1.useEffect)(function () {
         setResources(_resources);
     }, [_resources]);
-    (0, react_1.useEffect)(function () {
-        if (_url) {
-            setUrl(_url);
-        }
-    }, [_url]);
     return {
+        url: url,
+        name: name,
         loading: loading,
         setLoading: setLoading,
         delayedLoading: delayedLoading,

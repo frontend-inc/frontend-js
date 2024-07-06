@@ -9,9 +9,6 @@ import {
   flattenDocuments 
 } from '../helpers'
 
-type UseDocumentsParams = {	
-  url?: string
-}
 
 type DocumentResponse = ResourceResponse & {
   handleDataChange: (ev: React.ChangeEvent<HTMLInputElement>) => void
@@ -21,17 +18,12 @@ type DocumentResponse = ResourceResponse & {
   flattenDocuments: (resources: any) => any
 }
 
-const useDocuments = (params: UseDocumentsParams): DocumentResponse => {
-
-  const { url } = params || {}
-
+const useDocuments = (): DocumentResponse => {
+  
   const {
     setResource,
     ...rest 
-  }: ResourceResponse = useResourceContext({
-    name: 'document',
-    url
-  })
+  }: ResourceResponse = useResourceContext()
 
 	const handleDataChange = (ev) => {
 		const { name } = ev.target

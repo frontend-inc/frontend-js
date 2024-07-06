@@ -1,8 +1,5 @@
 import React from 'react';
 import { ResourceResponse } from '../types';
-declare type UseDocumentsParams = {
-    url?: string;
-};
 declare type DocumentResponse = ResourceResponse & {
     handleDataChange: (ev: React.ChangeEvent<HTMLInputElement>) => void;
     filterDocumentLinks: (document: any, contentType: string) => any;
@@ -10,5 +7,5 @@ declare type DocumentResponse = ResourceResponse & {
     flattenDocument: (resource: any) => any;
     flattenDocuments: (resources: any) => any;
 };
-declare const useDocuments: (params: UseDocumentsParams) => DocumentResponse;
+declare const useDocuments: () => DocumentResponse;
 export default useDocuments;

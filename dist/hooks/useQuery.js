@@ -6,13 +6,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var react_1 = require("react");
 var context_1 = require("../context");
 var useResource_1 = __importDefault(require("./useResource"));
-var useQuery = function (params) {
-    var _a = params || {}, name = _a.name, _url = _a.url;
-    var _b = (0, react_1.useContext)(context_1.QueryContext), loading = _b.loading, setLoading = _b.setLoading, delayedLoading = _b.delayedLoading, setDelayedLoading = _b.setDelayedLoading, url = _b.url, setUrl = _b.setUrl, query = _b.query, setQuery = _b.setQuery, resources = _b.resources, setResources = _b.setResources;
-    var _c = (0, useResource_1.default)({
-        name: name,
-        url: _url || url,
-    }), _loading = _c.loading, _delayedLoading = _c.delayedLoading, loadingWrapper = _c.loadingWrapper, _resources = _c.resources, findMany = _c.findMany, reloadMany = _c.reloadMany, updateMany = _c.updateMany, deleteMany = _c.deleteMany, findLinks = _c.findLinks, updatePositions = _c.updatePositions, _query = _c.query, _setQuery = _c.setQuery, meta = _c.meta, page = _c.page, perPage = _c.perPage, totalCount = _c.totalCount, numPages = _c.numPages, numResults = _c.numResults, sort = _c.sort, paginate = _c.paginate, loadMore = _c.loadMore;
+var useQuery = function () {
+    var _a = (0, react_1.useContext)(context_1.QueryContext), url = _a.url, loading = _a.loading, setLoading = _a.setLoading, delayedLoading = _a.delayedLoading, setDelayedLoading = _a.setDelayedLoading, query = _a.query, setQuery = _a.setQuery, resources = _a.resources, setResources = _a.setResources;
+    var _b = (0, useResource_1.default)({
+        name: 'document',
+        url: url,
+    }), _loading = _b.loading, _delayedLoading = _b.delayedLoading, loadingWrapper = _b.loadingWrapper, _resources = _b.resources, findMany = _b.findMany, reloadMany = _b.reloadMany, updateMany = _b.updateMany, deleteMany = _b.deleteMany, findLinks = _b.findLinks, updatePositions = _b.updatePositions, _query = _b.query, _setQuery = _b.setQuery, meta = _b.meta, page = _b.page, perPage = _b.perPage, totalCount = _b.totalCount, numPages = _b.numPages, numResults = _b.numResults, sort = _b.sort, paginate = _b.paginate, loadMore = _b.loadMore;
     (0, react_1.useEffect)(function () {
         setLoading(_loading);
     }, [_loading]);
@@ -25,11 +24,6 @@ var useQuery = function (params) {
     (0, react_1.useEffect)(function () {
         setResources(_resources);
     }, [_resources]);
-    (0, react_1.useEffect)(function () {
-        if (_url) {
-            setUrl(_url);
-        }
-    }, [_url]);
     return {
         url: url,
         loading: loading,
