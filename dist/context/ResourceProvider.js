@@ -32,6 +32,9 @@ var ResourceProvider = function (props) {
     var _d = (0, react_1.useState)({}), errors = _d[0], setErrors = _d[1];
     var _e = (0, react_1.useState)(), resource = _e[0], setResource = _e[1];
     var _f = (0, react_1.useState)([]), resources = _f[0], setResources = _f[1];
+    var _g = (0, react_1.useState)(false), openShowModal = _g[0], setOpenShowModal = _g[1];
+    var _h = (0, react_1.useState)(false), openDeleteModal = _h[0], setOpenDeleteModal = _h[1];
+    var _j = (0, react_1.useState)(false), openFormModal = _j[0], setOpenFormModal = _j[1];
     var value = {
         url: url,
         name: name,
@@ -46,7 +49,13 @@ var ResourceProvider = function (props) {
         resource: resource,
         setResource: setResource,
         resources: resources,
-        setResources: setResources
+        setResources: setResources,
+        openShowModal: openShowModal,
+        setOpenShowModal: setOpenShowModal,
+        openFormModal: openFormModal,
+        setOpenFormModal: setOpenFormModal,
+        openDeleteModal: openDeleteModal,
+        setOpenDeleteModal: setOpenDeleteModal
     };
     return (react_1.default.createElement(ResourceContext_1.default.Provider, { value: value }, children));
 };

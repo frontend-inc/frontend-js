@@ -17,6 +17,10 @@ const ResourceProvider = (props: ResourceProviderProps) => {
 	const [resource, setResource] = useState()
   const [resources, setResources] = useState([])
 
+  const [openShowModal, setOpenShowModal] = useState(false) 
+  const [openDeleteModal, setOpenDeleteModal] = useState(false)
+  const [openFormModal, setOpenFormModal] = useState(false)
+
 	const value = {
 		url,
     name,
@@ -37,7 +41,16 @@ const ResourceProvider = (props: ResourceProviderProps) => {
 		setResource,
 
     resources,
-    setResources
+    setResources,
+    
+    openShowModal,
+    setOpenShowModal,
+
+    openFormModal,
+    setOpenFormModal,
+
+    openDeleteModal,
+    setOpenDeleteModal
 	}
 
 	return (
