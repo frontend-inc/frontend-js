@@ -1,14 +1,15 @@
-import React, { useContext, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import ResourceContext from './ResourceContext'
 
 type ResourceProviderProps = {
   url: string
   name: string
+  resource?: any
 	children: React.ReactNode
 }
 
 const ResourceProvider = (props: ResourceProviderProps) => {
-	const { url, name, children } = props
+	const { url, name, children, resource: _resource } = props
 	
 	const [loading, setLoading] = useState(false)
   const [delayedLoading, setDelayedLoading] = useState(false)
@@ -20,6 +21,12 @@ const ResourceProvider = (props: ResourceProviderProps) => {
   const [openShowModal, setOpenShowModal] = useState(false) 
   const [openDeleteModal, setOpenDeleteModal] = useState(false)
   const [openFormModal, setOpenFormModal] = useState(false)
+
+  useEffect(() => {
+    if(_resource){
+      setResource(_resource)
+    }
+  }, [_resource])
 
 	const value = {
 		url,

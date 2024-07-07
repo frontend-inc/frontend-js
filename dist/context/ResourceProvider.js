@@ -25,7 +25,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var react_1 = __importStar(require("react"));
 var ResourceContext_1 = __importDefault(require("./ResourceContext"));
 var ResourceProvider = function (props) {
-    var url = props.url, name = props.name, children = props.children;
+    var url = props.url, name = props.name, children = props.children, _resource = props.resource;
     var _a = (0, react_1.useState)(false), loading = _a[0], setLoading = _a[1];
     var _b = (0, react_1.useState)(false), delayedLoading = _b[0], setDelayedLoading = _b[1];
     var _c = (0, react_1.useState)({}), query = _c[0], setQuery = _c[1];
@@ -35,6 +35,11 @@ var ResourceProvider = function (props) {
     var _g = (0, react_1.useState)(false), openShowModal = _g[0], setOpenShowModal = _g[1];
     var _h = (0, react_1.useState)(false), openDeleteModal = _h[0], setOpenDeleteModal = _h[1];
     var _j = (0, react_1.useState)(false), openFormModal = _j[0], setOpenFormModal = _j[1];
+    (0, react_1.useEffect)(function () {
+        if (_resource) {
+            setResource(_resource);
+        }
+    }, [_resource]);
     var value = {
         url: url,
         name: name,
