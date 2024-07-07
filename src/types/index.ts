@@ -96,6 +96,8 @@ export type QueryParamsType = {
 	per_page?: number
   sort_by?: string
 	sort_direction?: 'asc' | 'desc'
+  current_user?: boolean 
+  current_team?: boolean
 	rest?: any
 }
 
