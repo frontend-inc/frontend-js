@@ -13,8 +13,16 @@ const ResourceProvider = (props: ResourceProviderProps) => {
 	
 	const [loading, setLoading] = useState(false)
   const [delayedLoading, setDelayedLoading] = useState(false)
-  const [query, setQuery] = useState({})
-	const [errors, setErrors] = useState({})
+  const [query, setQuery] = useState({})  
+
+  const [meta, setMeta] = useState({})
+  const [page, setPage] = useState(1)
+  const [perPage, setPerPage] = useState(20)
+  const [numPages, setNumPages] = useState(0)
+  const [numResults, setNumResults] = useState(0)
+  const [totalCount, setTotalCount] = useState(0)
+
+  const [errors, setErrors] = useState({})
 	const [resource, setResource] = useState()
   const [resources, setResources] = useState([])
 
@@ -49,6 +57,19 @@ const ResourceProvider = (props: ResourceProviderProps) => {
 
     resources,
     setResources,
+
+    meta,
+    setMeta,
+    page,
+    setPage,
+    perPage,
+    setPerPage,
+    numPages,
+    setNumPages,
+    numResults,
+    setNumResults,
+    totalCount,
+    setTotalCount,    
     
     openShowModal,
     setOpenShowModal,

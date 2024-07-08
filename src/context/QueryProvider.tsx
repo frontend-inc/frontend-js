@@ -12,6 +12,14 @@ const QueryProvider = (props: QueryProviderProps) => {
 	const [loading, setLoading] = useState(false)
   const [delayedLoading, setDelayedLoading] = useState(false)
 	const [query, setQuery] = useState({})
+  
+  const [meta, setMeta] = useState({})
+  const [page, setPage] = useState(1)
+  const [perPage, setPerPage] = useState(20)
+  const [numPages, setNumPages] = useState(0)
+  const [numResults, setNumResults] = useState(0)
+  const [totalCount, setTotalCount] = useState(0)
+
 	const [resources, setResources] = useState()
 
 	const value = {
@@ -25,6 +33,19 @@ const QueryProvider = (props: QueryProviderProps) => {
 
 		query,
 		setQuery,
+
+    meta,
+    setMeta,
+    page,
+    setPage,
+    perPage,
+    setPerPage,
+    numPages,
+    setNumPages,
+    numResults,
+    setNumResults,
+    totalCount,
+    setTotalCount,
 
 		resources,
 		setResources,

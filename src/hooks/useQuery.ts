@@ -13,6 +13,18 @@ const useQuery = () => {
     setDelayedLoading,
 		query,
 		setQuery,
+    meta,
+    setMeta,
+    page,
+    setPage,
+    perPage,
+    setPerPage,
+    numPages,
+    setNumPages,
+    numResults,
+    setNumResults,
+    totalCount,
+    setTotalCount,
 		resources,
 		setResources,
 	} = useContext(QueryContext)
@@ -30,12 +42,12 @@ const useQuery = () => {
 		updatePositions,
 		query: _query,
 		setQuery: _setQuery,
-		meta,
-		page,
-		perPage,
-		totalCount,
-		numPages,
-    numResults,
+    meta: _meta,
+		page: _page,
+		perPage: _perPage,
+		totalCount: _totalCount,
+		numPages: _numPages,
+    numResults: _numResults,
 		sort,
 		paginate,
 		loadMore,
@@ -59,6 +71,31 @@ const useQuery = () => {
 	useEffect(() => {
 		setResources(_resources)
 	}, [_resources])
+
+  useEffect(() => {
+    setMeta(_meta)
+  }, [_meta])
+
+  useEffect(() => {
+    setPage(_page)
+  }, [_page])
+
+  useEffect(() => {
+    setPerPage(_perPage)
+  }, [_perPage])
+
+  useEffect(() => {
+    setTotalCount(_totalCount)
+  }, [_totalCount])
+
+  useEffect(() => {
+    setNumPages(_numPages)
+  }, [_numPages])
+
+  useEffect(() => {
+    setNumResults(_numResults)
+  }, [_numResults])
+
 
 	return {
     url,

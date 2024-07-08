@@ -33,12 +33,12 @@ declare const useResourceContext: () => {
     updatePositions: (sorted: import("..").ResourceType[]) => Promise<any>;
     query: any;
     setQuery: any;
-    meta: Record<string, any>;
-    page: number;
-    perPage: number;
-    totalCount: number;
-    numPages: number;
-    numResults: number;
+    meta: any;
+    page: any;
+    perPage: any;
+    totalCount: any;
+    numPages: any;
+    numResults: any;
     sort: (sortBy: string, sortDirection: "asc" | "desc") => Promise<any>;
     paginate: (page: number) => Promise<any>;
     loadMore: () => void;

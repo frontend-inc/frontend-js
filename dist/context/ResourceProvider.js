@@ -29,12 +29,18 @@ var ResourceProvider = function (props) {
     var _a = (0, react_1.useState)(false), loading = _a[0], setLoading = _a[1];
     var _b = (0, react_1.useState)(false), delayedLoading = _b[0], setDelayedLoading = _b[1];
     var _c = (0, react_1.useState)({}), query = _c[0], setQuery = _c[1];
-    var _d = (0, react_1.useState)({}), errors = _d[0], setErrors = _d[1];
-    var _e = (0, react_1.useState)(), resource = _e[0], setResource = _e[1];
-    var _f = (0, react_1.useState)([]), resources = _f[0], setResources = _f[1];
-    var _g = (0, react_1.useState)(false), openShowModal = _g[0], setOpenShowModal = _g[1];
-    var _h = (0, react_1.useState)(false), openDeleteModal = _h[0], setOpenDeleteModal = _h[1];
-    var _j = (0, react_1.useState)(false), openFormModal = _j[0], setOpenFormModal = _j[1];
+    var _d = (0, react_1.useState)({}), meta = _d[0], setMeta = _d[1];
+    var _e = (0, react_1.useState)(1), page = _e[0], setPage = _e[1];
+    var _f = (0, react_1.useState)(20), perPage = _f[0], setPerPage = _f[1];
+    var _g = (0, react_1.useState)(0), numPages = _g[0], setNumPages = _g[1];
+    var _h = (0, react_1.useState)(0), numResults = _h[0], setNumResults = _h[1];
+    var _j = (0, react_1.useState)(0), totalCount = _j[0], setTotalCount = _j[1];
+    var _k = (0, react_1.useState)({}), errors = _k[0], setErrors = _k[1];
+    var _l = (0, react_1.useState)(), resource = _l[0], setResource = _l[1];
+    var _m = (0, react_1.useState)([]), resources = _m[0], setResources = _m[1];
+    var _o = (0, react_1.useState)(false), openShowModal = _o[0], setOpenShowModal = _o[1];
+    var _p = (0, react_1.useState)(false), openDeleteModal = _p[0], setOpenDeleteModal = _p[1];
+    var _q = (0, react_1.useState)(false), openFormModal = _q[0], setOpenFormModal = _q[1];
     (0, react_1.useEffect)(function () {
         if (_resource) {
             setResource(_resource);
@@ -55,6 +61,18 @@ var ResourceProvider = function (props) {
         setResource: setResource,
         resources: resources,
         setResources: setResources,
+        meta: meta,
+        setMeta: setMeta,
+        page: page,
+        setPage: setPage,
+        perPage: perPage,
+        setPerPage: setPerPage,
+        numPages: numPages,
+        setNumPages: setNumPages,
+        numResults: numResults,
+        setNumResults: setNumResults,
+        totalCount: totalCount,
+        setTotalCount: setTotalCount,
         openShowModal: openShowModal,
         setOpenShowModal: setOpenShowModal,
         openFormModal: openFormModal,
