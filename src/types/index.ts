@@ -224,7 +224,6 @@ export type ResourceResponse = Record<string, any> & {
   page: number 
   perPage: number
   numPages: number
-  numResults: number 
   totalCount: number  
   sort: (sortBy: string, sortDirection: 'asc' | 'desc' | null) => Promise<any>
   paginate: (page: number) => Promise<any>

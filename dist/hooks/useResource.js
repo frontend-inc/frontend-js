@@ -73,7 +73,6 @@ var useResource = function (params) {
     var _k = (0, react_2.useState)(10), perPage = _k[0], setPerPage = _k[1];
     var _l = (0, react_2.useState)(0), totalCount = _l[0], setTotalCount = _l[1];
     var _m = (0, react_2.useState)(0), numPages = _m[0], setNumPages = _m[1];
-    var _o = (0, react_2.useState)(0), numResults = _o[0], setNumResults = _o[1];
     var showLoading = function () { return setLoading(true); };
     var hideLoading = function () { return setLoading(false); };
     var findOne = function (id) { return __awaiter(void 0, void 0, void 0, function () {
@@ -121,7 +120,6 @@ var useResource = function (params) {
                                 setPerPage(res.meta.per_page);
                                 setTotalCount(res.meta.total_count);
                                 setNumPages(res.meta.num_pages);
-                                setNumResults(res.meta.num_results);
                             }
                             return [2 /*return*/, res.data];
                         }
@@ -172,7 +170,6 @@ var useResource = function (params) {
                                 setPerPage(res.meta.per_page);
                                 setTotalCount(res.meta.total_count);
                                 setNumPages(res.meta.num_pages);
-                                setNumResults(res.meta.num_results);
                             }
                             return [2 /*return*/, res.data];
                         }
@@ -442,7 +439,6 @@ var useResource = function (params) {
         perPage: perPage,
         totalCount: totalCount,
         numPages: numPages,
-        numResults: numResults,
         sort: sort,
         paginate: paginate,
         loadMore: loadMore,

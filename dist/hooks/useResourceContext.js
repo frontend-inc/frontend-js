@@ -7,11 +7,11 @@ var react_1 = require("react");
 var context_1 = require("../context");
 var useResource_1 = __importDefault(require("./useResource"));
 var useResourceContext = function () {
-    var _a = (0, react_1.useContext)(context_1.ResourceContext), url = _a.url, name = _a.name, loading = _a.loading, setLoading = _a.setLoading, delayedLoading = _a.delayedLoading, setDelayedLoading = _a.setDelayedLoading, errors = _a.errors, setErrors = _a.setErrors, query = _a.query, setQuery = _a.setQuery, meta = _a.meta, setMeta = _a.setMeta, page = _a.page, setPage = _a.setPage, perPage = _a.perPage, setPerPage = _a.setPerPage, numPages = _a.numPages, setNumPages = _a.setNumPages, numResults = _a.numResults, setNumResults = _a.setNumResults, totalCount = _a.totalCount, setTotalCount = _a.setTotalCount, resource = _a.resource, resources = _a.resources, setResource = _a.setResource, setResources = _a.setResources, openShowModal = _a.openShowModal, setOpenShowModal = _a.setOpenShowModal, openFormModal = _a.openFormModal, setOpenFormModal = _a.setOpenFormModal, openDeleteModal = _a.openDeleteModal, setOpenDeleteModal = _a.setOpenDeleteModal;
+    var _a = (0, react_1.useContext)(context_1.ResourceContext), url = _a.url, name = _a.name, loading = _a.loading, setLoading = _a.setLoading, delayedLoading = _a.delayedLoading, setDelayedLoading = _a.setDelayedLoading, errors = _a.errors, setErrors = _a.setErrors, query = _a.query, setQuery = _a.setQuery, meta = _a.meta, setMeta = _a.setMeta, page = _a.page, setPage = _a.setPage, perPage = _a.perPage, setPerPage = _a.setPerPage, numPages = _a.numPages, setNumPages = _a.setNumPages, totalCount = _a.totalCount, setTotalCount = _a.setTotalCount, resource = _a.resource, resources = _a.resources, setResource = _a.setResource, setResources = _a.setResources, openShowModal = _a.openShowModal, setOpenShowModal = _a.setOpenShowModal, openFormModal = _a.openFormModal, setOpenFormModal = _a.setOpenFormModal, openDeleteModal = _a.openDeleteModal, setOpenDeleteModal = _a.setOpenDeleteModal;
     var _b = (0, useResource_1.default)({
         name: name,
         url: url
-    }), _loading = _b.loading, _delayedLoading = _b.delayedLoading, loadingWrapper = _b.loadingWrapper, _errors = _b.errors, handleChange = _b.handleChange, handleErrors = _b.handleErrors, _resource = _b.resource, _resources = _b.resources, findOne = _b.findOne, findMany = _b.findMany, reloadMany = _b.reloadMany, save = _b.save, update = _b.update, create = _b.create, destroy = _b.destroy, updateMany = _b.updateMany, deleteMany = _b.deleteMany, publish = _b.publish, unpublish = _b.unpublish, findLinks = _b.findLinks, addLinks = _b.addLinks, removeLinks = _b.removeLinks, addAttachment = _b.addAttachment, removeAttachment = _b.removeAttachment, updatePositions = _b.updatePositions, _query = _b.query, _setQuery = _b.setQuery, _meta = _b.meta, _page = _b.page, _perPage = _b.perPage, _totalCount = _b.totalCount, _numPages = _b.numPages, _numResults = _b.numResults, sort = _b.sort, paginate = _b.paginate, loadMore = _b.loadMore;
+    }), _loading = _b.loading, _delayedLoading = _b.delayedLoading, loadingWrapper = _b.loadingWrapper, _errors = _b.errors, handleChange = _b.handleChange, handleErrors = _b.handleErrors, _resource = _b.resource, _resources = _b.resources, findOne = _b.findOne, findMany = _b.findMany, reloadMany = _b.reloadMany, save = _b.save, update = _b.update, create = _b.create, destroy = _b.destroy, updateMany = _b.updateMany, deleteMany = _b.deleteMany, publish = _b.publish, unpublish = _b.unpublish, findLinks = _b.findLinks, addLinks = _b.addLinks, removeLinks = _b.removeLinks, addAttachment = _b.addAttachment, removeAttachment = _b.removeAttachment, updatePositions = _b.updatePositions, _query = _b.query, _setQuery = _b.setQuery, _meta = _b.meta, _page = _b.page, _perPage = _b.perPage, _totalCount = _b.totalCount, _numPages = _b.numPages, sort = _b.sort, paginate = _b.paginate, loadMore = _b.loadMore;
     (0, react_1.useEffect)(function () {
         setLoading(_loading);
     }, [_loading]);
@@ -45,9 +45,6 @@ var useResourceContext = function () {
     (0, react_1.useEffect)(function () {
         setNumPages(_numPages);
     }, [_numPages]);
-    (0, react_1.useEffect)(function () {
-        setNumResults(_numResults);
-    }, [_numResults]);
     return {
         url: url,
         name: name,
@@ -88,7 +85,6 @@ var useResourceContext = function () {
         perPage: perPage,
         totalCount: totalCount,
         numPages: numPages,
-        numResults: numResults,
         sort: sort,
         paginate: paginate,
         loadMore: loadMore,

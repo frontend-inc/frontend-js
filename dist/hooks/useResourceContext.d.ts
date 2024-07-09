@@ -38,7 +38,6 @@ declare const useResourceContext: () => {
     perPage: any;
     totalCount: any;
     numPages: any;
-    numResults: any;
     sort: (sortBy: string, sortDirection: "asc" | "desc") => Promise<any>;
     paginate: (page: number) => Promise<any>;
     loadMore: () => void;

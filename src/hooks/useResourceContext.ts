@@ -23,9 +23,7 @@ const useResourceContext = () => {
     perPage,
     setPerPage,
     numPages,
-    setNumPages,
-    numResults,
-    setNumResults,
+    setNumPages,    
     totalCount,
     setTotalCount,
 		resource,
@@ -73,8 +71,7 @@ const useResourceContext = () => {
 		page: _page,
 		perPage: _perPage,
 		totalCount: _totalCount,
-		numPages: _numPages,
-    numResults: _numResults,
+		numPages: _numPages,    
 		sort,
 		paginate,
 		loadMore,
@@ -126,10 +123,6 @@ const useResourceContext = () => {
   useEffect(() => {
     setNumPages(_numPages)
   }, [_numPages])
-
-  useEffect(() => {
-    setNumResults(_numResults)
-  }, [_numResults])
   
 	return {
     url,
@@ -171,7 +164,6 @@ const useResourceContext = () => {
 		perPage,
 		totalCount,
 		numPages,
-    numResults,
 		sort,
 		paginate,
 		loadMore,
