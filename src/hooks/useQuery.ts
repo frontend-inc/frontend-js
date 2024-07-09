@@ -96,7 +96,6 @@ const useQuery = () => {
     setNumResults(_numResults)
   }, [_numResults])
 
-
 	return {
     url,
 		loading,

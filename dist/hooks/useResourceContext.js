@@ -7,7 +7,7 @@ var react_1 = require("react");
 var context_1 = require("../context");
 var useResource_1 = __importDefault(require("./useResource"));
 var useResourceContext = function () {
-    var _a = (0, react_1.useContext)(context_1.ResourceContext), url = _a.url, name = _a.name, loading = _a.loading, setLoading = _a.setLoading, delayedLoading = _a.delayedLoading, setDelayedLoading = _a.setDelayedLoading, errors = _a.errors, setErrors = _a.setErrors, query = _a.query, setQuery = _a.setQuery, meta = _a.meta, setMeta = _a.setMeta, page = _a.page, setPage = _a.setPage, perPage = _a.perPage, setPerPage = _a.setPerPage, numPages = _a.numPages, setNumPages = _a.setNumPages, numResults = _a.numResults, setNumResults = _a.setNumResults, totalCount = _a.totalCount, setTotalCount = _a.setTotalCount, resource = _a.resource, resources = _a.resources, setResource = _a.setResource, setResources = _a.setResources;
+    var _a = (0, react_1.useContext)(context_1.ResourceContext), url = _a.url, name = _a.name, loading = _a.loading, setLoading = _a.setLoading, delayedLoading = _a.delayedLoading, setDelayedLoading = _a.setDelayedLoading, errors = _a.errors, setErrors = _a.setErrors, query = _a.query, setQuery = _a.setQuery, meta = _a.meta, setMeta = _a.setMeta, page = _a.page, setPage = _a.setPage, perPage = _a.perPage, setPerPage = _a.setPerPage, numPages = _a.numPages, setNumPages = _a.setNumPages, numResults = _a.numResults, setNumResults = _a.setNumResults, totalCount = _a.totalCount, setTotalCount = _a.setTotalCount, resource = _a.resource, resources = _a.resources, setResource = _a.setResource, setResources = _a.setResources, openShowModal = _a.openShowModal, setOpenShowModal = _a.setOpenShowModal, openFormModal = _a.openFormModal, setOpenFormModal = _a.setOpenFormModal, openDeleteModal = _a.openDeleteModal, setOpenDeleteModal = _a.setOpenDeleteModal;
     var _b = (0, useResource_1.default)({
         name: name,
         url: url
@@ -91,7 +91,13 @@ var useResourceContext = function () {
         numResults: numResults,
         sort: sort,
         paginate: paginate,
-        loadMore: loadMore
+        loadMore: loadMore,
+        openShowModal: openShowModal,
+        setOpenShowModal: setOpenShowModal,
+        openFormModal: openFormModal,
+        setOpenFormModal: setOpenFormModal,
+        openDeleteModal: openDeleteModal,
+        setOpenDeleteModal: setOpenDeleteModal,
     };
 };
 exports.default = useResourceContext;

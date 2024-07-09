@@ -32,6 +32,13 @@ const useResourceContext = () => {
 		resources,
 		setResource,
 		setResources,
+
+    openShowModal,
+    setOpenShowModal,
+    openFormModal,
+    setOpenFormModal,
+    openDeleteModal,
+    setOpenDeleteModal,
 	} = useContext(ResourceContext)
 
 	const {
@@ -167,7 +174,14 @@ const useResourceContext = () => {
     numResults,
 		sort,
 		paginate,
-		loadMore
+		loadMore,
+
+    openShowModal,
+    setOpenShowModal,
+    openFormModal,
+    setOpenFormModal,
+    openDeleteModal,
+    setOpenDeleteModal,
 	}
 }
 

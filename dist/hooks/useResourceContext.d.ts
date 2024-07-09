@@ -42,5 +42,11 @@ declare const useResourceContext: () => {
     sort: (sortBy: string, sortDirection: "asc" | "desc") => Promise<any>;
     paginate: (page: number) => Promise<any>;
     loadMore: () => void;
+    openShowModal: any;
+    setOpenShowModal: any;
+    openFormModal: any;
+    setOpenFormModal: any;
+    openDeleteModal: any;
+    setOpenDeleteModal: any;
 };
 export default useResourceContext;
