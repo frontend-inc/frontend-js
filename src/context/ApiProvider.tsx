@@ -12,7 +12,8 @@ type ApiProviderProps = {
 }
 
 const ApiProvider = (props: ApiProviderProps) => {
-	const {
+	
+  const {
 		url,
 		clientUrl,
 		authCookie = 'auth-token',

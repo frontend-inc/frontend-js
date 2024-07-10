@@ -98,6 +98,10 @@ export type QueryParamsType = {
 	sort_direction?: 'asc' | 'desc'
   current_user?: boolean 
   current_team?: boolean
+  belongs_to?: number 
+  similar_to?: number
+  location?: string
+  radius?: number
 	rest?: any
 }
 
