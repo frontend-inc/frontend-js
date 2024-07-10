@@ -3,13 +3,12 @@ import CollectionContext from './CollectionContext'
 
 type CollectionProviderProps = {
   url: string
-  name: string
   resource?: any
 	children: React.ReactNode
 }
 
 const CollectionProvider = (props: CollectionProviderProps) => {
-	const { url, name, children, resource: _resource } = props
+	const { url, children, resource: _resource } = props
 	
 	const [loading, setLoading] = useState(false)
   const [delayedLoading, setDelayedLoading] = useState(false)
@@ -37,7 +36,6 @@ const CollectionProvider = (props: CollectionProviderProps) => {
 
 	const value = {
 		url,
-    name,
 
 		loading,
 		setLoading,
