@@ -23,9 +23,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var react_1 = __importStar(require("react"));
-var QueryContext_1 = __importDefault(require("./QueryContext"));
-var QueryProvider = function (props) {
-    var url = props.url, children = props.children;
+var CollectionContext_1 = __importDefault(require("./CollectionContext"));
+var CollectionProvider = function (props) {
+    var url = props.url, name = props.name, children = props.children, _resource = props.resource;
     var _a = (0, react_1.useState)(false), loading = _a[0], setLoading = _a[1];
     var _b = (0, react_1.useState)(false), delayedLoading = _b[0], setDelayedLoading = _b[1];
     var _c = (0, react_1.useState)({}), query = _c[0], setQuery = _c[1];
@@ -33,17 +33,33 @@ var QueryProvider = function (props) {
     var _e = (0, react_1.useState)(1), page = _e[0], setPage = _e[1];
     var _f = (0, react_1.useState)(20), perPage = _f[0], setPerPage = _f[1];
     var _g = (0, react_1.useState)(0), numPages = _g[0], setNumPages = _g[1];
-    var _h = (0, react_1.useState)(0), numResults = _h[0], setNumResults = _h[1];
-    var _j = (0, react_1.useState)(0), totalCount = _j[0], setTotalCount = _j[1];
-    var _k = (0, react_1.useState)(), resources = _k[0], setResources = _k[1];
+    var _h = (0, react_1.useState)(0), totalCount = _h[0], setTotalCount = _h[1];
+    var _j = (0, react_1.useState)({}), errors = _j[0], setErrors = _j[1];
+    var _k = (0, react_1.useState)(), resource = _k[0], setResource = _k[1];
+    var _l = (0, react_1.useState)([]), resources = _l[0], setResources = _l[1];
+    var _m = (0, react_1.useState)(false), openShow = _m[0], setOpenShow = _m[1];
+    var _o = (0, react_1.useState)(false), openDelete = _o[0], setOpenDelete = _o[1];
+    var _p = (0, react_1.useState)(false), openEdit = _p[0], setOpenEdit = _p[1];
+    (0, react_1.useEffect)(function () {
+        if (_resource) {
+            setResource(_resource);
+        }
+    }, [_resource]);
     var value = {
+        url: url,
+        name: name,
         loading: loading,
         setLoading: setLoading,
         delayedLoading: delayedLoading,
         setDelayedLoading: setDelayedLoading,
-        url: url,
         query: query,
         setQuery: setQuery,
+        errors: errors,
+        setErrors: setErrors,
+        resource: resource,
+        setResource: setResource,
+        resources: resources,
+        setResources: setResources,
         meta: meta,
         setMeta: setMeta,
         page: page,
@@ -52,13 +68,15 @@ var QueryProvider = function (props) {
         setPerPage: setPerPage,
         numPages: numPages,
         setNumPages: setNumPages,
-        numResults: numResults,
-        setNumResults: setNumResults,
         totalCount: totalCount,
         setTotalCount: setTotalCount,
-        resources: resources,
-        setResources: setResources,
+        openShow: openShow,
+        setOpenShow: setOpenShow,
+        openEdit: openEdit,
+        setOpenEdit: setOpenEdit,
+        openDelete: openDelete,
+        setOpenDelete: setOpenDelete
     };
-    return (react_1.default.createElement(QueryContext_1.default.Provider, { value: value }, children));
+    return (react_1.default.createElement(CollectionContext_1.default.Provider, { value: value }, children));
 };
-exports.default = QueryProvider;
+exports.default = CollectionProvider;

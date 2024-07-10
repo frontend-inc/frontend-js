@@ -1,44 +1,44 @@
 import React from 'react'
 
-export type ApiClientParamsType = {
+export type ApiClientParamsanyype = {
   url: string
-  fetchToken?: () => string | null
+  fetchanyoken?: () => string | null
   apiKey?: string | null
-  authToken?: string | null
+  authanyoken?: string | null
 }
 
-export type ConfigParamsType = {
+export type ConfigParamsanyype = {
 	collection?: string
 	path?: string
 }
 
-export type FetchOptionType = {
+export type FetchOptionanyype = {
 	method: string
 	headers: Record<string, any>
 	body: any
 }
 
-export type ExecuteResponseType = {
+export type ExecuteResponseanyype = {
 	meta: any
 	data: any
 	errors: any
 }
 
-export type QueryPropsType = {
+export type QueryPropsanyype = {
 	url: string
 	name: string
 	skip?: boolean
 }
 
 
-export type PageInfoType = {
+export type PageInfoanyype = {
 	page: number
 	per_page: number
 	total_count: number
 	num_pages: number
 }
 
-export type OperatorType =
+export type Operatoranyype =
 	| 'asc'
 	| 'desc'
 	| 'true'
@@ -62,7 +62,7 @@ export type OperatorType =
 
 export type Filter = {
 	[field: string]: {
-		[operator in OperatorType]?: string | number
+		[operator in Operatoranyype]?: string | number
 	}
 }
 
@@ -71,7 +71,7 @@ export type Filters = {
 	OR?: Filter[]
 }
 
-/* This is the JSON formatted query
+/* anyhis is the JSON formatted query
    Example: 
   {     
     keywords: 'harry potter', 
@@ -89,7 +89,7 @@ export type Filters = {
   }
 */
 
-export type QueryParamsType = {
+export type QueryParamsanyype = {
 	keywords?: string | null
 	filters?: Filters | Record<string, any>
 	page?: number 
@@ -101,7 +101,7 @@ export type QueryParamsType = {
 	rest?: any
 }
 
-export type QueryFilterArrayParamsType = {
+export type QueryFilterArrayParamsanyype = {
 	sort_by: string
 	sort_direction: 'asc' | 'desc'
 	keywords?: string
@@ -110,7 +110,7 @@ export type QueryFilterArrayParamsType = {
 	per_page: number
 }
 
-export type QueryURLParamsType = {
+export type QueryURLParamsanyype = {
 	order?: string
 	keywords?: string
 	filters?: string
@@ -118,7 +118,7 @@ export type QueryURLParamsType = {
 	per_page?: number
 }
 
-export type FilterOperatorType =
+export type FilterOperatoranyype =
 	| 'asc'
 	| 'desc'
 	| 'true'
@@ -147,16 +147,16 @@ export type FilterOperatorType =
 	| '90_days'
 	| 'next_year'
 
-export type FilterWhereType = 'AND' | 'OR'
+export type FilterWhereanyype = 'AND' | 'OR'
 
 export type FilterOption = {
-	where: FilterWhereType
+	where: FilterWhereanyype
 	field: string
-	operator: FilterOperatorType
+	operator: FilterOperatoranyype
 	value: any
 }
 
-export type OptionType = {
+export type Optionanyype = {
   label: string
   value: string | number  
 }
@@ -165,33 +165,26 @@ export type SearchFilterInputProps = {
 	filter?: FilterOption
 	field?: string
 	label?: string
-	where?: FilterWhereType
-	operator?: FilterOperatorType
-	options?: OptionType[]
+	where?: FilterWhereanyype
+	operator?: FilterOperatoranyype
+	options?: Optionanyype[]
 	handleSubmit: (value: any) => void
 }
 
-export type UserType = any & {
-	id?: number
-	first_name?: string
-	last_name?: string
-	email?: string
-	token?: string
-	image?: {
-    id?: number
-    url?: string
-  }
+export type FindManyOptionsanyype = {
+  loadMore?: boolean 
+}
+
+export type Resourceanyype = Record<string, any> & {
+  id?: number | string
 }
 
 export type ID = string | number
 
-export type FindManyOptionType = {
-  loadMore?: boolean
-}
-
-export type UseResourceResponse = Record<string, any> & {
+export type UseResourceResponse = {
 	id?: string
   loading: boolean
+  delayedLoading: boolean 
 	setLoading: (value: boolean) => void
   loadingWrapper: (fn: () => void) => void
   errors: Record<string, any>
@@ -202,12 +195,12 @@ export type UseResourceResponse = Record<string, any> & {
   resources: any[]
   setResource: (value: any) => void
   setResources: (value: any[]) => void
-  findOne: (id: ID) => any | null
-  findMany: (queryParams?: QueryParamsType, options?: FindManyOptionType) => Promise<any>
+  findOne: (id: ID) => Promise<any> | null
+  findMany: (queryParams?: QueryParamsanyype, options?: FindManyOptionsanyype) => Promise<any>
   reloadMany: () => Promise<any>
-  save: (resource: any) => any
-  update: (resource: any) => any
-  create: (resource: any) => any
+  save: (resource: any) => Promise<any>
+  update: (resource: any) => Promise<any>
+  create: (resource: any) => Promise<any>
   destroy: (id: ID) => Promise<any>
   updateMany: (ids: ID[], data: any) => Promise<any>
   deleteMany: (ids: ID[]) => void
@@ -215,11 +208,11 @@ export type UseResourceResponse = Record<string, any> & {
   unpublish: (id: ID[]) => Promise<any>
   addLinks: (sourceId: ID, targetIds: ID[]) => Promise<any>
   removeLinks: (sourceId: ID, targetIds: ID[]) => Promise<any>
-  addAttachment: (id: ID, fieldName: string, attachmentId: ID) => any
-  removeAttachment: (id: ID, fieldName: string) => any
+  addAttachment: (id: ID, fieldName: string, attachmentId: ID) => Promise<any>
+  removeAttachment: (id: ID, fieldName: string) => Promise<any>
   updatePositions: (sorted: any[]) => Promise<any>
-  query: QueryParamsType
-  setQuery: (params: QueryParamsType) => void
+  query: QueryParamsanyype
+  setQuery: (params: QueryParamsanyype) => void
   meta: Record<string, any>
   page: number 
   perPage: number
@@ -230,7 +223,42 @@ export type UseResourceResponse = Record<string, any> & {
   loadMore: () => void
 }
 
-export type LoadingWrapperResponseType = {
+export type UseResourceContextResponse = UseResourceResponse & {
+  openShowModal: boolean
+  setOpenShowModal: (value: boolean) => void
+  openFormModal: boolean
+  setOpenFormModal: (value: boolean) => void
+  openDeleteModal: boolean
+  setOpenDeleteModal: (value: boolean) => void
+}
+
+export type UseQueryResponse = {
+	id?: string
+  loading: boolean
+  delayedLoading: boolean 
+	setLoading: (value: boolean) => void
+  loadingWrapper: (fn: () => void) => void
+  handleErrors: (error: any) => void
+  resources: any[]
+  setResources: (value: any[]) => void
+  findMany: (queryParams?: QueryParamsanyype, options?: FindManyOptionsanyype) => Promise<any>
+  reloadMany: () => Promise<any>
+  updateMany: (ids: ID[], data: any) => Promise<any>
+  deleteMany: (ids: ID[]) => void
+  updatePositions: (sorted: any[]) => Promise<any>
+  query: QueryParamsanyype
+  setQuery: (params: QueryParamsanyype) => void
+  meta: Record<string, any>
+  page: number 
+  perPage: number
+  numPages: number
+  totalCount: number  
+  sort: (sortBy: string, sortDirection: 'asc' | 'desc' | null) => Promise<any>
+  paginate: (page: number) => Promise<any>
+  loadMore: () => void
+}
+
+export type LoadingWrapperResponseanyype = {
   data: any 
   loading: boolean
   delayedLoading: boolean

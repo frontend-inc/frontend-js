@@ -57,22 +57,14 @@ var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var react_1 = require("react");
-var react_2 = require("react");
 var context_1 = require("../context");
-var hooks_1 = require("../hooks");
-var useResource = function (params) {
-    var _a = params || {}, url = _a.url, _b = _a.name, name = _b === void 0 ? 'resource' : _b;
-    var api = (0, react_1.useContext)(context_1.ApiContext).api;
-    var _c = (0, react_2.useState)(false), loading = _c[0], setLoading = _c[1];
-    var _d = (0, react_2.useState)(), errors = _d[0], setErrors = _d[1];
-    var _e = (0, react_2.useState)({}), resource = _e[0], setResource = _e[1];
-    var _f = (0, react_2.useState)([]), resources = _f[0], setResources = _f[1];
-    var _g = (0, react_2.useState)({}), query = _g[0], setQuery = _g[1];
-    var _h = (0, react_2.useState)(null), meta = _h[0], setMeta = _h[1];
-    var _j = (0, react_2.useState)(1), page = _j[0], setPage = _j[1];
-    var _k = (0, react_2.useState)(10), perPage = _k[0], setPerPage = _k[1];
-    var _l = (0, react_2.useState)(0), totalCount = _l[0], setTotalCount = _l[1];
-    var _m = (0, react_2.useState)(0), numPages = _m[0], setNumPages = _m[1];
+var helpers_1 = require("../helpers");
+var context_2 = require("../context");
+var _1 = require(".");
+var useCollection = function () {
+    var api = (0, react_1.useContext)(context_2.ApiContext).api;
+    var name = 'document';
+    var _a = (0, react_1.useContext)(context_1.CollectionContext), url = _a.url, loading = _a.loading, setLoading = _a.setLoading, errors = _a.errors, setErrors = _a.setErrors, resource = _a.resource, setResource = _a.setResource, resources = _a.resources, setResources = _a.setResources, query = _a.query, setQuery = _a.setQuery, meta = _a.meta, setMeta = _a.setMeta, page = _a.page, setPage = _a.setPage, perPage = _a.perPage, setPerPage = _a.setPerPage, totalCount = _a.totalCount, setTotalCount = _a.setTotalCount, numPages = _a.numPages, setNumPages = _a.setNumPages, openShow = _a.openShow, setOpenShow = _a.setOpenShow, openEdit = _a.openEdit, setOpenEdit = _a.setOpenEdit, openDelete = _a.openDelete, setOpenDelete = _a.setOpenDelete;
     var showLoading = function () { return setLoading(true); };
     var hideLoading = function () { return setLoading(false); };
     var findOne = function (id) { return __awaiter(void 0, void 0, void 0, function () {
@@ -308,10 +300,9 @@ var useResource = function (params) {
         });
     }); };
     var handleChange = function (ev) {
-        var _a;
         var name = ev.target.name;
         var value = ev.target.type === 'checkbox' ? ev.target.checked : ev.target.value;
-        setResource(__assign(__assign({}, resource), (_a = {}, _a[name] = value, _a)));
+        setResource(function (prev) { return (0, helpers_1.changeDocumentValue)(prev, name, value); });
     };
     var loadingWrapper = function (apiMethod) { return __awaiter(void 0, void 0, void 0, function () {
         var res, e_2;
@@ -351,7 +342,7 @@ var useResource = function (params) {
         }
         console.log('handleErrors', e);
     };
-    var delayLoading = (0, hooks_1.useDelayedLoading)({
+    var delayLoading = (0, _1.useDelayedLoading)({
         loading: loading
     }).loading;
     return {
@@ -393,6 +384,12 @@ var useResource = function (params) {
         sort: sort,
         paginate: paginate,
         loadMore: loadMore,
+        openShow: openShow,
+        setOpenShow: setOpenShow,
+        openEdit: openEdit,
+        setOpenEdit: setOpenEdit,
+        openDelete: openDelete,
+        setOpenDelete: setOpenDelete
     };
 };
-exports.default = useResource;
+exports.default = useCollection;

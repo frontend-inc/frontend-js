@@ -3,8 +3,8 @@ declare const useAuth: () => {
     loading: boolean;
     delayedLoading: any;
     errors: Record<string, any>;
-    user: import("../types").ResourceType;
-    setUser: (value: import("../types").ResourceType) => void;
+    user: any;
+    setUser: (value: any) => void;
     currentUser: any;
     setCurrentUser: any;
     fetchMe: () => Promise<any>;

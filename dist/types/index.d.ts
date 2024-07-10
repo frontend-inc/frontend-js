@@ -98,11 +98,11 @@ export declare type UserType = any & {
         url?: string;
     };
 };
-export declare type ResourceType = Record<string, any> & {
-    id?: number | string;
-};
 export declare type ID = string | number;
-export declare type ResourceResponse = Record<string, any> & {
+export declare type FindManyOptionType = {
+    loadMore?: boolean;
+};
+export declare type UseResourceResponse = Record<string, any> & {
     id?: string;
     loading: boolean;
     setLoading: (value: boolean) => void;
@@ -111,26 +111,26 @@ export declare type ResourceResponse = Record<string, any> & {
     setErrors: (value: Record<string, any>) => void;
     handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
     handleErrors: (error: any) => void;
-    resource: ResourceType;
-    resources: ResourceType[];
-    setResource: (value: ResourceType) => void;
-    setResources: (value: ResourceType[]) => void;
-    findOne: (id: ID) => ResourceType | null;
-    findMany: (queryParams?: QueryParamsType, loadMore?: boolean) => Promise<any>;
+    resource: any;
+    resources: any[];
+    setResource: (value: any) => void;
+    setResources: (value: any[]) => void;
+    findOne: (id: ID) => any | null;
+    findMany: (queryParams?: QueryParamsType, options?: FindManyOptionType) => Promise<any>;
     reloadMany: () => Promise<any>;
-    save: (resource: ResourceType) => ResourceType;
-    update: (resource: ResourceType) => ResourceType;
-    create: (resource: ResourceType) => ResourceType;
+    save: (resource: any) => any;
+    update: (resource: any) => any;
+    create: (resource: any) => any;
     destroy: (id: ID) => Promise<any>;
-    updateMany: (ids: ID[], data: ResourceType) => Promise<any>;
+    updateMany: (ids: ID[], data: any) => Promise<any>;
     deleteMany: (ids: ID[]) => void;
     publish: (ids: ID[]) => Promise<any>;
     unpublish: (id: ID[]) => Promise<any>;
     addLinks: (sourceId: ID, targetIds: ID[]) => Promise<any>;
     removeLinks: (sourceId: ID, targetIds: ID[]) => Promise<any>;
-    addAttachment: (id: ID, fieldName: string, attachmentId: ID) => ResourceType;
-    removeAttachment: (id: ID, fieldName: string) => ResourceType;
-    updatePositions: (sorted: ResourceType[]) => Promise<any>;
+    addAttachment: (id: ID, fieldName: string, attachmentId: ID) => any;
+    removeAttachment: (id: ID, fieldName: string) => any;
+    updatePositions: (sorted: any[]) => Promise<any>;
     query: QueryParamsType;
     setQuery: (params: QueryParamsType) => void;
     meta: Record<string, any>;

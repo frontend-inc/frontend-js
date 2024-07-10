@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react'
-import ResourceContext from './ResourceContext'
+import CollectionContext from './CollectionContext'
 
-type ResourceProviderProps = {
+type CollectionProviderProps = {
   url: string
   name: string
   resource?: any
 	children: React.ReactNode
 }
 
-const ResourceProvider = (props: ResourceProviderProps) => {
+const CollectionProvider = (props: CollectionProviderProps) => {
 	const { url, name, children, resource: _resource } = props
 	
 	const [loading, setLoading] = useState(false)
@@ -19,16 +19,15 @@ const ResourceProvider = (props: ResourceProviderProps) => {
   const [page, setPage] = useState(1)
   const [perPage, setPerPage] = useState(20)
   const [numPages, setNumPages] = useState(0)
-  const [numResults, setNumResults] = useState(0)
   const [totalCount, setTotalCount] = useState(0)
 
   const [errors, setErrors] = useState({})
 	const [resource, setResource] = useState()
   const [resources, setResources] = useState([])
 
-  const [openShowModal, setOpenShowModal] = useState(false) 
-  const [openDeleteModal, setOpenDeleteModal] = useState(false)
-  const [openFormModal, setOpenFormModal] = useState(false)
+  const [openShow, setOpenShow] = useState(false) 
+  const [openDelete, setOpenDelete] = useState(false)
+  const [openEdit, setOpenEdit] = useState(false)
 
   useEffect(() => {
     if(_resource){
@@ -66,26 +65,24 @@ const ResourceProvider = (props: ResourceProviderProps) => {
     setPerPage,
     numPages,
     setNumPages,
-    numResults,
-    setNumResults,
     totalCount,
     setTotalCount,    
     
-    openShowModal,
-    setOpenShowModal,
+    openShow,
+    setOpenShow,
 
-    openFormModal,
-    setOpenFormModal,
+    openEdit,
+    setOpenEdit,
 
-    openDeleteModal,
-    setOpenDeleteModal
+    openDelete,
+    setOpenDelete
 	}
 
 	return (
-		<ResourceContext.Provider value={value}>
+		<CollectionContext.Provider value={value}>
 			{children}
-		</ResourceContext.Provider>
+		</CollectionContext.Provider>
 	)
 }
 
-export default ResourceProvider
+export default CollectionProvider

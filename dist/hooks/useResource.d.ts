@@ -1,7 +1,7 @@
-import { ResourceResponse } from '../types';
+import { UseResourceResponse } from '../types';
 declare type UseResourceParams = {
     url?: string;
     name?: string;
 };
-declare const useResource: (params: UseResourceParams) => ResourceResponse;
+declare const useResource: (params: UseResourceParams) => UseResourceResponse;
 export default useResource;

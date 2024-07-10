@@ -1,35 +1,58 @@
 import React, { useContext } from 'react'
-import { useState } from 'react'
+import { CollectionContext } from '../context'
+import {
+  changeDocumentValue,
+} from '../helpers'
 import { ApiContext } from '../context'
-import { useDelayedLoading } from '../hooks'
-import { ID, QueryParamsType, UseResourceResponse, PageInfoType } from '../types'
+import { useDelayedLoading } from '.'
+import { ID, QueryParamsType, UseResourceResponse, FindManyOptionType } from '../types'
 
-type FindManyOptionType = {
-  loadMore?: boolean 
+type UseCollectionResponse = UseResourceResponse & {
+  openShow: boolean
+  setOpenShow: (value: boolean) => void
+  openEdit: boolean
+  setOpenEdit: (value: boolean) => void
+  openDelete: boolean
+  setOpenDelete: (value: boolean) => void
 }
 
-type UseResourceParams = {
-	url?: string
-	name?: string
-}
-
-const useResource = (params: UseResourceParams): UseResourceResponse => {
-	const { url, name = 'resource' } = params || {}
+const useCollection = (): UseCollectionResponse => {
 
 	const { api } = useContext(ApiContext)
-	const [loading, setLoading] = useState<boolean>(false)
-	const [errors, setErrors] = useState<Record<string, any> | null>()
 
-	const [resource, setResource] = useState<any>({})
-	const [resources, setResources] = useState<any[]>([])
+  const name = 'document'
 
-	const [query, setQuery] = useState<QueryParamsType>({})
-	const [meta, setMeta] = useState<PageInfoType>(null)
-	const [page, setPage] = useState<number>(1)
-	const [perPage, setPerPage] = useState<number>(10)
-	const [totalCount, setTotalCount] = useState<number>(0)
-	const [numPages, setNumPages] = useState<number>(0)  
-
+  const {
+    url,
+    loading,
+    setLoading,
+    errors,
+    setErrors,
+    resource,
+    setResource,
+    resources,
+    setResources,
+    query,
+    setQuery,
+    meta,
+    setMeta,
+    page,
+    setPage,
+    perPage,
+    setPerPage,
+    totalCount,
+    setTotalCount,
+    numPages,
+    setNumPages,
+    
+    openShow,
+    setOpenShow,
+    openEdit,
+    setOpenEdit,
+    openDelete,
+    setOpenDelete 
+  } = useContext(CollectionContext)
+  
 	const showLoading = () => setLoading(true)
 	const hideLoading = () => setLoading(false)
 
@@ -194,15 +217,12 @@ const useResource = (params: UseResourceParams): UseResourceResponse => {
 		// Intentionally avoid loading for drag-drop UIs
 		return await api.collection(name).url(url).updatePositions(sorted)
 	}
-
+	
 	const handleChange = (ev: React.ChangeEvent<HTMLInputElement>) => {
 		const { name } = ev.target
 		const value =
 			ev.target.type === 'checkbox' ? ev.target.checked : ev.target.value
-		setResource({
-			...resource,
-			[name]: value,
-		})
+		setResource(prev => changeDocumentValue(prev, name, value))
 	}
 
 	const loadingWrapper = async (apiMethod: () => any) => {
@@ -242,7 +262,7 @@ const useResource = (params: UseResourceParams): UseResourceResponse => {
 		loadingWrapper,
 		errors,
 		setErrors,
-		handleChange,
+    handleChange,
 		handleErrors,
 		resource,
 		resources,
@@ -274,7 +294,14 @@ const useResource = (params: UseResourceParams): UseResourceResponse => {
 		sort,
 		paginate,
 		loadMore,
+
+    openShow,
+    setOpenShow,
+    openEdit,
+    setOpenEdit,
+    openDelete,
+    setOpenDelete 
 	}
 }
 
-export default useResource
+export default useCollection
