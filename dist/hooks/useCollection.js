@@ -346,6 +346,7 @@ var useCollection = function () {
         loading: loading
     }).loading;
     return {
+        url: url,
         loading: loading,
         delayLoading: delayLoading,
         setLoading: setLoading,

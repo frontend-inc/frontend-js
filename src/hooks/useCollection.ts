@@ -256,6 +256,8 @@ const useCollection = (): UseCollectionResponse => {
   })
 
 	return {
+    url,
+    
 		loading,
     delayLoading,
 		setLoading,
