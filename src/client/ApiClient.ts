@@ -205,6 +205,15 @@ export class ApiClient {
 		return await this.post(this.endpoint, this.payload, this.headers)
 	}
 
+  async updateLinkPositions(id: number, sorted: Record<string, any>[]): Promise<ExecuteResponseType> {
+		this.payload = {
+			ids: sorted.map((resource) => resource.id),
+			positions: sorted.map((_, index) => index),
+		}
+		this.endpoint = `${this._url}/${id}/update_link_positions`
+		return await this.post(this.endpoint, this.payload, this.headers)
+	}
+
 	async updateMany(ids: number[], resource: object): Promise<ExecuteResponseType> {
 		this.payload = {
 			ids: ids,

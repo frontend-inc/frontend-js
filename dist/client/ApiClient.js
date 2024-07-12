@@ -266,6 +266,22 @@ var ApiClient = /** @class */ (function () {
             });
         });
     };
+    ApiClient.prototype.updateLinkPositions = function (id, sorted) {
+        return __awaiter(this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        this.payload = {
+                            ids: sorted.map(function (resource) { return resource.id; }),
+                            positions: sorted.map(function (_, index) { return index; }),
+                        };
+                        this.endpoint = this._url + "/" + id + "/update_link_positions";
+                        return [4 /*yield*/, this.post(this.endpoint, this.payload, this.headers)];
+                    case 1: return [2 /*return*/, _a.sent()];
+                }
+            });
+        });
+    };
     ApiClient.prototype.updateMany = function (ids, resource) {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {

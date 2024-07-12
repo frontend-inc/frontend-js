@@ -274,6 +274,14 @@ var useResource = function (params) {
             }
         });
     }); };
+    var updateLinkPositions = function (id, sorted) { return __awaiter(void 0, void 0, void 0, function () {
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, api.collection(name).url(url).updateLinkPositions(id, sorted)];
+                case 1: return [2 /*return*/, _a.sent()];
+            }
+        });
+    }); };
     var addAttachment = function (id, fieldName, attachmentId) { return __awaiter(void 0, void 0, void 0, function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
@@ -380,6 +388,7 @@ var useResource = function (params) {
         unpublish: unpublish,
         addLinks: addLinks,
         removeLinks: removeLinks,
+        updateLinkPositions: updateLinkPositions,
         addAttachment: addAttachment,
         removeAttachment: removeAttachment,
         updatePositions: updatePositions,

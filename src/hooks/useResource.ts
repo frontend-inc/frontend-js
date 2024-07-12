@@ -171,6 +171,10 @@ const useResource = (params: UseResourceParams): UseResourceResponse => {
 		)
 	}
 
+  const updateLinkPositions = async (id: number, sorted) => {
+    return await api.collection(name).url(url).updateLinkPositions(id, sorted)
+	}
+
 	const addAttachment = async (
 		id: ID,
 		fieldName: string,
@@ -261,6 +265,7 @@ const useResource = (params: UseResourceParams): UseResourceResponse => {
 		unpublish,
 		addLinks,
 		removeLinks,
+    updateLinkPositions,
 		addAttachment,
 		removeAttachment,
 		updatePositions,

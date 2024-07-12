@@ -35,6 +35,7 @@ export declare class ApiClient {
     update(data: Record<string, any>): Promise<ExecuteResponseType>;
     destroy(id: number): Promise<ExecuteResponseType>;
     updatePositions(sorted: Record<string, any>[]): Promise<ExecuteResponseType>;
+    updateLinkPositions(id: number, sorted: Record<string, any>[]): Promise<ExecuteResponseType>;
     updateMany(ids: number[], resource: object): Promise<ExecuteResponseType>;
     destroyMany(ids: number[]): Promise<ExecuteResponseType>;
     publish(ids: number[]): Promise<ExecuteResponseType>;

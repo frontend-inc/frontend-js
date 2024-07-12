@@ -333,6 +333,14 @@ var useCollection = function () {
             }
         });
     }); };
+    var updateLinkPositions = function (id, sorted) { return __awaiter(void 0, void 0, void 0, function () {
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, api.collection(name).url(url).updateLinkPositions(id, sorted)];
+                case 1: return [2 /*return*/, _a.sent()];
+            }
+        });
+    }); };
     var handleErrors = function (e) {
         if ((e === null || e === void 0 ? void 0 : e.status) === 401) {
             setErrors([{ code: 401, message: 'Unauthorized' }]);
@@ -372,6 +380,7 @@ var useCollection = function () {
         unpublish: unpublish,
         addLinks: addLinks,
         removeLinks: removeLinks,
+        updateLinkPositions: updateLinkPositions,
         addAttachment: addAttachment,
         removeAttachment: removeAttachment,
         updatePositions: updatePositions,

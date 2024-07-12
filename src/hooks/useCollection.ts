@@ -242,6 +242,10 @@ const useCollection = (): UseCollectionResponse => {
 		}
 	}
 
+  const updateLinkPositions = async (id: number, sorted) => {
+    return await api.collection(name).url(url).updateLinkPositions(id, sorted)
+	}
+
 	const handleErrors = (e: any) => {    
 		if(e?.status === 401) {      
       setErrors([{ code: 401, message: 'Unauthorized' }])
@@ -283,6 +287,7 @@ const useCollection = (): UseCollectionResponse => {
 		unpublish,
 		addLinks,
 		removeLinks,
+    updateLinkPositions,
 		addAttachment,
 		removeAttachment,
 		updatePositions,
