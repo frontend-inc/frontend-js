@@ -1,6 +1,6 @@
 export { default as useApi } from './useApi';
 export { default as useAuth } from './useAuth';
-export { default as useCollection } from './useList';
+export { default as useList } from './useList';
 export { default as useDelayedLoading } from './useDelayedLoading';
 export { default as useResource } from './useResource';
 export { default as useLoadingWrapper } from './useLoadingWrapper';
