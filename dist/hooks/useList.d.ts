@@ -1,5 +1,5 @@
 import { UseResourceResponse } from '../types';
-declare type UseCollectionResponse = UseResourceResponse & {
+declare type UseListResponse = UseResourceResponse & {
     openShow: boolean;
     setOpenShow: (value: boolean) => void;
     openEdit: boolean;
@@ -7,5 +7,5 @@ declare type UseCollectionResponse = UseResourceResponse & {
     openDelete: boolean;
     setOpenDelete: (value: boolean) => void;
 };
-declare const useCollection: () => UseCollectionResponse;
-export default useCollection;
+declare const useList: () => UseListResponse;
+export default useList;

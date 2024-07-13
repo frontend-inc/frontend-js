@@ -61,18 +61,18 @@ var react_2 = require("react");
 var context_1 = require("../context");
 var hooks_1 = require("../hooks");
 var useResource = function (params) {
-    var _a = params || {}, url = _a.url, _b = _a.name, name = _b === void 0 ? 'resource' : _b;
+    var url = (params || {}).url;
     var api = (0, react_1.useContext)(context_1.ApiContext).api;
-    var _c = (0, react_2.useState)(false), loading = _c[0], setLoading = _c[1];
-    var _d = (0, react_2.useState)(), errors = _d[0], setErrors = _d[1];
-    var _e = (0, react_2.useState)({}), resource = _e[0], setResource = _e[1];
-    var _f = (0, react_2.useState)([]), resources = _f[0], setResources = _f[1];
-    var _g = (0, react_2.useState)({}), query = _g[0], setQuery = _g[1];
-    var _h = (0, react_2.useState)(null), meta = _h[0], setMeta = _h[1];
-    var _j = (0, react_2.useState)(1), page = _j[0], setPage = _j[1];
-    var _k = (0, react_2.useState)(10), perPage = _k[0], setPerPage = _k[1];
-    var _l = (0, react_2.useState)(0), totalCount = _l[0], setTotalCount = _l[1];
-    var _m = (0, react_2.useState)(0), numPages = _m[0], setNumPages = _m[1];
+    var _a = (0, react_2.useState)(false), loading = _a[0], setLoading = _a[1];
+    var _b = (0, react_2.useState)(), errors = _b[0], setErrors = _b[1];
+    var _c = (0, react_2.useState)({}), resource = _c[0], setResource = _c[1];
+    var _d = (0, react_2.useState)([]), resources = _d[0], setResources = _d[1];
+    var _e = (0, react_2.useState)({}), query = _e[0], setQuery = _e[1];
+    var _f = (0, react_2.useState)(null), meta = _f[0], setMeta = _f[1];
+    var _g = (0, react_2.useState)(1), page = _g[0], setPage = _g[1];
+    var _h = (0, react_2.useState)(10), perPage = _h[0], setPerPage = _h[1];
+    var _j = (0, react_2.useState)(0), totalCount = _j[0], setTotalCount = _j[1];
+    var _k = (0, react_2.useState)(0), numPages = _k[0], setNumPages = _k[1];
     var showLoading = function () { return setLoading(true); };
     var hideLoading = function () { return setLoading(false); };
     var findOne = function (id) { return __awaiter(void 0, void 0, void 0, function () {
@@ -81,7 +81,7 @@ var useResource = function (params) {
                 case 0:
                     if (!id)
                         return [2 /*return*/, null];
-                    return [4 /*yield*/, loadingWrapper(function () { return api.collection(name).url(url).findOne(id); })];
+                    return [4 /*yield*/, loadingWrapper(function () { return api.findOne(id, params); })];
                 case 1: return [2 /*return*/, _a.sent()];
             }
         });
@@ -105,7 +105,7 @@ var useResource = function (params) {
                         if (queryParams) {
                             setQuery(__assign(__assign({}, query), queryParams));
                         }
-                        return [4 /*yield*/, api.url(url).findMany(__assign(__assign({}, query), queryParams))];
+                        return [4 /*yield*/, api.findMany(__assign(__assign({}, query), queryParams), params)];
                     case 2:
                         res = _a.sent();
                         if (res.data) {
@@ -176,29 +176,29 @@ var useResource = function (params) {
             }
         });
     }); };
-    var save = function (data) {
-        if (data === null || data === void 0 ? void 0 : data.id) {
-            return update(data);
+    var save = function (resource) {
+        if (resource === null || resource === void 0 ? void 0 : resource.id) {
+            return update(resource);
         }
         else {
-            return create(data);
+            return create(resource);
         }
     };
-    var create = function (data) { return __awaiter(void 0, void 0, void 0, function () {
+    var create = function (resource) { return __awaiter(void 0, void 0, void 0, function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0: return [4 /*yield*/, loadingWrapper(function () {
-                        return api.collection(name).url(url).create(data);
+                        return api.create(resource, params);
                     })];
                 case 1: return [2 /*return*/, _a.sent()];
             }
         });
     }); };
-    var update = function (data) { return __awaiter(void 0, void 0, void 0, function () {
+    var update = function (resource) { return __awaiter(void 0, void 0, void 0, function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0: return [4 /*yield*/, loadingWrapper(function () {
-                        return api.collection(name).url(url).update(data);
+                        return api.update(resource, params);
                     })];
                 case 1: return [2 /*return*/, _a.sent()];
             }
@@ -208,17 +208,17 @@ var useResource = function (params) {
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0: return [4 /*yield*/, loadingWrapper(function () {
-                        return api.collection(name).url(url).destroy(id);
+                        return api.destroy(id, params);
                     })];
                 case 1: return [2 /*return*/, _a.sent()];
             }
         });
     }); };
-    var updateMany = function (ids, data) { return __awaiter(void 0, void 0, void 0, function () {
+    var updateMany = function (ids, resource) { return __awaiter(void 0, void 0, void 0, function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0: return [4 /*yield*/, loadingWrapper(function () {
-                        return api.collection(name).url(url).updateMany(ids, data);
+                        return api.updateMany(ids, resource, params);
                     })];
                 case 1: return [2 /*return*/, _a.sent()];
             }
@@ -228,7 +228,7 @@ var useResource = function (params) {
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0: return [4 /*yield*/, loadingWrapper(function () {
-                        return api.collection(name).url(url).destroyMany(ids);
+                        return api.destroyMany(ids, params);
                     })];
                 case 1: return [2 /*return*/, _a.sent()];
             }
@@ -238,7 +238,7 @@ var useResource = function (params) {
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0: return [4 /*yield*/, loadingWrapper(function () {
-                        return api.collection(name).url(url).publish(ids);
+                        return api.publish(ids, params);
                     })];
                 case 1: return [2 /*return*/, _a.sent()];
             }
@@ -248,28 +248,40 @@ var useResource = function (params) {
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0: return [4 /*yield*/, loadingWrapper(function () {
-                        return api.collection(name).url(url).unpublish(ids);
+                        return api.unpublish(ids, params);
                     })];
                 case 1: return [2 /*return*/, _a.sent()];
             }
         });
     }); };
     var addLinks = function (sourceId, targetIds) { return __awaiter(void 0, void 0, void 0, function () {
+        var options;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, loadingWrapper(function () {
-                        return api.collection('links').url(url).addLinks(sourceId, targetIds);
-                    })];
+                case 0:
+                    options = {
+                        url: url,
+                        name: 'links'
+                    };
+                    return [4 /*yield*/, loadingWrapper(function () {
+                            return api.addLinks(sourceId, targetIds, options);
+                        })];
                 case 1: return [2 /*return*/, _a.sent()];
             }
         });
     }); };
     var removeLinks = function (sourceId, targetIds) { return __awaiter(void 0, void 0, void 0, function () {
+        var options;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, loadingWrapper(function () {
-                        return api.collection('links').url(url).removeLinks(sourceId, targetIds);
-                    })];
+                case 0:
+                    options = {
+                        url: url,
+                        name: 'links'
+                    };
+                    return [4 /*yield*/, loadingWrapper(function () {
+                            return api.removeLinks(sourceId, targetIds, options);
+                        })];
                 case 1: return [2 /*return*/, _a.sent()];
             }
         });
@@ -277,30 +289,39 @@ var useResource = function (params) {
     var updateLinkPositions = function (id, sorted) { return __awaiter(void 0, void 0, void 0, function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, api.collection(name).url(url).updateLinkPositions(id, sorted)];
+                case 0: return [4 /*yield*/, api.updateLinkPositions(id, sorted, params)];
                 case 1: return [2 /*return*/, _a.sent()];
             }
         });
     }); };
     var addAttachment = function (id, fieldName, attachmentId) { return __awaiter(void 0, void 0, void 0, function () {
+        var options;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, loadingWrapper(function () {
-                        return api
-                            .collection('attachment')
-                            .url(url)
-                            .addAttachment(id, fieldName, attachmentId);
-                    })];
+                case 0:
+                    options = {
+                        name: 'attachment',
+                        url: url
+                    };
+                    return [4 /*yield*/, loadingWrapper(function () {
+                            return api.addAttachment(id, fieldName, attachmentId, options);
+                        })];
                 case 1: return [2 /*return*/, _a.sent()];
             }
         });
     }); };
     var removeAttachment = function (id, fieldName) { return __awaiter(void 0, void 0, void 0, function () {
+        var options;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, loadingWrapper(function () {
-                        return api.collection('attachment').url(url).removeAttachment(id, fieldName);
-                    })];
+                case 0:
+                    options = {
+                        name: 'attachment',
+                        url: url
+                    };
+                    return [4 /*yield*/, loadingWrapper(function () {
+                            return api.removeAttachment(id, fieldName, options);
+                        })];
                 case 1: return [2 /*return*/, _a.sent()];
             }
         });
@@ -308,7 +329,7 @@ var useResource = function (params) {
     var updatePositions = function (sorted) { return __awaiter(void 0, void 0, void 0, function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, api.collection(name).url(url).updatePositions(sorted)];
+                case 0: return [4 /*yield*/, api.updatePositions(sorted, params)];
                 case 1: 
                 // Intentionally avoid loading for drag-drop UIs
                 return [2 /*return*/, _a.sent()];
@@ -316,10 +337,10 @@ var useResource = function (params) {
         });
     }); };
     var handleChange = function (ev) {
-        var _a;
         var name = ev.target.name;
         var value = ev.target.type === 'checkbox' ? ev.target.checked : ev.target.value;
-        setResource(__assign(__assign({}, resource), (_a = {}, _a[name] = value, _a)));
+        var changedResource = api.handleChange(resource, name, value);
+        setResource(changedResource);
     };
     var loadingWrapper = function (apiMethod) { return __awaiter(void 0, void 0, void 0, function () {
         var res, e_2;

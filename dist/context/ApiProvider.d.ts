@@ -2,6 +2,7 @@ import React from 'react';
 declare type ApiProviderProps = {
     url: string;
     clientUrl?: string;
+    authUrl?: string;
     apiKey?: string;
     authCookie: string;
     children: React.ReactNode;

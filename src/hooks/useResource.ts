@@ -2,19 +2,19 @@ import React, { useContext } from 'react'
 import { useState } from 'react'
 import { ApiContext } from '../context'
 import { useDelayedLoading } from '../hooks'
-import { ID, QueryParamsType, UseResourceResponse, PageInfoType } from '../types'
+import { ID, QueryParamsType, UseResourceResponse, SyntheticEventType } from '../types'
 
 type FindManyOptionType = {
   loadMore?: boolean 
 }
 
 type UseResourceParams = {
-	url?: string
-	name?: string
+	url: string
+	name: string
 }
 
 const useResource = (params: UseResourceParams): UseResourceResponse => {
-	const { url, name = 'resource' } = params || {}
+	const { url } = params || {}
 
 	const { api } = useContext(ApiContext)
 	const [loading, setLoading] = useState<boolean>(false)
@@ -24,7 +24,7 @@ const useResource = (params: UseResourceParams): UseResourceResponse => {
 	const [resources, setResources] = useState<any[]>([])
 
 	const [query, setQuery] = useState<QueryParamsType>({})
-	const [meta, setMeta] = useState<PageInfoType>(null)
+	const [meta, setMeta] = useState<any>(null)  
 	const [page, setPage] = useState<number>(1)
 	const [perPage, setPerPage] = useState<number>(10)
 	const [totalCount, setTotalCount] = useState<number>(0)
@@ -35,7 +35,7 @@ const useResource = (params: UseResourceParams): UseResourceResponse => {
 
 	const findOne = async (id: ID) => {
 		if (!id) return null
-		return await loadingWrapper(() => api.collection(name).url(url).findOne(id))
+		return await loadingWrapper(() => api.findOne(id, params))
 	}
 
 	const findMany = async (queryParams: QueryParamsType = {}, opts: FindManyOptionType = {}) => {
@@ -51,10 +51,10 @@ const useResource = (params: UseResourceParams): UseResourceResponse => {
 					...queryParams,
 				})
 			}      
-			const res = await api.url(url).findMany({
+			const res = await api.findMany({
 				...query,
 				...queryParams,
-			})
+			}, params)
 			if (res.data) {
 				if (opts?.loadMore !== true ) {
 					setResources(res.data)
@@ -106,53 +106,53 @@ const useResource = (params: UseResourceParams): UseResourceResponse => {
 		})
 	}
 
-	const save = (data: any) => {
-		if (data?.id) {
-			return update(data)
+	const save = (resource: any) => {
+		if (resource?.id) {
+			return update(resource)
 		} else {
-			return create(data)
+			return create(resource)
 		}
 	}
 
-	const create = async (data: any) => {
+	const create = async (resource: any) => {
 		return await loadingWrapper(() =>
-			api.collection(name).url(url).create(data)
+			api.create(resource, params)
 		)
 	}
 
-	const update = async (data: any) => {
+	const update = async (resource: any) => {
 		return await loadingWrapper(() =>
-			api.collection(name).url(url).update(data)
+			api.update(resource, params)
 		)
 	}
 
 	const destroy = async (id: ID) => {
 		return await loadingWrapper(() => 
-      api.collection(name).url(url).destroy(id)
+      api.destroy(id, params)
     )
 	}
 
-	const updateMany = async (ids: ID[], data: any) => {
+	const updateMany = async (ids: ID[], resource: any) => {
 		return await loadingWrapper(() =>
-			api.collection(name).url(url).updateMany(ids, data)
+			api.updateMany(ids, resource, params)
 		)
 	}
 
 	const deleteMany = async (ids: ID[]) => {
 		return await loadingWrapper(() =>
-			api.collection(name).url(url).destroyMany(ids)
+			api.destroyMany(ids, params)
 		)
 	}
 
 	const publish = async (ids: ID[]) => {
 		return await loadingWrapper(() =>
-			api.collection(name).url(url).publish(ids)
+			api.publish(ids, params)
 		)
 	}
 
 	const unpublish = async (ids: ID[]) => {
 		return await loadingWrapper(() =>
-			api.collection(name).url(url).unpublish(ids)
+			api.unpublish(ids, params)
 		)
 	}
 
@@ -160,19 +160,27 @@ const useResource = (params: UseResourceParams): UseResourceResponse => {
 		sourceId: ID,
 		targetIds: ID[]
 	) => {
+    const options = { 
+      url, 
+      name: 'links' 
+    }
 		return await loadingWrapper(() =>
-			api.collection('links').url(url).addLinks(sourceId, targetIds)
+			api.addLinks(sourceId, targetIds, options)
 		)
 	}
 
 	const removeLinks = async (sourceId: ID, targetIds: ID[]) => {
+    const options = { 
+      url, 
+      name: 'links' 
+    }
 		return await loadingWrapper(() =>
-			api.collection('links').url(url).removeLinks(sourceId, targetIds)
+			api.removeLinks(sourceId, targetIds, options)
 		)
 	}
 
   const updateLinkPositions = async (id: number, sorted) => {
-    return await api.collection(name).url(url).updateLinkPositions(id, sorted)
+    return await api.updateLinkPositions(id, sorted, params)
 	}
 
 	const addAttachment = async (
@@ -180,33 +188,36 @@ const useResource = (params: UseResourceParams): UseResourceResponse => {
 		fieldName: string,
 		attachmentId: ID
 	) => {
+    const options = {
+      name: 'attachment',
+      url
+    }
 		return await loadingWrapper(() =>
-			api
-				.collection('attachment')
-				.url(url)
-				.addAttachment(id, fieldName, attachmentId)
+			api.addAttachment(id, fieldName, attachmentId, options)
 		)
 	}
 
 	const removeAttachment = async (id: ID, fieldName: string) => {
+    const options = {
+      name: 'attachment',
+      url
+    }
 		return await loadingWrapper(() =>
-			api.collection('attachment').url(url).removeAttachment(id, fieldName)
+			api.removeAttachment(id, fieldName, options)
 		)
 	}
 
 	const updatePositions = async (sorted: any[]) => {
 		// Intentionally avoid loading for drag-drop UIs
-		return await api.collection(name).url(url).updatePositions(sorted)
+		return await api.updatePositions(sorted, params)
 	}
 
-	const handleChange = (ev: React.ChangeEvent<HTMLInputElement>) => {
+	const handleChange = (ev: SyntheticEventType) => {
 		const { name } = ev.target
 		const value =
 			ev.target.type === 'checkbox' ? ev.target.checked : ev.target.value
-		setResource({
-			...resource,
-			[name]: value,
-		})
+    const changedResource = api.handleChange(resource, name, value)
+		setResource(changedResource)
 	}
 
 	const loadingWrapper = async (apiMethod: () => any) => {

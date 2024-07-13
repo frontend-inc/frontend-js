@@ -23,8 +23,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var react_1 = __importStar(require("react"));
-var CollectionContext_1 = __importDefault(require("./CollectionContext"));
-var CollectionProvider = function (props) {
+var ResourceContext_1 = __importDefault(require("./ResourceContext"));
+var ResourceProvider = function (props) {
     var url = props.url, children = props.children, _resource = props.resource;
     var _a = (0, react_1.useState)(false), loading = _a[0], setLoading = _a[1];
     var _b = (0, react_1.useState)(false), delayedLoading = _b[0], setDelayedLoading = _b[1];
@@ -76,6 +76,6 @@ var CollectionProvider = function (props) {
         openDelete: openDelete,
         setOpenDelete: setOpenDelete
     };
-    return (react_1.default.createElement(CollectionContext_1.default.Provider, { value: value }, children));
+    return (react_1.default.createElement(ResourceContext_1.default.Provider, { value: value }, children));
 };
-exports.default = CollectionProvider;
+exports.default = ResourceProvider;

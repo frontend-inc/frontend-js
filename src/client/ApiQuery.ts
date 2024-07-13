@@ -1,8 +1,7 @@
 import {
 	QueryURLParamsType,
 	QueryParamsType,
-	Filters,
-	Filter,
+	FilterType,
 	QueryFilterArrayParamsType,
 } from '../types'
 
@@ -10,7 +9,7 @@ export class ApiQuery {
 	private _sort_by?: string
 	private _sort_direction?: string
 	private _keywords?: string
-	private _filters?: Filters | {}
+	private _filters?: FilterType | {}
 	private _page?: number
 	private _per_page?: number
 	private _params?: any
@@ -87,7 +86,7 @@ export class ApiQuery {
 		if (typeof value === 'object') {
 			this._filters = value
 		} else {
-			throw new Error('Filters must be an object.')
+			throw new Error('FiltersType must be an object.')
 		}
 	}
 
@@ -137,7 +136,7 @@ export class ApiQuery {
 		return this
 	}
 
-	filter(filters: Filter | {}): ApiQuery {
+	filter(filters: FilterType | {}): ApiQuery {
 		this._filters = filters
 		return this
 	}
@@ -241,7 +240,7 @@ export class ApiQuery {
 		return this
 	}
 
-	AND_filter(filter: Filter): ApiQuery {    
+	AND_filter(filter: FilterType): ApiQuery {    
 		this._filters = {
 			...this._filters,
 			AND: [...(this._filters['AND'] || []), filter],
@@ -249,7 +248,7 @@ export class ApiQuery {
 		return this
 	}
 
-	OR_filter(filter: Filter): ApiQuery {
+	OR_filter(filter: FilterType): ApiQuery {
 		this._filters = {
 			...this._filters,
 			OR: [...(this._filters['OR'] || []), filter],
@@ -277,15 +276,15 @@ export class ApiQuery {
 			}
 		}
 
-		let andFilters: string[] = []
-		let orFilters: string[] = []
+		let andFiltersType: string[] = []
+		let orFiltersType: string[] = []
 		if (
 			typeof this._filters === 'object' &&
 			Object.keys(this._filters).length > 0
 		) {
 			Object.keys(this._filters).forEach((where: string) => {
 				let andOrfilters = this._filters[where]
-				andOrfilters?.forEach((filter: Filter) => {
+				andOrfilters?.forEach((filter: FilterType) => {
 					if (this.isValidFilter(filter)) {
 						let field = Object.keys(filter)[0]
 						let operator = Object.keys(filter[field])[0]
@@ -294,26 +293,26 @@ export class ApiQuery {
 							value = `[${value.join(',')}]`
 						}
 						if (where == 'AND') {
-							andFilters.push(`${field}:${operator}:${value}`)
+							andFiltersType.push(`${field}:${operator}:${value}`)
 						}
 						if (where == 'OR') {
-							orFilters.push(`${field}:${operator}:${value}`)
+							orFiltersType.push(`${field}:${operator}:${value}`)
 						}
 					}
 				})
 			})
 		}
 
-		let andOrFilters = []
-		if (andFilters.length > 0) {
-			andOrFilters.push(`and(${andFilters.join(',')})`)
+		let andOrFiltersType = []
+		if (andFiltersType.length > 0) {
+			andOrFiltersType.push(`and(${andFiltersType.join(',')})`)
 		}
-		if (orFilters.length > 0) {
-			andOrFilters.push(`or(${orFilters.join(',')})`)
+		if (orFiltersType.length > 0) {
+			andOrFiltersType.push(`or(${orFiltersType.join(',')})`)
 		}
 		searchParams = {
 			...searchParams,
-			filters: andOrFilters.join(''),
+			filters: andOrFiltersType.join(''),
 		}
 
 		searchParams = {
@@ -352,11 +351,11 @@ export class ApiQuery {
 
 			// Parse AND filters
 			if (andPart) {
-				let andFilters = andPart[1]
+				let andFiltersType = andPart[1]
 				// Regular expression to also handle
 				// filters=and(id:in:[1,2,3])
 				let filterRegex = /,(?![^\[]*\])/
-				andFilterArray = andFilters.split(filterRegex).map((filter) => {
+				andFilterArray = andFiltersType.split(filterRegex).map((filter) => {
 					let [field, operator, value] = filter.split(':')
 					if (operator == 'in' || operator == 'nin') {
 						value = value.replace('[', '').replace(']', '').split(',')
@@ -373,8 +372,8 @@ export class ApiQuery {
 
 			// Parse OR filters
 			if (orPart) {
-				let orFilters = orPart[1]
-				orFilterArray = orFilters.split(',').map((filter) => {
+				let orFiltersType = orPart[1]
+				orFilterArray = orFiltersType.split(',').map((filter) => {
 					const [field, operator, value] = filter.split(':')
 					return {
 						[field]: { [operator]: value },

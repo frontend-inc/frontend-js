@@ -1,3 +1,9 @@
+export declare type SyntheticEventType = any & {
+    target: {
+        name: string;
+        value: any;
+    };
+};
 export declare type UserType = {
     id?: number;
     username?: string;

@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react'
-import CollectionContext from './CollectionContext'
+import ResourceContext from './ResourceContext'
 
-type CollectionProviderProps = {
+type ResourceProviderProps = {
   url: string
   resource?: any
 	children: React.ReactNode
 }
 
-const CollectionProvider = (props: CollectionProviderProps) => {
+const ResourceProvider = (props: ResourceProviderProps) => {
 	const { url, children, resource: _resource } = props
 	
 	const [loading, setLoading] = useState(false)
@@ -77,10 +77,10 @@ const CollectionProvider = (props: CollectionProviderProps) => {
 	}
 
 	return (
-		<CollectionContext.Provider value={value}>
+		<ResourceContext.Provider value={value}>
 			{children}
-		</CollectionContext.Provider>
+		</ResourceContext.Provider>
 	)
 }
 
-export default CollectionProvider
+export default ResourceProvider

@@ -65,49 +65,21 @@ var ApiClient = /** @class */ (function () {
                 if (typeof target[prop] !== 'undefined') {
                     return target[prop];
                 }
-                target._collection = prop === null || prop === void 0 ? void 0 : prop.toString();
-                target._url = "/" + (prop === null || prop === void 0 ? void 0 : prop.toString());
                 return target;
             },
         });
     }
     ApiClient.prototype.init = function () {
         this.apiQuery = new ApiQuery_1.ApiQuery();
-        this._collection = '';
         this.endpoint = '';
         this.payload = null;
         this.headers = {
             'Content-Type': 'application/json',
         };
-        this._url = '';
-        return this;
-    };
-    // Manually set the collection params
-    ApiClient.prototype.config = function (params) {
-        if (typeof params !== 'object') {
-            throw Error('Collection must be an object');
-        }
-        this.init();
-        var collection = params.collection, path = params.path;
-        if (typeof collection === 'string') {
-            this._collection = collection;
-        }
-        if (typeof path === 'string') {
-            this._url = path;
-        }
         return this;
     };
     ApiClient.prototype.clearQuery = function () {
         this.apiQuery = new ApiQuery_1.ApiQuery();
-        return this;
-    };
-    ApiClient.prototype.url = function (path) {
-        this._url = path;
-        return this;
-    };
-    ApiClient.prototype.collection = function (collection) {
-        this.init();
-        this._collection = collection;
         return this;
     };
     ApiClient.prototype.query = function (params) {
@@ -166,162 +138,169 @@ var ApiClient = /** @class */ (function () {
         this.apiQuery.per_page = perPage;
         return this;
     };
-    ApiClient.prototype.findOne = function (id) {
+    ApiClient.prototype.findOne = function (id, options) {
         return __awaiter(this, void 0, void 0, function () {
+            var url;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        this.endpoint = this._url + "/" + id;
+                        url = (options || {}).url;
+                        this.endpoint = url + "/" + id;
                         return [4 /*yield*/, this.get(this.endpoint)];
                     case 1: return [2 /*return*/, _a.sent()];
                 }
             });
         });
     };
-    ApiClient.prototype.findMany = function (searchParams) {
+    ApiClient.prototype.findMany = function (searchParams, options) {
         return __awaiter(this, void 0, void 0, function () {
+            var url;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
+                        url = (options || {}).url;
                         this.apiQuery.where(searchParams);
-                        this.endpoint = this._url;
+                        this.endpoint = url;
                         return [4 /*yield*/, this.get(this.endpoint, this.apiQuery.url())];
                     case 1: return [2 /*return*/, _a.sent()];
                 }
             });
         });
     };
-    ApiClient.prototype.findLinks = function (id, contentType, searchParams) {
+    ApiClient.prototype.create = function (resource, options) {
         return __awaiter(this, void 0, void 0, function () {
-            return __generator(this, function (_a) {
-                switch (_a.label) {
+            var _a, name, url;
+            var _b;
+            return __generator(this, function (_c) {
+                switch (_c.label) {
                     case 0:
-                        this.apiQuery.where(searchParams);
-                        this.endpoint = this._url + "/" + id + "/" + contentType;
-                        return [4 /*yield*/, this.get(this.endpoint, this.apiQuery.url())];
-                    case 1: return [2 /*return*/, _a.sent()];
+                        _a = options || {}, name = _a.name, url = _a.url;
+                        this.payload = (_b = {},
+                            _b[name] = resource,
+                            _b);
+                        this.handleFormatData(name);
+                        this.endpoint = url;
+                        return [4 /*yield*/, this.post(this.endpoint, this.payload, this.headers)];
+                    case 1: return [2 /*return*/, _c.sent()];
                 }
             });
         });
     };
-    ApiClient.prototype.create = function (data) {
+    ApiClient.prototype.update = function (resource, options) {
         return __awaiter(this, void 0, void 0, function () {
-            var _a;
-            return __generator(this, function (_b) {
-                switch (_b.label) {
+            var _a, name, url;
+            var _b;
+            return __generator(this, function (_c) {
+                switch (_c.label) {
                     case 0:
-                        this.payload = (_a = {},
-                            _a[this._collection] = data,
-                            _a);
-                        this.handleFormatData();
-                        this.endpoint = this._url;
-                        return [4 /*yield*/, this.post(this._url, this.payload, this.headers)];
-                    case 1: return [2 /*return*/, _b.sent()];
-                }
-            });
-        });
-    };
-    ApiClient.prototype.update = function (data) {
-        return __awaiter(this, void 0, void 0, function () {
-            var _a;
-            return __generator(this, function (_b) {
-                switch (_b.label) {
-                    case 0:
-                        this.payload = (_a = {},
-                            _a[this._collection] = data,
-                            _a);
-                        this.handleFormatData();
-                        this.endpoint = this._url + "/" + data.id;
+                        _a = options || {}, name = _a.name, url = _a.url;
+                        this.payload = (_b = {},
+                            _b[name] = resource,
+                            _b);
+                        this.handleFormatData(name);
+                        this.endpoint = url + "/" + resource.id;
                         return [4 /*yield*/, this.put(this.endpoint, this.payload, this.headers)];
-                    case 1: return [2 /*return*/, _b.sent()];
+                    case 1: return [2 /*return*/, _c.sent()];
                 }
             });
         });
     };
-    ApiClient.prototype.destroy = function (id) {
+    ApiClient.prototype.destroy = function (id, options) {
         return __awaiter(this, void 0, void 0, function () {
+            var url;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        this.endpoint = this._url + "/" + id;
+                        url = (options || {}).url;
+                        this.endpoint = url + "/" + id;
                         return [4 /*yield*/, this.delete(this.endpoint)];
                     case 1: return [2 /*return*/, _a.sent()];
                 }
             });
         });
     };
-    ApiClient.prototype.updatePositions = function (sorted) {
+    ApiClient.prototype.updatePositions = function (sorted, options) {
         return __awaiter(this, void 0, void 0, function () {
+            var url;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
+                        url = (options || {}).url;
                         this.payload = {
                             ids: sorted.map(function (resource) { return resource.id; }),
                             positions: sorted.map(function (_, index) { return index; }),
                         };
-                        this.endpoint = this._url + "/update_positions";
+                        this.endpoint = url + "/update_positions";
                         return [4 /*yield*/, this.post(this.endpoint, this.payload, this.headers)];
                     case 1: return [2 /*return*/, _a.sent()];
                 }
             });
         });
     };
-    ApiClient.prototype.updateLinkPositions = function (id, sorted) {
+    ApiClient.prototype.updateLinkPositions = function (id, sorted, options) {
         return __awaiter(this, void 0, void 0, function () {
+            var url;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
+                        url = (options || {}).url;
                         this.payload = {
                             ids: sorted.map(function (resource) { return resource.id; }),
                             positions: sorted.map(function (_, index) { return index; }),
                         };
-                        this.endpoint = this._url + "/" + id + "/update_link_positions";
+                        this.endpoint = url + "/" + id + "/update_link_positions";
                         return [4 /*yield*/, this.post(this.endpoint, this.payload, this.headers)];
                     case 1: return [2 /*return*/, _a.sent()];
                 }
             });
         });
     };
-    ApiClient.prototype.updateMany = function (ids, resource) {
+    ApiClient.prototype.updateMany = function (ids, resource, options) {
         return __awaiter(this, void 0, void 0, function () {
+            var url;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
+                        url = (options || {}).url;
                         this.payload = {
                             ids: ids,
-                            resoure: resource,
+                            resource: resource,
                         };
-                        this.endpoint = this._url + "/update_many";
+                        this.endpoint = url + "/update_many";
                         return [4 /*yield*/, this.post(this.endpoint, this.payload, this.headers)];
                     case 1: return [2 /*return*/, _a.sent()];
                 }
             });
         });
     };
-    ApiClient.prototype.destroyMany = function (ids) {
+    ApiClient.prototype.destroyMany = function (ids, options) {
         return __awaiter(this, void 0, void 0, function () {
+            var url;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
+                        url = (options || {}).url;
                         if (!Array.isArray(ids)) {
                             throw Error('Ids must be an array');
                         }
                         this.payload = {
                             ids: ids,
                         };
-                        this.endpoint = this._url + "/delete_many";
+                        this.endpoint = url + "/delete_many";
                         return [4 /*yield*/, this.post(this.endpoint, this.payload, this.headers)];
                     case 1: return [2 /*return*/, _a.sent()];
                 }
             });
         });
     };
-    ApiClient.prototype.publish = function (ids) {
+    ApiClient.prototype.publish = function (ids, options) {
         return __awaiter(this, void 0, void 0, function () {
+            var url;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        this.endpoint = this._url + "/publish";
+                        url = (options || {}).url;
+                        this.endpoint = url + "/publish";
                         this.payload = {
                             ids: ids,
                         };
@@ -331,12 +310,14 @@ var ApiClient = /** @class */ (function () {
             });
         });
     };
-    ApiClient.prototype.unpublish = function (ids) {
+    ApiClient.prototype.unpublish = function (ids, options) {
         return __awaiter(this, void 0, void 0, function () {
+            var url;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        this.endpoint = this._url + "/unpublish";
+                        url = (options || {}).url;
+                        this.endpoint = url + "/unpublish";
                         this.payload = {
                             ids: ids,
                         };
@@ -346,176 +327,200 @@ var ApiClient = /** @class */ (function () {
             });
         });
     };
-    ApiClient.prototype.like = function (id) {
+    ApiClient.prototype.like = function (id, options) {
         return __awaiter(this, void 0, void 0, function () {
+            var url;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        this.endpoint = this._url + "/" + id + "/like";
+                        url = (options || {}).url;
+                        this.endpoint = url + "/" + id + "/like";
                         return [4 /*yield*/, this.post(this.endpoint, null, this.headers)];
                     case 1: return [2 /*return*/, _a.sent()];
                 }
             });
         });
     };
-    ApiClient.prototype.unlike = function (id) {
+    ApiClient.prototype.unlike = function (id, options) {
         return __awaiter(this, void 0, void 0, function () {
+            var url;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        this.endpoint = this._url + "/" + id + "/unlike";
+                        url = (options || {}).url;
+                        this.endpoint = url + "/" + id + "/unlike";
                         return [4 /*yield*/, this.post(this.endpoint, null, this.headers)];
                     case 1: return [2 /*return*/, _a.sent()];
                 }
             });
         });
     };
-    ApiClient.prototype.favorite = function (id) {
+    ApiClient.prototype.favorite = function (id, options) {
         return __awaiter(this, void 0, void 0, function () {
+            var url;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        this.endpoint = this._url + "/" + id + "/favorite";
+                        url = (options || {}).url;
+                        this.endpoint = url + "/" + id + "/favorite";
                         return [4 /*yield*/, this.post(this.endpoint, null, this.headers)];
                     case 1: return [2 /*return*/, _a.sent()];
                 }
             });
         });
     };
-    ApiClient.prototype.unfavorite = function (id) {
+    ApiClient.prototype.unfavorite = function (id, options) {
         return __awaiter(this, void 0, void 0, function () {
+            var url;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        this.endpoint = this._url + "/" + id + "/unfavorite";
+                        url = (options || {}).url;
+                        this.endpoint = url + "/" + id + "/unfavorite";
                         return [4 /*yield*/, this.post(this.endpoint, null, this.headers)];
                     case 1: return [2 /*return*/, _a.sent()];
                 }
             });
         });
     };
-    ApiClient.prototype.follow = function (id) {
+    ApiClient.prototype.follow = function (id, options) {
         return __awaiter(this, void 0, void 0, function () {
+            var url;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        this.endpoint = this._url + "/" + id + "/follow";
+                        url = (options || {}).url;
+                        this.endpoint = url + "/" + id + "/follow";
                         return [4 /*yield*/, this.post(this.endpoint, null, this.headers)];
                     case 1: return [2 /*return*/, _a.sent()];
                 }
             });
         });
     };
-    ApiClient.prototype.unfollow = function (id) {
+    ApiClient.prototype.unfollow = function (id, options) {
         return __awaiter(this, void 0, void 0, function () {
+            var url;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        this.endpoint = this._url + "/" + id + "/unfollow";
+                        url = (options || {}).url;
+                        this.endpoint = url + "/" + id + "/unfollow";
                         return [4 /*yield*/, this.post(this.endpoint, null, this.headers)];
                     case 1: return [2 /*return*/, _a.sent()];
                 }
             });
         });
     };
-    ApiClient.prototype.addLinks = function (sourceId, targetIds) {
+    ApiClient.prototype.addLinks = function (sourceId, targetIds, options) {
         return __awaiter(this, void 0, void 0, function () {
-            var _a;
-            return __generator(this, function (_b) {
-                switch (_b.label) {
+            var _a, name, url;
+            var _b;
+            return __generator(this, function (_c) {
+                switch (_c.label) {
                     case 0:
-                        this.payload = (_a = {},
-                            _a[this._collection] = {
+                        _a = options || {}, name = _a.name, url = _a.url;
+                        this.payload = (_b = {},
+                            _b[name] = {
                                 ids: targetIds,
                             },
-                            _a);
-                        this.endpoint = this._url + "/" + sourceId + "/add_links";
+                            _b);
+                        this.endpoint = url + "/" + sourceId + "/add_links";
                         return [4 /*yield*/, this.post(this.endpoint, this.payload, this.headers)];
-                    case 1: return [2 /*return*/, _b.sent()];
+                    case 1: return [2 /*return*/, _c.sent()];
                 }
             });
         });
     };
-    ApiClient.prototype.removeLinks = function (sourceId, targetIds) {
+    ApiClient.prototype.removeLinks = function (sourceId, targetIds, options) {
         return __awaiter(this, void 0, void 0, function () {
-            var _a;
-            return __generator(this, function (_b) {
-                switch (_b.label) {
+            var _a, name, url;
+            var _b;
+            return __generator(this, function (_c) {
+                switch (_c.label) {
                     case 0:
-                        this.payload = (_a = {},
-                            _a[this._collection] = {
+                        _a = options || {}, name = _a.name, url = _a.url;
+                        this.payload = (_b = {},
+                            _b[name] = {
                                 ids: targetIds,
                             },
-                            _a);
-                        this.endpoint = this._url + "/" + sourceId + "/remove_links";
+                            _b);
+                        this.endpoint = url + "/" + sourceId + "/remove_links";
                         return [4 /*yield*/, this.restClient.post(this.endpoint, this.payload, this.headers)];
-                    case 1: return [2 /*return*/, _b.sent()];
+                    case 1: return [2 /*return*/, _c.sent()];
                 }
             });
         });
     };
-    ApiClient.prototype.addAttachment = function (id, name, attachmentId) {
+    ApiClient.prototype.addAttachment = function (id, name, attachmentId, options) {
         return __awaiter(this, void 0, void 0, function () {
-            var _a;
-            return __generator(this, function (_b) {
-                switch (_b.label) {
+            var _a, nameParam, url;
+            var _b;
+            return __generator(this, function (_c) {
+                switch (_c.label) {
                     case 0:
-                        this.payload = (_a = {},
-                            _a[this._collection] = {
+                        _a = options || {}, nameParam = _a.name, url = _a.url;
+                        this.payload = (_b = {},
+                            _b[nameParam] = {
                                 name: name,
                                 id: attachmentId,
                             },
-                            _a);
-                        this.endpoint = this._url + "/" + id + "/add_attachment";
+                            _b);
+                        this.endpoint = url + "/" + id + "/add_attachment";
                         return [4 /*yield*/, this.post(this.endpoint, this.payload, this.headers)];
-                    case 1: return [2 /*return*/, _b.sent()];
+                    case 1: return [2 /*return*/, _c.sent()];
                 }
             });
         });
     };
-    ApiClient.prototype.removeAttachment = function (id, name) {
+    ApiClient.prototype.removeAttachment = function (id, name, options) {
         return __awaiter(this, void 0, void 0, function () {
-            var _a;
-            return __generator(this, function (_b) {
-                switch (_b.label) {
+            var _a, nameParam, url;
+            var _b;
+            return __generator(this, function (_c) {
+                switch (_c.label) {
                     case 0:
-                        this.payload = (_a = {},
-                            _a[this._collection] = {
+                        _a = options || {}, nameParam = _a.name, url = _a.url;
+                        this.payload = (_b = {},
+                            _b[nameParam] = {
                                 name: name,
                             },
-                            _a);
-                        this.endpoint = this._url + "/" + id + "/remove_attachment";
+                            _b);
+                        this.endpoint = url + "/" + id + "/remove_attachment";
                         return [4 /*yield*/, this.post(this.endpoint, this.payload, this.headers)];
-                    case 1: return [2 /*return*/, _b.sent()];
+                    case 1: return [2 /*return*/, _c.sent()];
                 }
             });
         });
     };
-    ApiClient.prototype.addImage = function (id, attachmentId) {
+    ApiClient.prototype.addImage = function (id, attachmentId, options) {
         return __awaiter(this, void 0, void 0, function () {
-            var _a;
-            return __generator(this, function (_b) {
-                switch (_b.label) {
+            var _a, name, url;
+            var _b;
+            return __generator(this, function (_c) {
+                switch (_c.label) {
                     case 0:
-                        this.payload = (_a = {},
-                            _a[this._collection] = {
+                        _a = options || {}, name = _a.name, url = _a.url;
+                        this.payload = (_b = {},
+                            _b[name] = {
                                 id: attachmentId,
                             },
-                            _a);
-                        this.endpoint = this._url + "/" + id + "/add_image";
+                            _b);
+                        this.endpoint = url + "/" + id + "/add_image";
                         return [4 /*yield*/, this.post(this.endpoint, this.payload, this.headers)];
-                    case 1: return [2 /*return*/, _b.sent()];
+                    case 1: return [2 /*return*/, _c.sent()];
                 }
             });
         });
     };
-    ApiClient.prototype.removeImage = function (id) {
+    ApiClient.prototype.removeImage = function (id, options) {
         return __awaiter(this, void 0, void 0, function () {
+            var url;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
+                        url = (options || {}).url;
                         this.payload = {};
-                        this.endpoint = this._url + "/" + id + "/remove_image";
+                        this.endpoint = url + "/" + id + "/remove_image";
                         return [4 /*yield*/, this.post(this.endpoint, this.payload, this.headers)];
                     case 1: return [2 /*return*/, _a.sent()];
                 }
@@ -523,217 +528,230 @@ var ApiClient = /** @class */ (function () {
         });
     };
     // Auth methods
-    ApiClient.prototype.fetchMe = function () {
+    ApiClient.prototype.fetchMe = function (options) {
         return __awaiter(this, void 0, void 0, function () {
+            var url;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        this.endpoint = this._url + "/me";
+                        url = (options || {}).url;
+                        this.endpoint = url + "/me";
                         return [4 /*yield*/, this.get(this.endpoint)];
                     case 1: return [2 /*return*/, _a.sent()];
                 }
             });
         });
     };
-    ApiClient.prototype.updateMe = function (user) {
+    ApiClient.prototype.updateMe = function (user, options) {
         return __awaiter(this, void 0, void 0, function () {
-            return __generator(this, function (_a) {
-                switch (_a.label) {
+            var _a, _b, name, url;
+            return __generator(this, function (_c) {
+                switch (_c.label) {
                     case 0:
-                        this._collection = 'user';
+                        _a = options || {}, _b = _a.name, name = _b === void 0 ? 'user' : _b, url = _a.url;
                         this.payload = {
                             user: user,
                         };
-                        this.handleFormatData();
-                        this.endpoint = this._url + "/me";
+                        this.handleFormatData(name);
+                        this.endpoint = url + "/me";
                         return [4 /*yield*/, this.put(this.endpoint, this.payload, this.headers)];
-                    case 1: return [2 /*return*/, _a.sent()];
+                    case 1: return [2 /*return*/, _c.sent()];
                 }
             });
         });
     };
-    ApiClient.prototype.login = function (user) {
+    ApiClient.prototype.login = function (user, options) {
         return __awaiter(this, void 0, void 0, function () {
-            var _a;
-            return __generator(this, function (_b) {
-                switch (_b.label) {
+            var _a, _b, name, url;
+            var _c;
+            return __generator(this, function (_d) {
+                switch (_d.label) {
                     case 0:
-                        this._collection = 'user';
-                        this.payload = (_a = {},
-                            _a[this._collection] = user,
-                            _a);
-                        this.endpoint = this._url + "/login";
+                        _a = options || {}, _b = _a.name, name = _b === void 0 ? 'user' : _b, url = _a.url;
+                        this.payload = (_c = {},
+                            _c[name] = user,
+                            _c);
+                        this.endpoint = url + "/login";
                         return [4 /*yield*/, this.post(this.endpoint, this.payload, this.headers)];
-                    case 1: return [2 /*return*/, _b.sent()];
+                    case 1: return [2 /*return*/, _d.sent()];
                 }
             });
         });
     };
-    ApiClient.prototype.signup = function (user) {
+    ApiClient.prototype.signup = function (user, options) {
         return __awaiter(this, void 0, void 0, function () {
-            var _a;
-            return __generator(this, function (_b) {
-                switch (_b.label) {
+            var _a, _b, name, url;
+            var _c;
+            return __generator(this, function (_d) {
+                switch (_d.label) {
                     case 0:
-                        this._collection = 'user';
-                        this.payload = (_a = {},
-                            _a[this._collection] = user,
-                            _a);
-                        this.endpoint = this._url + "/signup";
+                        _a = options || {}, _b = _a.name, name = _b === void 0 ? 'user' : _b, url = _a.url;
+                        this.payload = (_c = {},
+                            _c[name] = user,
+                            _c);
+                        this.endpoint = url + "/signup";
                         return [4 /*yield*/, this.post(this.endpoint, this.payload, this.headers)];
-                    case 1: return [2 /*return*/, _b.sent()];
+                    case 1: return [2 /*return*/, _d.sent()];
                 }
             });
         });
     };
-    ApiClient.prototype.sendPin = function (user) {
+    ApiClient.prototype.sendPin = function (user, options) {
         return __awaiter(this, void 0, void 0, function () {
-            var _a;
-            return __generator(this, function (_b) {
-                switch (_b.label) {
+            var _a, _b, name, url;
+            var _c;
+            return __generator(this, function (_d) {
+                switch (_d.label) {
                     case 0:
-                        this._collection = 'user';
-                        this.payload = (_a = {},
-                            _a[this._collection] = __assign(__assign({}, user), { email: user.email }),
-                            _a);
-                        this.endpoint = this._url + "/send_pin";
+                        _a = options || {}, _b = _a.name, name = _b === void 0 ? 'user' : _b, url = _a.url;
+                        this.payload = (_c = {},
+                            _c[name] = __assign(__assign({}, user), { email: user.email }),
+                            _c);
+                        this.endpoint = url + "/send_pin";
                         return [4 /*yield*/, this.post(this.endpoint, this.payload, this.headers)];
-                    case 1: return [2 /*return*/, _b.sent()];
+                    case 1: return [2 /*return*/, _d.sent()];
                 }
             });
         });
     };
-    ApiClient.prototype.verifyPin = function (email, pin) {
+    ApiClient.prototype.verifyPin = function (email, pin, options) {
         return __awaiter(this, void 0, void 0, function () {
-            var _a;
-            return __generator(this, function (_b) {
-                switch (_b.label) {
+            var _a, _b, name, url;
+            var _c;
+            return __generator(this, function (_d) {
+                switch (_d.label) {
                     case 0:
-                        this._collection = 'user';
-                        this.payload = (_a = {},
-                            _a[this._collection] = {
+                        _a = options || {}, _b = _a.name, name = _b === void 0 ? 'user' : _b, url = _a.url;
+                        this.payload = (_c = {},
+                            _c[name] = {
                                 email: email,
                                 pin: pin,
                             },
-                            _a);
-                        this.endpoint = this._url + "/verify_pin";
+                            _c);
+                        this.endpoint = url + "/verify_pin";
                         return [4 /*yield*/, this.post(this.endpoint, this.payload, this.headers)];
-                    case 1: return [2 /*return*/, _b.sent()];
+                    case 1: return [2 /*return*/, _d.sent()];
                 }
             });
         });
     };
-    ApiClient.prototype.changePassword = function (currentPassword, password, passwordConfirmation) {
+    ApiClient.prototype.changePassword = function (currentPassword, password, passwordConfirmation, options) {
         return __awaiter(this, void 0, void 0, function () {
-            var _a;
-            return __generator(this, function (_b) {
-                switch (_b.label) {
+            var _a, _b, name, url;
+            var _c;
+            return __generator(this, function (_d) {
+                switch (_d.label) {
                     case 0:
-                        this._collection = 'user';
-                        this.payload = (_a = {},
-                            _a[this._collection] = {
+                        _a = options || {}, _b = _a.name, name = _b === void 0 ? 'user' : _b, url = _a.url;
+                        this.payload = (_c = {},
+                            _c[name] = {
                                 current_password: currentPassword,
                                 password: password,
                                 password_confirmation: passwordConfirmation,
                             },
-                            _a);
-                        this.endpoint = this._url + "/change_password";
+                            _c);
+                        this.endpoint = url + "/change_password";
                         return [4 /*yield*/, this.post(this.endpoint, this.payload, this.headers)];
-                    case 1: return [2 /*return*/, _b.sent()];
+                    case 1: return [2 /*return*/, _d.sent()];
                 }
             });
         });
     };
-    ApiClient.prototype.forgotPassword = function (user) {
+    ApiClient.prototype.forgotPassword = function (user, options) {
         return __awaiter(this, void 0, void 0, function () {
-            var _a;
-            return __generator(this, function (_b) {
-                switch (_b.label) {
+            var _a, _b, name, url;
+            var _c;
+            return __generator(this, function (_d) {
+                switch (_d.label) {
                     case 0:
-                        this._collection = 'user';
-                        this.payload = (_a = {},
-                            _a[this._collection] = __assign(__assign({}, user), { email: user.email }),
-                            _a);
-                        this.endpoint = this._url + "/send_forgot_password";
+                        _a = options || {}, _b = _a.name, name = _b === void 0 ? 'user' : _b, url = _a.url;
+                        this.payload = (_c = {},
+                            _c[name] = __assign(__assign({}, user), { email: user.email }),
+                            _c);
+                        this.endpoint = url + "/send_forgot_password";
                         return [4 /*yield*/, this.post(this.endpoint, this.payload, this.headers)];
-                    case 1: return [2 /*return*/, _b.sent()];
+                    case 1: return [2 /*return*/, _d.sent()];
                 }
             });
         });
     };
-    ApiClient.prototype.googleLogin = function (accessToken) {
+    ApiClient.prototype.googleLogin = function (accessToken, options) {
         return __awaiter(this, void 0, void 0, function () {
-            var _a;
-            return __generator(this, function (_b) {
-                switch (_b.label) {
+            var _a, _b, name, url;
+            var _c;
+            return __generator(this, function (_d) {
+                switch (_d.label) {
                     case 0:
-                        this._collection = 'user';
-                        this.payload = (_a = {},
-                            _a[this._collection] = {
+                        _a = options || {}, _b = _a.name, name = _b === void 0 ? 'user' : _b, url = _a.url;
+                        this.payload = (_c = {},
+                            _c[name] = {
                                 access_token: accessToken
                             },
-                            _a);
-                        this.endpoint = this._url + "/google_login";
+                            _c);
+                        this.endpoint = url + "/google_login";
                         return [4 /*yield*/, this.post(this.endpoint, this.payload, this.headers)];
-                    case 1: return [2 /*return*/, _b.sent()];
+                    case 1: return [2 /*return*/, _d.sent()];
                 }
             });
         });
     };
-    ApiClient.prototype.resetPassword = function (email, password, passwordConfirmation, changePasswordToken) {
+    ApiClient.prototype.resetPassword = function (email, password, passwordConfirmation, changePasswordToken, options) {
         return __awaiter(this, void 0, void 0, function () {
-            var _a;
-            return __generator(this, function (_b) {
-                switch (_b.label) {
+            var _a, _b, name, url;
+            var _c;
+            return __generator(this, function (_d) {
+                switch (_d.label) {
                     case 0:
-                        this._collection = 'user';
-                        this.payload = (_a = {},
-                            _a[this._collection] = {
+                        _a = options || {}, _b = _a.name, name = _b === void 0 ? 'user' : _b, url = _a.url;
+                        this.payload = (_c = {},
+                            _c[name] = {
                                 email: email,
                                 password: password,
                                 password_confirmation: passwordConfirmation,
                                 change_password_token: changePasswordToken,
                             },
-                            _a);
-                        this.endpoint = this._url + "/reset_password";
+                            _c);
+                        this.endpoint = url + "/reset_password";
                         return [4 /*yield*/, this.post(this.endpoint, this.payload, this.headers)];
-                    case 1: return [2 /*return*/, _b.sent()];
+                    case 1: return [2 /*return*/, _d.sent()];
                 }
             });
         });
     };
-    ApiClient.prototype.sendOneTimePassword = function (user) {
+    ApiClient.prototype.sendOneTimePassword = function (user, options) {
         return __awaiter(this, void 0, void 0, function () {
-            var _a;
-            return __generator(this, function (_b) {
-                switch (_b.label) {
+            var _a, _b, name, url;
+            var _c;
+            return __generator(this, function (_d) {
+                switch (_d.label) {
                     case 0:
-                        this._collection = 'user';
-                        this.payload = (_a = {},
-                            _a[this._collection] = __assign(__assign({}, user), { email: user.email }),
-                            _a);
-                        this.endpoint = this._url + "/send_one_time_password";
+                        _a = options || {}, _b = _a.name, name = _b === void 0 ? 'user' : _b, url = _a.url;
+                        this.payload = (_c = {},
+                            _c[name] = __assign(__assign({}, user), { email: user.email }),
+                            _c);
+                        this.endpoint = url + "/send_one_time_password";
                         return [4 /*yield*/, this.post(this.endpoint, this.payload, this.headers)];
-                    case 1: return [2 /*return*/, _b.sent()];
+                    case 1: return [2 /*return*/, _d.sent()];
                 }
             });
         });
     };
-    ApiClient.prototype.verifyOneTimePassword = function (otp) {
+    ApiClient.prototype.verifyOneTimePassword = function (otp, options) {
         return __awaiter(this, void 0, void 0, function () {
-            var _a;
-            return __generator(this, function (_b) {
-                switch (_b.label) {
+            var _a, _b, name, url;
+            var _c;
+            return __generator(this, function (_d) {
+                switch (_d.label) {
                     case 0:
-                        this._collection = 'user';
-                        this.payload = (_a = {},
-                            _a[this._collection] = {
+                        _a = options || {}, _b = _a.name, name = _b === void 0 ? 'user' : _b, url = _a.url;
+                        this.payload = (_c = {},
+                            _c[name] = {
                                 one_time_password: otp,
                             },
-                            _a);
-                        this.endpoint = this._url + "/verify_one_time_password";
+                            _c);
+                        this.endpoint = url + "/verify_one_time_password";
                         return [4 /*yield*/, this.post(this.endpoint, this.payload, this.headers)];
-                    case 1: return [2 /*return*/, _b.sent()];
+                    case 1: return [2 /*return*/, _d.sent()];
                 }
             });
         });
@@ -790,35 +808,39 @@ var ApiClient = /** @class */ (function () {
             });
         });
     };
-    ApiClient.prototype.handleFormatData = function () {
+    ApiClient.prototype.handleChange = function (resource, name, value) {
+        var _a;
+        return __assign(__assign({}, resource), (_a = {}, _a[name] = value, _a));
+    };
+    ApiClient.prototype.handleFormatData = function (name) {
         var multipart = false;
-        for (var key in this.payload[this._collection]) {
-            if (this.payload[this._collection][key] instanceof File) {
+        for (var key in this.payload[name]) {
+            if (this.payload[name][key] instanceof File) {
                 multipart = true;
                 break;
             }
         }
         if (multipart) {
-            this.handleMultipartData();
+            this.handleMultipartData(name);
         }
     };
-    ApiClient.prototype.handleMultipartData = function () {
+    ApiClient.prototype.handleMultipartData = function (name) {
         return __awaiter(this, void 0, void 0, function () {
             var formData, formKey;
             return __generator(this, function (_a) {
                 formData = new FormData();
-                for (formKey in this.payload[this._collection]) {
+                for (formKey in this.payload[name]) {
                     // Form objects can only send string key / value pairs
                     // so we stringify the object
-                    if (this.isJsonObject(this.payload[this._collection][formKey])) {
-                        formData.append(this._collection + "[" + formKey + "_string]", JSON.stringify(this.payload[this._collection][formKey]));
+                    if (this.isJsonObject(this.payload[name][formKey])) {
+                        formData.append(name + "[" + formKey + "_string]", JSON.stringify(this.payload[name][formKey]));
                     }
                     else {
-                        formData.append(this._collection + "[" + formKey + "]", this.payload[this._collection][formKey]);
+                        formData.append(name + "[" + formKey + "]", this.payload[name][formKey]);
                     }
                 }
                 this.payload = formData;
-                this.headers['Content-Type'] = 'multipart/form-data';
+                this.headers['Content-Type'] = 'multipart/form-resource';
                 return [2 /*return*/];
             });
         });

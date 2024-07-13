@@ -6,6 +6,7 @@ import { getCookie } from 'cookies-next'
 type ApiProviderProps = {
 	url: string
 	clientUrl?: string
+  authUrl?: string
 	apiKey?: string
 	authCookie: string
 	children: React.ReactNode
@@ -16,6 +17,7 @@ const ApiProvider = (props: ApiProviderProps) => {
   const {
 		url,
 		clientUrl,
+    authUrl,
 		authCookie = 'auth-token',
 		apiKey,
 		children,
@@ -36,6 +38,7 @@ const ApiProvider = (props: ApiProviderProps) => {
     url,
 		api,
 		apiKey,		
+    authUrl,
 		clientUrl,
 		authCookie,
 	}

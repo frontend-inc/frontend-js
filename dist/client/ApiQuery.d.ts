@@ -1,4 +1,4 @@
-import { QueryParamsType, Filters, Filter, QueryFilterArrayParamsType } from '../types';
+import { QueryParamsType, FilterType, QueryFilterArrayParamsType } from '../types';
 export declare class ApiQuery {
     private _sort_by?;
     private _sort_direction?;
@@ -14,14 +14,14 @@ export declare class ApiQuery {
     get per_page(): number;
     set keywords(value: string);
     get keywords(): string;
-    get filters(): {} | Filters;
-    set filters(value: {} | Filters);
+    get filters(): {} | FilterType;
+    set filters(value: {} | FilterType);
     get sort_by(): string;
     set sort_by(value: string);
     set sort_direction(value: string);
     get sort_direction(): string;
     where(searchParams: QueryParamsType | QueryFilterArrayParamsType): ApiQuery;
-    filter(filters: Filter | {}): ApiQuery;
+    filter(filters: FilterType | {}): ApiQuery;
     sort(field: string, direction?: string | null): ApiQuery;
     search(query: string): ApiQuery;
     eq(field: string, value: string | number): ApiQuery;
@@ -40,8 +40,8 @@ export declare class ApiQuery {
     orGte(field: string, value: string | number): ApiQuery;
     orIn(field: string, value: string | number): ApiQuery;
     orNin(field: string, value: string | number): ApiQuery;
-    AND_filter(filter: Filter): ApiQuery;
-    OR_filter(filter: Filter): ApiQuery;
+    AND_filter(filter: FilterType): ApiQuery;
+    OR_filter(filter: FilterType): ApiQuery;
     url(): string;
     parseURL(routerParams?: Record<string, any>): this;
     transformFilterArray(filters: Record<string, any>): void;
@@ -51,7 +51,7 @@ export declare class ApiQuery {
         per_page: number;
         sort_by: string;
         sort_direction: string;
-        filters: {} | Filters;
+        filters: {} | FilterType;
     };
     isValidFilter: (filter: any) => boolean;
 }

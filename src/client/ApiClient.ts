@@ -1,12 +1,10 @@
 import { ApiQuery } from './ApiQuery'
 import { RestClient } from './RestClient'
-import { UserType, QueryParamsType } from '../types'
-import { ApiClientParamsType, ConfigParamsType, ExecuteResponseType } from '../types'
+import { UserType, QueryParamsType, QueryManyOptionsType } from '../types'
+import { ApiClientParamsType, QueryOptionsType, MutateOptionsType, ExecuteResponseType } from '../types'
 
 export class ApiClient {
 	private payload?: object
-	private _url?: string
-	private _collection?: string
 	private endpoint?: string
 	private headers?: Record<string, any>
 	private apiQuery: ApiQuery
@@ -33,8 +31,6 @@ export class ApiClient {
 				if (typeof target[prop] !== 'undefined') {
 					return target[prop]
 				}
-				target._collection = prop?.toString()
-				target._url = `/${prop?.toString()}`
 				return target
 			},
 		})
@@ -42,45 +38,16 @@ export class ApiClient {
 
 	init(): ApiClient {
 		this.apiQuery = new ApiQuery()
-		this._collection = ''
 		this.endpoint = ''
 		this.payload = null
 		this.headers = {
 			'Content-Type': 'application/json',
 		}
-		this._url = ''
 		return this
 	}
 
-	// Manually set the collection params
-	config(params: ConfigParamsType) {
-		if (typeof params !== 'object') {
-			throw Error('Collection must be an object')
-		}
-		this.init()
-		const { collection, path } = params
-		if (typeof collection === 'string') {
-			this._collection = collection
-		}
-		if (typeof path === 'string') {
-			this._url = path
-		}
-		return this
-	}
-
-	clearQuery() {
+  clearQuery() {
 		this.apiQuery = new ApiQuery()
-		return this
-	}
-
-	url(path: string): ApiClient {
-		this._url = path
-		return this
-	}
-
-	collection(collection: string): ApiClient {
-		this.init()
-		this._collection = collection
 		return this
 	}
 
@@ -154,155 +121,168 @@ export class ApiClient {
 		return this
 	}
 
-	async findOne(id: any): Promise<ExecuteResponseType> {
-		this.endpoint = `${this._url}/${id}`
+	async findOne(id: any, options: QueryOptionsType): Promise<ExecuteResponseType> {
+    const { url } = options || {}
+		this.endpoint = `${url}/${id}`
 		return await this.get(this.endpoint)
 	}
 
-	async findMany(searchParams: QueryParamsType): Promise<ExecuteResponseType> {
+	async findMany(searchParams: QueryParamsType, options: QueryManyOptionsType): Promise<ExecuteResponseType> {
+    const { url } = options || {}
 		this.apiQuery.where(searchParams)
-		this.endpoint = this._url
+		this.endpoint = url
 		return await this.get(this.endpoint, this.apiQuery.url())
 	}
 
-  async findLinks(id: number, contentType: string, searchParams: QueryParamsType): Promise<ExecuteResponseType> {
-		this.apiQuery.where(searchParams)
-		this.endpoint = `${this._url}/${id}/${contentType}`
-		return await this.get(this.endpoint, this.apiQuery.url())
+	async create(resource: any, options: MutateOptionsType): Promise<ExecuteResponseType> {    
+    const { name, url } = options || {}
+		this.payload = {
+			[name]: resource,
+		}
+		this.handleFormatData(name)
+		this.endpoint = url
+		return await this.post(this.endpoint, this.payload, this.headers)
 	}
 
-	async create(data: Record<string, any>): Promise<ExecuteResponseType> {    
+	async update(resource: any, options: MutateOptionsType): Promise<ExecuteResponseType> {
+    const { name, url } = options || {}
 		this.payload = {
-			[this._collection]: data,
+			[name]: resource,
 		}
-		this.handleFormatData()
-		this.endpoint = this._url
-		return await this.post(this._url, this.payload, this.headers)
-	}
-
-	async update(data: Record<string, any>): Promise<ExecuteResponseType> {
-		this.payload = {
-			[this._collection]: data,
-		}
-		this.handleFormatData()
-		this.endpoint = `${this._url}/${data.id}`
+		this.handleFormatData(name)
+		this.endpoint = `${url}/${resource.id}`
 		return await this.put(this.endpoint, this.payload, this.headers)
 	}
 
-	async destroy(id: number): Promise<ExecuteResponseType> {
-		this.endpoint = `${this._url}/${id}`
+	async destroy(id: number, options: MutateOptionsType): Promise<ExecuteResponseType> {
+    const { url } = options || {}
+		this.endpoint = `${url}/${id}`
 		return await this.delete(this.endpoint)
 	}
 
 	async updatePositions(
-		sorted: Record<string, any>[]
-	): Promise<ExecuteResponseType> {
+		sorted: any[],
+    options: MutateOptionsType): Promise<ExecuteResponseType> {      
+    const { url } = options || {}
 		this.payload = {
 			ids: sorted.map((resource) => resource.id),
 			positions: sorted.map((_, index) => index),
 		}
-		this.endpoint = `${this._url}/update_positions`
+		this.endpoint = `${url}/update_positions`
 		return await this.post(this.endpoint, this.payload, this.headers)
 	}
 
-  async updateLinkPositions(id: number, sorted: Record<string, any>[]): Promise<ExecuteResponseType> {
+  async updateLinkPositions(id: number, sorted: any[], options: MutateOptionsType): Promise<ExecuteResponseType> {
+    const { url } = options || {}
 		this.payload = {
 			ids: sorted.map((resource) => resource.id),
 			positions: sorted.map((_, index) => index),
 		}
-		this.endpoint = `${this._url}/${id}/update_link_positions`
+		this.endpoint = `${url}/${id}/update_link_positions`
 		return await this.post(this.endpoint, this.payload, this.headers)
 	}
 
-	async updateMany(ids: number[], resource: object): Promise<ExecuteResponseType> {
+	async updateMany(ids: number[], resource: object, options: MutateOptionsType): Promise<ExecuteResponseType> {
+    const { url } = options || {}
 		this.payload = {
 			ids: ids,
-			resoure: resource,
+			resource: resource,
 		}
-		this.endpoint = `${this._url}/update_many`
+		this.endpoint = `${url}/update_many`
 		return await this.post(this.endpoint, this.payload, this.headers)
 	}
 
-	async destroyMany(ids: number[]): Promise<ExecuteResponseType> {
+	async destroyMany(ids: number[], options: MutateOptionsType): Promise<ExecuteResponseType> {
+    const { url } = options || {}
 		if (!Array.isArray(ids)) {
 			throw Error('Ids must be an array')
 		}
 		this.payload = {
 			ids: ids,
 		}
-		this.endpoint = `${this._url}/delete_many`
+		this.endpoint = `${url}/delete_many`
 		return await this.post(this.endpoint, this.payload, this.headers)
 	}
 
-	async publish(ids: number[]): Promise<ExecuteResponseType> {
-		this.endpoint = `${this._url}/publish`
+	async publish(ids: number[], options: MutateOptionsType): Promise<ExecuteResponseType> {
+    const { url } = options || {}
+		this.endpoint = `${url}/publish`
 		this.payload = {
 			ids: ids,
 		}
 		return await this.post(this.endpoint, this.payload, this.headers)
 	}
 
-	async unpublish(ids: number[]): Promise<ExecuteResponseType> {
-		this.endpoint = `${this._url}/unpublish`
+	async unpublish(ids: number[], options: MutateOptionsType): Promise<ExecuteResponseType> {
+    const { url } = options || {}
+		this.endpoint = `${url}/unpublish`
 		this.payload = {
 			ids: ids,
 		}
 		return await this.post(this.endpoint, this.payload, this.headers)
 	}
 
-	async like(id: number): Promise<ExecuteResponseType> {
-		this.endpoint = `${this._url}/${id}/like`
+	async like(id: number, options: MutateOptionsType): Promise<ExecuteResponseType> {
+    const { url } = options || {}
+		this.endpoint = `${url}/${id}/like`
 		return await this.post(this.endpoint, null, this.headers)
 	}
 
-	async unlike(id: number): Promise<ExecuteResponseType> {
-		this.endpoint = `${this._url}/${id}/unlike`
+	async unlike(id: number, options: MutateOptionsType): Promise<ExecuteResponseType> {
+    const { url } = options || {}
+		this.endpoint = `${url}/${id}/unlike`
 		return await this.post(this.endpoint, null, this.headers)
 	}
 
-	async favorite(id: number): Promise<ExecuteResponseType> {
-		this.endpoint = `${this._url}/${id}/favorite`
+	async favorite(id: number, options: MutateOptionsType): Promise<ExecuteResponseType> {
+    const { url } = options || {}
+		this.endpoint = `${url}/${id}/favorite`
 		return await this.post(this.endpoint, null, this.headers)
 	}
 
-	async unfavorite(id: number): Promise<ExecuteResponseType> {
-		this.endpoint = `${this._url}/${id}/unfavorite`
+	async unfavorite(id: number, options: MutateOptionsType): Promise<ExecuteResponseType> {
+    const { url } = options || {}
+		this.endpoint = `${url}/${id}/unfavorite`
 		return await this.post(this.endpoint, null, this.headers)
 	}
 
-	async follow(id: number): Promise<ExecuteResponseType> {
-		this.endpoint = `${this._url}/${id}/follow`
+	async follow(id: number, options: MutateOptionsType): Promise<ExecuteResponseType> {
+    const { url } = options || {}
+		this.endpoint = `${url}/${id}/follow`
 		return await this.post(this.endpoint, null, this.headers)
 	}
 
-	async unfollow(id: number): Promise<ExecuteResponseType> {
-		this.endpoint = `${this._url}/${id}/unfollow`
+	async unfollow(id: number, options: MutateOptionsType): Promise<ExecuteResponseType> {
+    const { url } = options || {}
+		this.endpoint = `${url}/${id}/unfollow`
 		return await this.post(this.endpoint, null, this.headers)
 	}
 
 	async addLinks(
 		sourceId: number,
-		targetIds: number[]
-	): Promise<ExecuteResponseType> {
+		targetIds: number[], 
+    options: MutateOptionsType): Promise<ExecuteResponseType> {
+    const { name, url } = options || {}
 		this.payload = {
-			[this._collection]: {
+			[name]: {
 				ids: targetIds,
 			},
 		}
-		this.endpoint = `${this._url}/${sourceId}/add_links`
+		this.endpoint = `${url}/${sourceId}/add_links`
 		return await this.post(this.endpoint, this.payload, this.headers)
 	}
 
 	async removeLinks(
 		sourceId: number,
-		targetIds: number[]
-	): Promise<ExecuteResponseType> {
+		targetIds: number[], 
+    options: MutateOptionsType): Promise<ExecuteResponseType> {
+    const { name, url } = options || {}
 		this.payload = {
-			[this._collection]: {
+			[name]: {
 				ids: targetIds,
 			},
 		}
-		this.endpoint = `${this._url}/${sourceId}/remove_links`
+		this.endpoint = `${url}/${sourceId}/remove_links`
 		return await this.restClient.post(this.endpoint, this.payload, this.headers)
 	}
 
@@ -310,138 +290,143 @@ export class ApiClient {
 		id: number,
 		name: string,
 		attachmentId: number
-	): Promise<ExecuteResponseType> {
+	, options: MutateOptionsType): Promise<ExecuteResponseType> {
+    const { name: nameParam, url } = options || {}
 		this.payload = {
-			[this._collection]: {
+			[nameParam]: {
 				name: name,
 				id: attachmentId,
 			},
 		}
-		this.endpoint = `${this._url}/${id}/add_attachment`
+		this.endpoint = `${url}/${id}/add_attachment`
 		return await this.post(this.endpoint, this.payload, this.headers)
 	}
 
-	async removeAttachment(id: number, name: string): Promise<ExecuteResponseType> {
+	async removeAttachment(id: number, name: string, options: MutateOptionsType): Promise<ExecuteResponseType> {
+    const { name: nameParam, url } = options || {}
 		this.payload = {
-			[this._collection]: {
+			[nameParam]: {
 				name: name,
 			},
 		}
-		this.endpoint = `${this._url}/${id}/remove_attachment`
+		this.endpoint = `${url}/${id}/remove_attachment`
 		return await this.post(this.endpoint, this.payload, this.headers)
 	}
 
-	async addImage(id: number, attachmentId: number): Promise<ExecuteResponseType> {
+	async addImage(id: number, attachmentId: number, options: MutateOptionsType): Promise<ExecuteResponseType> {
+    const { name, url } = options || {}
 		this.payload = {
-			[this._collection]: {
+			[name]: {
 				id: attachmentId,
 			},
 		}
-		this.endpoint = `${this._url}/${id}/add_image`
+		this.endpoint = `${url}/${id}/add_image`
 		return await this.post(this.endpoint, this.payload, this.headers)
 	}
 
-	async removeImage(id: number): Promise<ExecuteResponseType> {
+	async removeImage(id: number, options: MutateOptionsType): Promise<ExecuteResponseType> {
+    const { url } = options || {}
 		this.payload = {}
-		this.endpoint = `${this._url}/${id}/remove_image`
+		this.endpoint = `${url}/${id}/remove_image`
 		return await this.post(this.endpoint, this.payload, this.headers)
 	}
 
 	// Auth methods
-	async fetchMe(): Promise<ExecuteResponseType> {
-		this.endpoint = `${this._url}/me`
+	async fetchMe(options: MutateOptionsType): Promise<ExecuteResponseType> {
+    const { url } = options || {}
+		this.endpoint = `${url}/me`
 		return await this.get(this.endpoint)
 	}
 
-	async updateMe(user: UserType): Promise<ExecuteResponseType> {
-		this._collection = 'user'
+	async updateMe(user: UserType, options: MutateOptionsType): Promise<ExecuteResponseType> {
+    const { name='user', url } = options || {}
 		this.payload = {
 			user: user,
 		}
-		this.handleFormatData()
-		this.endpoint = `${this._url}/me`
+		this.handleFormatData(name)
+		this.endpoint = `${url}/me`
 		return await this.put(this.endpoint, this.payload, this.headers)
 	}
 
-	async login(user: UserType): Promise<ExecuteResponseType> {
-		this._collection = 'user'
+	async login(user: UserType, options: MutateOptionsType): Promise<ExecuteResponseType> {
+    const { name='user', url } = options || {}
 		this.payload = {
-			[this._collection]: user,
+			[name]: user,
 		}
-		this.endpoint = `${this._url}/login`
+		this.endpoint = `${url}/login`
 		return await this.post(this.endpoint, this.payload, this.headers)
 	}
 
-	async signup(user: UserType): Promise<ExecuteResponseType> {
-		this._collection = 'user'
+	async signup(user: UserType, options: MutateOptionsType): Promise<ExecuteResponseType> {
+    const { name='user', url } = options || {}
 		this.payload = {
-			[this._collection]: user,
+			[name]: user,
 		}
-		this.endpoint = `${this._url}/signup`
+		this.endpoint = `${url}/signup`
 		return await this.post(this.endpoint, this.payload, this.headers)
 	}
 
-	async sendPin(user: UserType): Promise<ExecuteResponseType> {
-		this._collection = 'user'
+	async sendPin(user: UserType, options: MutateOptionsType): Promise<ExecuteResponseType> {
+    const { name='user', url } = options || {}
 		this.payload = {
-			[this._collection]: {
+			[name]: {
 				...user,
 				email: user.email,
 			},
 		}
-		this.endpoint = `${this._url}/send_pin`
+		this.endpoint = `${url}/send_pin`
 		return await this.post(this.endpoint, this.payload, this.headers)
 	}
 
-	async verifyPin(email: string, pin: string): Promise<ExecuteResponseType> {
-		this._collection = 'user'
+	async verifyPin(email: string, pin: string, options: MutateOptionsType): Promise<ExecuteResponseType> {
+    const { name='user', url } = options || {}
 		this.payload = {
-			[this._collection]: {
+			[name]: {
 				email: email,
 				pin: pin,
 			},
 		}
-		this.endpoint = `${this._url}/verify_pin`
+		this.endpoint = `${url}/verify_pin`
 		return await this.post(this.endpoint, this.payload, this.headers)
 	}
 
 	async changePassword(
 		currentPassword: string,
 		password: string,
-		passwordConfirmation: string
-	): Promise<ExecuteResponseType> {
-		this._collection = 'user'
+		passwordConfirmation: string, 
+    options: MutateOptionsType): Promise<ExecuteResponseType> {
+    const { name='user', url } = options || {}
 		this.payload = {
-			[this._collection]: {
+			[name]: {
 				current_password: currentPassword,
 				password: password,
 				password_confirmation: passwordConfirmation,
 			},
 		}
-		this.endpoint = `${this._url}/change_password`
+		this.endpoint = `${url}/change_password`
 		return await this.post(this.endpoint, this.payload, this.headers)
 	}
 
-	async forgotPassword(user: UserType): Promise<ExecuteResponseType> {
-		this._collection = 'user'
+	async forgotPassword(user: UserType, options: MutateOptionsType): Promise<ExecuteResponseType> {
+    const { name='user', url } = options || {}
 		this.payload = {
-			[this._collection]: {
+			[name]: {
 				...user,
 				email: user.email,
 			},
 		}
-		this.endpoint = `${this._url}/send_forgot_password`
+		this.endpoint = `${url}/send_forgot_password`
 		return await this.post(this.endpoint, this.payload, this.headers)
 	}
 
-  async googleLogin(accessToken: string): Promise<ExecuteResponseType> {
-		this._collection = 'user'
+  async googleLogin(accessToken: string, options: MutateOptionsType): Promise<ExecuteResponseType> {
+    const { name='user', url } = options || {}
 		this.payload = {
-			[this._collection]: {
+			[name]: {
         access_token: accessToken
       },
 		}
-		this.endpoint = `${this._url}/google_login`
+		this.endpoint = `${url}/google_login`
 		return await this.post(this.endpoint, this.payload, this.headers)
 	}
 
@@ -449,41 +434,41 @@ export class ApiClient {
 		email: string,
 		password: string,
 		passwordConfirmation: string,
-		changePasswordToken: string
-	): Promise<ExecuteResponseType> {
-		this._collection = 'user'
+		changePasswordToken: string, 
+    options: MutateOptionsType): Promise<ExecuteResponseType> {
+    const { name='user', url } = options || {}
 		this.payload = {
-			[this._collection]: {
+			[name]: {
 				email: email,
 				password: password,
 				password_confirmation: passwordConfirmation,
 				change_password_token: changePasswordToken,
 			},
 		}
-		this.endpoint = `${this._url}/reset_password`
+		this.endpoint = `${url}/reset_password`
 		return await this.post(this.endpoint, this.payload, this.headers)
 	}
 
-	async sendOneTimePassword(user: UserType): Promise<ExecuteResponseType> {
-		this._collection = 'user'
+	async sendOneTimePassword(user: UserType, options: MutateOptionsType): Promise<ExecuteResponseType> {
+    const { name='user', url } = options || {}
 		this.payload = {
-			[this._collection]: {
+			[name]: {
 				...user,
 				email: user.email,
 			},
 		}
-		this.endpoint = `${this._url}/send_one_time_password`
+		this.endpoint = `${url}/send_one_time_password`
 		return await this.post(this.endpoint, this.payload, this.headers)
 	}
 
-	async verifyOneTimePassword(otp: string): Promise<ExecuteResponseType> {
-		this._collection = 'user'
+	async verifyOneTimePassword(otp: string, options: MutateOptionsType): Promise<ExecuteResponseType> {
+    const { name='user', url } = options || {}
 		this.payload = {
-			[this._collection]: {
+			[name]: {
 				one_time_password: otp,
 			},
 		}
-		this.endpoint = `${this._url}/verify_one_time_password`
+		this.endpoint = `${url}/verify_one_time_password`
 		return await this.post(this.endpoint, this.payload, this.headers)
 	}
 
@@ -500,8 +485,7 @@ export class ApiClient {
 	async post(
 		endpoint: string,
 		payload?: object,
-		headers?: any
-	): Promise<ExecuteResponseType> {
+		headers?: any): Promise<ExecuteResponseType> {
 		this.init()
 		return await this.restClient.post(endpoint, payload, headers)
 	}
@@ -509,8 +493,7 @@ export class ApiClient {
 	async put(
 		endpoint: string,
 		payload: object,
-		headers: any
-	): Promise<ExecuteResponseType> {
+		headers: any): Promise<ExecuteResponseType> {
 		this.init()
 		return await this.restClient.put(endpoint, payload, headers)
 	}
@@ -520,38 +503,45 @@ export class ApiClient {
 		return await this.restClient.delete(endpoint)
 	}
 
-	handleFormatData(): void {
+  handleChange(resource: any, name: string, value: any): any {
+    return { 
+      ...resource, 
+      [name]: value 
+    }
+  }
+
+	handleFormatData(name): void {
 		let multipart = false
-		for (const key in this.payload[this._collection]) {
-			if (this.payload[this._collection][key] instanceof File) {
+		for (const key in this.payload[name]) {
+			if (this.payload[name][key] instanceof File) {
 				multipart = true
 				break
 			}
 		}
 		if (multipart) {
-			this.handleMultipartData()
+			this.handleMultipartData(name)
 		}
 	}
 
-	async handleMultipartData() {
+	async handleMultipartData(name) {
 		const formData = new FormData()
-		for (const formKey in this.payload[this._collection]) {
+		for (const formKey in this.payload[name]) {
 			// Form objects can only send string key / value pairs
 			// so we stringify the object
-			if (this.isJsonObject(this.payload[this._collection][formKey])) {
+			if (this.isJsonObject(this.payload[name][formKey])) {
 				formData.append(
-					`${this._collection}[${formKey}_string]`,
-					JSON.stringify(this.payload[this._collection][formKey])
+					`${name}[${formKey}_string]`,
+					JSON.stringify(this.payload[name][formKey])
 				)
 			} else {        
 				formData.append(
-					`${this._collection}[${formKey}]`,
-					this.payload[this._collection][formKey]
+					`${name}[${formKey}]`,
+					this.payload[name][formKey]
 				)
 			}
 		}
 		this.payload = formData    
-		this.headers['Content-Type'] = 'multipart/form-data'
+		this.headers['Content-Type'] = 'multipart/form-resource'
 	}
 
 	isJsonObject(value) {

@@ -1,13 +1,13 @@
 import React, { useContext } from 'react'
-import { CollectionContext } from '../context'
+import { ResourceContext } from '../context'
 import {
   changeDocumentValue,
 } from '../helpers'
 import { ApiContext } from '../context'
 import { useDelayedLoading } from '.'
-import { ID, QueryParamsType, UseResourceResponse, FindManyOptionType } from '../types'
+import { ID, QueryParamsType, UseResourceResponse, FindManyOptionType, SyntheticEventType } from '../types'
 
-type UseCollectionResponse = UseResourceResponse & {
+type UseListResponse = UseResourceResponse & {
   openShow: boolean
   setOpenShow: (value: boolean) => void
   openEdit: boolean
@@ -16,7 +16,7 @@ type UseCollectionResponse = UseResourceResponse & {
   setOpenDelete: (value: boolean) => void
 }
 
-const useCollection = (): UseCollectionResponse => {
+const useList = (): UseListResponse => {
 
 	const { api } = useContext(ApiContext)
 
@@ -51,14 +51,20 @@ const useCollection = (): UseCollectionResponse => {
     setOpenEdit,
     openDelete,
     setOpenDelete 
-  } = useContext(CollectionContext)
+  } = useContext(ResourceContext)
   
+  const params = { 
+    name,
+    url
+  }
+
 	const showLoading = () => setLoading(true)
 	const hideLoading = () => setLoading(false)
 
+	
 	const findOne = async (id: ID) => {
 		if (!id) return null
-		return await loadingWrapper(() => api.collection(name).url(url).findOne(id))
+		return await loadingWrapper(() => api.findOne(id, params))
 	}
 
 	const findMany = async (queryParams: QueryParamsType = {}, opts: FindManyOptionType = {}) => {
@@ -74,10 +80,10 @@ const useCollection = (): UseCollectionResponse => {
 					...queryParams,
 				})
 			}      
-			const res = await api.url(url).findMany({
+			const res = await api.findMany({
 				...query,
 				...queryParams,
-			})
+			}, params)
 			if (res.data) {
 				if (opts?.loadMore !== true ) {
 					setResources(res.data)
@@ -129,53 +135,53 @@ const useCollection = (): UseCollectionResponse => {
 		})
 	}
 
-	const save = (data: any) => {
-		if (data?.id) {
-			return update(data)
+	const save = (resource: any) => {
+		if (resource?.id) {
+			return update(resource)
 		} else {
-			return create(data)
+			return create(resource)
 		}
 	}
 
-	const create = async (data: any) => {
+	const create = async (resource: any) => {
 		return await loadingWrapper(() =>
-			api.collection(name).url(url).create(data)
+			api.create(resource, params)
 		)
 	}
 
-	const update = async (data: any) => {
+	const update = async (resource: any) => {
 		return await loadingWrapper(() =>
-			api.collection(name).url(url).update(data)
+			api.update(resource, params)
 		)
 	}
 
 	const destroy = async (id: ID) => {
 		return await loadingWrapper(() => 
-      api.collection(name).url(url).destroy(id)
+      api.destroy(id, params)
     )
 	}
 
-	const updateMany = async (ids: ID[], data: any) => {
+	const updateMany = async (ids: ID[], resource: any) => {
 		return await loadingWrapper(() =>
-			api.collection(name).url(url).updateMany(ids, data)
+			api.updateMany(ids, resource, params)
 		)
 	}
 
 	const deleteMany = async (ids: ID[]) => {
 		return await loadingWrapper(() =>
-			api.collection(name).url(url).destroyMany(ids)
+			api.destroyMany(ids, params)
 		)
 	}
 
 	const publish = async (ids: ID[]) => {
 		return await loadingWrapper(() =>
-			api.collection(name).url(url).publish(ids)
+			api.publish(ids, params)
 		)
 	}
 
 	const unpublish = async (ids: ID[]) => {
 		return await loadingWrapper(() =>
-			api.collection(name).url(url).unpublish(ids)
+			api.unpublish(ids, params)
 		)
 	}
 
@@ -183,15 +189,27 @@ const useCollection = (): UseCollectionResponse => {
 		sourceId: ID,
 		targetIds: ID[]
 	) => {
+    const options = { 
+      url, 
+      name: 'links' 
+    }
 		return await loadingWrapper(() =>
-			api.collection('links').url(url).addLinks(sourceId, targetIds)
+			api.addLinks(sourceId, targetIds, options)
 		)
 	}
 
 	const removeLinks = async (sourceId: ID, targetIds: ID[]) => {
+    const options = { 
+      url, 
+      name: 'links' 
+    }
 		return await loadingWrapper(() =>
-			api.collection('links').url(url).removeLinks(sourceId, targetIds)
+			api.removeLinks(sourceId, targetIds, options)
 		)
+	}
+
+  const updateLinkPositions = async (id: number, sorted) => {
+    return await api.updateLinkPositions(id, sorted, params)
 	}
 
 	const addAttachment = async (
@@ -199,30 +217,36 @@ const useCollection = (): UseCollectionResponse => {
 		fieldName: string,
 		attachmentId: ID
 	) => {
+    const options = {
+      name: 'attachment',
+      url
+    }
 		return await loadingWrapper(() =>
-			api
-				.collection('attachment')
-				.url(url)
-				.addAttachment(id, fieldName, attachmentId)
+			api.addAttachment(id, fieldName, attachmentId, options)
 		)
 	}
 
 	const removeAttachment = async (id: ID, fieldName: string) => {
+    const options = {
+      name: 'attachment',
+      url
+    }
 		return await loadingWrapper(() =>
-			api.collection('attachment').url(url).removeAttachment(id, fieldName)
+			api.removeAttachment(id, fieldName, options)
 		)
 	}
 
 	const updatePositions = async (sorted: any[]) => {
 		// Intentionally avoid loading for drag-drop UIs
-		return await api.collection(name).url(url).updatePositions(sorted)
+		return await api.updatePositions(sorted, params)
 	}
-	
-	const handleChange = (ev: React.ChangeEvent<HTMLInputElement>) => {
+
+	const handleChange = (ev: SyntheticEventType) => {
 		const { name } = ev.target
 		const value =
 			ev.target.type === 'checkbox' ? ev.target.checked : ev.target.value
-		setResource(prev => changeDocumentValue(prev, name, value))
+    const changedResource = changeDocumentValue(resource, name, value)
+		setResource(changedResource)
 	}
 
 	const loadingWrapper = async (apiMethod: () => any) => {
@@ -240,10 +264,6 @@ const useCollection = (): UseCollectionResponse => {
 		} finally {
 			hideLoading()
 		}
-	}
-
-  const updateLinkPositions = async (id: number, sorted) => {
-    return await api.collection(name).url(url).updateLinkPositions(id, sorted)
 	}
 
 	const handleErrors = (e: any) => {    
@@ -311,4 +331,4 @@ const useCollection = (): UseCollectionResponse => {
 	}
 }
 
-export default useCollection
+export default useList

@@ -1,3 +1,10 @@
+export type SyntheticEventType = any & {
+  target: {
+    name: string
+    value: any 
+  }
+}
+
 export type UserType = {
 	id?: number
   username?: string

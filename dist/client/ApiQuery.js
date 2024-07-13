@@ -120,7 +120,7 @@ var ApiQuery = /** @class */ (function () {
                 this._filters = value;
             }
             else {
-                throw new Error('Filters must be an object.');
+                throw new Error('FiltersType must be an object.');
             }
         },
         enumerable: false,
@@ -292,8 +292,8 @@ var ApiQuery = /** @class */ (function () {
         if (this._keywords && this._keywords.length > 0) {
             searchParams = __assign(__assign({}, searchParams), { keywords: this._keywords });
         }
-        var andFilters = [];
-        var orFilters = [];
+        var andFiltersType = [];
+        var orFiltersType = [];
         if (typeof this._filters === 'object' &&
             Object.keys(this._filters).length > 0) {
             Object.keys(this._filters).forEach(function (where) {
@@ -307,23 +307,23 @@ var ApiQuery = /** @class */ (function () {
                             value = "[" + value.join(',') + "]";
                         }
                         if (where == 'AND') {
-                            andFilters.push(field + ":" + operator + ":" + value);
+                            andFiltersType.push(field + ":" + operator + ":" + value);
                         }
                         if (where == 'OR') {
-                            orFilters.push(field + ":" + operator + ":" + value);
+                            orFiltersType.push(field + ":" + operator + ":" + value);
                         }
                     }
                 });
             });
         }
-        var andOrFilters = [];
-        if (andFilters.length > 0) {
-            andOrFilters.push("and(" + andFilters.join(',') + ")");
+        var andOrFiltersType = [];
+        if (andFiltersType.length > 0) {
+            andOrFiltersType.push("and(" + andFiltersType.join(',') + ")");
         }
-        if (orFilters.length > 0) {
-            andOrFilters.push("or(" + orFilters.join(',') + ")");
+        if (orFiltersType.length > 0) {
+            andOrFiltersType.push("or(" + orFiltersType.join(',') + ")");
         }
-        searchParams = __assign(__assign({}, searchParams), { filters: andOrFilters.join('') });
+        searchParams = __assign(__assign({}, searchParams), { filters: andOrFiltersType.join('') });
         searchParams = __assign(__assign({}, searchParams), (this._params || {}));
         var url = [];
         for (var key in searchParams) {
@@ -346,11 +346,11 @@ var ApiQuery = /** @class */ (function () {
             var orFilterArray = [];
             // Parse AND filters
             if (andPart) {
-                var andFilters = andPart[1];
+                var andFiltersType = andPart[1];
                 // Regular expression to also handle
                 // filters=and(id:in:[1,2,3])
                 var filterRegex = /,(?![^\[]*\])/;
-                andFilterArray = andFilters.split(filterRegex).map(function (filter) {
+                andFilterArray = andFiltersType.split(filterRegex).map(function (filter) {
                     var _a, _b;
                     var _c = filter.split(':'), field = _c[0], operator = _c[1], value = _c[2];
                     if (operator == 'in' || operator == 'nin') {
@@ -364,8 +364,8 @@ var ApiQuery = /** @class */ (function () {
             }
             // Parse OR filters
             if (orPart) {
-                var orFilters = orPart[1];
-                orFilterArray = orFilters.split(',').map(function (filter) {
+                var orFiltersType = orPart[1];
+                orFilterArray = orFiltersType.split(',').map(function (filter) {
                     var _a, _b;
                     var _c = filter.split(':'), field = _c[0], operator = _c[1], value = _c[2];
                     return _a = {},
