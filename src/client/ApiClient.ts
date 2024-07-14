@@ -548,7 +548,7 @@ export class ApiClient {
 			if (this.isJsonObject(payload[name][formKey])) {
 				formData.append(`${name}[${formKey}_string]`, JSON.stringify(payload[name][formKey]))
 			} else {        
-        console.log(`Appending ${name}[${formKey}]`, payload[name], payload[name][formKey])
+        console.log(`Appending to formData ${name}[${formKey}]`, payload[name], payload[name][formKey])
 				formData.append(`${name}[${formKey}]`, payload[name][formKey])
 			}
 		}
