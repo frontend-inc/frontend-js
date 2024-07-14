@@ -546,9 +546,9 @@ export class ApiClient {
 			// Form objects can only send string key / value pairs
 			// so we stringify the object
 			if (this.isJsonObject(payload[name][formKey])) {
-				formData.append(`${name}[${formKey}_string]`,JSON.stringify(payload[name][formKey]))
+				formData.append(`${name}[${formKey}_string]`, JSON.stringify(payload[name][formKey]))
 			} else {        
-        console.log(`${name}[${formKey}]`, payload[name], payload[name][formKey])
+        console.log(`Appending ${name}[${formKey}]`, payload[name], payload[name][formKey])
 				formData.append(`${name}[${formKey}]`, payload[name][formKey])
 			}
 		}
