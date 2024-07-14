@@ -176,7 +176,7 @@ var ApiClient = /** @class */ (function () {
                     case 0:
                         _a = options || {}, name = _a.name, url = _a.url;
                         payload = (_b = {},
-                            _b["" + name] = resource,
+                            _b[name] = resource,
                             _b);
                         this.payload = this.handleFormatData(name, payload);
                         this.endpoint = url;
@@ -841,21 +841,20 @@ var ApiClient = /** @class */ (function () {
     };
     ApiClient.prototype.handleMultipartData = function (name, payload) {
         var formData = new FormData();
-        formData.entries();
         for (var formKey in payload[name]) {
             console.log("Form Key: " + formKey, payload[name], payload[name][formKey]);
             // Form objects can only send string key / value pairs
             // so we stringify the object
             if (this.isJsonObject(payload[name][formKey])) {
-                formData.append(name + "[" + formKey + "_string]", JSON.stringify(payload[name][formKey]));
+                formData.set(name + "[" + formKey + "_string]", JSON.stringify(payload[name][formKey]));
             }
             else {
                 console.log("Appending to formData " + name + "[" + formKey + "]", payload[name], payload[name][formKey]);
-                formData.append(name + "[" + formKey + "]", payload[name][formKey]);
+                formData.set(name + "[" + formKey + "]", payload[name][formKey]);
                 console.log('Form Data after appending', formData, formData.entries());
             }
         }
-        console.log('FormData', formData, formData.entries());
+        console.log('FormData', formData);
         this.headers['Content-Type'] = 'multipart/form-resource';
         return formData;
     };

@@ -137,7 +137,7 @@ export class ApiClient {
 	async create(resource: any, options: MutateOptionsType): Promise<ExecuteResponseType> {    
     const { name, url } = options || {}
 		const payload = {
-			[`${name}`]: resource,
+			[name]: resource,
 		}
 		this.payload = this.handleFormatData(name, payload)
 		this.endpoint = url
@@ -541,20 +541,19 @@ export class ApiClient {
 
 	handleMultipartData(name: string, payload: any): FormData {
 		let formData = new FormData() as FormData
-    formData.entries()
 		for (const formKey in payload[name]) {
       console.log(`Form Key: ${formKey}`, payload[name], payload[name][formKey])
 			// Form objects can only send string key / value pairs
 			// so we stringify the object
 			if (this.isJsonObject(payload[name][formKey])) {
-				formData.append(`${name}[${formKey}_string]`, JSON.stringify(payload[name][formKey]))
+				formData.set(`${name}[${formKey}_string]`, JSON.stringify(payload[name][formKey]))
 			} else {        
         console.log(`Appending to formData ${name}[${formKey}]`, payload[name], payload[name][formKey])
-				formData.append(`${name}[${formKey}]`, payload[name][formKey])
+				formData.set(`${name}[${formKey}]`, payload[name][formKey])
         console.log('Form Data after appending', formData, formData.entries())
 			}
 		}
-    console.log('FormData', formData, formData.entries())
+    console.log('FormData', formData)
     this.headers['Content-Type'] = 'multipart/form-resource'
 		return formData    		
 	}
