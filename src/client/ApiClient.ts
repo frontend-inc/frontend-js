@@ -141,7 +141,7 @@ export class ApiClient {
 		}
 		this.handleFormatData(name)
 		this.endpoint = url
-    console.log("Debug Create", name, url, this.payload, this.headers, this.endpoint)
+    console.log("Debug Create", resource, name, url, this.payload, this.headers, this.endpoint)
 		return await this.post(this.endpoint, this.payload, this.headers)
 	}
 
