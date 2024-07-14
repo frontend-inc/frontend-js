@@ -136,12 +136,10 @@ export class ApiClient {
 
 	async create(resource: any, options: MutateOptionsType): Promise<ExecuteResponseType> {    
     const { name, url } = options || {}
-		this.payload = {
-			[name]: resource,
+		const payload = {
+			[`${name}`]: resource,
 		}
-    console.log("Create Payload", this.payload)
-
-		this.handleFormatData(name)
+		this.payload = this.handleFormatData(name, payload)
 		this.endpoint = url
     console.log("Create Format Data", resource, name, url, this.payload, this.headers, this.endpoint)
 		return await this.post(this.endpoint, this.payload, this.headers)
@@ -149,10 +147,10 @@ export class ApiClient {
 
 	async update(resource: any, options: MutateOptionsType): Promise<ExecuteResponseType> {
     const { name, url } = options || {}
-		this.payload = {
+		const payload = {
 			[name]: resource,
 		}
-		this.handleFormatData(name)
+		this.payload = this.handleFormatData(name, payload)
 		this.endpoint = `${url}/${resource.id}`
 		return await this.put(this.endpoint, this.payload, this.headers)
 	}
@@ -343,10 +341,10 @@ export class ApiClient {
 
 	async updateMe(user: UserType, options: MutateOptionsType): Promise<ExecuteResponseType> {
     const { name='user', url } = options || {}
-		this.payload = {
-			user: user,
+		const payload = {
+			user: user
 		}
-		this.handleFormatData(name)
+		this.payload = this.handleFormatData(name, payload)
 		this.endpoint = `${url}/me`
 		return await this.put(this.endpoint, this.payload, this.headers)
 	}
@@ -513,50 +511,50 @@ export class ApiClient {
     }
   }
 
-	handleFormatData(name: string): void {
+	handleFormatData(name: string, payload: any): any {
 		let multipart = false
      // Check if this.payload exists and is an object
-     if (!this.payload || typeof this.payload !== 'object') {
-        console.error('Payload is not defined or not an object', this.payload);
+     if (!payload || typeof payload !== 'object') {
+        console.error('Payload is not defined or not an object', payload);
         return;
     }
     
     // Check if this.payload[name] exists and is an object
-    if (!this.payload[name]) {
-        console.error(`Payload for ${name} is not defined or not an object`, this.payload);        
+    if (!payload[name]) {
+        console.error(`Payload for ${name} is not defined`, payload);        
         return;
     }
     
-		for (const key in this.payload[name]) {
-			if (this.payload[name][key] instanceof File) {
+		for (const key in payload[name]) {
+			if (payload[name][key] instanceof File) {
 				multipart = true
 				break
 			}
 		}
 		if (multipart) {
-			this.handleMultipartData(name)
-		}
+      console.log("This is multipart...")
+			return this.handleMultipartData(name, payload)
+		}else{
+      return payload
+    }
 	}
 
-	async handleMultipartData(name) {
-		const formData = new FormData()
-		for (const formKey in this.payload[name]) {
+	handleMultipartData(name: string, payload: any): any {
+		let formData = new FormData()
+		for (const formKey in payload[name]) {
+      console.log(`Form Key: ${formKey}`, payload[name], payload[name][formKey])
 			// Form objects can only send string key / value pairs
 			// so we stringify the object
-			if (this.isJsonObject(this.payload[name][formKey])) {
-				formData.append(
-					`${name}[${formKey}_string]`,
-					JSON.stringify(this.payload[name][formKey])
-				)
+			if (this.isJsonObject(payload[name][formKey])) {
+				formData.append(`${name}[${formKey}_string]`,JSON.stringify(payload[name][formKey]))
 			} else {        
-				formData.append(
-					`${name}[${formKey}]`,
-					this.payload[name][formKey]
-				)
+        console.log(`${name}[${formKey}]`, payload[name], payload[name][formKey])
+				formData.append(`${name}[${formKey}]`, payload[name][formKey])
 			}
 		}
-		this.payload = formData    
-		this.headers['Content-Type'] = 'multipart/form-resource'
+    console.log('FormData', formData)
+    this.headers['Content-Type'] = 'multipart/form-resource'
+		return formData    		
 	}
 
 	isJsonObject(value) {

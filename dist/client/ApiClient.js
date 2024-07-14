@@ -169,17 +169,16 @@ var ApiClient = /** @class */ (function () {
     };
     ApiClient.prototype.create = function (resource, options) {
         return __awaiter(this, void 0, void 0, function () {
-            var _a, name, url;
+            var _a, name, url, payload;
             var _b;
             return __generator(this, function (_c) {
                 switch (_c.label) {
                     case 0:
                         _a = options || {}, name = _a.name, url = _a.url;
-                        this.payload = (_b = {},
-                            _b[name] = resource,
+                        payload = (_b = {},
+                            _b["" + name] = resource,
                             _b);
-                        console.log("Create Payload", this.payload);
-                        this.handleFormatData(name);
+                        this.payload = this.handleFormatData(name, payload);
                         this.endpoint = url;
                         console.log("Create Format Data", resource, name, url, this.payload, this.headers, this.endpoint);
                         return [4 /*yield*/, this.post(this.endpoint, this.payload, this.headers)];
@@ -190,16 +189,16 @@ var ApiClient = /** @class */ (function () {
     };
     ApiClient.prototype.update = function (resource, options) {
         return __awaiter(this, void 0, void 0, function () {
-            var _a, name, url;
+            var _a, name, url, payload;
             var _b;
             return __generator(this, function (_c) {
                 switch (_c.label) {
                     case 0:
                         _a = options || {}, name = _a.name, url = _a.url;
-                        this.payload = (_b = {},
+                        payload = (_b = {},
                             _b[name] = resource,
                             _b);
-                        this.handleFormatData(name);
+                        this.payload = this.handleFormatData(name, payload);
                         this.endpoint = url + "/" + resource.id;
                         return [4 /*yield*/, this.put(this.endpoint, this.payload, this.headers)];
                     case 1: return [2 /*return*/, _c.sent()];
@@ -546,15 +545,15 @@ var ApiClient = /** @class */ (function () {
     };
     ApiClient.prototype.updateMe = function (user, options) {
         return __awaiter(this, void 0, void 0, function () {
-            var _a, _b, name, url;
+            var _a, _b, name, url, payload;
             return __generator(this, function (_c) {
                 switch (_c.label) {
                     case 0:
                         _a = options || {}, _b = _a.name, name = _b === void 0 ? 'user' : _b, url = _a.url;
-                        this.payload = {
-                            user: user,
+                        payload = {
+                            user: user
                         };
-                        this.handleFormatData(name);
+                        this.payload = this.handleFormatData(name, payload);
                         this.endpoint = url + "/me";
                         return [4 /*yield*/, this.put(this.endpoint, this.payload, this.headers)];
                     case 1: return [2 /*return*/, _c.sent()];
@@ -814,48 +813,49 @@ var ApiClient = /** @class */ (function () {
         var _a;
         return __assign(__assign({}, resource), (_a = {}, _a[name] = value, _a));
     };
-    ApiClient.prototype.handleFormatData = function (name) {
+    ApiClient.prototype.handleFormatData = function (name, payload) {
         var multipart = false;
         // Check if this.payload exists and is an object
-        if (!this.payload || typeof this.payload !== 'object') {
-            console.error('Payload is not defined or not an object', this.payload);
+        if (!payload || typeof payload !== 'object') {
+            console.error('Payload is not defined or not an object', payload);
             return;
         }
         // Check if this.payload[name] exists and is an object
-        if (!this.payload[name]) {
-            console.error("Payload for " + name + " is not defined or not an object", this.payload);
+        if (!payload[name]) {
+            console.error("Payload for " + name + " is not defined", payload);
             return;
         }
-        for (var key in this.payload[name]) {
-            if (this.payload[name][key] instanceof File) {
+        for (var key in payload[name]) {
+            if (payload[name][key] instanceof File) {
                 multipart = true;
                 break;
             }
         }
         if (multipart) {
-            this.handleMultipartData(name);
+            console.log("This is multipart...");
+            return this.handleMultipartData(name, payload);
+        }
+        else {
+            return payload;
         }
     };
-    ApiClient.prototype.handleMultipartData = function (name) {
-        return __awaiter(this, void 0, void 0, function () {
-            var formData, formKey;
-            return __generator(this, function (_a) {
-                formData = new FormData();
-                for (formKey in this.payload[name]) {
-                    // Form objects can only send string key / value pairs
-                    // so we stringify the object
-                    if (this.isJsonObject(this.payload[name][formKey])) {
-                        formData.append(name + "[" + formKey + "_string]", JSON.stringify(this.payload[name][formKey]));
-                    }
-                    else {
-                        formData.append(name + "[" + formKey + "]", this.payload[name][formKey]);
-                    }
-                }
-                this.payload = formData;
-                this.headers['Content-Type'] = 'multipart/form-resource';
-                return [2 /*return*/];
-            });
-        });
+    ApiClient.prototype.handleMultipartData = function (name, payload) {
+        var formData = new FormData();
+        for (var formKey in payload[name]) {
+            console.log("Form Key: " + formKey, payload[name], payload[name][formKey]);
+            // Form objects can only send string key / value pairs
+            // so we stringify the object
+            if (this.isJsonObject(payload[name][formKey])) {
+                formData.append(name + "[" + formKey + "_string]", JSON.stringify(payload[name][formKey]));
+            }
+            else {
+                console.log(name + "[" + formKey + "]", payload[name], payload[name][formKey]);
+                formData.append(name + "[" + formKey + "]", payload[name][formKey]);
+            }
+        }
+        console.log('FormData', formData);
+        this.headers['Content-Type'] = 'multipart/form-resource';
+        return formData;
     };
     ApiClient.prototype.isJsonObject = function (value) {
         if (value instanceof File) {
