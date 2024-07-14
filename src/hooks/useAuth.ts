@@ -9,8 +9,6 @@ const useAuth = () => {
 	const { serverPath: url } = useContext(AuthContext)
 
   const name = 'user'
-  api = api.url(url).collection(name)
-
 	const showLoading = () => setLoading(true)
 	const hideLoading = () => setLoading(false)
 
@@ -43,27 +41,27 @@ const useAuth = () => {
   }
 
 	const updateMe = async (user: UserType) => {
-		return await loadingWrapper(() => api.updateMe(user, params))
+		return await loadingWrapper(() => api.collection(name).url(url).updateMe(user, params))
 	}
 
 	const fetchMe = async () => {
-		return await loadingWrapper(() => api.fetchMe(params))
+		return await loadingWrapper(() => api.collection(name).url(url).fetchMe(params))
 	}
 
 	const login = async (user: UserType) => {
-		return await loadingWrapper(() => api.login(user, params))
+		return await loadingWrapper(() => api.collection(name).url(url).login(user, params))
 	}
 
 	const signup = async (user: UserType) => {
-		return await loadingWrapper(() => api.signup(user, params))
+		return await loadingWrapper(() => api.collection(name).url(url).signup(user, params))
 	}
 
 	const sendPin = async (user: UserType) => {
-		return await loadingWrapper(() => api.sendPin(user, params))
+		return await loadingWrapper(() => api.collection(name).url(url).sendPin(user, params))
 	}
 
 	const verifyPin = async (email: string, pin: string) => {
-		return await loadingWrapper(() => api.verifyPin(email, pin, params))
+		return await loadingWrapper(() => api.collection(name).url(url).verifyPin(email, pin, params))
 	}
 
 	const changePassword = async (
@@ -72,24 +70,24 @@ const useAuth = () => {
 		passwordConfirmation: string
 	) => {
 		return await loadingWrapper(() =>
-			api.changePassword(currentPassword, password, passwordConfirmation, params)
+			api.collection(name).url(url).changePassword(currentPassword, password, passwordConfirmation, params)
 		)
 	}
 
 	const sendOneTimePassword = async (user: UserType) => {
 		return await loadingWrapper(() =>
-			api.sendOneTimePassword(user, params)
+			api.collection(name).url(url).sendOneTimePassword(user, params)
 		)
 	}
 
 	const verifyOneTimePassword = async (otp: string) => {
 		return await loadingWrapper(() =>
-			api.verifyOneTimePassword(otp, params)
+			api.collection(name).url(url).verifyOneTimePassword(otp, params)
 		)
 	}
 
 	const forgotPassword = async (user: UserType) => {
-		return await loadingWrapper(() => api.forgotPassword(user, params))
+		return await loadingWrapper(() => api.collection(name).url(url).forgotPassword(user, params))
 	}
 
 	const resetPassword = async (
@@ -126,7 +124,7 @@ const useAuth = () => {
 
 	const deleteAvatar = async () => {
 		let deleteAvatarUrl = url + '/delete_avatar'
-		return await loadingWrapper(() => api.post(deleteAvatarUrl))
+		return await loadingWrapper(() => api.collection(name).url(url).post(deleteAvatarUrl))
 	}
 
 	const authenticateFromToken = async (token: string) => {

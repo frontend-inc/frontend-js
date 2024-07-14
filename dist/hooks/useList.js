@@ -68,7 +68,6 @@ var useList = function () {
         name: name,
         url: url
     };
-    api = api.url(url).collection(name);
     var showLoading = function () { return setLoading(true); };
     var hideLoading = function () { return setLoading(false); };
     var findOne = function (id) { return __awaiter(void 0, void 0, void 0, function () {
@@ -77,7 +76,7 @@ var useList = function () {
                 case 0:
                     if (!id)
                         return [2 /*return*/, null];
-                    return [4 /*yield*/, loadingWrapper(function () { return api.findOne(id, params); })];
+                    return [4 /*yield*/, loadingWrapper(function () { return api.collection(name).url(url).findOne(id, params); })];
                 case 1: return [2 /*return*/, _a.sent()];
             }
         });
@@ -101,7 +100,7 @@ var useList = function () {
                         if (queryParams) {
                             setQuery(__assign(__assign({}, query), queryParams));
                         }
-                        return [4 /*yield*/, api.findMany(__assign(__assign({}, query), queryParams), params)];
+                        return [4 /*yield*/, api.collection(name).url(url).findMany(__assign(__assign({}, query), queryParams), params)];
                     case 2:
                         res = _a.sent();
                         if (res.data) {
@@ -184,7 +183,7 @@ var useList = function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0: return [4 /*yield*/, loadingWrapper(function () {
-                        return api.create(resource, params);
+                        return api.collection(name).url(url).create(resource, params);
                     })];
                 case 1: return [2 /*return*/, _a.sent()];
             }
@@ -194,7 +193,7 @@ var useList = function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0: return [4 /*yield*/, loadingWrapper(function () {
-                        return api.update(resource, params);
+                        return api.collection(name).url(url).update(resource, params);
                     })];
                 case 1: return [2 /*return*/, _a.sent()];
             }
@@ -204,7 +203,7 @@ var useList = function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0: return [4 /*yield*/, loadingWrapper(function () {
-                        return api.destroy(id, params);
+                        return api.collection(name).url(url).destroy(id, params);
                     })];
                 case 1: return [2 /*return*/, _a.sent()];
             }
@@ -214,7 +213,7 @@ var useList = function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0: return [4 /*yield*/, loadingWrapper(function () {
-                        return api.updateMany(ids, resource, params);
+                        return api.collection(name).url(url).updateMany(ids, resource, params);
                     })];
                 case 1: return [2 /*return*/, _a.sent()];
             }
@@ -224,7 +223,7 @@ var useList = function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0: return [4 /*yield*/, loadingWrapper(function () {
-                        return api.destroyMany(ids, params);
+                        return api.collection(name).url(url).destroyMany(ids, params);
                     })];
                 case 1: return [2 /*return*/, _a.sent()];
             }
@@ -234,7 +233,7 @@ var useList = function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0: return [4 /*yield*/, loadingWrapper(function () {
-                        return api.publish(ids, params);
+                        return api.collection(name).url(url).publish(ids, params);
                     })];
                 case 1: return [2 /*return*/, _a.sent()];
             }
@@ -244,7 +243,7 @@ var useList = function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0: return [4 /*yield*/, loadingWrapper(function () {
-                        return api.unpublish(ids, params);
+                        return api.collection(name).url(url).unpublish(ids, params);
                     })];
                 case 1: return [2 /*return*/, _a.sent()];
             }
@@ -260,7 +259,7 @@ var useList = function () {
                         name: 'links'
                     };
                     return [4 /*yield*/, loadingWrapper(function () {
-                            return api.addLinks(sourceId, targetIds, options);
+                            return api.collection(name).url(url).addLinks(sourceId, targetIds, options);
                         })];
                 case 1: return [2 /*return*/, _a.sent()];
             }
@@ -276,7 +275,7 @@ var useList = function () {
                         name: 'links'
                     };
                     return [4 /*yield*/, loadingWrapper(function () {
-                            return api.removeLinks(sourceId, targetIds, options);
+                            return api.collection(name).url(url).removeLinks(sourceId, targetIds, options);
                         })];
                 case 1: return [2 /*return*/, _a.sent()];
             }
@@ -285,7 +284,7 @@ var useList = function () {
     var updateLinkPositions = function (id, sorted) { return __awaiter(void 0, void 0, void 0, function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, api.updateLinkPositions(id, sorted, params)];
+                case 0: return [4 /*yield*/, api.collection(name).url(url).updateLinkPositions(id, sorted, params)];
                 case 1: return [2 /*return*/, _a.sent()];
             }
         });
@@ -300,7 +299,7 @@ var useList = function () {
                         url: url
                     };
                     return [4 /*yield*/, loadingWrapper(function () {
-                            return api.addAttachment(id, fieldName, attachmentId, options);
+                            return api.collection(name).url(url).addAttachment(id, fieldName, attachmentId, options);
                         })];
                 case 1: return [2 /*return*/, _a.sent()];
             }
@@ -316,7 +315,7 @@ var useList = function () {
                         url: url
                     };
                     return [4 /*yield*/, loadingWrapper(function () {
-                            return api.removeAttachment(id, fieldName, options);
+                            return api.collection(name).url(url).removeAttachment(id, fieldName, options);
                         })];
                 case 1: return [2 /*return*/, _a.sent()];
             }
@@ -325,7 +324,7 @@ var useList = function () {
     var updatePositions = function (sorted) { return __awaiter(void 0, void 0, void 0, function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, api.updatePositions(sorted, params)];
+                case 0: return [4 /*yield*/, api.collection(name).url(url).updatePositions(sorted, params)];
                 case 1: 
                 // Intentionally avoid loading for drag-drop UIs
                 return [2 /*return*/, _a.sent()];

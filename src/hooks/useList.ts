@@ -57,15 +57,13 @@ const useList = (): UseListResponse => {
     url
   }
 
-  api = api.url(url).collection(name)
-
 	const showLoading = () => setLoading(true)
 	const hideLoading = () => setLoading(false)
 
 	
 	const findOne = async (id: ID) => {
 		if (!id) return null
-		return await loadingWrapper(() => api.findOne(id, params))
+		return await loadingWrapper(() => api.collection(name).url(url).findOne(id, params))
 	}
 
 	const findMany = async (queryParams: QueryParamsType = {}, opts: FindManyOptionType = {}) => {
@@ -81,7 +79,7 @@ const useList = (): UseListResponse => {
 					...queryParams,
 				})
 			}      
-			const res = await api.findMany({
+			const res = await api.collection(name).url(url).findMany({
 				...query,
 				...queryParams,
 			}, params)
@@ -146,43 +144,43 @@ const useList = (): UseListResponse => {
 
 	const create = async (resource: any) => {
 		return await loadingWrapper(() =>
-			api.create(resource, params)
+			api.collection(name).url(url).create(resource, params)
 		)
 	}
 
 	const update = async (resource: any) => {
 		return await loadingWrapper(() =>
-			api.update(resource, params)
+			api.collection(name).url(url).update(resource, params)
 		)
 	}
 
 	const destroy = async (id: ID) => {
 		return await loadingWrapper(() => 
-      api.destroy(id, params)
+      api.collection(name).url(url).destroy(id, params)
     )
 	}
 
 	const updateMany = async (ids: ID[], resource: any) => {
 		return await loadingWrapper(() =>
-			api.updateMany(ids, resource, params)
+			api.collection(name).url(url).updateMany(ids, resource, params)
 		)
 	}
 
 	const deleteMany = async (ids: ID[]) => {
 		return await loadingWrapper(() =>
-			api.destroyMany(ids, params)
+			api.collection(name).url(url).destroyMany(ids, params)
 		)
 	}
 
 	const publish = async (ids: ID[]) => {
 		return await loadingWrapper(() =>
-			api.publish(ids, params)
+			api.collection(name).url(url).publish(ids, params)
 		)
 	}
 
 	const unpublish = async (ids: ID[]) => {
 		return await loadingWrapper(() =>
-			api.unpublish(ids, params)
+			api.collection(name).url(url).unpublish(ids, params)
 		)
 	}
 
@@ -195,7 +193,7 @@ const useList = (): UseListResponse => {
       name: 'links' 
     }
 		return await loadingWrapper(() =>
-			api.addLinks(sourceId, targetIds, options)
+			api.collection(name).url(url).addLinks(sourceId, targetIds, options)
 		)
 	}
 
@@ -205,12 +203,12 @@ const useList = (): UseListResponse => {
       name: 'links' 
     }
 		return await loadingWrapper(() =>
-			api.removeLinks(sourceId, targetIds, options)
+			api.collection(name).url(url).removeLinks(sourceId, targetIds, options)
 		)
 	}
 
   const updateLinkPositions = async (id: number, sorted) => {
-    return await api.updateLinkPositions(id, sorted, params)
+    return await api.collection(name).url(url).updateLinkPositions(id, sorted, params)
 	}
 
 	const addAttachment = async (
@@ -223,7 +221,7 @@ const useList = (): UseListResponse => {
       url
     }
 		return await loadingWrapper(() =>
-			api.addAttachment(id, fieldName, attachmentId, options)
+			api.collection(name).url(url).addAttachment(id, fieldName, attachmentId, options)
 		)
 	}
 
@@ -233,13 +231,13 @@ const useList = (): UseListResponse => {
       url
     }
 		return await loadingWrapper(() =>
-			api.removeAttachment(id, fieldName, options)
+			api.collection(name).url(url).removeAttachment(id, fieldName, options)
 		)
 	}
 
 	const updatePositions = async (sorted: any[]) => {
 		// Intentionally avoid loading for drag-drop UIs
-		return await api.updatePositions(sorted, params)
+		return await api.collection(name).url(url).updatePositions(sorted, params)
 	}
 
 	const handleChange = (ev: SyntheticEventType) => {
