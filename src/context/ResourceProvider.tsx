@@ -3,12 +3,13 @@ import ResourceContext from './ResourceContext'
 
 type ResourceProviderProps = {
   url: string
+  name: string 
   resource?: any
 	children: React.ReactNode
 }
 
 const ResourceProvider = (props: ResourceProviderProps) => {
-	const { url, children, resource: _resource } = props
+	const { url, name, children, resource: _resource } = props
 	
 	const [loading, setLoading] = useState(false)
   const [delayedLoading, setDelayedLoading] = useState(false)
@@ -36,7 +37,8 @@ const ResourceProvider = (props: ResourceProviderProps) => {
 
 	const value = {
 		url,
-
+    name,
+    
 		loading,
 		setLoading,
 

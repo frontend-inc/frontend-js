@@ -215,9 +215,11 @@ const useResource = (params: UseResourceParams): UseResourceResponse => {
 	const handleChange = (ev: SyntheticEventType) => {
 		const { name } = ev.target
 		const value =
-			ev.target.type === 'checkbox' ? ev.target.checked : ev.target.value
-    const changedResource = api.handleChange(resource, name, value)
-		setResource(changedResource)
+			ev.target.type === 'checkbox' ? ev.target.checked : ev.target.value    
+		setResource({
+      ...resource,
+      [name]: value
+    })
 	}
 
 	const loadingWrapper = async (apiMethod: () => any) => {

@@ -63,8 +63,7 @@ var context_2 = require("../context");
 var _1 = require(".");
 var useList = function () {
     var api = (0, react_1.useContext)(context_2.ApiContext).api;
-    var name = 'document';
-    var _a = (0, react_1.useContext)(context_1.ResourceContext), url = _a.url, loading = _a.loading, setLoading = _a.setLoading, errors = _a.errors, setErrors = _a.setErrors, resource = _a.resource, setResource = _a.setResource, resources = _a.resources, setResources = _a.setResources, query = _a.query, setQuery = _a.setQuery, meta = _a.meta, setMeta = _a.setMeta, page = _a.page, setPage = _a.setPage, perPage = _a.perPage, setPerPage = _a.setPerPage, totalCount = _a.totalCount, setTotalCount = _a.setTotalCount, numPages = _a.numPages, setNumPages = _a.setNumPages, openShow = _a.openShow, setOpenShow = _a.setOpenShow, openEdit = _a.openEdit, setOpenEdit = _a.setOpenEdit, openDelete = _a.openDelete, setOpenDelete = _a.setOpenDelete;
+    var _a = (0, react_1.useContext)(context_1.ResourceContext), url = _a.url, _b = _a.name, name = _b === void 0 ? 'document' : _b, loading = _a.loading, setLoading = _a.setLoading, errors = _a.errors, setErrors = _a.setErrors, resource = _a.resource, setResource = _a.setResource, resources = _a.resources, setResources = _a.setResources, query = _a.query, setQuery = _a.setQuery, meta = _a.meta, setMeta = _a.setMeta, page = _a.page, setPage = _a.setPage, perPage = _a.perPage, setPerPage = _a.setPerPage, totalCount = _a.totalCount, setTotalCount = _a.setTotalCount, numPages = _a.numPages, setNumPages = _a.setNumPages, openShow = _a.openShow, setOpenShow = _a.setOpenShow, openEdit = _a.openEdit, setOpenEdit = _a.setOpenEdit, openDelete = _a.openDelete, setOpenDelete = _a.setOpenDelete;
     var params = {
         name: name,
         url: url
@@ -335,8 +334,7 @@ var useList = function () {
     var handleChange = function (ev) {
         var name = ev.target.name;
         var value = ev.target.type === 'checkbox' ? ev.target.checked : ev.target.value;
-        var changedResource = (0, helpers_1.changeDocumentValue)(resource, name, value);
-        setResource(changedResource);
+        setResource(function (prev) { return (0, helpers_1.changeDocumentValue)(prev, name, value); });
     };
     var loadingWrapper = function (apiMethod) { return __awaiter(void 0, void 0, void 0, function () {
         var res, e_2;
@@ -381,6 +379,7 @@ var useList = function () {
     }).loading;
     return {
         url: url,
+        name: name,
         loading: loading,
         delayLoading: delayLoading,
         setLoading: setLoading,

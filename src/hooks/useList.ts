@@ -20,10 +20,9 @@ const useList = (): UseListResponse => {
 
 	const { api } = useContext(ApiContext)
 
-  const name = 'document'
-
   const {
     url,
+    name='document',
     loading,
     setLoading,
     errors,
@@ -52,7 +51,7 @@ const useList = (): UseListResponse => {
     openDelete,
     setOpenDelete 
   } = useContext(ResourceContext)
-  
+
   const params = { 
     name,
     url
@@ -244,9 +243,8 @@ const useList = (): UseListResponse => {
 	const handleChange = (ev: SyntheticEventType) => {
 		const { name } = ev.target
 		const value =
-			ev.target.type === 'checkbox' ? ev.target.checked : ev.target.value
-    const changedResource = changeDocumentValue(resource, name, value)
-		setResource(changedResource)
+			ev.target.type === 'checkbox' ? ev.target.checked : ev.target.value    
+    setResource(prev => changeDocumentValue(prev, name, value))
 	}
 
 	const loadingWrapper = async (apiMethod: () => any) => {
@@ -281,6 +279,7 @@ const useList = (): UseListResponse => {
 
 	return {
     url,
+    name,
     
 		loading,
     delayLoading,

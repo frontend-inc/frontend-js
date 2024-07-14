@@ -1,6 +1,7 @@
 import React from 'react';
 declare type ResourceProviderProps = {
     url: string;
+    name: string;
     resource?: any;
     children: React.ReactNode;
 };

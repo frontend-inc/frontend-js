@@ -64,7 +64,7 @@ export declare class ApiClient {
     put(endpoint: string, payload: object, headers: any): Promise<ExecuteResponseType>;
     delete(endpoint: string): Promise<ExecuteResponseType>;
     handleChange(resource: any, name: string, value: any): any;
-    handleFormatData(name: any): void;
+    handleFormatData(name: string): void;
     handleMultipartData(name: any): Promise<void>;
     isJsonObject(value: any): boolean;
 }

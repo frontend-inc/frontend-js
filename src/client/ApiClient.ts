@@ -510,7 +510,7 @@ export class ApiClient {
     }
   }
 
-	handleFormatData(name): void {
+	handleFormatData(name: string): void {
 		let multipart = false
 		for (const key in this.payload[name]) {
 			if (this.payload[name][key] instanceof File) {

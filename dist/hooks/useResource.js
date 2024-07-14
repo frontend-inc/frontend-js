@@ -337,10 +337,10 @@ var useResource = function (params) {
         });
     }); };
     var handleChange = function (ev) {
+        var _a;
         var name = ev.target.name;
         var value = ev.target.type === 'checkbox' ? ev.target.checked : ev.target.value;
-        var changedResource = api.handleChange(resource, name, value);
-        setResource(changedResource);
+        setResource(__assign(__assign({}, resource), (_a = {}, _a[name] = value, _a)));
     };
     var loadingWrapper = function (apiMethod) { return __awaiter(void 0, void 0, void 0, function () {
         var res, e_2;
