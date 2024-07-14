@@ -79,7 +79,7 @@ const useList = (): UseListResponse => {
 					...queryParams,
 				})
 			}      
-			const res = await api.collection(name).url(url).findMany({
+			const res = await api.findMany({
 				...query,
 				...queryParams,
 			}, params)
@@ -144,7 +144,7 @@ const useList = (): UseListResponse => {
 
 	const create = async (resource: any) => {
 		return await loadingWrapper(() =>
-			api.collection(name).url(url).create(resource, params)
+			api.create(resource, params)
 		)
 	}
 

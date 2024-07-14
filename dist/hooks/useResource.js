@@ -105,7 +105,7 @@ var useResource = function (params) {
                         if (queryParams) {
                             setQuery(__assign(__assign({}, query), queryParams));
                         }
-                        return [4 /*yield*/, api.collection(name).url(url).findMany(__assign(__assign({}, query), queryParams), params)];
+                        return [4 /*yield*/, api.findMany(__assign(__assign({}, query), queryParams), params)];
                     case 2:
                         res = _a.sent();
                         if (res.data) {
@@ -188,7 +188,7 @@ var useResource = function (params) {
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0: return [4 /*yield*/, loadingWrapper(function () {
-                        return api.collection(name).url(url).create(resource, params);
+                        return api.create(resource, params);
                     })];
                 case 1: return [2 /*return*/, _a.sent()];
             }
