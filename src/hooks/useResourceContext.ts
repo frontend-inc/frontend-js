@@ -7,7 +7,7 @@ import { ApiContext } from '../context'
 import { useDelayedLoading } from '.'
 import { ID, QueryParamsType, UseResourceResponse, FindManyOptionType, SyntheticEventType } from '../types'
 
-type UseListResponse = UseResourceResponse & {
+type UseResourceContextResponse = UseResourceResponse & {
   openShow: boolean
   setOpenShow: (value: boolean) => void
   openEdit: boolean
@@ -16,7 +16,7 @@ type UseListResponse = UseResourceResponse & {
   setOpenDelete: (value: boolean) => void
 }
 
-const useList = (): UseListResponse => {
+const useResourceContext = (): UseResourceContextResponse => {
 
 	let { api } = useContext(ApiContext)
 
@@ -329,4 +329,4 @@ const useList = (): UseListResponse => {
 	}
 }
 
-export default useList
+export default useResourceContext
