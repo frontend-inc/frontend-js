@@ -180,6 +180,7 @@ var ApiClient = /** @class */ (function () {
                             _b);
                         this.handleFormatData(name);
                         this.endpoint = url;
+                        console.log("Debug Create", name, url, this.payload, this.headers, this.endpoint);
                         return [4 /*yield*/, this.post(this.endpoint, this.payload, this.headers)];
                     case 1: return [2 /*return*/, _c.sent()];
                 }
