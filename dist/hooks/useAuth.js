@@ -45,18 +45,21 @@ var useResource_1 = __importDefault(require("./useResource"));
 var cookies_next_1 = require("cookies-next");
 var useAuth = function () {
     var _a = (0, react_1.useContext)(context_1.ApiContext), api = _a.api, authCookie = _a.authCookie;
-    var serverPath = (0, react_1.useContext)(context_1.AuthContext).serverPath;
+    var url = (0, react_1.useContext)(context_1.AuthContext).serverPath;
     var showLoading = function () { return setLoading(true); };
     var hideLoading = function () { return setLoading(false); };
     var _b = (0, react_1.useContext)(context_1.AuthContext), authenticated = _b.authenticated, setAuthenticated = _b.setAuthenticated, currentUser = _b.currentUser, setCurrentUser = _b.setCurrentUser, token = _b.token, setToken = _b.setToken;
     var _c = (0, useResource_1.default)({
-        url: serverPath,
+        url: url,
         name: 'user',
     }), errors = _c.errors, setErrors = _c.setErrors, loading = _c.loading, delayedLoading = _c.delayedLoading, setLoading = _c.setLoading, user = _c.resource, setUser = _c.setResource, handleChange = _c.handleChange, handleErrors = _c.handleErrors;
+    var params = {
+        url: url
+    };
     var updateMe = function (user) { return __awaiter(void 0, void 0, void 0, function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, loadingWrapper(function () { return api.url(serverPath).updateMe(user); })];
+                case 0: return [4 /*yield*/, loadingWrapper(function () { return api.updateMe(user, params); })];
                 case 1: return [2 /*return*/, _a.sent()];
             }
         });
@@ -64,7 +67,7 @@ var useAuth = function () {
     var fetchMe = function () { return __awaiter(void 0, void 0, void 0, function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, loadingWrapper(function () { return api.url(serverPath).fetchMe(); })];
+                case 0: return [4 /*yield*/, loadingWrapper(function () { return api.fetchMe(params); })];
                 case 1: return [2 /*return*/, _a.sent()];
             }
         });
@@ -72,7 +75,7 @@ var useAuth = function () {
     var login = function (user) { return __awaiter(void 0, void 0, void 0, function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, loadingWrapper(function () { return api.url(serverPath).login(user); })];
+                case 0: return [4 /*yield*/, loadingWrapper(function () { return api.login(user, params); })];
                 case 1: return [2 /*return*/, _a.sent()];
             }
         });
@@ -80,7 +83,7 @@ var useAuth = function () {
     var signup = function (user) { return __awaiter(void 0, void 0, void 0, function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, loadingWrapper(function () { return api.url(serverPath).signup(user); })];
+                case 0: return [4 /*yield*/, loadingWrapper(function () { return api.signup(user, params); })];
                 case 1: return [2 /*return*/, _a.sent()];
             }
         });
@@ -88,7 +91,7 @@ var useAuth = function () {
     var sendPin = function (user) { return __awaiter(void 0, void 0, void 0, function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, loadingWrapper(function () { return api.url(serverPath).sendPin(user); })];
+                case 0: return [4 /*yield*/, loadingWrapper(function () { return api.sendPin(user, params); })];
                 case 1: return [2 /*return*/, _a.sent()];
             }
         });
@@ -96,7 +99,7 @@ var useAuth = function () {
     var verifyPin = function (email, pin) { return __awaiter(void 0, void 0, void 0, function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, loadingWrapper(function () { return api.url(serverPath).verifyPin(email, pin); })];
+                case 0: return [4 /*yield*/, loadingWrapper(function () { return api.verifyPin(email, pin, params); })];
                 case 1: return [2 /*return*/, _a.sent()];
             }
         });
@@ -105,9 +108,7 @@ var useAuth = function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0: return [4 /*yield*/, loadingWrapper(function () {
-                        return api
-                            .url(serverPath)
-                            .changePassword(currentPassword, password, passwordConfirmation);
+                        return api.changePassword(currentPassword, password, passwordConfirmation, params);
                     })];
                 case 1: return [2 /*return*/, _a.sent()];
             }
@@ -117,7 +118,7 @@ var useAuth = function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0: return [4 /*yield*/, loadingWrapper(function () {
-                        return api.url(serverPath).sendOneTimePassword(user);
+                        return api.sendOneTimePassword(user, params);
                     })];
                 case 1: return [2 /*return*/, _a.sent()];
             }
@@ -127,7 +128,7 @@ var useAuth = function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0: return [4 /*yield*/, loadingWrapper(function () {
-                        return api.url(serverPath).verifyOneTimePassword(otp);
+                        return api.verifyOneTimePassword(otp, params);
                     })];
                 case 1: return [2 /*return*/, _a.sent()];
             }
@@ -136,7 +137,7 @@ var useAuth = function () {
     var forgotPassword = function (user) { return __awaiter(void 0, void 0, void 0, function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, loadingWrapper(function () { return api.url(serverPath).forgotPassword(user); })];
+                case 0: return [4 /*yield*/, loadingWrapper(function () { return api.forgotPassword(user, params); })];
                 case 1: return [2 /*return*/, _a.sent()];
             }
         });
@@ -146,8 +147,7 @@ var useAuth = function () {
             switch (_a.label) {
                 case 0: return [4 /*yield*/, loadingWrapper(function () {
                         return api
-                            .url(serverPath)
-                            .resetPassword(email, password, passwordConfirmation, changePasswordToken);
+                            .resetPassword(email, password, passwordConfirmation, changePasswordToken, params);
                     })];
                 case 1: return [2 /*return*/, _a.sent()];
             }
@@ -169,19 +169,18 @@ var useAuth = function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0: return [4 /*yield*/, loadingWrapper(function () { return api
-                        .url(serverPath)
-                        .googleLogin(accessToken); })];
+                        .googleLogin(accessToken, params); })];
                 case 1: return [2 /*return*/, _a.sent()];
             }
         });
     }); };
     var deleteAvatar = function () { return __awaiter(void 0, void 0, void 0, function () {
-        var url;
+        var deleteAvatarUrl;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    url = serverPath + '/delete_avatar';
-                    return [4 /*yield*/, loadingWrapper(function () { return api.post(url); })];
+                    deleteAvatarUrl = url + '/delete_avatar';
+                    return [4 /*yield*/, loadingWrapper(function () { return api.post(deleteAvatarUrl); })];
                 case 1: return [2 /*return*/, _a.sent()];
             }
         });

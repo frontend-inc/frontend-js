@@ -6,7 +6,7 @@ import { UserType } from '../types'
 
 const useAuth = () => {
 	const { api, authCookie } = useContext(ApiContext)
-	const { serverPath } = useContext(AuthContext)
+	const { serverPath: url } = useContext(AuthContext)
 
 	const showLoading = () => setLoading(true)
 	const hideLoading = () => setLoading(false)
@@ -31,32 +31,36 @@ const useAuth = () => {
 		handleChange,
 		handleErrors,
 	} = useResource({
-		url: serverPath,
+		url,
 		name: 'user',
 	})
 
+  const params = {
+    url
+  }
+
 	const updateMe = async (user: UserType) => {
-		return await loadingWrapper(() => api.url(serverPath).updateMe(user))
+		return await loadingWrapper(() => api.updateMe(user, params))
 	}
 
 	const fetchMe = async () => {
-		return await loadingWrapper(() => api.url(serverPath).fetchMe())
+		return await loadingWrapper(() => api.fetchMe(params))
 	}
 
 	const login = async (user: UserType) => {
-		return await loadingWrapper(() => api.url(serverPath).login(user))
+		return await loadingWrapper(() => api.login(user, params))
 	}
 
 	const signup = async (user: UserType) => {
-		return await loadingWrapper(() => api.url(serverPath).signup(user))
+		return await loadingWrapper(() => api.signup(user, params))
 	}
 
 	const sendPin = async (user: UserType) => {
-		return await loadingWrapper(() => api.url(serverPath).sendPin(user))
+		return await loadingWrapper(() => api.sendPin(user, params))
 	}
 
 	const verifyPin = async (email: string, pin: string) => {
-		return await loadingWrapper(() => api.url(serverPath).verifyPin(email, pin))
+		return await loadingWrapper(() => api.verifyPin(email, pin, params))
 	}
 
 	const changePassword = async (
@@ -65,26 +69,24 @@ const useAuth = () => {
 		passwordConfirmation: string
 	) => {
 		return await loadingWrapper(() =>
-			api
-				.url(serverPath)
-				.changePassword(currentPassword, password, passwordConfirmation)
+			api.changePassword(currentPassword, password, passwordConfirmation, params)
 		)
 	}
 
 	const sendOneTimePassword = async (user: UserType) => {
 		return await loadingWrapper(() =>
-			api.url(serverPath).sendOneTimePassword(user)
+			api.sendOneTimePassword(user, params)
 		)
 	}
 
 	const verifyOneTimePassword = async (otp: string) => {
 		return await loadingWrapper(() =>
-			api.url(serverPath).verifyOneTimePassword(otp)
+			api.verifyOneTimePassword(otp, params)
 		)
 	}
 
 	const forgotPassword = async (user: UserType) => {
-		return await loadingWrapper(() => api.url(serverPath).forgotPassword(user))
+		return await loadingWrapper(() => api.forgotPassword(user, params))
 	}
 
 	const resetPassword = async (
@@ -95,12 +97,12 @@ const useAuth = () => {
 	) => {
 		return await loadingWrapper(() =>
 			api
-				.url(serverPath)
 				.resetPassword(
 					email,
 					password,
 					passwordConfirmation,
-					changePasswordToken
+					changePasswordToken,
+          params
 				)
 		)
 	}
@@ -113,14 +115,13 @@ const useAuth = () => {
 
 	const googleLogin = async (accessToken: string) => {		
 		return await loadingWrapper(() => api 
-      .url(serverPath)
-      .googleLogin(accessToken)
+      .googleLogin(accessToken, params)
     )
 	}
 
 	const deleteAvatar = async () => {
-		let url = serverPath + '/delete_avatar'
-		return await loadingWrapper(() => api.post(url))
+		let deleteAvatarUrl = url + '/delete_avatar'
+		return await loadingWrapper(() => api.post(deleteAvatarUrl))
 	}
 
 	const authenticateFromToken = async (token: string) => {
