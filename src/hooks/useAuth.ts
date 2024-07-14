@@ -5,8 +5,10 @@ import { deleteCookie, getCookie, setCookie } from 'cookies-next'
 import { UserType } from '../types'
 
 const useAuth = () => {
-	const { api, authCookie } = useContext(ApiContext)
+	let { api, authCookie } = useContext(ApiContext)
 	const { serverPath: url } = useContext(AuthContext)
+
+  api = api.url(url).collection('user')
 
 	const showLoading = () => setLoading(true)
 	const hideLoading = () => setLoading(false)

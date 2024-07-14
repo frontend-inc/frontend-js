@@ -777,15 +777,11 @@ var ApiClient = /** @class */ (function () {
         });
     };
     ApiClient.prototype.handleFormatData = function () {
-        var multipart = false;
         for (var key in this.payload[this._collection]) {
             if (this.payload[this._collection][key] instanceof File) {
-                multipart = true;
+                this.handleMultipartData();
                 break;
             }
-        }
-        if (multipart) {
-            this.handleMultipartData();
         }
     };
     ApiClient.prototype.handleMultipartData = function () {

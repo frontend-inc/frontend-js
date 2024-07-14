@@ -513,17 +513,13 @@ export class ApiClient {
 		return await this.restClient.delete(endpoint)
 	}
 
-	handleFormatData(): void {
-		let multipart = false
+	handleFormatData(): void {		
 		for (const key in this.payload[this._collection]) {
 			if (this.payload[this._collection][key] instanceof File) {
-				multipart = true
+				this.handleMultipartData()
 				break
 			}
-		}
-		if (multipart) {
-			this.handleMultipartData()
-		}
+		}		
 	}
 
 	async handleMultipartData() {
