@@ -1,6 +1,6 @@
-import React, { useEffect, useState, useContext } from 'react'
+import React, { useEffect, useContext } from 'react'
 import useSWR from 'swr'
-import { ApiContext } from '../context'
+import { ApiContext, ResourceContext } from '../context'
 import { QueryParamsType } from '../types'
 
 type UseQueryParams = {
@@ -8,22 +8,30 @@ type UseQueryParams = {
   query: QueryParamsType
 }
 
-const useQuery = (params: UseQueryParams) => {
+const useQueryContext = (params: UseQueryParams) => {
 
   const { url, query } = params || {}
 
   const { api } = useContext(ApiContext)
 
-  const [loading, setLoading] = useState<boolean>(false)
-	const [errors, setErrors] = useState<Record<string, any> | null>()
-
-	const [resources, setResources] = useState<any[]>([])
-
-	const [meta, setMeta] = useState<any>(null)  
-	const [page, setPage] = useState<number>(1)
-	const [perPage, setPerPage] = useState<number>(10)
-	const [totalCount, setTotalCount] = useState<number>(0)
-	const [numPages, setNumPages] = useState<number>(0)  
+  const {  
+    loading, 
+    setLoading,
+    errors,
+    setErrors,
+    resources,
+    setResources,
+    meta,
+    page,
+    perPage,
+    numPages,
+    totalCount,
+    setNumPages,
+    setMeta,
+    setPage,
+    setPerPage,
+    setTotalCount, 
+  } = useContext(ResourceContext)
 
   const { data } = useSWR((url && query) ? [url, query] : null, ([url, query]) => api.findMany(query, { url }))
 
@@ -65,4 +73,4 @@ const useQuery = (params: UseQueryParams) => {
   }
 }
 
-export default useQuery 
+export default useQueryContext 

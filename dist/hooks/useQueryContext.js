@@ -6,17 +6,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var react_1 = require("react");
 var swr_1 = __importDefault(require("swr"));
 var context_1 = require("../context");
-var useQuery = function (params) {
+var useQueryContext = function (params) {
     var _a = params || {}, url = _a.url, query = _a.query;
     var api = (0, react_1.useContext)(context_1.ApiContext).api;
-    var _b = (0, react_1.useState)(false), loading = _b[0], setLoading = _b[1];
-    var _c = (0, react_1.useState)(), errors = _c[0], setErrors = _c[1];
-    var _d = (0, react_1.useState)([]), resources = _d[0], setResources = _d[1];
-    var _e = (0, react_1.useState)(null), meta = _e[0], setMeta = _e[1];
-    var _f = (0, react_1.useState)(1), page = _f[0], setPage = _f[1];
-    var _g = (0, react_1.useState)(10), perPage = _g[0], setPerPage = _g[1];
-    var _h = (0, react_1.useState)(0), totalCount = _h[0], setTotalCount = _h[1];
-    var _j = (0, react_1.useState)(0), numPages = _j[0], setNumPages = _j[1];
+    var _b = (0, react_1.useContext)(context_1.ResourceContext), loading = _b.loading, setLoading = _b.setLoading, errors = _b.errors, setErrors = _b.setErrors, resources = _b.resources, setResources = _b.setResources, meta = _b.meta, page = _b.page, perPage = _b.perPage, numPages = _b.numPages, totalCount = _b.totalCount, setNumPages = _b.setNumPages, setMeta = _b.setMeta, setPage = _b.setPage, setPerPage = _b.setPerPage, setTotalCount = _b.setTotalCount;
     var data = (0, swr_1.default)((url && query) ? [url, query] : null, function (_a) {
         var url = _a[0], query = _a[1];
         return api.findMany(query, { url: url });
@@ -57,4 +50,4 @@ var useQuery = function (params) {
         totalCount: totalCount,
     };
 };
-exports.default = useQuery;
+exports.default = useQueryContext;

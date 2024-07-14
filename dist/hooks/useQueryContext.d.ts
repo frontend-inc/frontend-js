@@ -3,7 +3,7 @@ type UseQueryParams = {
     url: string;
     query: QueryParamsType;
 };
-declare const useQuery: (params: UseQueryParams) => {
+declare const useQueryContext: (params: UseQueryParams) => {
     loading: any;
     errors: any;
     resources: any;
@@ -13,4 +13,4 @@ declare const useQuery: (params: UseQueryParams) => {
     numPages: any;
     totalCount: any;
 };
-export default useQuery;
+export default useQueryContext;
