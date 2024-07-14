@@ -18,7 +18,7 @@ type UseListResponse = UseResourceResponse & {
 
 const useList = (): UseListResponse => {
 
-	const { api } = useContext(ApiContext)
+	let { api } = useContext(ApiContext)
 
   const {
     url,
@@ -56,6 +56,8 @@ const useList = (): UseListResponse => {
     name,
     url
   }
+
+  api = api.url(url).collection(name)
 
 	const showLoading = () => setLoading(true)
 	const hideLoading = () => setLoading(false)

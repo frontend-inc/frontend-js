@@ -14,9 +14,11 @@ type UseResourceParams = {
 }
 
 const useResource = (params: UseResourceParams): UseResourceResponse => {
-	const { url } = params || {}
+	const { url, name } = params || {}
 
-	const { api } = useContext(ApiContext)
+	let { api } = useContext(ApiContext)
+  api = api.url(url).collection(name)
+
 	const [loading, setLoading] = useState<boolean>(false)
 	const [errors, setErrors] = useState<Record<string, any> | null>()
 

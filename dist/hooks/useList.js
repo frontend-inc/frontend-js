@@ -68,6 +68,7 @@ var useList = function () {
         name: name,
         url: url
     };
+    api = api.url(url).collection(name);
     var showLoading = function () { return setLoading(true); };
     var hideLoading = function () { return setLoading(false); };
     var findOne = function (id) { return __awaiter(void 0, void 0, void 0, function () {
