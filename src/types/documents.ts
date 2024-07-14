@@ -26,8 +26,8 @@ export type UserType = {
 	team_id?: number
 	team_role?: string
 	image?: StorageType
-  password?: string
-  password_confirmation?: string
+  password?: string | undefined
+  password_confirmation?: string | undefined
 }
 
 export type ImageContentType =

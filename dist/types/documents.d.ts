@@ -25,8 +25,8 @@ export declare type UserType = {
     team_id?: number;
     team_role?: string;
     image?: StorageType;
-    password?: string;
-    password_confirmation?: string;
+    password?: string | undefined;
+    password_confirmation?: string | undefined;
 };
 export declare type ImageContentType = 'jpg' | 'jpeg' | 'png' | 'gif' | 'bmp' | 'webp' | 'heic';
 export declare type VideoContentType = 'mp4' | 'webm' | 'ogg' | 'mov' | 'm4v';
