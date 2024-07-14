@@ -60,7 +60,7 @@ var useAuth = function () {
     var updateMe = function (user) { return __awaiter(void 0, void 0, void 0, function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, loadingWrapper(function () { return api.collection(name).url(url).updateMe(user, params); })];
+                case 0: return [4 /*yield*/, loadingWrapper(function () { return api.updateMe(user, params); })];
                 case 1: return [2 /*return*/, _a.sent()];
             }
         });
@@ -68,7 +68,7 @@ var useAuth = function () {
     var fetchMe = function () { return __awaiter(void 0, void 0, void 0, function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, loadingWrapper(function () { return api.collection(name).url(url).fetchMe(params); })];
+                case 0: return [4 /*yield*/, loadingWrapper(function () { return api.fetchMe(params); })];
                 case 1: return [2 /*return*/, _a.sent()];
             }
         });
@@ -76,7 +76,7 @@ var useAuth = function () {
     var login = function (user) { return __awaiter(void 0, void 0, void 0, function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, loadingWrapper(function () { return api.collection(name).url(url).login(user, params); })];
+                case 0: return [4 /*yield*/, loadingWrapper(function () { return api.login(user, params); })];
                 case 1: return [2 /*return*/, _a.sent()];
             }
         });
@@ -84,7 +84,7 @@ var useAuth = function () {
     var signup = function (user) { return __awaiter(void 0, void 0, void 0, function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, loadingWrapper(function () { return api.collection(name).url(url).signup(user, params); })];
+                case 0: return [4 /*yield*/, loadingWrapper(function () { return api.signup(user, params); })];
                 case 1: return [2 /*return*/, _a.sent()];
             }
         });
@@ -92,7 +92,7 @@ var useAuth = function () {
     var sendPin = function (user) { return __awaiter(void 0, void 0, void 0, function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, loadingWrapper(function () { return api.collection(name).url(url).sendPin(user, params); })];
+                case 0: return [4 /*yield*/, loadingWrapper(function () { return api.sendPin(user, params); })];
                 case 1: return [2 /*return*/, _a.sent()];
             }
         });
@@ -100,7 +100,7 @@ var useAuth = function () {
     var verifyPin = function (email, pin) { return __awaiter(void 0, void 0, void 0, function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, loadingWrapper(function () { return api.collection(name).url(url).verifyPin(email, pin, params); })];
+                case 0: return [4 /*yield*/, loadingWrapper(function () { return api.verifyPin(email, pin, params); })];
                 case 1: return [2 /*return*/, _a.sent()];
             }
         });
@@ -109,7 +109,7 @@ var useAuth = function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0: return [4 /*yield*/, loadingWrapper(function () {
-                        return api.collection(name).url(url).changePassword(currentPassword, password, passwordConfirmation, params);
+                        return api.changePassword(currentPassword, password, passwordConfirmation, params);
                     })];
                 case 1: return [2 /*return*/, _a.sent()];
             }
@@ -119,7 +119,7 @@ var useAuth = function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0: return [4 /*yield*/, loadingWrapper(function () {
-                        return api.collection(name).url(url).sendOneTimePassword(user, params);
+                        return api.sendOneTimePassword(user, params);
                     })];
                 case 1: return [2 /*return*/, _a.sent()];
             }
@@ -129,7 +129,7 @@ var useAuth = function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0: return [4 /*yield*/, loadingWrapper(function () {
-                        return api.collection(name).url(url).verifyOneTimePassword(otp, params);
+                        return api.verifyOneTimePassword(otp, params);
                     })];
                 case 1: return [2 /*return*/, _a.sent()];
             }
@@ -138,7 +138,7 @@ var useAuth = function () {
     var forgotPassword = function (user) { return __awaiter(void 0, void 0, void 0, function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, loadingWrapper(function () { return api.collection(name).url(url).forgotPassword(user, params); })];
+                case 0: return [4 /*yield*/, loadingWrapper(function () { return api.forgotPassword(user, params); })];
                 case 1: return [2 /*return*/, _a.sent()];
             }
         });
@@ -183,7 +183,7 @@ var useAuth = function () {
             switch (_a.label) {
                 case 0:
                     deleteAvatarUrl = url + '/delete_avatar';
-                    return [4 /*yield*/, loadingWrapper(function () { return api.collection(name).url(url).post(deleteAvatarUrl); })];
+                    return [4 /*yield*/, loadingWrapper(function () { return api.post(deleteAvatarUrl); })];
                 case 1: return [2 /*return*/, _a.sent()];
             }
         });
