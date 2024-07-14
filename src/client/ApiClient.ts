@@ -139,9 +139,11 @@ export class ApiClient {
 		this.payload = {
 			[name]: resource,
 		}
+    console.log("Create Payload", this.payload)
+
 		this.handleFormatData(name)
 		this.endpoint = url
-    console.log("Debug Create", resource, name, url, this.payload, this.headers, this.endpoint)
+    console.log("Create Format Data", resource, name, url, this.payload, this.headers, this.endpoint)
 		return await this.post(this.endpoint, this.payload, this.headers)
 	}
 
@@ -513,6 +515,18 @@ export class ApiClient {
 
 	handleFormatData(name: string): void {
 		let multipart = false
+     // Check if this.payload exists and is an object
+     if (!this.payload || typeof this.payload !== 'object') {
+        console.error('Payload is not defined or not an object', this.payload);
+        return;
+    }
+    
+    // Check if this.payload[name] exists and is an object
+    if (!this.payload[name]) {
+        console.error(`Payload for ${name} is not defined or not an object`, this.payload);        
+        return;
+    }
+    
 		for (const key in this.payload[name]) {
 			if (this.payload[name][key] instanceof File) {
 				multipart = true

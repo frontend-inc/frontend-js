@@ -178,9 +178,10 @@ var ApiClient = /** @class */ (function () {
                         this.payload = (_b = {},
                             _b[name] = resource,
                             _b);
+                        console.log("Create Payload", this.payload);
                         this.handleFormatData(name);
                         this.endpoint = url;
-                        console.log("Debug Create", resource, name, url, this.payload, this.headers, this.endpoint);
+                        console.log("Create Format Data", resource, name, url, this.payload, this.headers, this.endpoint);
                         return [4 /*yield*/, this.post(this.endpoint, this.payload, this.headers)];
                     case 1: return [2 /*return*/, _c.sent()];
                 }
@@ -815,6 +816,16 @@ var ApiClient = /** @class */ (function () {
     };
     ApiClient.prototype.handleFormatData = function (name) {
         var multipart = false;
+        // Check if this.payload exists and is an object
+        if (!this.payload || typeof this.payload !== 'object') {
+            console.error('Payload is not defined or not an object', this.payload);
+            return;
+        }
+        // Check if this.payload[name] exists and is an object
+        if (!this.payload[name]) {
+            console.error("Payload for " + name + " is not defined or not an object", this.payload);
+            return;
+        }
         for (var key in this.payload[name]) {
             if (this.payload[name][key] instanceof File) {
                 multipart = true;
