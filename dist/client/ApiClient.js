@@ -841,6 +841,7 @@ var ApiClient = /** @class */ (function () {
     };
     ApiClient.prototype.handleMultipartData = function (name, payload) {
         var formData = new FormData();
+        formData.entries();
         for (var formKey in payload[name]) {
             console.log("Form Key: " + formKey, payload[name], payload[name][formKey]);
             // Form objects can only send string key / value pairs
@@ -851,9 +852,10 @@ var ApiClient = /** @class */ (function () {
             else {
                 console.log("Appending to formData " + name + "[" + formKey + "]", payload[name], payload[name][formKey]);
                 formData.append(name + "[" + formKey + "]", payload[name][formKey]);
+                console.log('Form Data after appending', formData, formData.entries());
             }
         }
-        console.log('FormData', formData);
+        console.log('FormData', formData, formData.entries());
         this.headers['Content-Type'] = 'multipart/form-resource';
         return formData;
     };

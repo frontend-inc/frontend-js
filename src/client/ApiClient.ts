@@ -539,8 +539,9 @@ export class ApiClient {
     }
 	}
 
-	handleMultipartData(name: string, payload: any): any {
-		let formData = new FormData()
+	handleMultipartData(name: string, payload: any): FormData {
+		let formData = new FormData() as FormData
+    formData.entries()
 		for (const formKey in payload[name]) {
       console.log(`Form Key: ${formKey}`, payload[name], payload[name][formKey])
 			// Form objects can only send string key / value pairs
@@ -550,9 +551,10 @@ export class ApiClient {
 			} else {        
         console.log(`Appending to formData ${name}[${formKey}]`, payload[name], payload[name][formKey])
 				formData.append(`${name}[${formKey}]`, payload[name][formKey])
+        console.log('Form Data after appending', formData, formData.entries())
 			}
 		}
-    console.log('FormData', formData)
+    console.log('FormData', formData, formData.entries())
     this.headers['Content-Type'] = 'multipart/form-resource'
 		return formData    		
 	}
