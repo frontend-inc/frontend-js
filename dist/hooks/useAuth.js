@@ -46,7 +46,8 @@ var cookies_next_1 = require("cookies-next");
 var useAuth = function () {
     var _a = (0, react_1.useContext)(context_1.ApiContext), api = _a.api, authCookie = _a.authCookie;
     var url = (0, react_1.useContext)(context_1.AuthContext).serverPath;
-    api = api.url(url).collection('user');
+    var name = 'user';
+    api = api.url(url).collection(name);
     var showLoading = function () { return setLoading(true); };
     var hideLoading = function () { return setLoading(false); };
     var _b = (0, react_1.useContext)(context_1.AuthContext), authenticated = _b.authenticated, setAuthenticated = _b.setAuthenticated, currentUser = _b.currentUser, setCurrentUser = _b.setCurrentUser, token = _b.token, setToken = _b.setToken;
@@ -170,6 +171,8 @@ var useAuth = function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0: return [4 /*yield*/, loadingWrapper(function () { return api
+                        .collection(name)
+                        .url(url)
                         .googleLogin(accessToken, params); })];
                 case 1: return [2 /*return*/, _a.sent()];
             }

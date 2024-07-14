@@ -8,7 +8,8 @@ const useAuth = () => {
 	let { api, authCookie } = useContext(ApiContext)
 	const { serverPath: url } = useContext(AuthContext)
 
-  api = api.url(url).collection('user')
+  const name = 'user'
+  api = api.url(url).collection(name)
 
 	const showLoading = () => setLoading(true)
 	const hideLoading = () => setLoading(false)
@@ -117,6 +118,8 @@ const useAuth = () => {
 
 	const googleLogin = async (accessToken: string) => {		
 		return await loadingWrapper(() => api 
+      .collection(name)
+      .url(url)
       .googleLogin(accessToken, params)
     )
 	}
