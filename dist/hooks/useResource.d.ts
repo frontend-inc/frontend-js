@@ -1,5 +1,5 @@
 import { UseResourceResponse } from '../types';
-declare type UseResourceParams = {
+type UseResourceParams = {
     url: string;
     name: string;
 };

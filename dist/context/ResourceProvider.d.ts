@@ -1,5 +1,5 @@
 import React from 'react';
-declare type ResourceProviderProps = {
+type ResourceProviderProps = {
     url: string;
     name: string;
     resource?: any;

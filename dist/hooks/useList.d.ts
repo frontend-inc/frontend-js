@@ -1,5 +1,5 @@
 import { UseResourceResponse } from '../types';
-declare type UseListResponse = UseResourceResponse & {
+type UseListResponse = UseResourceResponse & {
     openShow: boolean;
     setOpenShow: (value: boolean) => void;
     openEdit: boolean;

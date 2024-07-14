@@ -287,7 +287,7 @@ var ApiQuery = /** @class */ (function () {
             per_page: this._per_page || 20,
         };
         if (this._sort_by && this._sort_direction) {
-            searchParams = __assign(__assign({}, searchParams), { order: this._sort_by + ":" + this._sort_direction });
+            searchParams = __assign(__assign({}, searchParams), { order: "".concat(this._sort_by, ":").concat(this._sort_direction) });
         }
         if (this._keywords && this._keywords.length > 0) {
             searchParams = __assign(__assign({}, searchParams), { keywords: this._keywords });
@@ -304,13 +304,13 @@ var ApiQuery = /** @class */ (function () {
                         var operator = Object.keys(filter[field])[0];
                         var value = filter[field][operator];
                         if (Array.isArray(value)) {
-                            value = "[" + value.join(',') + "]";
+                            value = "[".concat(value.join(','), "]");
                         }
                         if (where == 'AND') {
-                            andFiltersType.push(field + ":" + operator + ":" + value);
+                            andFiltersType.push("".concat(field, ":").concat(operator, ":").concat(value));
                         }
                         if (where == 'OR') {
-                            orFiltersType.push(field + ":" + operator + ":" + value);
+                            orFiltersType.push("".concat(field, ":").concat(operator, ":").concat(value));
                         }
                     }
                 });
@@ -318,17 +318,17 @@ var ApiQuery = /** @class */ (function () {
         }
         var andOrFiltersType = [];
         if (andFiltersType.length > 0) {
-            andOrFiltersType.push("and(" + andFiltersType.join(',') + ")");
+            andOrFiltersType.push("and(".concat(andFiltersType.join(','), ")"));
         }
         if (orFiltersType.length > 0) {
-            andOrFiltersType.push("or(" + orFiltersType.join(',') + ")");
+            andOrFiltersType.push("or(".concat(orFiltersType.join(','), ")"));
         }
         searchParams = __assign(__assign({}, searchParams), { filters: andOrFiltersType.join('') });
         searchParams = __assign(__assign({}, searchParams), (this._params || {}));
         var url = [];
         for (var key in searchParams) {
             if (searchParams[key]) {
-                url.push(key + "=" + searchParams[key]);
+                url.push("".concat(key, "=").concat(searchParams[key]));
             }
         }
         return url.join('&');

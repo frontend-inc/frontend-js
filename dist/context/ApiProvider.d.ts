@@ -1,5 +1,5 @@
 import React from 'react';
-declare type ApiProviderProps = {
+type ApiProviderProps = {
     url: string;
     clientUrl?: string;
     authUrl?: string;

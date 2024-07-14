@@ -1,5 +1,5 @@
 import React from 'react';
-declare type AuthProviderProps = {
+type AuthProviderProps = {
     serverPath?: string;
     children: React.ReactNode;
 };

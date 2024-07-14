@@ -44,7 +44,7 @@ var getDocumentValue = function (document, field) {
         return (0, lodash_1.get)(document, field === null || field === void 0 ? void 0 : field.name);
     }
     else {
-        return (0, lodash_1.get)(document, "data." + (field === null || field === void 0 ? void 0 : field.name));
+        return (0, lodash_1.get)(document, "data.".concat(field === null || field === void 0 ? void 0 : field.name));
     }
 };
 exports.getDocumentValue = getDocumentValue;

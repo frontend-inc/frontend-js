@@ -25,7 +25,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     function verb(n) { return function (v) { return step([n, v]); }; }
     function step(op) {
         if (f) throw new TypeError("Generator is already executing.");
-        while (_) try {
+        while (g && (g = 0, op[0] && (_ = 0)), _) try {
             if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
             if (y = 0, t) op = [op[0] & 2, t.value];
             switch (op[0]) {
@@ -173,7 +173,7 @@ var ApiClient = /** @class */ (function () {
                     case 0:
                         url = (options || {}).url;
                         this._url = url;
-                        this.endpoint = this._url + "/" + id;
+                        this.endpoint = "".concat(this._url, "/").concat(id);
                         return [4 /*yield*/, this.get(this.endpoint)];
                     case 1: return [2 /*return*/, _a.sent()];
                 }
@@ -231,7 +231,7 @@ var ApiClient = /** @class */ (function () {
                             _b[this._collection] = data,
                             _b);
                         this.handleFormatData();
-                        this.endpoint = this._url + "/" + data.id;
+                        this.endpoint = "".concat(this._url, "/").concat(data.id);
                         return [4 /*yield*/, this.put(this.endpoint, this.payload, this.headers)];
                     case 1: return [2 /*return*/, _c.sent()];
                 }
@@ -247,7 +247,7 @@ var ApiClient = /** @class */ (function () {
                         _a = options || {}, name = _a.name, url = _a.url;
                         this._collection = name;
                         this._url = url;
-                        this.endpoint = this._url + "/" + id;
+                        this.endpoint = "".concat(this._url, "/").concat(id);
                         return [4 /*yield*/, this.delete(this.endpoint)];
                     case 1: return [2 /*return*/, _b.sent()];
                 }
@@ -267,7 +267,7 @@ var ApiClient = /** @class */ (function () {
                             ids: sorted.map(function (resource) { return resource.id; }),
                             positions: sorted.map(function (_, index) { return index; }),
                         };
-                        this.endpoint = this._url + "/update_positions";
+                        this.endpoint = "".concat(this._url, "/update_positions");
                         return [4 /*yield*/, this.post(this.endpoint, this.payload, this.headers)];
                     case 1: return [2 /*return*/, _b.sent()];
                 }
@@ -287,7 +287,7 @@ var ApiClient = /** @class */ (function () {
                             ids: sorted.map(function (resource) { return resource.id; }),
                             positions: sorted.map(function (_, index) { return index; }),
                         };
-                        this.endpoint = this._url + "/" + id + "/update_link_positions";
+                        this.endpoint = "".concat(this._url, "/").concat(id, "/update_link_positions");
                         return [4 /*yield*/, this.post(this.endpoint, this.payload, this.headers)];
                     case 1: return [2 /*return*/, _b.sent()];
                 }
@@ -307,7 +307,7 @@ var ApiClient = /** @class */ (function () {
                             ids: ids,
                             resoure: resource,
                         };
-                        this.endpoint = this._url + "/update_many";
+                        this.endpoint = "".concat(this._url, "/update_many");
                         return [4 /*yield*/, this.post(this.endpoint, this.payload, this.headers)];
                     case 1: return [2 /*return*/, _b.sent()];
                 }
@@ -329,7 +329,7 @@ var ApiClient = /** @class */ (function () {
                         this.payload = {
                             ids: ids,
                         };
-                        this.endpoint = this._url + "/delete_many";
+                        this.endpoint = "".concat(this._url, "/delete_many");
                         return [4 /*yield*/, this.post(this.endpoint, this.payload, this.headers)];
                     case 1: return [2 /*return*/, _b.sent()];
                 }
@@ -345,7 +345,7 @@ var ApiClient = /** @class */ (function () {
                         _a = options || {}, name = _a.name, url = _a.url;
                         this._collection = name;
                         this._url = url;
-                        this.endpoint = this._url + "/publish";
+                        this.endpoint = "".concat(this._url, "/publish");
                         this.payload = {
                             ids: ids,
                         };
@@ -364,7 +364,7 @@ var ApiClient = /** @class */ (function () {
                         _a = options || {}, name = _a.name, url = _a.url;
                         this._collection = name;
                         this._url = url;
-                        this.endpoint = this._url + "/unpublish";
+                        this.endpoint = "".concat(this._url, "/unpublish");
                         this.payload = {
                             ids: ids,
                         };
@@ -383,7 +383,7 @@ var ApiClient = /** @class */ (function () {
                         _a = options || {}, name = _a.name, url = _a.url;
                         this._collection = name;
                         this._url = url;
-                        this.endpoint = this._url + "/" + id + "/like";
+                        this.endpoint = "".concat(this._url, "/").concat(id, "/like");
                         return [4 /*yield*/, this.post(this.endpoint, null, this.headers)];
                     case 1: return [2 /*return*/, _b.sent()];
                 }
@@ -399,7 +399,7 @@ var ApiClient = /** @class */ (function () {
                         _a = options || {}, name = _a.name, url = _a.url;
                         this._collection = name;
                         this._url = url;
-                        this.endpoint = this._url + "/" + id + "/unlike";
+                        this.endpoint = "".concat(this._url, "/").concat(id, "/unlike");
                         return [4 /*yield*/, this.post(this.endpoint, null, this.headers)];
                     case 1: return [2 /*return*/, _b.sent()];
                 }
@@ -415,7 +415,7 @@ var ApiClient = /** @class */ (function () {
                         _a = options || {}, name = _a.name, url = _a.url;
                         this._collection = name;
                         this._url = url;
-                        this.endpoint = this._url + "/" + id + "/favorite";
+                        this.endpoint = "".concat(this._url, "/").concat(id, "/favorite");
                         return [4 /*yield*/, this.post(this.endpoint, null, this.headers)];
                     case 1: return [2 /*return*/, _b.sent()];
                 }
@@ -431,7 +431,7 @@ var ApiClient = /** @class */ (function () {
                         _a = options || {}, name = _a.name, url = _a.url;
                         this._collection = name;
                         this._url = url;
-                        this.endpoint = this._url + "/" + id + "/unfavorite";
+                        this.endpoint = "".concat(this._url, "/").concat(id, "/unfavorite");
                         return [4 /*yield*/, this.post(this.endpoint, null, this.headers)];
                     case 1: return [2 /*return*/, _b.sent()];
                 }
@@ -447,7 +447,7 @@ var ApiClient = /** @class */ (function () {
                         _a = options || {}, name = _a.name, url = _a.url;
                         this._collection = name;
                         this._url = url;
-                        this.endpoint = this._url + "/" + id + "/follow";
+                        this.endpoint = "".concat(this._url, "/").concat(id, "/follow");
                         return [4 /*yield*/, this.post(this.endpoint, null, this.headers)];
                     case 1: return [2 /*return*/, _b.sent()];
                 }
@@ -463,7 +463,7 @@ var ApiClient = /** @class */ (function () {
                         _a = options || {}, name = _a.name, url = _a.url;
                         this._collection = name;
                         this._url = url;
-                        this.endpoint = this._url + "/" + id + "/unfollow";
+                        this.endpoint = "".concat(this._url, "/").concat(id, "/unfollow");
                         return [4 /*yield*/, this.post(this.endpoint, null, this.headers)];
                     case 1: return [2 /*return*/, _b.sent()];
                 }
@@ -485,7 +485,7 @@ var ApiClient = /** @class */ (function () {
                                 ids: targetIds,
                             },
                             _b);
-                        this.endpoint = this._url + "/" + sourceId + "/add_links";
+                        this.endpoint = "".concat(this._url, "/").concat(sourceId, "/add_links");
                         return [4 /*yield*/, this.post(this.endpoint, this.payload, this.headers)];
                     case 1: return [2 /*return*/, _c.sent()];
                 }
@@ -507,7 +507,7 @@ var ApiClient = /** @class */ (function () {
                                 ids: targetIds,
                             },
                             _b);
-                        this.endpoint = this._url + "/" + sourceId + "/remove_links";
+                        this.endpoint = "".concat(this._url, "/").concat(sourceId, "/remove_links");
                         return [4 /*yield*/, this.restClient.post(this.endpoint, this.payload, this.headers)];
                     case 1: return [2 /*return*/, _c.sent()];
                 }
@@ -530,7 +530,7 @@ var ApiClient = /** @class */ (function () {
                                 id: attachmentId,
                             },
                             _b);
-                        this.endpoint = this._url + "/" + id + "/add_attachment";
+                        this.endpoint = "".concat(this._url, "/").concat(id, "/add_attachment");
                         return [4 /*yield*/, this.post(this.endpoint, this.payload, this.headers)];
                     case 1: return [2 /*return*/, _c.sent()];
                 }
@@ -552,7 +552,7 @@ var ApiClient = /** @class */ (function () {
                                 name: name,
                             },
                             _b);
-                        this.endpoint = this._url + "/" + id + "/remove_attachment";
+                        this.endpoint = "".concat(this._url, "/").concat(id, "/remove_attachment");
                         return [4 /*yield*/, this.post(this.endpoint, this.payload, this.headers)];
                     case 1: return [2 /*return*/, _c.sent()];
                 }
@@ -574,7 +574,7 @@ var ApiClient = /** @class */ (function () {
                                 id: attachmentId,
                             },
                             _b);
-                        this.endpoint = this._url + "/" + id + "/add_image";
+                        this.endpoint = "".concat(this._url, "/").concat(id, "/add_image");
                         return [4 /*yield*/, this.post(this.endpoint, this.payload, this.headers)];
                     case 1: return [2 /*return*/, _c.sent()];
                 }
@@ -591,7 +591,7 @@ var ApiClient = /** @class */ (function () {
                         this._collection = name;
                         this._url = url;
                         this.payload = {};
-                        this.endpoint = this._url + "/" + id + "/remove_image";
+                        this.endpoint = "".concat(this._url, "/").concat(id, "/remove_image");
                         return [4 /*yield*/, this.post(this.endpoint, this.payload, this.headers)];
                     case 1: return [2 /*return*/, _b.sent()];
                 }
@@ -608,7 +608,7 @@ var ApiClient = /** @class */ (function () {
                         _a = options || {}, _b = _a.name, name = _b === void 0 ? 'user' : _b, url = _a.url;
                         this._collection = name;
                         this._url = url;
-                        this.endpoint = this._url + "/me";
+                        this.endpoint = "".concat(this._url, "/me");
                         return [4 /*yield*/, this.get(this.endpoint)];
                     case 1: return [2 /*return*/, _c.sent()];
                 }
@@ -628,7 +628,7 @@ var ApiClient = /** @class */ (function () {
                             user: user,
                         };
                         this.handleFormatData();
-                        this.endpoint = this._url + "/me";
+                        this.endpoint = "".concat(this._url, "/me");
                         return [4 /*yield*/, this.put(this.endpoint, this.payload, this.headers)];
                     case 1: return [2 /*return*/, _c.sent()];
                 }
@@ -648,7 +648,7 @@ var ApiClient = /** @class */ (function () {
                         this.payload = (_c = {},
                             _c[this._collection] = user,
                             _c);
-                        this.endpoint = this._url + "/login";
+                        this.endpoint = "".concat(this._url, "/login");
                         return [4 /*yield*/, this.post(this.endpoint, this.payload, this.headers)];
                     case 1: return [2 /*return*/, _d.sent()];
                 }
@@ -668,7 +668,7 @@ var ApiClient = /** @class */ (function () {
                         this.payload = (_c = {},
                             _c[this._collection] = user,
                             _c);
-                        this.endpoint = this._url + "/signup";
+                        this.endpoint = "".concat(this._url, "/signup");
                         return [4 /*yield*/, this.post(this.endpoint, this.payload, this.headers)];
                     case 1: return [2 /*return*/, _d.sent()];
                 }
@@ -688,7 +688,7 @@ var ApiClient = /** @class */ (function () {
                         this.payload = (_c = {},
                             _c[this._collection] = __assign(__assign({}, user), { email: user.email }),
                             _c);
-                        this.endpoint = this._url + "/send_pin";
+                        this.endpoint = "".concat(this._url, "/send_pin");
                         return [4 /*yield*/, this.post(this.endpoint, this.payload, this.headers)];
                     case 1: return [2 /*return*/, _d.sent()];
                 }
@@ -711,7 +711,7 @@ var ApiClient = /** @class */ (function () {
                                 pin: pin,
                             },
                             _c);
-                        this.endpoint = this._url + "/verify_pin";
+                        this.endpoint = "".concat(this._url, "/verify_pin");
                         return [4 /*yield*/, this.post(this.endpoint, this.payload, this.headers)];
                     case 1: return [2 /*return*/, _d.sent()];
                 }
@@ -735,7 +735,7 @@ var ApiClient = /** @class */ (function () {
                                 password_confirmation: passwordConfirmation,
                             },
                             _c);
-                        this.endpoint = this._url + "/change_password";
+                        this.endpoint = "".concat(this._url, "/change_password");
                         return [4 /*yield*/, this.post(this.endpoint, this.payload, this.headers)];
                     case 1: return [2 /*return*/, _d.sent()];
                 }
@@ -755,7 +755,7 @@ var ApiClient = /** @class */ (function () {
                         this.payload = (_c = {},
                             _c[this._collection] = __assign(__assign({}, user), { email: user.email }),
                             _c);
-                        this.endpoint = this._url + "/send_forgot_password";
+                        this.endpoint = "".concat(this._url, "/send_forgot_password");
                         return [4 /*yield*/, this.post(this.endpoint, this.payload, this.headers)];
                     case 1: return [2 /*return*/, _d.sent()];
                 }
@@ -777,7 +777,7 @@ var ApiClient = /** @class */ (function () {
                                 access_token: accessToken
                             },
                             _c);
-                        this.endpoint = this._url + "/google_login";
+                        this.endpoint = "".concat(this._url, "/google_login");
                         return [4 /*yield*/, this.post(this.endpoint, this.payload, this.headers)];
                     case 1: return [2 /*return*/, _d.sent()];
                 }
@@ -802,7 +802,7 @@ var ApiClient = /** @class */ (function () {
                                 change_password_token: changePasswordToken,
                             },
                             _c);
-                        this.endpoint = this._url + "/reset_password";
+                        this.endpoint = "".concat(this._url, "/reset_password");
                         return [4 /*yield*/, this.post(this.endpoint, this.payload, this.headers)];
                     case 1: return [2 /*return*/, _d.sent()];
                 }
@@ -822,7 +822,7 @@ var ApiClient = /** @class */ (function () {
                         this.payload = (_c = {},
                             _c[this._collection] = __assign(__assign({}, user), { email: user.email }),
                             _c);
-                        this.endpoint = this._url + "/send_one_time_password";
+                        this.endpoint = "".concat(this._url, "/send_one_time_password");
                         return [4 /*yield*/, this.post(this.endpoint, this.payload, this.headers)];
                     case 1: return [2 /*return*/, _d.sent()];
                 }
@@ -845,7 +845,7 @@ var ApiClient = /** @class */ (function () {
                                 one_time_password: otp,
                             },
                             _c);
-                        this.endpoint = this._url + "/verify_one_time_password";
+                        this.endpoint = "".concat(this._url, "/verify_one_time_password");
                         return [4 /*yield*/, this.post(this.endpoint, this.payload, this.headers)];
                     case 1: return [2 /*return*/, _d.sent()];
                 }
@@ -921,10 +921,10 @@ var ApiClient = /** @class */ (function () {
                     // Form objects can only send string key / value pairs
                     // so we stringify the object
                     if (this.isJsonObject(this.payload[this._collection][formKey])) {
-                        formData.append(this._collection + "[" + formKey + "_string]", JSON.stringify(this.payload[this._collection][formKey]));
+                        formData.append("".concat(this._collection, "[").concat(formKey, "_string]"), JSON.stringify(this.payload[this._collection][formKey]));
                     }
                     else {
-                        formData.append(this._collection + "[" + formKey + "]", this.payload[this._collection][formKey]);
+                        formData.append("".concat(this._collection, "[").concat(formKey, "]"), this.payload[this._collection][formKey]);
                     }
                 }
                 this.payload = formData;

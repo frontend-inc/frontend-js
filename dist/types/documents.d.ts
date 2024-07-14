@@ -1,10 +1,10 @@
-export declare type SyntheticEventType = any & {
+export type SyntheticEventType = any & {
     target: {
         name: string;
         value: any;
     };
 };
-export declare type UserType = {
+export type UserType = {
     id?: number;
     username?: string;
     name: string;
@@ -28,15 +28,15 @@ export declare type UserType = {
     password?: string | undefined;
     password_confirmation?: string | undefined;
 };
-export declare type ImageContentType = 'jpg' | 'jpeg' | 'png' | 'gif' | 'bmp' | 'webp' | 'heic';
-export declare type VideoContentType = 'mp4' | 'webm' | 'ogg' | 'mov' | 'm4v';
-export declare type StorageType = {
+export type ImageContentType = 'jpg' | 'jpeg' | 'png' | 'gif' | 'bmp' | 'webp' | 'heic';
+export type VideoContentType = 'mp4' | 'webm' | 'ogg' | 'mov' | 'm4v';
+export type StorageType = {
     url: string;
     height?: number;
     width?: number;
     content_type?: string;
 };
-export declare type AttachmentType = {
+export type AttachmentType = {
     id: number;
     filename?: string;
     url: string;
@@ -49,13 +49,13 @@ export declare type AttachmentType = {
     byte_size?: number;
     created_at?: string;
 };
-export declare type ImageType = AttachmentType & {
+export type ImageType = AttachmentType & {
     content_type: ImageContentType;
 };
-export declare type VideoType = AttachmentType & {
+export type VideoType = AttachmentType & {
     content_type: VideoContentType;
 };
-export declare type DocumentLinkType = {
+export type DocumentLinkType = {
     id: number;
     target_id: number;
     source_id: number;
@@ -64,7 +64,7 @@ export declare type DocumentLinkType = {
     updated_at: string;
     created_at: string;
 };
-export declare type DocumentType = {
+export type DocumentType = {
     id?: number;
     user_id?: number;
     user?: UserType;

@@ -18,7 +18,7 @@ type UseResourceContextResponse = UseResourceResponse & {
 
 const useResourceContext = (): UseResourceContextResponse => {
 
-	let { api } = useContext(ApiContext)
+	const { api } = useContext(ApiContext)
 
   const {
     url,

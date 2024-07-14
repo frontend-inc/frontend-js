@@ -1,52 +1,52 @@
 import React from 'react';
-export declare type ApiClientParamsType = {
+export type ApiClientParamsType = {
     url: string;
     fetchToken?: () => string | null;
     apiKey?: string | null;
     authToken?: string | null;
 };
-export declare type ConfigParamsType = {
+export type ConfigParamsType = {
     collection?: string;
     path?: string;
 };
-export declare type FetchOptionType = {
+export type FetchOptionType = {
     method: string;
     headers: Record<string, any>;
     body: any;
 };
-export declare type ExecuteResponseType = {
+export type ExecuteResponseType = {
     meta: any;
     data: any;
     errors: any;
 };
-export declare type QueryPropsType = {
+export type QueryPropsType = {
     url: string;
     name: string;
     skip?: boolean;
 };
-export declare type OperatorType = 'asc' | 'desc' | 'true' | 'false' | 'eq' | 'neq' | 'like' | 'gt' | 'gte' | 'lt' | 'lte' | 'in' | 'nin' | 'include' | '1_day_ago' | '7_days_ago' | '14_days_ago' | '30_days_ago' | '60_days_ago' | '90_days_ago';
-export declare type QueryOptionsType = {
+export type OperatorType = 'asc' | 'desc' | 'true' | 'false' | 'eq' | 'neq' | 'like' | 'gt' | 'gte' | 'lt' | 'lte' | 'in' | 'nin' | 'include' | '1_day_ago' | '7_days_ago' | '14_days_ago' | '30_days_ago' | '60_days_ago' | '90_days_ago';
+export type QueryOptionsType = {
     url: string;
 };
-export declare type MutateOptionsType = {
+export type MutateOptionsType = {
     url: string;
     name?: string;
 };
-export declare type QueryManyOptionsType = {
+export type QueryManyOptionsType = {
     url: string;
     loadMore?: boolean;
 };
-export declare type ResourceType = Record<string, any> & {
+export type ResourceType = Record<string, any> & {
     id?: number | string;
 };
-export declare type ID = string | number;
-export declare type PageInfoType = {
+export type ID = string | number;
+export type PageInfoType = {
     page: number;
     perPage: number;
     numPages: number;
     totalCount: number;
 };
-export declare type UseResourceResponse = Record<string, any> & {
+export type UseResourceResponse = Record<string, any> & {
     id?: string;
     loading: boolean;
     setLoading: (value: boolean) => void;
@@ -86,7 +86,7 @@ export declare type UseResourceResponse = Record<string, any> & {
     paginate: (page: number) => Promise<any>;
     loadMore: () => void;
 };
-export declare type UseResourceContextResponse = UseResourceResponse & {
+export type UseResourceContextResponse = UseResourceResponse & {
     openShowModal: boolean;
     setOpenShowModal: (value: boolean) => void;
     openEditModal: boolean;
@@ -94,16 +94,16 @@ export declare type UseResourceContextResponse = UseResourceResponse & {
     openDeleteModal: boolean;
     setOpenDeleteModal: (value: boolean) => void;
 };
-export declare type FilterFieldType = {
+export type FilterFieldType = {
     [field: string]: {
         [operator in OperatorType]?: string | number;
     };
 };
-export declare type FilterType = {
+export type FilterType = {
     AND?: FilterFieldType[];
     OR?: FilterFieldType[];
 };
-export declare type QueryParamsType = {
+export type QueryParamsType = {
     keywords?: string | null;
     filters?: FilterType | Record<string, any>;
     page?: number;
@@ -118,7 +118,7 @@ export declare type QueryParamsType = {
     radius?: number;
     rest?: any;
 };
-export declare type QueryFilterArrayParamsType = {
+export type QueryFilterArrayParamsType = {
     sort_by: string;
     sort_direction: 'asc' | 'desc';
     keywords?: string;
@@ -126,26 +126,26 @@ export declare type QueryFilterArrayParamsType = {
     page: number;
     per_page: number;
 };
-export declare type QueryURLParamsType = {
+export type QueryURLParamsType = {
     order?: string;
     keywords?: string;
     filters?: string;
     page?: number;
     per_page?: number;
 };
-export declare type FilterOperatorType = 'asc' | 'desc' | 'true' | 'false' | 'eq' | 'neq' | 'like' | 'gt' | 'gte' | 'lt' | 'lte' | 'in' | 'nin' | '1_day_ago' | '7_days_ago' | '14_days_ago' | '30_days_ago' | '60_days_ago' | '90_days_ago' | 'current_year' | '1_day' | '7_days' | '14_days' | '30_days' | '60_days' | '90_days' | 'next_year';
-export declare type FilterWhereType = 'AND' | 'OR';
-export declare type FilterOption = {
+export type FilterOperatorType = 'asc' | 'desc' | 'true' | 'false' | 'eq' | 'neq' | 'like' | 'gt' | 'gte' | 'lt' | 'lte' | 'in' | 'nin' | '1_day_ago' | '7_days_ago' | '14_days_ago' | '30_days_ago' | '60_days_ago' | '90_days_ago' | 'current_year' | '1_day' | '7_days' | '14_days' | '30_days' | '60_days' | '90_days' | 'next_year';
+export type FilterWhereType = 'AND' | 'OR';
+export type FilterOption = {
     where: FilterWhereType;
     field: string;
     operator: FilterOperatorType;
     value: any;
 };
-export declare type OptionType = {
+export type OptionType = {
     label: string;
     value: string | number;
 };
-export declare type SearchFilterInputProps = {
+export type SearchFilterInputProps = {
     filter?: FilterOption;
     field?: string;
     label?: string;
@@ -154,10 +154,10 @@ export declare type SearchFilterInputProps = {
     options?: OptionType[];
     handleSubmit: (value: any) => void;
 };
-export declare type FindManyOptionType = {
+export type FindManyOptionType = {
     loadMore?: boolean;
 };
-export declare type LoadingWrapperResponseType = {
+export type LoadingWrapperResponseType = {
     data: any;
     loading: boolean;
     delayedLoading: boolean;
