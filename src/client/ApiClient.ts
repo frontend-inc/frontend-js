@@ -1,6 +1,6 @@
 import { ApiQuery } from './ApiQuery'
 import { RestClient } from './RestClient'
-import { UserType, QueryParamsType } from '../types'
+import { UserType, QueryParamsType, QueryOptionsType, MutateOptionsType } from '../types'
 import { ApiClientParamsType, ConfigParamsType, ExecuteResponseType } from '../types'
 
 export class ApiClient {
@@ -153,18 +153,25 @@ export class ApiClient {
 		return this
 	}
 
-	async findOne(id: any): Promise<ExecuteResponseType> {
+	async findOne(id: any, options: QueryOptionsType): Promise<ExecuteResponseType> {
+    const { url } = options || {}
+    this._url = url 
 		this.endpoint = `${this._url}/${id}`
 		return await this.get(this.endpoint)
 	}
 
-	async findMany(searchParams: QueryParamsType): Promise<ExecuteResponseType> {
-		this.apiQuery.where(searchParams)
+	async findMany(searchParams: QueryParamsType, options: QueryOptionsType): Promise<ExecuteResponseType> {
+		const { url } = options || {}    
+    this._url = url 
+    this.apiQuery.where(searchParams)
 		this.endpoint = this._url
 		return await this.get(this.endpoint, this.apiQuery.url())
 	}
 
-	async create(data: Record<string, any>): Promise<ExecuteResponseType> {    
+	async create(data: Record<string, any>, options: MutateOptionsType): Promise<ExecuteResponseType> {    
+    const { name, url } = options || {}
+    this._collection = name
+    this._url = url
 		this.payload = {
 			[this._collection]: data,
 		}

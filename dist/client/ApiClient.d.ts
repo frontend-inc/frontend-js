@@ -1,4 +1,4 @@
-import { UserType, QueryParamsType } from '../types';
+import { UserType, QueryParamsType, QueryOptionsType, MutateOptionsType } from '../types';
 import { ApiClientParamsType, ConfigParamsType, ExecuteResponseType } from '../types';
 export declare class ApiClient {
     private payload?;
@@ -28,9 +28,9 @@ export declare class ApiClient {
     filter(filters: any): this;
     page(page: any): this;
     per(perPage: any): this;
-    findOne(id: any): Promise<ExecuteResponseType>;
-    findMany(searchParams: QueryParamsType): Promise<ExecuteResponseType>;
-    create(data: Record<string, any>): Promise<ExecuteResponseType>;
+    findOne(id: any, options: QueryOptionsType): Promise<ExecuteResponseType>;
+    findMany(searchParams: QueryParamsType, options: QueryOptionsType): Promise<ExecuteResponseType>;
+    create(data: Record<string, any>, options: MutateOptionsType): Promise<ExecuteResponseType>;
     update(data: Record<string, any>): Promise<ExecuteResponseType>;
     destroy(id: number): Promise<ExecuteResponseType>;
     updatePositions(sorted: Record<string, any>[]): Promise<ExecuteResponseType>;

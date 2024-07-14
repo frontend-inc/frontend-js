@@ -165,11 +165,14 @@ var ApiClient = /** @class */ (function () {
         this.apiQuery.per_page = perPage;
         return this;
     };
-    ApiClient.prototype.findOne = function (id) {
+    ApiClient.prototype.findOne = function (id, options) {
         return __awaiter(this, void 0, void 0, function () {
+            var url;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
+                        url = (options || {}).url;
+                        this._url = url;
                         this.endpoint = this._url + "/" + id;
                         return [4 /*yield*/, this.get(this.endpoint)];
                     case 1: return [2 /*return*/, _a.sent()];
@@ -177,11 +180,14 @@ var ApiClient = /** @class */ (function () {
             });
         });
     };
-    ApiClient.prototype.findMany = function (searchParams) {
+    ApiClient.prototype.findMany = function (searchParams, options) {
         return __awaiter(this, void 0, void 0, function () {
+            var url;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
+                        url = (options || {}).url;
+                        this._url = url;
                         this.apiQuery.where(searchParams);
                         this.endpoint = this._url;
                         return [4 /*yield*/, this.get(this.endpoint, this.apiQuery.url())];
@@ -190,19 +196,23 @@ var ApiClient = /** @class */ (function () {
             });
         });
     };
-    ApiClient.prototype.create = function (data) {
+    ApiClient.prototype.create = function (data, options) {
         return __awaiter(this, void 0, void 0, function () {
-            var _a;
-            return __generator(this, function (_b) {
-                switch (_b.label) {
+            var _a, name, url;
+            var _b;
+            return __generator(this, function (_c) {
+                switch (_c.label) {
                     case 0:
-                        this.payload = (_a = {},
-                            _a[this._collection] = data,
-                            _a);
+                        _a = options || {}, name = _a.name, url = _a.url;
+                        this._collection = name;
+                        this._url = url;
+                        this.payload = (_b = {},
+                            _b[this._collection] = data,
+                            _b);
                         this.handleFormatData();
                         this.endpoint = this._url;
                         return [4 /*yield*/, this.post(this._url, this.payload, this.headers)];
-                    case 1: return [2 /*return*/, _b.sent()];
+                    case 1: return [2 /*return*/, _c.sent()];
                 }
             });
         });
