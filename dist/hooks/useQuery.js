@@ -17,7 +17,8 @@ var useQuery = function (params) {
     var _g = (0, react_1.useState)(10), perPage = _g[0], setPerPage = _g[1];
     var _h = (0, react_1.useState)(0), totalCount = _h[0], setTotalCount = _h[1];
     var _j = (0, react_1.useState)(0), numPages = _j[0], setNumPages = _j[1];
-    var data = (0, swr_1.default)((url && query) ? [url, query] : null, function (_a) {
+    var queryCache = (url && query) ? [url, query] : null;
+    var data = (0, swr_1.default)(queryCache, function (_a) {
         var url = _a[0], query = _a[1];
         return api.findMany(query, { url: url });
     }).data;

@@ -5,7 +5,7 @@ import { QueryParamsType } from '../types'
 
 type UseQueryParams = {
   url: string
-  query: QueryParamsType
+  query: QueryParamsType  
 }
 
 const useQuery = (params: UseQueryParams) => {
@@ -25,7 +25,10 @@ const useQuery = (params: UseQueryParams) => {
 	const [totalCount, setTotalCount] = useState<number>(0)
 	const [numPages, setNumPages] = useState<number>(0)  
 
-  const { data } = useSWR((url && query) ? [url, query] : null, ([url, query]) => api.findMany(query, { url }))
+  const queryCache = (url && query) ? [url, query] : null
+  const { 
+    data 
+  } = useSWR(queryCache, ([url, query]) => api.findMany(query, { url }))
 
   useEffect(() => {
     if(data?.data) {
