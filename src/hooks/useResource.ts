@@ -1,24 +1,20 @@
-import React, { useEffect, useContext } from 'react'
+import React, { useContext } from 'react'
 import { useState } from 'react'
 import { ApiContext } from '../context'
 import { useDelayedLoading } from '../hooks'
-import useSWR from 'swr'
 import { ID, QueryParamsType, UseResourceResponse, SyntheticEventType } from '../types'
 
+type FindManyOptionType = {
+  loadMore?: boolean 
+}
 
 type UseResourceParams = {
-  id?: ID
 	url: string
-	name: string,
-  query?: QueryParamsType
-  options?: {
-    infiniteLoad?: boolean
-  }
+	name: string
 }
 
 const useResource = (params: UseResourceParams): UseResourceResponse => {
-	const { url, name, id: _id, query: _query, options } = params || {}
-  const apiOptions = { url, name }
+	const { url, name } = params || {}
 
 	const { api } = useContext(ApiContext)
 
@@ -28,7 +24,6 @@ const useResource = (params: UseResourceParams): UseResourceResponse => {
 	const [resource, setResource] = useState<any>({})
 	const [resources, setResources] = useState<any[]>([])
 
-  const [id, setId] = useState<ID>(_id)
 	const [query, setQuery] = useState<QueryParamsType>({})
 	const [meta, setMeta] = useState<any>(null)  
 	const [page, setPage] = useState<number>(1)
@@ -40,42 +35,72 @@ const useResource = (params: UseResourceParams): UseResourceResponse => {
 	const hideLoading = () => setLoading(false)
 
 	const findOne = async (id: ID) => {
-		setId(id)
+		if (!id) return null
+		return await loadingWrapper(() => api.findOne(id, params))
 	}
 
-	const findMany = async (queryParams: QueryParamsType = {}) => {
+	const findMany = async (queryParams: QueryParamsType = {}, opts: FindManyOptionType = {}) => {
 		if (url?.includes('undefined')) {
 			console.log('Error: the URL contains undefined', url)
 			return
-		}	
-    setQuery({
-      ...query,
-      ...queryParams,
-    })			
+		}
+		try {
+			setLoading(true)
+			if (queryParams) {
+				setQuery({
+					...query,
+					...queryParams,
+				})
+			}      
+			const res = await api.findMany({
+				...query,
+				...queryParams,
+			}, params)
+			if (res.data) {
+				if (opts?.loadMore !== true ) {
+					setResources(res.data)
+				} else {
+					setResources([...resources, ...res.data])
+				}
+				if (res.meta) {
+					setMeta(res.meta)
+					setPage(res.meta.page)
+					setPerPage(res.meta.per_page)
+					setTotalCount(res.meta.total_count)
+					setNumPages(res.meta.num_pages)          
+				}
+				return res.data
+			}
+		} catch (e) {
+			handleErrors(e)
+		} finally {
+			setLoading(false)
+		}
 	}
 
 	const loadMore = async () => {
-    setQuery({
-      ...query,
-      page: page + 1
-    })		
-	}
-
-	const reloadMany = async () => {
-		setQuery({ 
-      ...query 
+		let nextPage = page + 1
+		await findMany({ 
+      ...query, 
+      page: nextPage 
+    }, {
+      loadMore: true 
     })
 	}
 
+	const reloadMany = async () => {
+		return await findMany(query)
+	}
+
 	const paginate = async (page: number) => {
-		setQuery({
+		return await findMany({
 			...query,
 			page: page,
 		})
 	}
 
 	const sort = async (sortBy: string, sortDirection: 'asc' | 'desc') => {
-		setQuery({
+		return await findMany({
 			...query,
 			sort_by: sortBy,
 			sort_direction: sortDirection,
@@ -92,43 +117,43 @@ const useResource = (params: UseResourceParams): UseResourceResponse => {
 
 	const create = async (resource: any) => {
 		return await loadingWrapper(() =>
-			api.create(resource, apiOptions)
+			api.create(resource, params)
 		)
 	}
 
 	const update = async (resource: any) => {
 		return await loadingWrapper(() =>
-			api.update(resource, apiOptions)
+			api.update(resource, params)
 		)
 	}
 
 	const destroy = async (id: ID) => {
 		return await loadingWrapper(() => 
-      api.destroy(id, apiOptions)
+      api.destroy(id, params)
     )
 	}
 
 	const updateMany = async (ids: ID[], resource: any) => {
 		return await loadingWrapper(() =>
-			api.updateMany(ids, resource, apiOptions)
+			api.updateMany(ids, resource, params)
 		)
 	}
 
 	const deleteMany = async (ids: ID[]) => {
 		return await loadingWrapper(() =>
-			api.destroyMany(ids, apiOptions)
+			api.destroyMany(ids, params)
 		)
 	}
 
 	const publish = async (ids: ID[]) => {
 		return await loadingWrapper(() =>
-			api.publish(ids, apiOptions)
+			api.publish(ids, params)
 		)
 	}
 
 	const unpublish = async (ids: ID[]) => {
 		return await loadingWrapper(() =>
-			api.unpublish(ids, apiOptions)
+			api.unpublish(ids, params)
 		)
 	}
 
@@ -156,7 +181,7 @@ const useResource = (params: UseResourceParams): UseResourceResponse => {
 	}
 
   const updateLinkPositions = async (id: number, sorted) => {
-    return await api.updateLinkPositions(id, sorted, apiOptions)
+    return await api.updateLinkPositions(id, sorted, params)
 	}
 
 	const addAttachment = async (
@@ -185,7 +210,7 @@ const useResource = (params: UseResourceParams): UseResourceResponse => {
 
 	const updatePositions = async (sorted: any[]) => {
 		// Intentionally avoid loading for drag-drop UIs
-		return await api.updatePositions(sorted, apiOptions)
+		return await api.updatePositions(sorted, params)
 	}
 
 	const handleChange = (ev: SyntheticEventType) => {
@@ -224,66 +249,12 @@ const useResource = (params: UseResourceParams): UseResourceResponse => {
 		console.log('handleErrors', e)
 	}
 
-  const swrResourcesCache = (url && query) ? [url, query] : null
-  const swrResourcesFetcher = ([url, query]) => api.findMany(query, { url })
-  const { 
-    data: _resources, 
-    isLoading: _isLoading      
-  } = useSWR(swrResourcesCache, swrResourcesFetcher)
-
-  const swrResourceCache = (id && url) ? [id, url] : null
-  const swrResourceFetcher = ([id, url]) => api.findOne(id, { url })
-  const { 
-    data: _resource, 
-    isLoading: __isLoading 
-  } = useSWR(swrResourceCache, swrResourceFetcher)
-
-  const isLoading = loading || _isLoading || __isLoading
   const { loading: delayLoading } = useDelayedLoading({
-    loading: isLoading
+    loading
   })
 
-  useEffect(() => {
-    if(_resources?.data) {
-      if(options?.infiniteLoad){
-        setResources(prev => [...prev, ..._resources?.data])
-      }else{
-        setResources(_resources?.data)
-      }      
-      if (_resources.meta) {
-        setMeta(_resources.meta)
-        setPage(_resources.meta.page)
-        setPerPage(_resources.meta.per_page)
-        setTotalCount(_resources.meta.total_count)
-        setNumPages(_resources.meta.num_pages)          
-      }      
-    }
-    if(_resources?.errors) {
-      setErrors(_resources.errors)
-      handleErrors(_resources.errors)
-    }    
-  }, [_resources])
-
-  useEffect(() => {
-    if(_resource?.data) {
-      setResource(_resource?.data)      
-    }    
-  }, [_resource])
-
-  useEffect(() => {
-    if(_query){
-      setQuery(_query)
-    }
-  }, [_query])
-
-  useEffect(() => {
-    if(_id){
-      setId(_id)
-    }
-  }, [_id])  
-
 	return {
-		loading: isLoading,
+		loading,
     delayLoading,
 		setLoading,
 		loadingWrapper,
