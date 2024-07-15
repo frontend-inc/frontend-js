@@ -1,20 +1,19 @@
-import React, { useContext } from 'react'
-import { useState } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import { ApiContext } from '../context'
 import { useDelayedLoading } from '../hooks'
+import useSWR from 'swr'
 import { ID, QueryParamsType, UseResourceResponse, SyntheticEventType } from '../types'
 
-type FindManyOptionType = {
-  loadMore?: boolean 
-}
-
 type UseResourceParams = {
+  id?: ID 
 	url: string
-	name: string
+	name?: string
+  query?: QueryParamsType
 }
 
 const useResource = (params: UseResourceParams): UseResourceResponse => {
-	const { url, name } = params || {}
+	const { url, name, id: _id, query: _query } = params || {}
+  const apiParams = { url, name }
 
 	const { api } = useContext(ApiContext)
 
@@ -24,6 +23,7 @@ const useResource = (params: UseResourceParams): UseResourceResponse => {
 	const [resource, setResource] = useState<any>({})
 	const [resources, setResources] = useState<any[]>([])
 
+  const [id, setId] = useState<ID>(_id)
 	const [query, setQuery] = useState<QueryParamsType>({})
 	const [meta, setMeta] = useState<any>(null)  
 	const [page, setPage] = useState<number>(1)
@@ -36,41 +36,27 @@ const useResource = (params: UseResourceParams): UseResourceResponse => {
 
 	const findOne = async (id: ID) => {
 		if (!id) return null
-		return await loadingWrapper(() => api.findOne(id, params))
+		return await loadingWrapper(() => api.findOne(id, apiParams))
 	}
 
-	const findMany = async (queryParams: QueryParamsType = {}, opts: FindManyOptionType = {}) => {
-		if (url?.includes('undefined')) {
-			console.log('Error: the URL contains undefined', url)
-			return
-		}
+  const findMany = async (queryParams: QueryParamsType = {}) => {
+    setQuery(queryParams)
+  }
+
+	const loadMore = async () => {		
 		try {
-			setLoading(true)
-			if (queryParams) {
-				setQuery({
-					...query,
-					...queryParams,
-				})
-			}      
+			setLoading(true)			
 			const res = await api.findMany({
 				...query,
-				...queryParams,
-			}, params)
+        page: page + 1,
+			}, apiParams)
 			if (res.data) {
-				if (opts?.loadMore !== true ) {
-					setResources(res.data)
-				} else {
-					setResources([...resources, ...res.data])
-				}
-				if (res.meta) {
-					setMeta(res.meta)
-					setPage(res.meta.page)
-					setPerPage(res.meta.per_page)
-					setTotalCount(res.meta.total_count)
-					setNumPages(res.meta.num_pages)          
-				}
-				return res.data
-			}
+				setResources(prev => [...prev, ...res.data])
+			}      
+      if (res.meta) {
+        setMeta(res.meta)        
+      }
+      return res.data			
 		} catch (e) {
 			handleErrors(e)
 		} finally {
@@ -78,29 +64,19 @@ const useResource = (params: UseResourceParams): UseResourceResponse => {
 		}
 	}
 
-	const loadMore = async () => {
-		let nextPage = page + 1
-		await findMany({ 
-      ...query, 
-      page: nextPage 
-    }, {
-      loadMore: true 
-    })
-	}
-
 	const reloadMany = async () => {
-		return await findMany(query)
+		setQuery(query)
 	}
 
 	const paginate = async (page: number) => {
-		return await findMany({
+		setQuery({
 			...query,
 			page: page,
 		})
 	}
 
 	const sort = async (sortBy: string, sortDirection: 'asc' | 'desc') => {
-		return await findMany({
+		setQuery({
 			...query,
 			sort_by: sortBy,
 			sort_direction: sortDirection,
@@ -117,43 +93,43 @@ const useResource = (params: UseResourceParams): UseResourceResponse => {
 
 	const create = async (resource: any) => {
 		return await loadingWrapper(() =>
-			api.create(resource, params)
+			api.create(resource, apiParams)
 		)
 	}
 
 	const update = async (resource: any) => {
 		return await loadingWrapper(() =>
-			api.update(resource, params)
+			api.update(resource, apiParams)
 		)
 	}
 
 	const destroy = async (id: ID) => {
 		return await loadingWrapper(() => 
-      api.destroy(id, params)
+      api.destroy(id, apiParams)
     )
 	}
 
 	const updateMany = async (ids: ID[], resource: any) => {
 		return await loadingWrapper(() =>
-			api.updateMany(ids, resource, params)
+			api.updateMany(ids, resource, apiParams)
 		)
 	}
 
 	const deleteMany = async (ids: ID[]) => {
 		return await loadingWrapper(() =>
-			api.destroyMany(ids, params)
+			api.destroyMany(ids, apiParams)
 		)
 	}
 
 	const publish = async (ids: ID[]) => {
 		return await loadingWrapper(() =>
-			api.publish(ids, params)
+			api.publish(ids, apiParams)
 		)
 	}
 
 	const unpublish = async (ids: ID[]) => {
 		return await loadingWrapper(() =>
-			api.unpublish(ids, params)
+			api.unpublish(ids, apiParams)
 		)
 	}
 
@@ -181,7 +157,7 @@ const useResource = (params: UseResourceParams): UseResourceResponse => {
 	}
 
   const updateLinkPositions = async (id: number, sorted) => {
-    return await api.updateLinkPositions(id, sorted, params)
+    return await api.updateLinkPositions(id, sorted, apiParams)
 	}
 
 	const addAttachment = async (
@@ -210,7 +186,7 @@ const useResource = (params: UseResourceParams): UseResourceResponse => {
 
 	const updatePositions = async (sorted: any[]) => {
 		// Intentionally avoid loading for drag-drop UIs
-		return await api.updatePositions(sorted, params)
+		return await api.updatePositions(sorted, apiParams)
 	}
 
 	const handleChange = (ev: SyntheticEventType) => {
@@ -235,6 +211,7 @@ const useResource = (params: UseResourceParams): UseResourceResponse => {
 			}
 			return res?.data
 		} catch (e) {
+      handleErrors(e)
 		} finally {
 			hideLoading()
 		}
@@ -249,12 +226,62 @@ const useResource = (params: UseResourceParams): UseResourceResponse => {
 		console.log('handleErrors', e)
 	}
 
+  const resourcesCache = (url && query) ? [url, query] : null
+  const resourcesFetcher = ([url, query]) => api.findMany(query, { url })
+  const { data, isLoading } = useSWR(resourcesCache, resourcesFetcher)
+
+  const resourceCache = (url && id) ? [url, id] : null
+  const resourceFetcher = ([url, id]) => api.findOne(id, { url })
+  const { data: _data, isLoading: _isLoading } = useSWR(resourceCache, resourceFetcher)
+
   const { loading: delayLoading } = useDelayedLoading({
-    loading
+    loading: loading || isLoading || _isLoading 
   })
 
+  useEffect(() => {
+    if(data?.data){
+      setResources(data?.data)
+    }
+    if(data?.errors){
+      setErrors(data?.errors)
+    }
+    if(data?.meta){
+      setMeta(data?.meta)
+    }
+  }, [data])
+
+  useEffect(() => {
+    if(_data?.data){
+      setResource(_data?.data)
+    }
+    if(_data?.error){
+      setErrors(_data?.error)
+    }    
+  }, [_data])
+
+  useEffect(() => {
+    if(_query){
+      setQuery(_query)
+    }
+  }, [_query])
+
+  useEffect(() => {
+    if(_id){
+      setId(_id)
+    }
+  }, [_id])
+
+  useEffect(() => {
+    if(meta){
+      setPage(meta.page)
+      setPerPage(meta.per_page)
+      setTotalCount(meta.total_count)
+      setNumPages(meta.num_pages)          
+    }
+  }, [meta])
+
 	return {
-		loading,
+		loading: loading || isLoading || _isLoading,
     delayLoading,
 		setLoading,
 		loadingWrapper,
@@ -267,7 +294,7 @@ const useResource = (params: UseResourceParams): UseResourceResponse => {
 		setResource,
 		setResources,
 		findOne,
-		findMany,
+		setQuery,
 		reloadMany,
 		save,
 		update,
@@ -284,7 +311,7 @@ const useResource = (params: UseResourceParams): UseResourceResponse => {
 		removeAttachment,
 		updatePositions,
 		query,
-		setQuery,
+		findMany,
 		meta,
 		page,
 		perPage,
