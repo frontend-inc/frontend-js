@@ -336,6 +336,51 @@ var ApiClient = /** @class */ (function () {
             });
         });
     };
+    ApiClient.prototype.findFilterFields = function (options) {
+        return __awaiter(this, void 0, void 0, function () {
+            var url;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        url = (options || {}).url;
+                        this._url = url;
+                        this.endpoint = "".concat(this._url, "/filter_fields");
+                        return [4 /*yield*/, this.get(this.endpoint)];
+                    case 1: return [2 /*return*/, _a.sent()];
+                }
+            });
+        });
+    };
+    ApiClient.prototype.findSortFields = function (options) {
+        return __awaiter(this, void 0, void 0, function () {
+            var url;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        url = (options || {}).url;
+                        this._url = url;
+                        this.endpoint = "".concat(this._url, "/sort_fields");
+                        return [4 /*yield*/, this.get(this.endpoint)];
+                    case 1: return [2 /*return*/, _a.sent()];
+                }
+            });
+        });
+    };
+    ApiClient.prototype.findFormFields = function (options) {
+        return __awaiter(this, void 0, void 0, function () {
+            var url;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        url = (options || {}).url;
+                        this._url = url;
+                        this.endpoint = "".concat(this._url, "/form_fields");
+                        return [4 /*yield*/, this.get(this.endpoint)];
+                    case 1: return [2 /*return*/, _a.sent()];
+                }
+            });
+        });
+    };
     ApiClient.prototype.publish = function (ids, options) {
         return __awaiter(this, void 0, void 0, function () {
             var _a, name, url;

@@ -37,6 +37,9 @@ export declare class ApiClient {
     updateLinkPositions(id: number, sorted: Record<string, any>[], options: MutateOptionsType): Promise<ExecuteResponseType>;
     updateMany(ids: number[], resource: object, options: MutateOptionsType): Promise<ExecuteResponseType>;
     destroyMany(ids: number[], options: MutateOptionsType): Promise<ExecuteResponseType>;
+    findFilterFields(options: QueryOptionsType): Promise<ExecuteResponseType>;
+    findSortFields(options: QueryOptionsType): Promise<ExecuteResponseType>;
+    findFormFields(options: QueryOptionsType): Promise<ExecuteResponseType>;
     publish(ids: number[], options: MutateOptionsType): Promise<ExecuteResponseType>;
     unpublish(ids: number[], options: MutateOptionsType): Promise<ExecuteResponseType>;
     like(id: number, options: MutateOptionsType): Promise<ExecuteResponseType>;

@@ -253,6 +253,27 @@ export class ApiClient {
 		return await this.post(this.endpoint, this.payload, this.headers)
 	}
 
+  async findFilterFields(options: QueryOptionsType): Promise<ExecuteResponseType> {
+    const { url } = options || {}
+    this._url = url
+    this.endpoint = `${this._url}/filter_fields`
+    return await this.get(this.endpoint)
+  }
+
+  async findSortFields(options: QueryOptionsType): Promise<ExecuteResponseType> {
+    const { url } = options || {}
+    this._url = url
+    this.endpoint = `${this._url}/sort_fields`
+    return await this.get(this.endpoint)
+  }
+
+  async findFormFields(options: QueryOptionsType): Promise<ExecuteResponseType> {
+    const { url } = options || {}
+    this._url = url
+    this.endpoint = `${this._url}/form_fields`
+    return await this.get(this.endpoint)
+  }
+
 	async publish(ids: number[], options: MutateOptionsType): Promise<ExecuteResponseType> {
     const { name, url } = options || {}
     this._collection = name
