@@ -33,7 +33,9 @@ const useQueryContext = (params: UseQueryParams) => {
     setTotalCount, 
   } = useContext(ResourceContext)
 
-  const { data } = useSWR((url && query) ? [url, query] : null, ([url, query]) => api.findMany(query, { url }))
+  const cache = (url && query) ? [url, query] : null
+  const fetcher = ([url, query]) => api.findMany(query, { url })
+  const { isLoading, data, error } = useSWR(cache, fetcher)
 
   useEffect(() => {
     if(data?.data) {
@@ -49,13 +51,16 @@ const useQueryContext = (params: UseQueryParams) => {
     if(data?.errors) {
       setErrors(data.errors)
       handleError(data.errors)
-    }
-    if(!data){
-      setLoading(true)
-    }else{
-      setLoading(false)
-    }
+    }    
   }, [data])
+
+  useEffect(() => {    
+    setLoading(isLoading)    
+  }, [isLoading])
+
+  useEffect(() => {    
+    setErrors(error)    
+  }, [error])
 
   const handleError = (errors: any) => {
     console.log('errors', errors)
@@ -64,6 +69,7 @@ const useQueryContext = (params: UseQueryParams) => {
   return {
     loading,
     errors,
+    data,
     resources,
     meta,
     page,

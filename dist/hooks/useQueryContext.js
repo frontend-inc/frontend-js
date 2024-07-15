@@ -10,10 +10,12 @@ var useQueryContext = function (params) {
     var _a = params || {}, url = _a.url, query = _a.query;
     var api = (0, react_1.useContext)(context_1.ApiContext).api;
     var _b = (0, react_1.useContext)(context_1.ResourceContext), loading = _b.loading, setLoading = _b.setLoading, errors = _b.errors, setErrors = _b.setErrors, resources = _b.resources, setResources = _b.setResources, meta = _b.meta, page = _b.page, perPage = _b.perPage, numPages = _b.numPages, totalCount = _b.totalCount, setNumPages = _b.setNumPages, setMeta = _b.setMeta, setPage = _b.setPage, setPerPage = _b.setPerPage, setTotalCount = _b.setTotalCount;
-    var data = (0, swr_1.default)((url && query) ? [url, query] : null, function (_a) {
+    var cache = (url && query) ? [url, query] : null;
+    var fetcher = function (_a) {
         var url = _a[0], query = _a[1];
         return api.findMany(query, { url: url });
-    }).data;
+    };
+    var _c = (0, swr_1.default)(cache, fetcher), isLoading = _c.isLoading, data = _c.data, error = _c.error;
     (0, react_1.useEffect)(function () {
         if (data === null || data === void 0 ? void 0 : data.data) {
             setResources(data === null || data === void 0 ? void 0 : data.data);
@@ -29,19 +31,20 @@ var useQueryContext = function (params) {
             setErrors(data.errors);
             handleError(data.errors);
         }
-        if (!data) {
-            setLoading(true);
-        }
-        else {
-            setLoading(false);
-        }
     }, [data]);
+    (0, react_1.useEffect)(function () {
+        setLoading(isLoading);
+    }, [isLoading]);
+    (0, react_1.useEffect)(function () {
+        setErrors(error);
+    }, [error]);
     var handleError = function (errors) {
         console.log('errors', errors);
     };
     return {
         loading: loading,
         errors: errors,
+        data: data,
         resources: resources,
         meta: meta,
         page: page,

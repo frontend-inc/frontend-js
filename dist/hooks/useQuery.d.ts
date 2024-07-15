@@ -6,6 +6,7 @@ type UseQueryParams = {
 declare const useQuery: (params: UseQueryParams) => {
     loading: any;
     errors: any;
+    data: any;
     resources: any;
     meta: any;
     page: any;
