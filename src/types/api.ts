@@ -8,7 +8,7 @@ export type ApiClientParamsType = {
 }
 
 export type ConfigParamsType = {
-	collection?: string
+	name?: string
 	path?: string
 }
 
