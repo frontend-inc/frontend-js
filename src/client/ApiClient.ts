@@ -331,7 +331,6 @@ export class ApiClient {
 				ids: targetIds,
 			},
 		}
-    console.log("Debug", this.url, sourceId, targetIds, this.payload)
 		this.endpoint = `${this.url}/${sourceId}/add_references`
 		return await this.post(this.endpoint, this.payload, this.headers)
 	}
