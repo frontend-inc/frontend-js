@@ -22,7 +22,7 @@ var __rest = (this && this.__rest) || function (s, e) {
     return t;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.filterDocumentLinks = exports.changeDocumentValue = exports.getDocumentValue = exports.flattenDocument = exports.flattenDocuments = void 0;
+exports.filterReferences = exports.changeDocumentValue = exports.getDocumentValue = exports.flattenDocument = exports.flattenDocuments = void 0;
 var constants_1 = require("../constants");
 var lodash_1 = require("lodash");
 var flattenDocuments = function (resources) {
@@ -62,11 +62,11 @@ var changeDocumentValue = function (document, fieldName, value) {
     return newDocument;
 };
 exports.changeDocumentValue = changeDocumentValue;
-var filterDocumentLinks = function (document, contentType) {
+var filterReferences = function (document, contentType) {
     var _a, _b, _c;
     if (!(document === null || document === void 0 ? void 0 : document.document_links) || ((_a = document === null || document === void 0 ? void 0 : document.document_links) === null || _a === void 0 ? void 0 : _a.length) == 0 || !contentType)
         return null;
     var documents = (_c = (_b = document === null || document === void 0 ? void 0 : document.document_links) === null || _b === void 0 ? void 0 : _b.filter(function (docuLink) { var _a; return ((_a = docuLink === null || docuLink === void 0 ? void 0 : docuLink.target) === null || _a === void 0 ? void 0 : _a.content_type) == contentType; })) === null || _c === void 0 ? void 0 : _c.map(function (docuLink) { return docuLink === null || docuLink === void 0 ? void 0 : docuLink.target; });
     return documents;
 };
-exports.filterDocumentLinks = filterDocumentLinks;
+exports.filterReferences = filterReferences;

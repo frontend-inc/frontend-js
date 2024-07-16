@@ -254,42 +254,36 @@ var useResource = function (params) {
             }
         });
     }); };
-    var addLinks = function (sourceId, targetIds) { return __awaiter(void 0, void 0, void 0, function () {
+    var addReferences = function (sourceId, targetIds) { return __awaiter(void 0, void 0, void 0, function () {
         var options;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    options = {
-                        url: url,
-                        name: 'links'
-                    };
+                    options = { url: url };
                     return [4 /*yield*/, loadingWrapper(function () {
-                            return api.addLinks(sourceId, targetIds, options);
+                            return api.addReferences(sourceId, targetIds, options);
                         })];
                 case 1: return [2 /*return*/, _a.sent()];
             }
         });
     }); };
-    var removeLinks = function (sourceId, targetIds) { return __awaiter(void 0, void 0, void 0, function () {
+    var removeReferences = function (sourceId, targetIds) { return __awaiter(void 0, void 0, void 0, function () {
         var options;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    options = {
-                        url: url,
-                        name: 'links'
-                    };
+                    options = { url: url };
                     return [4 /*yield*/, loadingWrapper(function () {
-                            return api.removeLinks(sourceId, targetIds, options);
+                            return api.removeReferences(sourceId, targetIds, options);
                         })];
                 case 1: return [2 /*return*/, _a.sent()];
             }
         });
     }); };
-    var updateLinkPositions = function (id, sorted) { return __awaiter(void 0, void 0, void 0, function () {
+    var updateReferencePositions = function (id, sorted) { return __awaiter(void 0, void 0, void 0, function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, api.updateLinkPositions(id, sorted, apiParams)];
+                case 0: return [4 /*yield*/, api.updateReferencePositions(id, sorted, apiParams)];
                 case 1: return [2 /*return*/, _a.sent()];
             }
         });
@@ -407,9 +401,9 @@ var useResource = function (params) {
         deleteMany: deleteMany,
         publish: publish,
         unpublish: unpublish,
-        addLinks: addLinks,
-        removeLinks: removeLinks,
-        updateLinkPositions: updateLinkPositions,
+        addReferences: addReferences,
+        removeReferences: removeReferences,
+        updateReferencePositions: updateReferencePositions,
         addAttachment: addAttachment,
         removeAttachment: removeAttachment,
         updatePositions: updatePositions,

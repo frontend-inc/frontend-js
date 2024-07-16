@@ -215,7 +215,7 @@ export class ApiClient {
 		return await this.post(this.endpoint, this.payload, this.headers)
 	}
 
-  async updateLinkPositions(id: number, sorted: Record<string, any>[], options: MutateOptionsType): Promise<ExecuteResponseType> {
+  async updateReferencePositions(id: number, sorted: Record<string, any>[], options: MutateOptionsType): Promise<ExecuteResponseType> {
     const { name, url } = options || {}
     this._collection = name
     this._url = url
@@ -223,7 +223,7 @@ export class ApiClient {
 			ids: sorted.map((resource) => resource.id),
 			positions: sorted.map((_, index) => index),
 		}
-		this.endpoint = `${this._url}/${id}/update_link_positions`
+		this.endpoint = `${this._url}/${id}/update_reference_positions`
 		return await this.post(this.endpoint, this.payload, this.headers)
 	}
 
@@ -344,7 +344,7 @@ export class ApiClient {
 		return await this.post(this.endpoint, null, this.headers)
 	}
 
-	async addLinks(
+	async addReferences(
 		sourceId: number,
 		targetIds: number[], 
     options: MutateOptionsType
@@ -357,11 +357,11 @@ export class ApiClient {
 				ids: targetIds,
 			},
 		}
-		this.endpoint = `${this._url}/${sourceId}/add_links`
+		this.endpoint = `${this._url}/${sourceId}/add_references`
 		return await this.post(this.endpoint, this.payload, this.headers)
 	}
 
-	async removeLinks(
+	async removeReferences(
 		sourceId: number,
 		targetIds: number[], 
     options: MutateOptionsType
@@ -374,7 +374,7 @@ export class ApiClient {
 				ids: targetIds,
 			},
 		}
-		this.endpoint = `${this._url}/${sourceId}/remove_links`
+		this.endpoint = `${this._url}/${sourceId}/remove_references`
 		return await this.restClient.post(this.endpoint, this.payload, this.headers)
 	}
 

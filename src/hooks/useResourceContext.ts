@@ -183,31 +183,25 @@ const useResourceContext = (): UseResourceContextResponse => {
 		)
 	}
 
-	const addLinks = async (
+	const addReferences = async (
 		sourceId: ID,
 		targetIds: ID[]
 	) => {
-    const options = { 
-      url, 
-      name: 'links' 
-    }
+    const options = { url }
 		return await loadingWrapper(() =>
-			api.addLinks(sourceId, targetIds, options)
+			api.addReferences(sourceId, targetIds, options)
 		)
 	}
 
-	const removeLinks = async (sourceId: ID, targetIds: ID[]) => {
-    const options = { 
-      url, 
-      name: 'links' 
-    }
+	const removeReferences = async (sourceId: ID, targetIds: ID[]) => {
+    const options = { url }
 		return await loadingWrapper(() =>
-			api.removeLinks(sourceId, targetIds, options)
+			api.removeReferences(sourceId, targetIds, options)
 		)
 	}
 
-  const updateLinkPositions = async (id: number, sorted) => {
-    return await api.updateLinkPositions(id, sorted, apiParams)
+  const updateReferencePositions = async (id: number, sorted) => {
+    return await api.updateReferencePositions(id, sorted, apiParams)
 	}
 
 	const addAttachment = async (
@@ -303,9 +297,9 @@ const useResourceContext = (): UseResourceContextResponse => {
 		deleteMany,
 		publish,
 		unpublish,
-		addLinks,
-		removeLinks,
-    updateLinkPositions,
+		addReferences,
+		removeReferences,
+    updateReferencePositions,
 		addAttachment,
 		removeAttachment,
 		updatePositions,

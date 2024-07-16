@@ -55,7 +55,7 @@ export type ImageType = AttachmentType & {
 export type VideoType = AttachmentType & {
     content_type: VideoContentType;
 };
-export type DocumentLinkType = {
+export type ReferenceType = {
     id: number;
     target_id: number;
     source_id: number;
@@ -82,6 +82,6 @@ export type DocumentType = {
     shopify_handle?: string;
     created_at: string;
     updated_at: string;
-    document_links: DocumentLinkType[];
+    document_links: ReferenceType[];
     links: DocumentType[];
 };

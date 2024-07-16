@@ -48,7 +48,7 @@ export const changeDocumentValue = (document, fieldName, value) => {
   return newDocument
 }
 
-export const filterDocumentLinks = (document, contentType) => {
+export const filterReferences = (document, contentType) => {
   if(!document?.document_links || document?.document_links?.length == 0 || !contentType) return null;
 	let documents = document
     ?.document_links

@@ -34,7 +34,7 @@ export declare class ApiClient {
     update(data: Record<string, any>, options: MutateOptionsType): Promise<ExecuteResponseType>;
     destroy(id: number, options: MutateOptionsType): Promise<ExecuteResponseType>;
     updatePositions(sorted: Record<string, any>[], options: MutateOptionsType): Promise<ExecuteResponseType>;
-    updateLinkPositions(id: number, sorted: Record<string, any>[], options: MutateOptionsType): Promise<ExecuteResponseType>;
+    updateReferencePositions(id: number, sorted: Record<string, any>[], options: MutateOptionsType): Promise<ExecuteResponseType>;
     updateMany(ids: number[], resource: object, options: MutateOptionsType): Promise<ExecuteResponseType>;
     destroyMany(ids: number[], options: MutateOptionsType): Promise<ExecuteResponseType>;
     findFilterFields(options: QueryOptionsType): Promise<ExecuteResponseType>;
@@ -48,8 +48,8 @@ export declare class ApiClient {
     unfavorite(id: number, options: MutateOptionsType): Promise<ExecuteResponseType>;
     follow(id: number, options: MutateOptionsType): Promise<ExecuteResponseType>;
     unfollow(id: number, options: MutateOptionsType): Promise<ExecuteResponseType>;
-    addLinks(sourceId: number, targetIds: number[], options: MutateOptionsType): Promise<ExecuteResponseType>;
-    removeLinks(sourceId: number, targetIds: number[], options: MutateOptionsType): Promise<ExecuteResponseType>;
+    addReferences(sourceId: number, targetIds: number[], options: MutateOptionsType): Promise<ExecuteResponseType>;
+    removeReferences(sourceId: number, targetIds: number[], options: MutateOptionsType): Promise<ExecuteResponseType>;
     addAttachment(id: number, name: string, attachmentId: number, options: MutateOptionsType): Promise<ExecuteResponseType>;
     removeAttachment(id: number, name: string, options: MutateOptionsType): Promise<ExecuteResponseType>;
     addImage(id: number, attachmentId: number, options: MutateOptionsType): Promise<ExecuteResponseType>;

@@ -274,7 +274,7 @@ var ApiClient = /** @class */ (function () {
             });
         });
     };
-    ApiClient.prototype.updateLinkPositions = function (id, sorted, options) {
+    ApiClient.prototype.updateReferencePositions = function (id, sorted, options) {
         return __awaiter(this, void 0, void 0, function () {
             var _a, name, url;
             return __generator(this, function (_b) {
@@ -287,7 +287,7 @@ var ApiClient = /** @class */ (function () {
                             ids: sorted.map(function (resource) { return resource.id; }),
                             positions: sorted.map(function (_, index) { return index; }),
                         };
-                        this.endpoint = "".concat(this._url, "/").concat(id, "/update_link_positions");
+                        this.endpoint = "".concat(this._url, "/").concat(id, "/update_reference_positions");
                         return [4 /*yield*/, this.post(this.endpoint, this.payload, this.headers)];
                     case 1: return [2 /*return*/, _b.sent()];
                 }
@@ -515,7 +515,7 @@ var ApiClient = /** @class */ (function () {
             });
         });
     };
-    ApiClient.prototype.addLinks = function (sourceId, targetIds, options) {
+    ApiClient.prototype.addReferences = function (sourceId, targetIds, options) {
         return __awaiter(this, void 0, void 0, function () {
             var _a, name, url;
             var _b;
@@ -530,14 +530,14 @@ var ApiClient = /** @class */ (function () {
                                 ids: targetIds,
                             },
                             _b);
-                        this.endpoint = "".concat(this._url, "/").concat(sourceId, "/add_links");
+                        this.endpoint = "".concat(this._url, "/").concat(sourceId, "/add_references");
                         return [4 /*yield*/, this.post(this.endpoint, this.payload, this.headers)];
                     case 1: return [2 /*return*/, _c.sent()];
                 }
             });
         });
     };
-    ApiClient.prototype.removeLinks = function (sourceId, targetIds, options) {
+    ApiClient.prototype.removeReferences = function (sourceId, targetIds, options) {
         return __awaiter(this, void 0, void 0, function () {
             var _a, name, url;
             var _b;
@@ -552,7 +552,7 @@ var ApiClient = /** @class */ (function () {
                                 ids: targetIds,
                             },
                             _b);
-                        this.endpoint = "".concat(this._url, "/").concat(sourceId, "/remove_links");
+                        this.endpoint = "".concat(this._url, "/").concat(sourceId, "/remove_references");
                         return [4 /*yield*/, this.restClient.post(this.endpoint, this.payload, this.headers)];
                     case 1: return [2 /*return*/, _c.sent()];
                 }
