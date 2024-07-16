@@ -6,7 +6,7 @@ export type ApiClientParamsType = {
     authToken?: string | null;
 };
 export type ConfigParamsType = {
-    name?: string;
+    collection?: string;
     path?: string;
 };
 export type FetchOptionType = {
