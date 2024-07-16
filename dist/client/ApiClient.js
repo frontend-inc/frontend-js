@@ -517,44 +517,46 @@ var ApiClient = /** @class */ (function () {
     };
     ApiClient.prototype.addReferences = function (sourceId, targetIds, options) {
         return __awaiter(this, void 0, void 0, function () {
-            var _a, name, url;
-            var _b;
-            return __generator(this, function (_c) {
-                switch (_c.label) {
+            var url;
+            var _a;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
                     case 0:
-                        _a = options || {}, name = _a.name, url = _a.url;
-                        this._collection = name;
+                        url = (options || {}).url;
+                        this._collection = 'references';
                         this._url = url;
-                        this.payload = (_b = {},
-                            _b[this._collection] = {
+                        this.payload = (_a = {},
+                            _a[this._collection] = {
                                 ids: targetIds,
                             },
-                            _b);
+                            _a);
+                        console.log("Debug", this._url, sourceId, targetIds, this.payload);
                         this.endpoint = "".concat(this._url, "/").concat(sourceId, "/add_references");
                         return [4 /*yield*/, this.post(this.endpoint, this.payload, this.headers)];
-                    case 1: return [2 /*return*/, _c.sent()];
+                    case 1: return [2 /*return*/, _b.sent()];
                 }
             });
         });
     };
     ApiClient.prototype.removeReferences = function (sourceId, targetIds, options) {
         return __awaiter(this, void 0, void 0, function () {
-            var _a, name, url;
-            var _b;
-            return __generator(this, function (_c) {
-                switch (_c.label) {
+            var url;
+            var _a;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
                     case 0:
-                        _a = options || {}, name = _a.name, url = _a.url;
-                        this._collection = name;
+                        url = (options || {}).url;
+                        this._collection = 'references';
                         this._url = url;
-                        this.payload = (_b = {},
-                            _b[this._collection] = {
+                        this.payload = (_a = {},
+                            _a[this._collection] = {
                                 ids: targetIds,
                             },
-                            _b);
+                            _a);
+                        console.log("Debug", this._url, sourceId, targetIds, this.payload);
                         this.endpoint = "".concat(this._url, "/").concat(sourceId, "/remove_references");
                         return [4 /*yield*/, this.restClient.post(this.endpoint, this.payload, this.headers)];
-                    case 1: return [2 /*return*/, _c.sent()];
+                    case 1: return [2 /*return*/, _b.sent()];
                 }
             });
         });

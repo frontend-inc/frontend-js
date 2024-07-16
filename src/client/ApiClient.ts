@@ -349,14 +349,15 @@ export class ApiClient {
 		targetIds: number[], 
     options: MutateOptionsType
   ): Promise<ExecuteResponseType> {
-    const { name, url } = options || {}
-    this._collection = name
+    const { url } = options || {}
+    this._collection = 'references'
     this._url = url
 		this.payload = {
 			[this._collection]: {
 				ids: targetIds,
 			},
 		}
+    console.log("Debug", this._url, sourceId, targetIds, this.payload)
 		this.endpoint = `${this._url}/${sourceId}/add_references`
 		return await this.post(this.endpoint, this.payload, this.headers)
 	}
@@ -366,14 +367,15 @@ export class ApiClient {
 		targetIds: number[], 
     options: MutateOptionsType
   ): Promise<ExecuteResponseType> {
-    const { name, url } = options || {}
-    this._collection = name
+    const { url } = options || {}
+    this._collection = 'references'
     this._url = url
 		this.payload = {
 			[this._collection]: {
 				ids: targetIds,
 			},
 		}
+    console.log("Debug", this._url, sourceId, targetIds, this.payload)
 		this.endpoint = `${this._url}/${sourceId}/remove_references`
 		return await this.restClient.post(this.endpoint, this.payload, this.headers)
 	}
