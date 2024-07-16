@@ -64,7 +64,7 @@ var _1 = require(".");
 var useResourceContext = function () {
     var api = (0, react_1.useContext)(context_2.ApiContext).api;
     var _a = (0, react_1.useContext)(context_1.ResourceContext), url = _a.url, _b = _a.name, name = _b === void 0 ? 'document' : _b, loading = _a.loading, setLoading = _a.setLoading, errors = _a.errors, setErrors = _a.setErrors, resource = _a.resource, setResource = _a.setResource, resources = _a.resources, setResources = _a.setResources, query = _a.query, setQuery = _a.setQuery, meta = _a.meta, setMeta = _a.setMeta, page = _a.page, setPage = _a.setPage, perPage = _a.perPage, setPerPage = _a.setPerPage, totalCount = _a.totalCount, setTotalCount = _a.setTotalCount, numPages = _a.numPages, setNumPages = _a.setNumPages, openShow = _a.openShow, setOpenShow = _a.setOpenShow, openEdit = _a.openEdit, setOpenEdit = _a.setOpenEdit, openDelete = _a.openDelete, setOpenDelete = _a.setOpenDelete;
-    var params = {
+    var apiParams = {
         name: name,
         url: url
     };
@@ -76,7 +76,7 @@ var useResourceContext = function () {
                 case 0:
                     if (!id)
                         return [2 /*return*/, null];
-                    return [4 /*yield*/, loadingWrapper(function () { return api.findOne(id, params); })];
+                    return [4 /*yield*/, loadingWrapper(function () { return api.findOne(id, apiParams); })];
                 case 1: return [2 /*return*/, _a.sent()];
             }
         });
@@ -100,7 +100,7 @@ var useResourceContext = function () {
                         if (queryParams) {
                             setQuery(__assign(__assign({}, query), queryParams));
                         }
-                        return [4 /*yield*/, api.findMany(__assign(__assign({}, query), queryParams), params)];
+                        return [4 /*yield*/, api.findMany(__assign(__assign({}, query), queryParams), apiParams)];
                     case 2:
                         res = _a.sent();
                         if (res.data) {
@@ -183,7 +183,7 @@ var useResourceContext = function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0: return [4 /*yield*/, loadingWrapper(function () {
-                        return api.create(resource, params);
+                        return api.create(resource, apiParams);
                     })];
                 case 1: return [2 /*return*/, _a.sent()];
             }
@@ -193,7 +193,7 @@ var useResourceContext = function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0: return [4 /*yield*/, loadingWrapper(function () {
-                        return api.update(resource, params);
+                        return api.update(resource, apiParams);
                     })];
                 case 1: return [2 /*return*/, _a.sent()];
             }
@@ -203,7 +203,7 @@ var useResourceContext = function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0: return [4 /*yield*/, loadingWrapper(function () {
-                        return api.destroy(id, params);
+                        return api.destroy(id, apiParams);
                     })];
                 case 1: return [2 /*return*/, _a.sent()];
             }
@@ -213,7 +213,7 @@ var useResourceContext = function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0: return [4 /*yield*/, loadingWrapper(function () {
-                        return api.updateMany(ids, resource, params);
+                        return api.updateMany(ids, resource, apiParams);
                     })];
                 case 1: return [2 /*return*/, _a.sent()];
             }
@@ -223,7 +223,7 @@ var useResourceContext = function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0: return [4 /*yield*/, loadingWrapper(function () {
-                        return api.destroyMany(ids, params);
+                        return api.destroyMany(ids, apiParams);
                     })];
                 case 1: return [2 /*return*/, _a.sent()];
             }
@@ -233,7 +233,7 @@ var useResourceContext = function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0: return [4 /*yield*/, loadingWrapper(function () {
-                        return api.publish(ids, params);
+                        return api.publish(ids, apiParams);
                     })];
                 case 1: return [2 /*return*/, _a.sent()];
             }
@@ -243,7 +243,7 @@ var useResourceContext = function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0: return [4 /*yield*/, loadingWrapper(function () {
-                        return api.unpublish(ids, params);
+                        return api.unpublish(ids, apiParams);
                     })];
                 case 1: return [2 /*return*/, _a.sent()];
             }
@@ -284,7 +284,7 @@ var useResourceContext = function () {
     var updateLinkPositions = function (id, sorted) { return __awaiter(void 0, void 0, void 0, function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, api.updateLinkPositions(id, sorted, params)];
+                case 0: return [4 /*yield*/, api.updateLinkPositions(id, sorted, apiParams)];
                 case 1: return [2 /*return*/, _a.sent()];
             }
         });
@@ -324,7 +324,7 @@ var useResourceContext = function () {
     var updatePositions = function (sorted) { return __awaiter(void 0, void 0, void 0, function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, api.updatePositions(sorted, params)];
+                case 0: return [4 /*yield*/, api.updatePositions(sorted, apiParams)];
                 case 1: 
                 // Intentionally avoid loading for drag-drop UIs
                 return [2 /*return*/, _a.sent()];

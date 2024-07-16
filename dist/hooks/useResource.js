@@ -64,20 +64,19 @@ var context_1 = require("../context");
 var hooks_1 = require("../hooks");
 var swr_1 = __importDefault(require("swr"));
 var useResource = function (params) {
-    var _a = params || {}, url = _a.url, name = _a.name, _id = _a.id, _query = _a.query;
+    var _a = params || {}, url = _a.url, name = _a.name, defaultQuery = _a.query;
     var apiParams = { url: url, name: name };
     var api = (0, react_1.useContext)(context_1.ApiContext).api;
     var _b = (0, react_1.useState)(false), loading = _b[0], setLoading = _b[1];
     var _c = (0, react_1.useState)(), errors = _c[0], setErrors = _c[1];
     var _d = (0, react_1.useState)({}), resource = _d[0], setResource = _d[1];
     var _e = (0, react_1.useState)([]), resources = _e[0], setResources = _e[1];
-    var _f = (0, react_1.useState)(_id), id = _f[0], setId = _f[1];
-    var _g = (0, react_1.useState)({}), query = _g[0], setQuery = _g[1];
-    var _h = (0, react_1.useState)(null), meta = _h[0], setMeta = _h[1];
-    var _j = (0, react_1.useState)(1), page = _j[0], setPage = _j[1];
-    var _k = (0, react_1.useState)(10), perPage = _k[0], setPerPage = _k[1];
-    var _l = (0, react_1.useState)(0), totalCount = _l[0], setTotalCount = _l[1];
-    var _m = (0, react_1.useState)(0), numPages = _m[0], setNumPages = _m[1];
+    var _f = (0, react_1.useState)(defaultQuery), query = _f[0], setQuery = _f[1];
+    var _g = (0, react_1.useState)(null), meta = _g[0], setMeta = _g[1];
+    var _h = (0, react_1.useState)(1), page = _h[0], setPage = _h[1];
+    var _j = (0, react_1.useState)(10), perPage = _j[0], setPerPage = _j[1];
+    var _k = (0, react_1.useState)(0), totalCount = _k[0], setTotalCount = _k[1];
+    var _l = (0, react_1.useState)(0), numPages = _l[0], setNumPages = _l[1];
     var showLoading = function () { return setLoading(true); };
     var hideLoading = function () { return setLoading(false); };
     var findOne = function (id) { return __awaiter(void 0, void 0, void 0, function () {
@@ -91,17 +90,11 @@ var useResource = function (params) {
             }
         });
     }); };
-    var findMany = function (queryParams) {
-        if (queryParams === void 0) { queryParams = {}; }
-        return __awaiter(void 0, void 0, void 0, function () {
-            return __generator(this, function (_a) {
-                setQuery(queryParams);
-                return [2 /*return*/];
-            });
-        });
+    var findMany = function (query) {
+        setQuery(query);
     };
     var loadMore = function () { return __awaiter(void 0, void 0, void 0, function () {
-        var res_1, e_1;
+        var res, e_1;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
@@ -109,14 +102,15 @@ var useResource = function (params) {
                     setLoading(true);
                     return [4 /*yield*/, api.findMany(__assign(__assign({}, query), { page: page + 1 }), apiParams)];
                 case 1:
-                    res_1 = _a.sent();
-                    if (res_1.data) {
-                        setResources(function (prev) { return __spreadArray(__spreadArray([], prev, true), res_1.data, true); });
+                    res = _a.sent();
+                    if (res.data) {
+                        setResources(__spreadArray(__spreadArray([], resources, true), res.data, true));
+                        if (res.meta) {
+                            setMeta(res.meta);
+                        }
+                        return [2 /*return*/, res.data];
                     }
-                    if (res_1.meta) {
-                        setMeta(res_1.meta);
-                    }
-                    return [2 /*return*/, res_1.data];
+                    return [3 /*break*/, 4];
                 case 2:
                     e_1 = _a.sent();
                     handleErrors(e_1);
@@ -128,6 +122,14 @@ var useResource = function (params) {
             }
         });
     }); };
+    (0, react_1.useEffect)(function () {
+        if (meta) {
+            setPage(meta.page);
+            setPerPage(meta.per_page);
+            setTotalCount(meta.total_count);
+            setNumPages(meta.num_pages);
+        }
+    }, [meta]);
     var reloadMany = function () { return __awaiter(void 0, void 0, void 0, function () {
         return __generator(this, function (_a) {
             setQuery(query);
@@ -333,7 +335,6 @@ var useResource = function (params) {
                     return [2 /*return*/, res === null || res === void 0 ? void 0 : res.data];
                 case 2:
                     e_2 = _b.sent();
-                    handleErrors(e_2);
                     return [3 /*break*/, 4];
                 case 3:
                     hideLoading();
@@ -351,60 +352,28 @@ var useResource = function (params) {
         }
         console.log('handleErrors', e);
     };
-    var resourcesCache = (url && query) ? [url, query] : null;
-    var resourcesFetcher = function (_a) {
+    var findManyCache = (url && query) ? [url, query] : null;
+    var findManyFetcher = function (_a) {
         var url = _a[0], query = _a[1];
         return api.findMany(query, { url: url });
     };
-    var _o = (0, swr_1.default)(resourcesCache, resourcesFetcher), data = _o.data, isLoading = _o.isLoading;
-    var resourceCache = (url && id) ? [url, id] : null;
-    var resourceFetcher = function (_a) {
-        var url = _a[0], id = _a[1];
-        return api.findOne(id, { url: url });
-    };
-    var _p = (0, swr_1.default)(resourceCache, resourceFetcher), _data = _p.data, _isLoading = _p.isLoading;
-    var delayLoading = (0, hooks_1.useDelayedLoading)({
-        loading: loading || isLoading || _isLoading
-    }).loading;
+    var _m = (0, swr_1.default)(findManyCache, findManyFetcher), isLoading = _m.isLoading, data = _m.data;
     (0, react_1.useEffect)(function () {
         if (data === null || data === void 0 ? void 0 : data.data) {
             setResources(data === null || data === void 0 ? void 0 : data.data);
         }
-        if (data === null || data === void 0 ? void 0 : data.errors) {
-            setErrors(data === null || data === void 0 ? void 0 : data.errors);
-        }
         if (data === null || data === void 0 ? void 0 : data.meta) {
-            setMeta(data === null || data === void 0 ? void 0 : data.meta);
+            setMeta(data.meta);
+        }
+        if (data === null || data === void 0 ? void 0 : data.error) {
+            handleErrors(data.error);
         }
     }, [data]);
-    (0, react_1.useEffect)(function () {
-        if (_data === null || _data === void 0 ? void 0 : _data.data) {
-            setResource(_data === null || _data === void 0 ? void 0 : _data.data);
-        }
-        if (_data === null || _data === void 0 ? void 0 : _data.error) {
-            setErrors(_data === null || _data === void 0 ? void 0 : _data.error);
-        }
-    }, [_data]);
-    (0, react_1.useEffect)(function () {
-        if (_query) {
-            setQuery(_query);
-        }
-    }, [_query]);
-    (0, react_1.useEffect)(function () {
-        if (_id) {
-            setId(_id);
-        }
-    }, [_id]);
-    (0, react_1.useEffect)(function () {
-        if (meta) {
-            setPage(meta.page);
-            setPerPage(meta.per_page);
-            setTotalCount(meta.total_count);
-            setNumPages(meta.num_pages);
-        }
-    }, [meta]);
+    var delayLoading = (0, hooks_1.useDelayedLoading)({
+        loading: loading || isLoading
+    }).loading;
     return {
-        loading: loading || isLoading || _isLoading,
+        loading: loading || isLoading,
         delayLoading: delayLoading,
         setLoading: setLoading,
         loadingWrapper: loadingWrapper,

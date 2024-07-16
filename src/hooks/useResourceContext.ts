@@ -52,7 +52,7 @@ const useResourceContext = (): UseResourceContextResponse => {
     setOpenDelete 
   } = useContext(ResourceContext)
 
-  const params = { 
+  const apiParams = { 
     name,
     url
   }
@@ -62,7 +62,7 @@ const useResourceContext = (): UseResourceContextResponse => {
 	
 	const findOne = async (id: ID) => {
 		if (!id) return null
-		return await loadingWrapper(() => api.findOne(id, params))
+		return await loadingWrapper(() => api.findOne(id, apiParams))
 	}
 
 	const findMany = async (queryParams: QueryParamsType = {}, opts: FindManyOptionType = {}) => {
@@ -81,7 +81,7 @@ const useResourceContext = (): UseResourceContextResponse => {
 			const res = await api.findMany({
 				...query,
 				...queryParams,
-			}, params)
+			}, apiParams)
 			if (res.data) {
 				if (opts?.loadMore !== true ) {
 					setResources(res.data)
@@ -143,43 +143,43 @@ const useResourceContext = (): UseResourceContextResponse => {
 
 	const create = async (resource: any) => {
 		return await loadingWrapper(() =>
-			api.create(resource, params)
+			api.create(resource, apiParams)
 		)
 	}
 
 	const update = async (resource: any) => {
 		return await loadingWrapper(() =>
-			api.update(resource, params)
+			api.update(resource, apiParams)
 		)
 	}
 
 	const destroy = async (id: ID) => {
 		return await loadingWrapper(() => 
-      api.destroy(id, params)
+      api.destroy(id, apiParams)
     )
 	}
 
 	const updateMany = async (ids: ID[], resource: any) => {
 		return await loadingWrapper(() =>
-			api.updateMany(ids, resource, params)
+			api.updateMany(ids, resource, apiParams)
 		)
 	}
 
 	const deleteMany = async (ids: ID[]) => {
 		return await loadingWrapper(() =>
-			api.destroyMany(ids, params)
+			api.destroyMany(ids, apiParams)
 		)
 	}
 
 	const publish = async (ids: ID[]) => {
 		return await loadingWrapper(() =>
-			api.publish(ids, params)
+			api.publish(ids, apiParams)
 		)
 	}
 
 	const unpublish = async (ids: ID[]) => {
 		return await loadingWrapper(() =>
-			api.unpublish(ids, params)
+			api.unpublish(ids, apiParams)
 		)
 	}
 
@@ -207,7 +207,7 @@ const useResourceContext = (): UseResourceContextResponse => {
 	}
 
   const updateLinkPositions = async (id: number, sorted) => {
-    return await api.updateLinkPositions(id, sorted, params)
+    return await api.updateLinkPositions(id, sorted, apiParams)
 	}
 
 	const addAttachment = async (
@@ -236,7 +236,7 @@ const useResourceContext = (): UseResourceContextResponse => {
 
 	const updatePositions = async (sorted: any[]) => {
 		// Intentionally avoid loading for drag-drop UIs
-		return await api.updatePositions(sorted, params)
+		return await api.updatePositions(sorted, apiParams)
 	}
 
 	const handleChange = (ev: SyntheticEventType) => {

@@ -1,6 +1,5 @@
-import { ID, QueryParamsType, UseResourceResponse } from '../types';
+import { QueryParamsType, UseResourceResponse } from '../types';
 type UseResourceParams = {
-    id?: ID;
     url: string;
     name?: string;
     query?: QueryParamsType;
