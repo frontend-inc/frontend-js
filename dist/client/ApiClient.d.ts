@@ -1,19 +1,16 @@
 import { UserType, QueryParamsType, QueryOptionsType, MutateOptionsType } from '../types';
-import { ApiClientParamsType, ConfigParamsType, ExecuteResponseType } from '../types';
+import { ApiClientParamsType, ExecuteResponseType } from '../types';
 export declare class ApiClient {
     private payload?;
-    private _url?;
-    private _collection?;
+    private url?;
+    private name?;
     private endpoint?;
     private headers?;
     private apiQuery;
     private restClient;
     constructor(params: ApiClientParamsType);
     init(): ApiClient;
-    config(params: ConfigParamsType): this;
     clearQuery(): this;
-    url(path: string): ApiClient;
-    collection(collection: string): ApiClient;
     query(params: QueryParamsType): ApiClient;
     eq(field: string, value: string | number): ApiClient;
     neq(field: string, value: string | number): ApiClient;

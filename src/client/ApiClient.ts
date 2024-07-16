@@ -1,12 +1,12 @@
 import { ApiQuery } from './ApiQuery'
 import { RestClient } from './RestClient'
 import { UserType, QueryParamsType, QueryOptionsType, MutateOptionsType } from '../types'
-import { ApiClientParamsType, ConfigParamsType, ExecuteResponseType } from '../types'
+import { ApiClientParamsType, ExecuteResponseType } from '../types'
 
 export class ApiClient {
 	private payload?: object
-	private _url?: string
-	private _collection?: string
+	private url?: string
+	private name?: string
 	private endpoint?: string
 	private headers?: Record<string, any>
 	private apiQuery: ApiQuery
@@ -33,7 +33,7 @@ export class ApiClient {
 				if (typeof target[prop] !== 'undefined') {
 					return target[prop]
 				}
-				target._collection = prop?.toString()
+				target.name = prop?.toString()
 				return target
 			},
 		})
@@ -41,45 +41,19 @@ export class ApiClient {
 
 	init(): ApiClient {
 		this.apiQuery = new ApiQuery()
-		this._collection = ''
+		this.name = ''
 		this.endpoint = ''
 		this.payload = null
 		this.headers = {
 			'Content-Type': 'application/json',
 		}
-		this._url = ''
+		this.url = ''
 		return this
 	}
 
-	// Manually set the collection params
-	config(params: ConfigParamsType) {
-		if (typeof params !== 'object') {
-			throw Error('Collection must be an object')
-		}
-		this.init()
-		const { collection, path } = params
-		if (typeof collection === 'string') {
-			this._collection = collection
-		}
-		if (typeof path === 'string') {
-			this._url = path
-		}
-		return this
-	}
 
 	clearQuery() {
 		this.apiQuery = new ApiQuery()
-		return this
-	}
-
-	url(path: string): ApiClient {
-		this._url = path
-		return this
-	}
-
-	collection(collection: string): ApiClient {
-		this.init()
-		this._collection = collection
 		return this
 	}
 
@@ -155,48 +129,48 @@ export class ApiClient {
 
 	async findOne(id: any, options: QueryOptionsType): Promise<ExecuteResponseType> {
     const { url } = options || {}
-    this._url = url 
-		this.endpoint = `${this._url}/${id}`
+    this.url = url 
+		this.endpoint = `${this.url}/${id}`
 		return await this.get(this.endpoint)
 	}
 
 	async findMany(searchParams: QueryParamsType, options: MutateOptionsType): Promise<ExecuteResponseType> {
 		const { url } = options || {}    
-    this._url = url 
+    this.url = url 
     this.apiQuery.where(searchParams)
-		this.endpoint = this._url
+		this.endpoint = this.url
 		return await this.get(this.endpoint, this.apiQuery.url())
 	}
 
 	async create(data: Record<string, any>, options: MutateOptionsType): Promise<ExecuteResponseType> {    
     const { name, url } = options || {}
-    this._collection = name
-    this._url = url
+    this.name = name
+    this.url = url
 		this.payload = {
-			[this._collection]: data,
+			[this.name]: data,
 		}
 		this.handleFormatData()
-		this.endpoint = this._url
-		return await this.post(this._url, this.payload, this.headers)
+		this.endpoint = this.url
+		return await this.post(this.url, this.payload, this.headers)
 	}
 
 	async update(data: Record<string, any>, options: MutateOptionsType): Promise<ExecuteResponseType> {
     const { name, url } = options || {}
-    this._collection = name
-    this._url = url
+    this.name = name
+    this.url = url
 		this.payload = {
-			[this._collection]: data,
+			[this.name]: data,
 		}
 		this.handleFormatData()
-		this.endpoint = `${this._url}/${data.id}`
+		this.endpoint = `${this.url}/${data.id}`
 		return await this.put(this.endpoint, this.payload, this.headers)
 	}
 
 	async destroy(id: number, options: MutateOptionsType): Promise<ExecuteResponseType> {
     const { name, url } = options || {}
-    this._collection = name
-    this._url = url
-		this.endpoint = `${this._url}/${id}`
+    this.name = name
+    this.url = url
+		this.endpoint = `${this.url}/${id}`
 		return await this.delete(this.endpoint)
 	}
 
@@ -205,80 +179,80 @@ export class ApiClient {
     options: MutateOptionsType
   ): Promise<ExecuteResponseType> {
     const { name, url } = options || {}
-    this._collection = name
-    this._url = url
+    this.name = name
+    this.url = url
 		this.payload = {
 			ids: sorted.map((resource) => resource.id),
 			positions: sorted.map((_, index) => index),
 		}
-		this.endpoint = `${this._url}/update_positions`
+		this.endpoint = `${this.url}/update_positions`
 		return await this.post(this.endpoint, this.payload, this.headers)
 	}
 
   async updateReferencePositions(id: number, sorted: Record<string, any>[], options: MutateOptionsType): Promise<ExecuteResponseType> {
     const { name, url } = options || {}
-    this._collection = name
-    this._url = url
+    this.name = name
+    this.url = url
 		this.payload = {
 			ids: sorted.map((resource) => resource.id),
 			positions: sorted.map((_, index) => index),
 		}
-		this.endpoint = `${this._url}/${id}/update_reference_positions`
+		this.endpoint = `${this.url}/${id}/update_reference_positions`
 		return await this.post(this.endpoint, this.payload, this.headers)
 	}
 
 	async updateMany(ids: number[], resource: object, options: MutateOptionsType): Promise<ExecuteResponseType> {
     const { name, url } = options || {}
-    this._collection = name
-    this._url = url
+    this.name = name
+    this.url = url
 		this.payload = {
 			ids: ids,
 			resoure: resource,
 		}
-		this.endpoint = `${this._url}/update_many`
+		this.endpoint = `${this.url}/update_many`
 		return await this.post(this.endpoint, this.payload, this.headers)
 	}
 
 	async destroyMany(ids: number[], options: MutateOptionsType): Promise<ExecuteResponseType> {
     const { name, url } = options || {}
-    this._collection = name
-    this._url = url
+    this.name = name
+    this.url = url
 		if (!Array.isArray(ids)) {
 			throw Error('Ids must be an array')
 		}
 		this.payload = {
 			ids: ids,
 		}
-		this.endpoint = `${this._url}/delete_many`
+		this.endpoint = `${this.url}/delete_many`
 		return await this.post(this.endpoint, this.payload, this.headers)
 	}
 
   async findFilterFields(options: QueryOptionsType): Promise<ExecuteResponseType> {
     const { url } = options || {}
-    this._url = url
-    this.endpoint = `${this._url}/filter_fields`
+    this.url = url
+    this.endpoint = `${this.url}/filter_fields`
     return await this.get(this.endpoint)
   }
 
   async findSortFields(options: QueryOptionsType): Promise<ExecuteResponseType> {
     const { url } = options || {}
-    this._url = url
-    this.endpoint = `${this._url}/sort_fields`
+    this.url = url
+    this.endpoint = `${this.url}/sort_fields`
     return await this.get(this.endpoint)
   }
 
   async findFormFields(options: QueryOptionsType): Promise<ExecuteResponseType> {
     const { url } = options || {}
-    this._url = url
-    this.endpoint = `${this._url}/form_fields`
+    this.url = url
+    this.endpoint = `${this.url}/form_fields`
     return await this.get(this.endpoint)
   }
 
 	async publish(ids: number[], options: MutateOptionsType): Promise<ExecuteResponseType> {
     const { name, url } = options || {}
-    this._collection = name
-    this._url = url
-		this.endpoint = `${this._url}/publish`
+    this.name = name
+    this.url = url
+		this.endpoint = `${this.url}/publish`
 		this.payload = {
 			ids: ids,
 		}
@@ -287,9 +261,9 @@ export class ApiClient {
 
 	async unpublish(ids: number[], options: MutateOptionsType): Promise<ExecuteResponseType> {
     const { name, url } = options || {}
-    this._collection = name
-    this._url = url
-		this.endpoint = `${this._url}/unpublish`
+    this.name = name
+    this.url = url
+		this.endpoint = `${this.url}/unpublish`
 		this.payload = {
 			ids: ids,
 		}
@@ -298,49 +272,49 @@ export class ApiClient {
 
 	async like(id: number, options: MutateOptionsType): Promise<ExecuteResponseType> {
     const { name, url } = options || {}
-    this._collection = name
-    this._url = url
-		this.endpoint = `${this._url}/${id}/like`
+    this.name = name
+    this.url = url
+		this.endpoint = `${this.url}/${id}/like`
 		return await this.post(this.endpoint, null, this.headers)
 	}
 
 	async unlike(id: number, options: MutateOptionsType): Promise<ExecuteResponseType> {
     const { name, url } = options || {}
-    this._collection = name
-    this._url = url
-		this.endpoint = `${this._url}/${id}/unlike`
+    this.name = name
+    this.url = url
+		this.endpoint = `${this.url}/${id}/unlike`
 		return await this.post(this.endpoint, null, this.headers)
 	}
 
 	async favorite(id: number, options: MutateOptionsType): Promise<ExecuteResponseType> {
     const { name, url } = options || {}
-    this._collection = name
-    this._url = url
-		this.endpoint = `${this._url}/${id}/favorite`
+    this.name = name
+    this.url = url
+		this.endpoint = `${this.url}/${id}/favorite`
 		return await this.post(this.endpoint, null, this.headers)
 	}
 
 	async unfavorite(id: number, options: MutateOptionsType): Promise<ExecuteResponseType> {
     const { name, url } = options || {}
-    this._collection = name
-    this._url = url
-		this.endpoint = `${this._url}/${id}/unfavorite`
+    this.name = name
+    this.url = url
+		this.endpoint = `${this.url}/${id}/unfavorite`
 		return await this.post(this.endpoint, null, this.headers)
 	}
 
 	async follow(id: number, options: MutateOptionsType): Promise<ExecuteResponseType> {
     const { name, url } = options || {}
-    this._collection = name
-    this._url = url
-		this.endpoint = `${this._url}/${id}/follow`
+    this.name = name
+    this.url = url
+		this.endpoint = `${this.url}/${id}/follow`
 		return await this.post(this.endpoint, null, this.headers)
 	}
 
 	async unfollow(id: number, options: MutateOptionsType): Promise<ExecuteResponseType> {
     const { name, url } = options || {}
-    this._collection = name
-    this._url = url
-		this.endpoint = `${this._url}/${id}/unfollow`
+    this.name = name
+    this.url = url
+		this.endpoint = `${this.url}/${id}/unfollow`
 		return await this.post(this.endpoint, null, this.headers)
 	}
 
@@ -350,15 +324,15 @@ export class ApiClient {
     options: MutateOptionsType
   ): Promise<ExecuteResponseType> {
     const { url } = options || {}
-    this._collection = 'references'
-    this._url = url
+    this.name = 'references'
+    this.url = url
 		this.payload = {
-			[this._collection]: {
+			[this.name]: {
 				ids: targetIds,
 			},
 		}
-    console.log("Debug", this._url, sourceId, targetIds, this.payload)
-		this.endpoint = `${this._url}/${sourceId}/add_references`
+    console.log("Debug", this.url, sourceId, targetIds, this.payload)
+		this.endpoint = `${this.url}/${sourceId}/add_references`
 		return await this.post(this.endpoint, this.payload, this.headers)
 	}
 
@@ -368,15 +342,15 @@ export class ApiClient {
     options: MutateOptionsType
   ): Promise<ExecuteResponseType> {
     const { url } = options || {}
-    this._collection = 'references'
-    this._url = url
+    this.name = 'references'
+    this.url = url
 		this.payload = {
-			[this._collection]: {
+			[this.name]: {
 				ids: targetIds,
 			},
 		}
-    console.log("Debug", this._url, sourceId, targetIds, this.payload)
-		this.endpoint = `${this._url}/${sourceId}/remove_references`
+    console.log("Debug", this.url, sourceId, targetIds, this.payload)
+		this.endpoint = `${this.url}/${sourceId}/remove_references`
 		return await this.restClient.post(this.endpoint, this.payload, this.headers)
 	}
 
@@ -387,121 +361,121 @@ export class ApiClient {
     options: MutateOptionsType
   ): Promise<ExecuteResponseType> {
     const { name: _name, url } = options || {}
-    this._collection = _name
-    this._url = url
+    this.name = _name
+    this.url = url
 		this.payload = {
-			[this._collection]: {
+			[this.name]: {
 				name: name,
 				id: attachmentId,
 			},
 		}
-		this.endpoint = `${this._url}/${id}/add_attachment`
+		this.endpoint = `${this.url}/${id}/add_attachment`
 		return await this.post(this.endpoint, this.payload, this.headers)
 	}
 
 	async removeAttachment(id: number, name: string, options: MutateOptionsType): Promise<ExecuteResponseType> {
     const { name: _name, url } = options || {}
-    this._collection = _name
-    this._url = url
+    this.name = _name
+    this.url = url
 		this.payload = {
-			[this._collection]: {
+			[this.name]: {
 				name: name,
 			},
 		}
-		this.endpoint = `${this._url}/${id}/remove_attachment`
+		this.endpoint = `${this.url}/${id}/remove_attachment`
 		return await this.post(this.endpoint, this.payload, this.headers)
 	}
 
 	async addImage(id: number, attachmentId: number, options: MutateOptionsType): Promise<ExecuteResponseType> {
     const { name, url } = options || {}
-    this._collection = name
-    this._url = url
+    this.name = name
+    this.url = url
 		this.payload = {
-			[this._collection]: {
+			[this.name]: {
 				id: attachmentId,
 			},
 		}
-		this.endpoint = `${this._url}/${id}/add_image`
+		this.endpoint = `${this.url}/${id}/add_image`
 		return await this.post(this.endpoint, this.payload, this.headers)
 	}
 
 	async removeImage(id: number, options: MutateOptionsType): Promise<ExecuteResponseType> {
     const { name, url } = options || {}
-    this._collection = name
-    this._url = url
+    this.name = name
+    this.url = url
 		this.payload = {}
-		this.endpoint = `${this._url}/${id}/remove_image`
+		this.endpoint = `${this.url}/${id}/remove_image`
 		return await this.post(this.endpoint, this.payload, this.headers)
 	}
 
 	// Auth methods
 	async fetchMe(options: MutateOptionsType): Promise<ExecuteResponseType> {
     const { name='user', url } = options || {}
-    this._collection = name
-    this._url = url
-		this.endpoint = `${this._url}/me`
+    this.name = name
+    this.url = url
+		this.endpoint = `${this.url}/me`
 		return await this.get(this.endpoint)
 	}
 
 	async updateMe(user: UserType, options: MutateOptionsType): Promise<ExecuteResponseType> {
 		const { name='user', url } = options || {}
-    this._collection = name
-    this._url = url
+    this.name = name
+    this.url = url
 		this.payload = {
 			user: user,
 		}
 		this.handleFormatData()
-		this.endpoint = `${this._url}/me`
+		this.endpoint = `${this.url}/me`
 		return await this.put(this.endpoint, this.payload, this.headers)
 	}
 
 	async login(user: UserType, options: MutateOptionsType): Promise<ExecuteResponseType> {
     const { name='user', url } = options || {}
-    this._collection = name
-    this._url = url		
+    this.name = name
+    this.url = url		
 		this.payload = {
-			[this._collection]: user,
+			[this.name]: user,
 		}
-		this.endpoint = `${this._url}/login`
+		this.endpoint = `${this.url}/login`
 		return await this.post(this.endpoint, this.payload, this.headers)
 	}
 
 	async signup(user: UserType, options: MutateOptionsType): Promise<ExecuteResponseType> {
 		const { name='user', url } = options || {}
-    this._collection = name
-    this._url = url
+    this.name = name
+    this.url = url
 		this.payload = {
-			[this._collection]: user,
+			[this.name]: user,
 		}
-		this.endpoint = `${this._url}/signup`
+		this.endpoint = `${this.url}/signup`
 		return await this.post(this.endpoint, this.payload, this.headers)
 	}
 
 	async sendPin(user: UserType, options: MutateOptionsType): Promise<ExecuteResponseType> {
 		const { name='user', url } = options || {}
-    this._collection = name
-    this._url = url
+    this.name = name
+    this.url = url
 		this.payload = {
-			[this._collection]: {
+			[this.name]: {
 				...user,
 				email: user.email,
 			},
 		}
-		this.endpoint = `${this._url}/send_pin`
+		this.endpoint = `${this.url}/send_pin`
 		return await this.post(this.endpoint, this.payload, this.headers)
 	}
 
 	async verifyPin(email: string, pin: string, options: MutateOptionsType): Promise<ExecuteResponseType> {
 		const { name='user', url } = options || {}
-    this._collection = name
-    this._url = url
+    this.name = name
+    this.url = url
 		this.payload = {
-			[this._collection]: {
+			[this.name]: {
 				email: email,
 				pin: pin,
 			},
 		}
-		this.endpoint = `${this._url}/verify_pin`
+		this.endpoint = `${this.url}/verify_pin`
 		return await this.post(this.endpoint, this.payload, this.headers)
 	}
 
@@ -512,43 +486,43 @@ export class ApiClient {
     options: MutateOptionsType
   ): Promise<ExecuteResponseType> {
 		const { name='user', url } = options || {}
-    this._collection = name
-    this._url = url
+    this.name = name
+    this.url = url
 		this.payload = {
-			[this._collection]: {
+			[this.name]: {
 				current_password: currentPassword,
 				password: password,
 				password_confirmation: passwordConfirmation,
 			},
 		}
-		this.endpoint = `${this._url}/change_password`
+		this.endpoint = `${this.url}/change_password`
 		return await this.post(this.endpoint, this.payload, this.headers)
 	}
 
 	async forgotPassword(user: UserType, options: MutateOptionsType): Promise<ExecuteResponseType> {
 		const { name='user', url } = options || {}
-    this._collection = name
-    this._url = url
+    this.name = name
+    this.url = url
 		this.payload = {
-			[this._collection]: {
+			[this.name]: {
 				...user,
 				email: user.email,
 			},
 		}
-		this.endpoint = `${this._url}/send_forgot_password`
+		this.endpoint = `${this.url}/send_forgot_password`
 		return await this.post(this.endpoint, this.payload, this.headers)
 	}
 
   async googleLogin(accessToken: string, options: MutateOptionsType): Promise<ExecuteResponseType> {
 		const { name='user', url } = options || {}
-    this._collection = name
-    this._url = url
+    this.name = name
+    this.url = url
 		this.payload = {
-			[this._collection]: {
+			[this.name]: {
         access_token: accessToken
       },
 		}
-		this.endpoint = `${this._url}/google_login`
+		this.endpoint = `${this.url}/google_login`
 		return await this.post(this.endpoint, this.payload, this.headers)
 	}
 
@@ -560,45 +534,45 @@ export class ApiClient {
     options: MutateOptionsType
   ): Promise<ExecuteResponseType> {
 		const { name='user', url } = options || {}
-    this._collection = name
-    this._url = url
+    this.name = name
+    this.url = url
 		this.payload = {
-			[this._collection]: {
+			[this.name]: {
 				email: email,
 				password: password,
 				password_confirmation: passwordConfirmation,
 				change_password_token: changePasswordToken,
 			},
 		}
-		this.endpoint = `${this._url}/reset_password`
+		this.endpoint = `${this.url}/reset_password`
 		return await this.post(this.endpoint, this.payload, this.headers)
 	}
 
 	async sendOneTimePassword(user: UserType, options: MutateOptionsType): Promise<ExecuteResponseType> {
 		const { name='user', url } = options || {}
-    this._collection = name
-    this._url = url
+    this.name = name
+    this.url = url
 		this.payload = {
-			[this._collection]: {
+			[this.name]: {
 				...user,
 				email: user.email,
 			},
 		}
-		this.endpoint = `${this._url}/send_one_time_password`
+		this.endpoint = `${this.url}/send_one_time_password`
 		return await this.post(this.endpoint, this.payload, this.headers)
 	}
 
 	async verifyOneTimePassword(otp: string, options: MutateOptionsType): Promise<ExecuteResponseType> {
     const { name='user', url } = options || {}
-    this._collection = name
-    this._url = url
-		this._collection = 'user'
+    this.name = name
+    this.url = url
+		this.name = 'user'
 		this.payload = {
-			[this._collection]: {
+			[this.name]: {
 				one_time_password: otp,
 			},
 		}
-		this.endpoint = `${this._url}/verify_one_time_password`
+		this.endpoint = `${this.url}/verify_one_time_password`
 		return await this.post(this.endpoint, this.payload, this.headers)
 	}
 
@@ -636,8 +610,8 @@ export class ApiClient {
 	}
 
 	handleFormatData(): void {		
-		for (const key in this.payload[this._collection]) {
-			if (this.payload[this._collection][key] instanceof File) {
+		for (const key in this.payload[this.name]) {
+			if (this.payload[this.name][key] instanceof File) {
 				this.handleMultipartData()
 				break
 			}
@@ -646,18 +620,18 @@ export class ApiClient {
 
 	async handleMultipartData() {
 		const formData = new FormData()
-		for (const formKey in this.payload[this._collection]) {
+		for (const formKey in this.payload[this.name]) {
 			// Form objects can only send string key / value pairs
 			// so we stringify the object
-			if (this.isJsonObject(this.payload[this._collection][formKey])) {
+			if (this.isJsonObject(this.payload[this.name][formKey])) {
 				formData.append(
-					`${this._collection}[${formKey}_string]`,
-					JSON.stringify(this.payload[this._collection][formKey])
+					`${this.name}[${formKey}_string]`,
+					JSON.stringify(this.payload[this.name][formKey])
 				)
 			} else {        
 				formData.append(
-					`${this._collection}[${formKey}]`,
-					this.payload[this._collection][formKey]
+					`${this.name}[${formKey}]`,
+					this.payload[this.name][formKey]
 				)
 			}
 		}
