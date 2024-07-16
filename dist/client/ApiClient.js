@@ -528,7 +528,6 @@ var ApiClient = /** @class */ (function () {
                                 ids: targetIds,
                             },
                             _a);
-                        console.log("Debug", this.url, sourceId, targetIds, this.payload);
                         this.endpoint = "".concat(this.url, "/").concat(sourceId, "/remove_references");
                         return [4 /*yield*/, this.restClient.post(this.endpoint, this.payload, this.headers)];
                     case 1: return [2 /*return*/, _b.sent()];

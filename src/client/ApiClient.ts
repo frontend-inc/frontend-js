@@ -348,7 +348,6 @@ export class ApiClient {
 				ids: targetIds,
 			},
 		}
-    console.log("Debug", this.url, sourceId, targetIds, this.payload)
 		this.endpoint = `${this.url}/${sourceId}/remove_references`
 		return await this.restClient.post(this.endpoint, this.payload, this.headers)
 	}
