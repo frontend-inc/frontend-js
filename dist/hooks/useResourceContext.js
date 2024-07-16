@@ -254,7 +254,7 @@ var useResourceContext = function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    options = { url: url, name: 'references' };
+                    options = { url: url };
                     return [4 /*yield*/, loadingWrapper(function () {
                             return api.addReferences(sourceId, targetIds, options);
                         })];
@@ -267,7 +267,7 @@ var useResourceContext = function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    options = { url: url, name: 'references' };
+                    options = { url: url };
                     return [4 /*yield*/, loadingWrapper(function () {
                             return api.removeReferences(sourceId, targetIds, options);
                         })];

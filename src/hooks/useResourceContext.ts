@@ -5,7 +5,7 @@ import {
 } from '../helpers'
 import { ApiContext } from '../context'
 import { useDelayedLoading } from '.'
-import { ID, QueryParamsType, UseResourceResponse, FindManyOptionType, SyntheticEventType } from '../types'
+import { ID, QueryParamsType, UseResourceResponse, SyntheticEventType } from '../types'
 
 type UseResourceContextResponse = UseResourceResponse & {
   openShow: boolean
@@ -65,7 +65,11 @@ const useResourceContext = (): UseResourceContextResponse => {
 		return await loadingWrapper(() => api.findOne(id, apiParams))
 	}
 
-	const findMany = async (queryParams: QueryParamsType = {}, opts: FindManyOptionType = {}) => {
+  type FindManyOptionsType = {
+    loadMore?: boolean
+  }
+
+	const findMany = async (queryParams: QueryParamsType = {}, opts: FindManyOptionsType = {}) => {
 		if (url?.includes('undefined')) {
 			console.log('Error: the URL contains undefined', url)
 			return
@@ -187,14 +191,14 @@ const useResourceContext = (): UseResourceContextResponse => {
 		sourceId: ID,
 		targetIds: ID[]
 	) => {
-    const options = { url, name: 'references' }
+    const options = { url }
 		return await loadingWrapper(() =>
 			api.addReferences(sourceId, targetIds, options)
 		)
 	}
 
-	const removeReferences = async (sourceId: ID, targetIds: ID[]) => {    
-    const options = { url, name: 'references' }
+	const removeReferences = async (sourceId: ID, targetIds: ID[]) => {
+    const options = { url }
 		return await loadingWrapper(() =>
 			api.removeReferences(sourceId, targetIds, options)
 		)
