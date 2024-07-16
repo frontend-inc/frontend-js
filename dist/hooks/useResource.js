@@ -355,6 +355,7 @@ var useResource = function (params) {
     var findManyCache = (url && query) ? [url, query] : null;
     var findManyFetcher = function (_a) {
         var url = _a[0], query = _a[1];
+        console.log("api.findMany", url, query);
         return api.findMany(query, { url: url });
     };
     var _o = (0, swr_1.default)(findManyCache, findManyFetcher), isLoading = _o.isLoading, data = _o.data;

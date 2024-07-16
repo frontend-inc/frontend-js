@@ -234,7 +234,10 @@ const useResource = (params: UseResourceParams): UseResourceResponse => {
 	}
 
   const findManyCache = (url && query) ? [url, query] : null
-  const findManyFetcher = ([url, query]) => api.findMany(query, { url })
+  const findManyFetcher = ([url, query]) => { 
+    console.log("api.findMany", url, query)
+    return api.findMany(query, { url })
+  }
   const { isLoading, data } = useSWR(findManyCache, findManyFetcher)
 
   useEffect(() => {
