@@ -187,16 +187,14 @@ const useResourceContext = (): UseResourceContextResponse => {
 		sourceId: ID,
 		targetIds: ID[]
 	) => {
-    let name = 'references'
-    const options = { url, name }
+    const options = { url, name: 'references' }
 		return await loadingWrapper(() =>
 			api.addReferences(sourceId, targetIds, options)
 		)
 	}
 
-	const removeReferences = async (sourceId: ID, targetIds: ID[]) => {
-    let name = 'references'
-    const options = { url, name }
+	const removeReferences = async (sourceId: ID, targetIds: ID[]) => {    
+    const options = { url, name: 'references' }
 		return await loadingWrapper(() =>
 			api.removeReferences(sourceId, targetIds, options)
 		)

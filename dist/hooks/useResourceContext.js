@@ -250,12 +250,11 @@ var useResourceContext = function () {
         });
     }); };
     var addReferences = function (sourceId, targetIds) { return __awaiter(void 0, void 0, void 0, function () {
-        var name, options;
+        var options;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    name = 'references';
-                    options = { url: url, name: name };
+                    options = { url: url, name: 'references' };
                     return [4 /*yield*/, loadingWrapper(function () {
                             return api.addReferences(sourceId, targetIds, options);
                         })];
@@ -264,12 +263,11 @@ var useResourceContext = function () {
         });
     }); };
     var removeReferences = function (sourceId, targetIds) { return __awaiter(void 0, void 0, void 0, function () {
-        var name, options;
+        var options;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    name = 'references';
-                    options = { url: url, name: name };
+                    options = { url: url, name: 'references' };
                     return [4 /*yield*/, loadingWrapper(function () {
                             return api.removeReferences(sourceId, targetIds, options);
                         })];
