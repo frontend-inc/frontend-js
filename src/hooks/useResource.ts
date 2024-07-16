@@ -1,17 +1,15 @@
-import React, { useState, useContext, useEffect } from 'react'
+import React, { useState, useContext } from 'react'
 import { ApiContext } from '../context'
 import { useDelayedLoading } from '../hooks'
 import { ID, QueryParamsType, UseResourceResponse, SyntheticEventType } from '../types'
-import useSWR from 'swr'
 
 type UseResourceParams = {
 	url: string
 	name?: string  
-  query?: QueryParamsType
 }
 
 const useResource = (params: UseResourceParams): UseResourceResponse => {
-	const { url, name, query: defaultQuery = {} } = params || {}
+	const { url, name } = params || {}
   const apiParams = { url, name }
 
 	const { api } = useContext(ApiContext)
@@ -22,7 +20,7 @@ const useResource = (params: UseResourceParams): UseResourceResponse => {
 	const [resource, setResource] = useState<any>({})
 	const [resources, setResources] = useState<any[]>([])
   
-	const [query, setQuery] = useState<QueryParamsType>(defaultQuery)
+	const [query, setQuery] = useState<QueryParamsType>({})
 	const [meta, setMeta] = useState<any>(null)  
 	const [page, setPage] = useState<number>(1)
 	const [perPage, setPerPage] = useState<number>(10)
@@ -37,21 +35,39 @@ const useResource = (params: UseResourceParams): UseResourceResponse => {
 		return await loadingWrapper(() => api.findOne(id, apiParams))
 	}
 
-  const findMany = (query: QueryParamsType) => {
-    setQuery(query)
+  type FindManyOptionsType = {
+    loadMore?: boolean
   }
 
-	const loadMore = async () => {
+	const findMany = async (queryParams: QueryParamsType = {}, opts: FindManyOptionsType = {}) => {
+		if (url?.includes('undefined')) {
+			console.log('Error: the URL contains undefined', url)
+			return
+		}
 		try {
-			setLoading(true)   
+			setLoading(true)
+			if (queryParams) {
+				setQuery({
+					...query,
+					...queryParams,
+				})
+			}      
 			const res = await api.findMany({
 				...query,
-				page: page + 1
+				...queryParams,
 			}, apiParams)
-			if (res.data) {				
-				setResources([...resources, ...res.data])				
+			if (res.data) {
+				if (opts?.loadMore !== true ) {
+					setResources(res.data)
+				} else {
+					setResources([...resources, ...res.data])
+				}
 				if (res.meta) {
-					setMeta(res.meta)					
+					setMeta(res.meta)
+					setPage(res.meta.page)
+					setPerPage(res.meta.per_page)
+					setTotalCount(res.meta.total_count)
+					setNumPages(res.meta.num_pages)          
 				}
 				return res.data
 			}
@@ -62,29 +78,29 @@ const useResource = (params: UseResourceParams): UseResourceResponse => {
 		}
 	}
 
-  useEffect(() => {
-    if(meta){
-      setPage(meta.page)
-      setPerPage(meta.per_page)
-      setTotalCount(meta.total_count)
-      setNumPages(meta.num_pages)          
-    }
-  }, [meta])
-
+	const loadMore = async () => {
+		let nextPage = page + 1
+		await findMany({ 
+      ...query, 
+      page: nextPage 
+    }, {
+      loadMore: true 
+    })
+	}
 
 	const reloadMany = async () => {
-		setQuery(query)
+		return await findMany(query)
 	}
 
 	const paginate = async (page: number) => {
-		setQuery({
+		return await findMany({
 			...query,
 			page: page,
 		})
 	}
 
 	const sort = async (sortBy: string, sortDirection: 'asc' | 'desc') => {
-		setQuery({
+		return await findMany({
 			...query,
 			sort_by: sortBy,
 			sort_direction: sortDirection,
@@ -233,31 +249,12 @@ const useResource = (params: UseResourceParams): UseResourceResponse => {
 		console.log('handleErrors', e)
 	}
 
-  const findManyCache = (url && query) ? [url, query] : null
-  const findManyFetcher = ([url, query]) => { 
-    console.log("api.findMany", url, query)
-    return api.findMany(query, { url })
-  }
-  const { isLoading, data } = useSWR(findManyCache, findManyFetcher)
-
-  useEffect(() => {
-    if(data?.data){
-      setResources(data?.data)
-    }
-    if(data?.meta){
-      setMeta(data.meta)
-    }
-    if(data?.error){      
-      handleErrors(data.error)
-    }
-  }, [data])
-
   const { loading: delayLoading } = useDelayedLoading({
-    loading: loading || isLoading 
+    loading
   })
 
 	return {
-		loading: loading || isLoading,
+		loading,
     delayLoading,
 		setLoading,
 		loadingWrapper,
