@@ -18,7 +18,7 @@ export const flattenDocument = (resource) => {
 
 export const getDocumentValue = (document, field) => {
 	if (REFERENCE_FIELDS.includes(field?.variant)) {
-		let documents = document?.document_links
+		let documents = document?.references
 			?.filter((d) => d?.target?.content_type === field?.foreign_content_type)
 			?.map((d) => d.target)
 		return documents
@@ -49,10 +49,10 @@ export const changeDocumentValue = (document, fieldName, value) => {
 }
 
 export const filterReferences = (document, contentType) => {
-  if(!document?.document_links || document?.document_links?.length == 0 || !contentType) return null;
+  if(!document?.references || document?.references?.length == 0 || !contentType) return null;
 	let documents = document
-    ?.document_links
-		?.filter((docuLink) => docuLink?.target?.content_type == contentType)
-		?.map((docuLink) => docuLink?.target)
+    ?.references
+		?.filter((reference) => reference?.target?.content_type == contentType)
+		?.map((reference) => reference?.target)
 	return documents
 }

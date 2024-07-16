@@ -37,7 +37,7 @@ exports.flattenDocument = flattenDocument;
 var getDocumentValue = function (document, field) {
     var _a, _b;
     if (constants_1.REFERENCE_FIELDS.includes(field === null || field === void 0 ? void 0 : field.variant)) {
-        var documents = (_b = (_a = document === null || document === void 0 ? void 0 : document.document_links) === null || _a === void 0 ? void 0 : _a.filter(function (d) { var _a; return ((_a = d === null || d === void 0 ? void 0 : d.target) === null || _a === void 0 ? void 0 : _a.content_type) === (field === null || field === void 0 ? void 0 : field.foreign_content_type); })) === null || _b === void 0 ? void 0 : _b.map(function (d) { return d.target; });
+        var documents = (_b = (_a = document === null || document === void 0 ? void 0 : document.references) === null || _a === void 0 ? void 0 : _a.filter(function (d) { var _a; return ((_a = d === null || d === void 0 ? void 0 : d.target) === null || _a === void 0 ? void 0 : _a.content_type) === (field === null || field === void 0 ? void 0 : field.foreign_content_type); })) === null || _b === void 0 ? void 0 : _b.map(function (d) { return d.target; });
         return documents;
     }
     else if (constants_1.SYSTEM_FIELDS.includes(field === null || field === void 0 ? void 0 : field.name)) {
@@ -64,9 +64,9 @@ var changeDocumentValue = function (document, fieldName, value) {
 exports.changeDocumentValue = changeDocumentValue;
 var filterReferences = function (document, contentType) {
     var _a, _b, _c;
-    if (!(document === null || document === void 0 ? void 0 : document.document_links) || ((_a = document === null || document === void 0 ? void 0 : document.document_links) === null || _a === void 0 ? void 0 : _a.length) == 0 || !contentType)
+    if (!(document === null || document === void 0 ? void 0 : document.references) || ((_a = document === null || document === void 0 ? void 0 : document.references) === null || _a === void 0 ? void 0 : _a.length) == 0 || !contentType)
         return null;
-    var documents = (_c = (_b = document === null || document === void 0 ? void 0 : document.document_links) === null || _b === void 0 ? void 0 : _b.filter(function (docuLink) { var _a; return ((_a = docuLink === null || docuLink === void 0 ? void 0 : docuLink.target) === null || _a === void 0 ? void 0 : _a.content_type) == contentType; })) === null || _c === void 0 ? void 0 : _c.map(function (docuLink) { return docuLink === null || docuLink === void 0 ? void 0 : docuLink.target; });
+    var documents = (_c = (_b = document === null || document === void 0 ? void 0 : document.references) === null || _b === void 0 ? void 0 : _b.filter(function (reference) { var _a; return ((_a = reference === null || reference === void 0 ? void 0 : reference.target) === null || _a === void 0 ? void 0 : _a.content_type) == contentType; })) === null || _c === void 0 ? void 0 : _c.map(function (reference) { return reference === null || reference === void 0 ? void 0 : reference.target; });
     return documents;
 };
 exports.filterReferences = filterReferences;

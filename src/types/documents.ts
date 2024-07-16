@@ -98,6 +98,6 @@ export type DocumentType = {
 	shopify_handle?: string
 	created_at: string
 	updated_at: string
-	document_links: ReferenceType[]
+	references: ReferenceType[]
 	links: DocumentType[]
 }
