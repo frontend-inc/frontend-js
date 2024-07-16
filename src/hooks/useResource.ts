@@ -11,7 +11,7 @@ type UseResourceParams = {
 }
 
 const useResource = (params: UseResourceParams): UseResourceResponse => {
-	const { url, name, query: defaultQuery } = params || {}
+	const { url, name, query: defaultQuery = {} } = params || {}
   const apiParams = { url, name }
 
 	const { api } = useContext(ApiContext)

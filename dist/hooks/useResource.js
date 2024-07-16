@@ -64,19 +64,19 @@ var context_1 = require("../context");
 var hooks_1 = require("../hooks");
 var swr_1 = __importDefault(require("swr"));
 var useResource = function (params) {
-    var _a = params || {}, url = _a.url, name = _a.name, defaultQuery = _a.query;
+    var _a = params || {}, url = _a.url, name = _a.name, _b = _a.query, defaultQuery = _b === void 0 ? {} : _b;
     var apiParams = { url: url, name: name };
     var api = (0, react_1.useContext)(context_1.ApiContext).api;
-    var _b = (0, react_1.useState)(false), loading = _b[0], setLoading = _b[1];
-    var _c = (0, react_1.useState)(), errors = _c[0], setErrors = _c[1];
-    var _d = (0, react_1.useState)({}), resource = _d[0], setResource = _d[1];
-    var _e = (0, react_1.useState)([]), resources = _e[0], setResources = _e[1];
-    var _f = (0, react_1.useState)(defaultQuery), query = _f[0], setQuery = _f[1];
-    var _g = (0, react_1.useState)(null), meta = _g[0], setMeta = _g[1];
-    var _h = (0, react_1.useState)(1), page = _h[0], setPage = _h[1];
-    var _j = (0, react_1.useState)(10), perPage = _j[0], setPerPage = _j[1];
-    var _k = (0, react_1.useState)(0), totalCount = _k[0], setTotalCount = _k[1];
-    var _l = (0, react_1.useState)(0), numPages = _l[0], setNumPages = _l[1];
+    var _c = (0, react_1.useState)(false), loading = _c[0], setLoading = _c[1];
+    var _d = (0, react_1.useState)(), errors = _d[0], setErrors = _d[1];
+    var _e = (0, react_1.useState)({}), resource = _e[0], setResource = _e[1];
+    var _f = (0, react_1.useState)([]), resources = _f[0], setResources = _f[1];
+    var _g = (0, react_1.useState)(defaultQuery), query = _g[0], setQuery = _g[1];
+    var _h = (0, react_1.useState)(null), meta = _h[0], setMeta = _h[1];
+    var _j = (0, react_1.useState)(1), page = _j[0], setPage = _j[1];
+    var _k = (0, react_1.useState)(10), perPage = _k[0], setPerPage = _k[1];
+    var _l = (0, react_1.useState)(0), totalCount = _l[0], setTotalCount = _l[1];
+    var _m = (0, react_1.useState)(0), numPages = _m[0], setNumPages = _m[1];
     var showLoading = function () { return setLoading(true); };
     var hideLoading = function () { return setLoading(false); };
     var findOne = function (id) { return __awaiter(void 0, void 0, void 0, function () {
@@ -357,7 +357,7 @@ var useResource = function (params) {
         var url = _a[0], query = _a[1];
         return api.findMany(query, { url: url });
     };
-    var _m = (0, swr_1.default)(findManyCache, findManyFetcher), isLoading = _m.isLoading, data = _m.data;
+    var _o = (0, swr_1.default)(findManyCache, findManyFetcher), isLoading = _o.isLoading, data = _o.data;
     (0, react_1.useEffect)(function () {
         if (data === null || data === void 0 ? void 0 : data.data) {
             setResources(data === null || data === void 0 ? void 0 : data.data);
