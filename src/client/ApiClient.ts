@@ -51,7 +51,6 @@ export class ApiClient {
 		return this
 	}
 
-
 	clearQuery() {
 		this.apiQuery = new ApiQuery()
 		return this
