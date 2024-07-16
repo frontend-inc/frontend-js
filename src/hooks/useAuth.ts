@@ -115,11 +115,7 @@ const useAuth = () => {
 	}
 
 	const googleLogin = async (accessToken: string) => {		
-		return await loadingWrapper(() => api 
-      .collection(name)
-      .url(url)
-      .googleLogin(accessToken, params)
-    )
+		return await loadingWrapper(() => api.googleLogin(accessToken, params))
 	}
 
 	const deleteAvatar = async () => {
