@@ -1,5 +1,6 @@
 export { default as useApi } from './useApi';
 export { default as useAuth } from './useAuth';
+export { default as useAuthUser } from './useAuthUser';
 export { default as useDelayedLoading } from './useDelayedLoading';
 export { default as useResource } from './useResource';
 export { default as useResourceContext } from './useResourceContext';
