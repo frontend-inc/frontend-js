@@ -15,7 +15,7 @@ export class RestClient {
       fetchToken = () => null, 
       apiKey, 
       authToken 
-    } = params    
+    } = params || {}    
 
 		this.method = 'GET'
 		this.payload = null

@@ -50,7 +50,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.RestClient = void 0;
 var RestClient = /** @class */ (function () {
     function RestClient(params) {
-        var _a = params.fetchToken, fetchToken = _a === void 0 ? function () { return null; } : _a, apiKey = params.apiKey, authToken = params.authToken;
+        var _a = params || {}, _b = _a.fetchToken, fetchToken = _b === void 0 ? function () { return null; } : _b, apiKey = _a.apiKey, authToken = _a.authToken;
         this.method = 'GET';
         this.payload = null;
         this.authToken = authToken;
