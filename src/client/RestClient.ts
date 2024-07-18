@@ -9,7 +9,7 @@ export class RestClient {
 	private options: any
 	private fetchToken?: () => string | null
 
-	constructor(params?: RestClientParamsType) {
+	constructor(params: RestClientParamsType = {}) {
 
     const { 
       fetchToken = () => null, 
