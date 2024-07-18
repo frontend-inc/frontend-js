@@ -1,4 +1,9 @@
 import React from 'react';
+export type RestClientParamsType = {
+    fetchToken?: () => string | null;
+    apiKey?: string | null;
+    authToken?: string | null;
+};
 export type ApiClientParamsType = {
     url: string;
     fetchToken?: () => string | null;

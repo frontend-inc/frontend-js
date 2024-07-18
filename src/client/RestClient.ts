@@ -1,4 +1,4 @@
-import { ApiClientParamsType, ExecuteResponseType } from '../types'
+import { RestClientParamsType, ExecuteResponseType } from '../types'
 
 export class RestClient {
 	private method?: string
@@ -7,13 +7,11 @@ export class RestClient {
 	private authToken?: string
 	private apiKey?: string
 	private options: any
-	private baseUrl: string
 	private fetchToken?: () => string | null
 
-	constructor(params: ApiClientParamsType) {
+	constructor(params: RestClientParamsType) {
 
     const { 
-      url, 
       fetchToken = () => null, 
       apiKey, 
       authToken 
@@ -31,7 +29,6 @@ export class RestClient {
 				'Content-Type': 'application/json',
 			}			
 		}
-		this.baseUrl = url || process.env.NEXT_PUBLIC_API_BASE_URL
 	}
 
 	async get(
@@ -72,7 +69,7 @@ export class RestClient {
 		return await this.execute(endpoint)
 	}
 
-	async execute(endpoint: string = ''): Promise<ExecuteResponseType> {    
+	async execute(url: string = ''): Promise<ExecuteResponseType> {    
 		let response: ExecuteResponseType = {
 			data: null,			
 			meta: null,
@@ -89,7 +86,6 @@ export class RestClient {
 		if (this.apiKey) {
 			this.options.headers['X-Api-Key'] = this.apiKey
 		}
-		let url = `${this.baseUrl}${endpoint}`
 		if (this.params && this.method == 'GET') {
 			url += '?' + this.params
 		}
@@ -117,7 +113,6 @@ export class RestClient {
 			}
 		}
 		try {			      
-      console.log("Execute", url, this.payload, this.options)
       const fetchResponse = await fetch(url, this.options)
       const resp = await fetchResponse.json()
       response.data = resp?.data 

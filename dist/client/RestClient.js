@@ -50,7 +50,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.RestClient = void 0;
 var RestClient = /** @class */ (function () {
     function RestClient(params) {
-        var url = params.url, _a = params.fetchToken, fetchToken = _a === void 0 ? function () { return null; } : _a, apiKey = params.apiKey, authToken = params.authToken;
+        var _a = params.fetchToken, fetchToken = _a === void 0 ? function () { return null; } : _a, apiKey = params.apiKey, authToken = params.authToken;
         this.method = 'GET';
         this.payload = null;
         this.authToken = authToken;
@@ -63,7 +63,6 @@ var RestClient = /** @class */ (function () {
                 'Content-Type': 'application/json',
             }
         };
-        this.baseUrl = url || process.env.NEXT_PUBLIC_API_BASE_URL;
     }
     RestClient.prototype.get = function (endpoint, params, headers) {
         return __awaiter(this, void 0, void 0, function () {
@@ -119,10 +118,10 @@ var RestClient = /** @class */ (function () {
             });
         });
     };
-    RestClient.prototype.execute = function (endpoint) {
-        if (endpoint === void 0) { endpoint = ''; }
+    RestClient.prototype.execute = function (url) {
+        if (url === void 0) { url = ''; }
         return __awaiter(this, void 0, void 0, function () {
-            var response, url, fetchResponse, resp, error_1;
+            var response, fetchResponse, resp, error_1;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -143,7 +142,6 @@ var RestClient = /** @class */ (function () {
                         if (this.apiKey) {
                             this.options.headers['X-Api-Key'] = this.apiKey;
                         }
-                        url = "".concat(this.baseUrl).concat(endpoint);
                         if (this.params && this.method == 'GET') {
                             url += '?' + this.params;
                         }
@@ -171,7 +169,6 @@ var RestClient = /** @class */ (function () {
                         _a.label = 1;
                     case 1:
                         _a.trys.push([1, 4, , 5]);
-                        console.log("Execute", url, this.payload, this.options);
                         return [4 /*yield*/, fetch(url, this.options)];
                     case 2:
                         fetchResponse = _a.sent();

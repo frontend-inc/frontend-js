@@ -2,7 +2,7 @@ import { UserType, QueryParamsType, QueryOptionsType, MutateOptionsType } from '
 import { ApiClientParamsType, ExecuteResponseType } from '../types';
 export declare class ApiClient {
     private payload?;
-    private url?;
+    private baseUrl?;
     private name?;
     private endpoint?;
     private headers?;
@@ -34,9 +34,6 @@ export declare class ApiClient {
     updateReferencePositions(id: number, sorted: Record<string, any>[], options: MutateOptionsType): Promise<ExecuteResponseType>;
     updateMany(ids: number[], resource: object, options: MutateOptionsType): Promise<ExecuteResponseType>;
     destroyMany(ids: number[], options: MutateOptionsType): Promise<ExecuteResponseType>;
-    findFilterFields(options: QueryOptionsType): Promise<ExecuteResponseType>;
-    findSortFields(options: QueryOptionsType): Promise<ExecuteResponseType>;
-    findFormFields(options: QueryOptionsType): Promise<ExecuteResponseType>;
     publish(ids: number[], options: MutateOptionsType): Promise<ExecuteResponseType>;
     unpublish(ids: number[], options: MutateOptionsType): Promise<ExecuteResponseType>;
     like(id: number, options: MutateOptionsType): Promise<ExecuteResponseType>;
