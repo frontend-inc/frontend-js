@@ -54,13 +54,14 @@ var useAuth = function () {
         url: url,
         name: 'user',
     }), errors = _c.errors, setErrors = _c.setErrors, loading = _c.loading, delayedLoading = _c.delayedLoading, setLoading = _c.setLoading, user = _c.resource, setUser = _c.setResource, handleChange = _c.handleChange, handleErrors = _c.handleErrors;
-    var params = {
-        url: url
+    var apiParams = {
+        url: url,
+        name: 'user'
     };
     var updateMe = function (user) { return __awaiter(void 0, void 0, void 0, function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, loadingWrapper(function () { return api.updateMe(user, params); })];
+                case 0: return [4 /*yield*/, loadingWrapper(function () { return api.updateMe(user, apiParams); })];
                 case 1: return [2 /*return*/, _a.sent()];
             }
         });
@@ -68,7 +69,7 @@ var useAuth = function () {
     var fetchMe = function () { return __awaiter(void 0, void 0, void 0, function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, loadingWrapper(function () { return api.fetchMe(params); })];
+                case 0: return [4 /*yield*/, loadingWrapper(function () { return api.fetchMe(apiParams); })];
                 case 1: return [2 /*return*/, _a.sent()];
             }
         });
@@ -76,7 +77,7 @@ var useAuth = function () {
     var login = function (user) { return __awaiter(void 0, void 0, void 0, function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, loadingWrapper(function () { return api.login(user, params); })];
+                case 0: return [4 /*yield*/, loadingWrapper(function () { return api.login(user, apiParams); })];
                 case 1: return [2 /*return*/, _a.sent()];
             }
         });
@@ -84,7 +85,7 @@ var useAuth = function () {
     var signup = function (user) { return __awaiter(void 0, void 0, void 0, function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, loadingWrapper(function () { return api.signup(user, params); })];
+                case 0: return [4 /*yield*/, loadingWrapper(function () { return api.signup(user, apiParams); })];
                 case 1: return [2 /*return*/, _a.sent()];
             }
         });
@@ -92,7 +93,7 @@ var useAuth = function () {
     var sendPin = function (user) { return __awaiter(void 0, void 0, void 0, function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, loadingWrapper(function () { return api.sendPin(user, params); })];
+                case 0: return [4 /*yield*/, loadingWrapper(function () { return api.sendPin(user, apiParams); })];
                 case 1: return [2 /*return*/, _a.sent()];
             }
         });
@@ -100,7 +101,7 @@ var useAuth = function () {
     var verifyPin = function (email, pin) { return __awaiter(void 0, void 0, void 0, function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, loadingWrapper(function () { return api.verifyPin(email, pin, params); })];
+                case 0: return [4 /*yield*/, loadingWrapper(function () { return api.verifyPin(email, pin, apiParams); })];
                 case 1: return [2 /*return*/, _a.sent()];
             }
         });
@@ -109,7 +110,7 @@ var useAuth = function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0: return [4 /*yield*/, loadingWrapper(function () {
-                        return api.changePassword(currentPassword, password, passwordConfirmation, params);
+                        return api.changePassword(currentPassword, password, passwordConfirmation, apiParams);
                     })];
                 case 1: return [2 /*return*/, _a.sent()];
             }
@@ -119,7 +120,7 @@ var useAuth = function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0: return [4 /*yield*/, loadingWrapper(function () {
-                        return api.sendOneTimePassword(user, params);
+                        return api.sendOneTimePassword(user, apiParams);
                     })];
                 case 1: return [2 /*return*/, _a.sent()];
             }
@@ -129,7 +130,7 @@ var useAuth = function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0: return [4 /*yield*/, loadingWrapper(function () {
-                        return api.verifyOneTimePassword(otp, params);
+                        return api.verifyOneTimePassword(otp, apiParams);
                     })];
                 case 1: return [2 /*return*/, _a.sent()];
             }
@@ -138,7 +139,7 @@ var useAuth = function () {
     var forgotPassword = function (user) { return __awaiter(void 0, void 0, void 0, function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, loadingWrapper(function () { return api.forgotPassword(user, params); })];
+                case 0: return [4 /*yield*/, loadingWrapper(function () { return api.forgotPassword(user, apiParams); })];
                 case 1: return [2 /*return*/, _a.sent()];
             }
         });
@@ -148,7 +149,7 @@ var useAuth = function () {
             switch (_a.label) {
                 case 0: return [4 /*yield*/, loadingWrapper(function () {
                         return api
-                            .resetPassword(email, password, passwordConfirmation, changePasswordToken, params);
+                            .resetPassword(email, password, passwordConfirmation, changePasswordToken, apiParams);
                     })];
                 case 1: return [2 /*return*/, _a.sent()];
             }
@@ -169,7 +170,7 @@ var useAuth = function () {
     var googleLogin = function (accessToken) { return __awaiter(void 0, void 0, void 0, function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, loadingWrapper(function () { return api.googleLogin(accessToken, params); })];
+                case 0: return [4 /*yield*/, loadingWrapper(function () { return api.googleLogin(accessToken, apiParams); })];
                 case 1: return [2 /*return*/, _a.sent()];
             }
         });

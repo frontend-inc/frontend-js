@@ -419,7 +419,7 @@ export class ApiClient {
     this.name = name
     this.url = url
 		this.payload = {
-			user: user,
+			[this.name]: user,
 		}
 		this.handleFormatData()
 		this.endpoint = `${this.url}/me`

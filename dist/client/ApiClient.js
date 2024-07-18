@@ -639,19 +639,20 @@ var ApiClient = /** @class */ (function () {
     ApiClient.prototype.updateMe = function (user, options) {
         return __awaiter(this, void 0, void 0, function () {
             var _a, _b, name, url;
-            return __generator(this, function (_c) {
-                switch (_c.label) {
+            var _c;
+            return __generator(this, function (_d) {
+                switch (_d.label) {
                     case 0:
                         _a = options || {}, _b = _a.name, name = _b === void 0 ? 'user' : _b, url = _a.url;
                         this.name = name;
                         this.url = url;
-                        this.payload = {
-                            user: user,
-                        };
+                        this.payload = (_c = {},
+                            _c[this.name] = user,
+                            _c);
                         this.handleFormatData();
                         this.endpoint = "".concat(this.url, "/me");
                         return [4 /*yield*/, this.put(this.endpoint, this.payload, this.headers)];
-                    case 1: return [2 /*return*/, _c.sent()];
+                    case 1: return [2 /*return*/, _d.sent()];
                 }
             });
         });
