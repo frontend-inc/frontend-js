@@ -8,9 +8,9 @@ export declare class RestClient {
     private options;
     private fetchToken?;
     constructor(params?: RestClientParamsType);
-    get(endpoint: string, params?: string, headers?: Record<string, any> | null): Promise<ExecuteResponseType>;
-    put(endpoint: string, payload: object, headers?: Record<string, any> | null): Promise<ExecuteResponseType>;
-    post(endpoint: string, payload?: object, headers?: Record<string, any> | null): Promise<ExecuteResponseType>;
-    delete(endpoint: string): Promise<ExecuteResponseType>;
+    get(url: string, params?: string, headers?: Record<string, any> | null): Promise<ExecuteResponseType>;
+    put(url: string, payload: object, headers?: Record<string, any> | null): Promise<ExecuteResponseType>;
+    post(url: string, payload?: object, headers?: Record<string, any> | null): Promise<ExecuteResponseType>;
+    delete(url: string): Promise<ExecuteResponseType>;
     execute(url?: string): Promise<ExecuteResponseType>;
 }

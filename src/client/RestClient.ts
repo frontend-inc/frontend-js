@@ -32,48 +32,48 @@ export class RestClient {
 	}
 
 	async get(
-		endpoint: string,
+		url: string,
 		params?: string,
 		headers?: Record<string, any> | null
 	): Promise<ExecuteResponseType> {
 		this.method = 'GET'
 		this.params = params
 		this.options.headers = headers || this.options.headers
-		return await this.execute(endpoint)
+		return await this.execute(url)
 	}
 
 	async put(
-		endpoint: string,
+		url: string,
 		payload: object,
 		headers?: Record<string, any> | null
 	): Promise<ExecuteResponseType> {
 		this.method = 'PUT'
 		this.payload = payload
 		this.options.headers = headers || this.options.headers
-		return await this.execute(endpoint)
+		return await this.execute(url)
 	}
 
 	async post(
-		endpoint: string,
+		url: string,
 		payload?: object,
 		headers?: Record<string, any> | null
 	): Promise<ExecuteResponseType> {
 		this.method = 'POST'
 		this.payload = payload
 		this.options.headers = headers || this.options.headers
-		return await this.execute(endpoint)
+		return await this.execute(url)
 	}
 
-	async delete(endpoint: string): Promise<ExecuteResponseType> {
+	async delete(url: string): Promise<ExecuteResponseType> {
 		this.method = 'DELETE'
-		return await this.execute(endpoint)
+		return await this.execute(url)
 	}
 
 	async execute(url: string = ''): Promise<ExecuteResponseType> {    
 		let response: ExecuteResponseType = {
-			data: null,			
-			meta: null,
-      errors: null
+			data: <any>null,			
+			meta: <any>null,
+      errors: <any>null
 		}
     if(this.authToken != null && this.authToken != undefined){
       this.authToken = this.authToken

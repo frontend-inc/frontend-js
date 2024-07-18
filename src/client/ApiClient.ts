@@ -23,13 +23,13 @@ export class ApiClient {
 	constructor(params: ApiClientParamsType) {
     
     const {
-      url,
+      baseUrl,
       fetchToken,
       apiKey,
       authToken
     } = params
 
-    this.baseUrl = url 
+    this.baseUrl = baseUrl 
 		this.restClient = new RestClient({ 
       fetchToken, 
       apiKey, 
@@ -609,14 +609,14 @@ export class ApiClient {
 export const createClient = (params: ApiClientParamsType): ApiClient => {
 
   const {
-	  url,
+	  baseUrl,
 	  fetchToken,
 	  apiKey,
 	  authToken
   } = params
 
 	return new ApiClient({ 
-    url, 
+    baseUrl, 
     fetchToken, 
     apiKey, 
     authToken 

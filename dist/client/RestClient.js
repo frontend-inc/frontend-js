@@ -65,7 +65,7 @@ var RestClient = /** @class */ (function () {
             }
         };
     }
-    RestClient.prototype.get = function (endpoint, params, headers) {
+    RestClient.prototype.get = function (url, params, headers) {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
@@ -73,13 +73,13 @@ var RestClient = /** @class */ (function () {
                         this.method = 'GET';
                         this.params = params;
                         this.options.headers = headers || this.options.headers;
-                        return [4 /*yield*/, this.execute(endpoint)];
+                        return [4 /*yield*/, this.execute(url)];
                     case 1: return [2 /*return*/, _a.sent()];
                 }
             });
         });
     };
-    RestClient.prototype.put = function (endpoint, payload, headers) {
+    RestClient.prototype.put = function (url, payload, headers) {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
@@ -87,13 +87,13 @@ var RestClient = /** @class */ (function () {
                         this.method = 'PUT';
                         this.payload = payload;
                         this.options.headers = headers || this.options.headers;
-                        return [4 /*yield*/, this.execute(endpoint)];
+                        return [4 /*yield*/, this.execute(url)];
                     case 1: return [2 /*return*/, _a.sent()];
                 }
             });
         });
     };
-    RestClient.prototype.post = function (endpoint, payload, headers) {
+    RestClient.prototype.post = function (url, payload, headers) {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
@@ -101,19 +101,19 @@ var RestClient = /** @class */ (function () {
                         this.method = 'POST';
                         this.payload = payload;
                         this.options.headers = headers || this.options.headers;
-                        return [4 /*yield*/, this.execute(endpoint)];
+                        return [4 /*yield*/, this.execute(url)];
                     case 1: return [2 /*return*/, _a.sent()];
                 }
             });
         });
     };
-    RestClient.prototype.delete = function (endpoint) {
+    RestClient.prototype.delete = function (url) {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
                         this.method = 'DELETE';
-                        return [4 /*yield*/, this.execute(endpoint)];
+                        return [4 /*yield*/, this.execute(url)];
                     case 1: return [2 /*return*/, _a.sent()];
                 }
             });

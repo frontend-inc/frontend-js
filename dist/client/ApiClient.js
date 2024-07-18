@@ -52,8 +52,8 @@ var ApiQuery_1 = require("./ApiQuery");
 var RestClient_1 = require("./RestClient");
 var ApiClient = /** @class */ (function () {
     function ApiClient(params) {
-        var url = params.url, fetchToken = params.fetchToken, apiKey = params.apiKey, authToken = params.authToken;
-        this.baseUrl = url;
+        var baseUrl = params.baseUrl, fetchToken = params.fetchToken, apiKey = params.apiKey, authToken = params.authToken;
+        this.baseUrl = baseUrl;
         this.restClient = new RestClient_1.RestClient({
             fetchToken: fetchToken,
             apiKey: apiKey,
@@ -900,9 +900,9 @@ var ApiClient = /** @class */ (function () {
 exports.ApiClient = ApiClient;
 // End ApiClient
 var createClient = function (params) {
-    var url = params.url, fetchToken = params.fetchToken, apiKey = params.apiKey, authToken = params.authToken;
+    var baseUrl = params.baseUrl, fetchToken = params.fetchToken, apiKey = params.apiKey, authToken = params.authToken;
     return new ApiClient({
-        url: url,
+        baseUrl: baseUrl,
         fetchToken: fetchToken,
         apiKey: apiKey,
         authToken: authToken

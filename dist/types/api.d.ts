@@ -5,7 +5,7 @@ export type RestClientParamsType = {
     authToken?: string | null;
 };
 export type ApiClientParamsType = {
-    url: string;
+    baseUrl: string;
     fetchToken?: () => string | null;
     apiKey?: string | null;
     authToken?: string | null;

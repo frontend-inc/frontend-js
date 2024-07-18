@@ -15,7 +15,7 @@ type ApiProviderProps = {
 const ApiProvider = (props: ApiProviderProps) => {
 	
   const {
-		url,
+		url: baseUrl,
 		clientUrl,
     authUrl,
 		authCookie = 'auth-token',
@@ -29,13 +29,13 @@ const ApiProvider = (props: ApiProviderProps) => {
   }
 
   const api = createClient({
-    url, 
+    baseUrl, 
     fetchToken: fetchAuthToken,
     apiKey
    })
 
 	const value = {
-    url,
+    url: baseUrl,
 		api,
 		apiKey,		
     authUrl,
