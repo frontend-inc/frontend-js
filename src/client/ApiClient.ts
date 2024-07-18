@@ -55,7 +55,6 @@ export class ApiClient {
 		this.headers = {
 			'Content-Type': 'application/json',
 		}
-		this.baseUrl = ''
 		return this
 	}
 

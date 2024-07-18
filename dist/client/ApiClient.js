@@ -78,7 +78,6 @@ var ApiClient = /** @class */ (function () {
         this.headers = {
             'Content-Type': 'application/json',
         };
-        this.baseUrl = '';
         return this;
     };
     ApiClient.prototype.clearQuery = function () {
