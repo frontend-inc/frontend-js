@@ -72,7 +72,7 @@ export class RestClient {
 		return await this.execute(endpoint)
 	}
 
-	async execute(endpoint: string = ''): Promise<ExecuteResponseType> {
+	async execute(endpoint: string = ''): Promise<ExecuteResponseType> {    
 		let response: ExecuteResponseType = {
 			data: null,			
 			meta: null,
@@ -117,6 +117,7 @@ export class RestClient {
 			}
 		}
 		try {			      
+      console.log("Execute", url, this.payload, this.options)
       const fetchResponse = await fetch(url, this.options)
       const resp = await fetchResponse.json()
       response.data = resp?.data 

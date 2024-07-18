@@ -171,6 +171,7 @@ var RestClient = /** @class */ (function () {
                         _a.label = 1;
                     case 1:
                         _a.trys.push([1, 4, , 5]);
+                        console.log("Execute", url, this.payload, this.options);
                         return [4 /*yield*/, fetch(url, this.options)];
                     case 2:
                         fetchResponse = _a.sent();
