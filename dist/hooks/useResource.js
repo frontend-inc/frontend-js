@@ -330,11 +330,27 @@ var useResource = function (params) {
             }
         });
     }); };
+    var setNestedValue = function (obj, path, value) {
+        var keys = path.split('.');
+        var current = obj;
+        keys.forEach(function (key, index) {
+            if (index === keys.length - 1) {
+                current[key] = value;
+            }
+            else {
+                if (!current[key]) {
+                    current[key] = {};
+                }
+                current = current[key];
+            }
+        });
+    };
     var handleChange = function (ev) {
-        var _a;
         var name = ev.target.name;
         var value = ev.target.type === 'checkbox' ? ev.target.checked : ev.target.value;
-        setResource(__assign(__assign({}, resource), (_a = {}, _a[name] = value, _a)));
+        var updatedResource = __assign({}, resource);
+        setNestedValue(updatedResource, name, value);
+        setResource(updatedResource);
     };
     var loadingWrapper = function (apiMethod) { return __awaiter(void 0, void 0, void 0, function () {
         var res, e_2;

@@ -8,7 +8,6 @@ const useAuth = () => {
 	let { api, authCookie } = useContext(ApiContext)
 	const { serverPath: url } = useContext(AuthContext)
 
-  const name = 'user'
 	const showLoading = () => setLoading(true)
 	const hideLoading = () => setLoading(false)
 

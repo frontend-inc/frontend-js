@@ -207,16 +207,29 @@ const useResource = (params: UseResourceParams): UseResourceResponse => {
 		return await api.updatePositions(sorted, apiParams)
 	}
 
-	const handleChange = (ev: SyntheticEventType) => {
-		const { name } = ev.target
-		const value =
-			ev.target.type === 'checkbox' ? ev.target.checked : ev.target.value    
-    setResource({
-      ...resource,
-      [name]: value    
+  const setNestedValue = (obj, path, value) => {
+    const keys = path.split('.');
+    let current = obj;
+    keys.forEach((key, index) => {
+      if (index === keys.length - 1) {
+        current[key] = value;
+      } else {
+        if (!current[key]) {
+          current[key] = {};
+        }
+        current = current[key];
+      }
     })
-	}
-
+  }
+  
+  const handleChange = (ev) => {
+    const { name } = ev.target;
+    const value = ev.target.type === 'checkbox' ? ev.target.checked : ev.target.value;  
+    const updatedResource = { ...resource };
+    setNestedValue(updatedResource, name, value);  
+    setResource(updatedResource);
+  };
+  
 	const loadingWrapper = async (apiMethod: () => any) => {
 		try {
 			showLoading()

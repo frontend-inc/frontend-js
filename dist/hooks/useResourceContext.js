@@ -325,7 +325,29 @@ var useResourceContext = function () {
             }
         });
     }); };
+    var setNestedValue = function (obj, path, value) {
+        var keys = path.split('.');
+        var current = obj;
+        keys.forEach(function (key, index) {
+            if (index === keys.length - 1) {
+                current[key] = value;
+            }
+            else {
+                if (!current[key]) {
+                    current[key] = {};
+                }
+                current = current[key];
+            }
+        });
+    };
     var handleChange = function (ev) {
+        var name = ev.target.name;
+        var value = ev.target.type === 'checkbox' ? ev.target.checked : ev.target.value;
+        var updatedResource = __assign({}, resource);
+        setNestedValue(updatedResource, name, value);
+        setResource(updatedResource);
+    };
+    var handleDataChange = function (ev) {
         var name = ev.target.name;
         var value = ev.target.type === 'checkbox' ? ev.target.checked : ev.target.value;
         setResource(function (prev) { return (0, helpers_1.changeDocumentValue)(prev, name, value); });
@@ -381,6 +403,7 @@ var useResourceContext = function () {
         errors: errors,
         setErrors: setErrors,
         handleChange: handleChange,
+        handleDataChange: handleDataChange,
         handleErrors: handleErrors,
         resource: resource,
         resources: resources,
