@@ -256,13 +256,13 @@ const useResource = (params: UseResourceParams): UseResourceResponse => {
 		console.log('handleErrors', e)
 	}
 
-  const { loading: delayLoading } = useDelayedLoading({
+  const { loading: delayedLoading } = useDelayedLoading({
     loading
   })
 
 	return {
 		loading,
-    delayLoading,
+    delayedLoading,
 		setLoading,
 		loadingWrapper,
 		errors,

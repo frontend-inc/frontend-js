@@ -390,14 +390,14 @@ var useResourceContext = function () {
         }
         console.log('handleErrors', e);
     };
-    var delayLoading = (0, _1.useDelayedLoading)({
+    var delayedLoading = (0, _1.useDelayedLoading)({
         loading: loading
     }).loading;
     return {
         url: url,
         name: name,
         loading: loading,
-        delayLoading: delayLoading,
+        delayedLoading: delayedLoading,
         setLoading: setLoading,
         loadingWrapper: loadingWrapper,
         errors: errors,

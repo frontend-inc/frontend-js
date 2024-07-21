@@ -293,16 +293,15 @@ const useResourceContext = (): UseResourceContextResponse => {
 		console.log('handleErrors', e)
 	}
 
-  const { loading: delayLoading } = useDelayedLoading({
+  const { loading: delayedLoading } = useDelayedLoading({
     loading
   })
 
 	return {
     url,
-    name,
-    
+    name,    
 		loading,
-    delayLoading,
+    delayedLoading,
 		setLoading,
 		loadingWrapper,
 		errors,
