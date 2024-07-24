@@ -12,7 +12,7 @@ export type UserType = {
 	first_name: string
 	last_name: string
 	email: string
-  bio?: string
+  about_me?: string
   avatar?: {
     url: string  
   }
