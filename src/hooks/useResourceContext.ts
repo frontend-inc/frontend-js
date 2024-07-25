@@ -90,7 +90,7 @@ const useResourceContext = (): UseResourceContextResponse => {
 				if (opts?.loadMore !== true ) {
 					setResources(res.data)
 				} else {
-					setResources([...resources, ...res.data])
+					setResources(prev => [...prev, ...res.data])
 				}
 				if (res.meta) {
 					setMeta(res.meta)

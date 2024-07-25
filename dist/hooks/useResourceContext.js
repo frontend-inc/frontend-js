@@ -85,7 +85,7 @@ var useResourceContext = function () {
         if (queryParams === void 0) { queryParams = {}; }
         if (opts === void 0) { opts = {}; }
         return __awaiter(void 0, void 0, void 0, function () {
-            var res, e_1;
+            var res_1, e_1;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -102,22 +102,22 @@ var useResourceContext = function () {
                         }
                         return [4 /*yield*/, api.findMany(__assign(__assign({}, query), queryParams), apiParams)];
                     case 2:
-                        res = _a.sent();
-                        if (res.data) {
+                        res_1 = _a.sent();
+                        if (res_1.data) {
                             if ((opts === null || opts === void 0 ? void 0 : opts.loadMore) !== true) {
-                                setResources(res.data);
+                                setResources(res_1.data);
                             }
                             else {
-                                setResources(__spreadArray(__spreadArray([], resources, true), res.data, true));
+                                setResources(function (prev) { return __spreadArray(__spreadArray([], prev, true), res_1.data, true); });
                             }
-                            if (res.meta) {
-                                setMeta(res.meta);
-                                setPage(res.meta.page);
-                                setPerPage(res.meta.per_page);
-                                setTotalCount(res.meta.total_count);
-                                setNumPages(res.meta.num_pages);
+                            if (res_1.meta) {
+                                setMeta(res_1.meta);
+                                setPage(res_1.meta.page);
+                                setPerPage(res_1.meta.per_page);
+                                setTotalCount(res_1.meta.total_count);
+                                setNumPages(res_1.meta.num_pages);
                             }
-                            return [2 /*return*/, res.data];
+                            return [2 /*return*/, res_1.data];
                         }
                         return [3 /*break*/, 5];
                     case 3:
