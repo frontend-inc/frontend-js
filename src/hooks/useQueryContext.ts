@@ -6,11 +6,12 @@ import { QueryParamsType } from '../types'
 type UseQueryParams = {
   url: string
   query: QueryParamsType
+  loadMore?: boolean
 }
 
 const useQueryContext = (params: UseQueryParams) => {
 
-  const { url, query } = params || {}
+  const { url, query, loadMore=false } = params || {}
 
   const { api } = useContext(ApiContext)
 
@@ -39,7 +40,11 @@ const useQueryContext = (params: UseQueryParams) => {
 
   useEffect(() => {
     if(data?.data) {
-      setResources(data?.data)
+      if(loadMore) {
+        setResources(prev => [...prev, ...data.data])
+      }else{
+        setResources(data?.data)
+      }      
       if (data.meta) {
         setMeta(data.meta)
         setPage(data.meta.page)
