@@ -16,15 +16,15 @@ var react_1 = require("react");
 var swr_1 = __importDefault(require("swr"));
 var context_1 = require("../context");
 var useQueryContext = function (params) {
-    var _a = params || {}, url = _a.url, query = _a.query, _b = _a.loadMore, loadMore = _b === void 0 ? false : _b;
+    var _a = (params || {}).loadMore, loadMore = _a === void 0 ? false : _a;
     var api = (0, react_1.useContext)(context_1.ApiContext).api;
-    var _c = (0, react_1.useContext)(context_1.ResourceContext), loading = _c.loading, setLoading = _c.setLoading, errors = _c.errors, setErrors = _c.setErrors, resources = _c.resources, setResources = _c.setResources, meta = _c.meta, page = _c.page, perPage = _c.perPage, numPages = _c.numPages, totalCount = _c.totalCount, setNumPages = _c.setNumPages, setMeta = _c.setMeta, setPage = _c.setPage, setPerPage = _c.setPerPage, setTotalCount = _c.setTotalCount;
+    var _b = (0, react_1.useContext)(context_1.ResourceContext), url = _b.url, loading = _b.loading, setLoading = _b.setLoading, errors = _b.errors, setErrors = _b.setErrors, resources = _b.resources, setResources = _b.setResources, query = _b.query, setQuery = _b.setQuery, meta = _b.meta, page = _b.page, perPage = _b.perPage, numPages = _b.numPages, totalCount = _b.totalCount, setNumPages = _b.setNumPages, setMeta = _b.setMeta, setPage = _b.setPage, setPerPage = _b.setPerPage, setTotalCount = _b.setTotalCount;
     var cache = (url && query) ? [url, query] : null;
     var fetcher = function (_a) {
         var url = _a[0], query = _a[1];
         return api.findMany(query, { url: url });
     };
-    var _d = (0, swr_1.default)(cache, fetcher), isLoading = _d.isLoading, data = _d.data, error = _d.error;
+    var _c = (0, swr_1.default)(cache, fetcher), isLoading = _c.isLoading, data = _c.data, error = _c.error;
     (0, react_1.useEffect)(function () {
         if (data === null || data === void 0 ? void 0 : data.data) {
             if (loadMore) {
@@ -46,15 +46,15 @@ var useQueryContext = function (params) {
             handleError(data.errors);
         }
     }, [data]);
+    var handleError = function (errors) {
+        console.log('errors', errors);
+    };
     (0, react_1.useEffect)(function () {
         setLoading(isLoading);
     }, [isLoading]);
     (0, react_1.useEffect)(function () {
         setErrors(error);
     }, [error]);
-    var handleError = function (errors) {
-        console.log('errors', errors);
-    };
     return {
         loading: loading,
         errors: errors,

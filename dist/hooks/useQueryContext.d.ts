@@ -1,7 +1,4 @@
-import { QueryParamsType } from '../types';
 type UseQueryParams = {
-    url: string;
-    query: QueryParamsType;
     loadMore?: boolean;
 };
 declare const useQueryContext: (params: UseQueryParams) => {

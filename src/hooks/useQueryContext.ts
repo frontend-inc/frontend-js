@@ -1,27 +1,27 @@
 import React, { useEffect, useContext } from 'react'
 import useSWR from 'swr'
 import { ApiContext, ResourceContext } from '../context'
-import { QueryParamsType } from '../types'
 
 type UseQueryParams = {
-  url: string
-  query: QueryParamsType
   loadMore?: boolean
 }
 
 const useQueryContext = (params: UseQueryParams) => {
 
-  const { url, query, loadMore=false } = params || {}
+  const { loadMore=false } = params || {}
 
   const { api } = useContext(ApiContext)
 
-  const {  
+  const { 
+    url, 
     loading, 
     setLoading,
     errors,
     setErrors,
     resources,
     setResources,
+    query,
+    setQuery,
     meta,
     page,
     perPage,
@@ -36,6 +36,7 @@ const useQueryContext = (params: UseQueryParams) => {
 
   const cache = (url && query) ? [url, query] : null
   const fetcher = ([url, query]) => api.findMany(query, { url })
+  
   const { isLoading, data, error } = useSWR(cache, fetcher)
 
   useEffect(() => {
@@ -59,6 +60,10 @@ const useQueryContext = (params: UseQueryParams) => {
     }    
   }, [data])
 
+  const handleError = (errors: any) => {
+    console.log('errors', errors)
+  }
+
   useEffect(() => {    
     setLoading(isLoading)    
   }, [isLoading])
@@ -66,10 +71,6 @@ const useQueryContext = (params: UseQueryParams) => {
   useEffect(() => {    
     setErrors(error)    
   }, [error])
-
-  const handleError = (errors: any) => {
-    console.log('errors', errors)
-  }
 
   return {
     loading,
