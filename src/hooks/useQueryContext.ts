@@ -2,13 +2,8 @@ import React, { useEffect, useContext } from 'react'
 import useSWR from 'swr'
 import { ApiContext, ResourceContext } from '../context'
 
-type UseQueryParams = {
-  loadMore?: boolean
-}
 
-const useQueryContext = (params: UseQueryParams) => {
-
-  const { loadMore=false } = params || {}
+const useQueryContext = () => {
 
   const { api } = useContext(ApiContext)
 
@@ -41,11 +36,7 @@ const useQueryContext = (params: UseQueryParams) => {
 
   useEffect(() => {
     if(data?.data) {
-      if(loadMore) {
-        setResources(prev => [...prev, ...data.data])
-      }else{
-        setResources(data?.data)
-      }      
+      setResources(data?.data)
       if (data.meta) {
         setMeta(data.meta)
         setPage(data.meta.page)

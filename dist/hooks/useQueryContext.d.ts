@@ -1,7 +1,4 @@
-type UseQueryParams = {
-    loadMore?: boolean;
-};
-declare const useQueryContext: (params: UseQueryParams) => {
+declare const useQueryContext: () => {
     loading: any;
     errors: any;
     data: any;
