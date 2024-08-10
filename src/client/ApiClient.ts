@@ -175,6 +175,17 @@ export class ApiClient {
 		return await this.delete(this.endpoint)
 	}
 
+  async upload(data: Record<string, any>, options: MutateOptionsType): Promise<ExecuteResponseType> {    
+    const { name, url } = options || {}
+    this.name = name
+		this.payload = {
+			[this.name]: data,
+		}
+		this.handleFormatData()
+		this.endpoint = url
+		return await this.post(this.endpoint, this.payload, this.headers)
+	}
+
 	async updatePositions(
 		sorted: Record<string, any>[], 
     options: MutateOptionsType

@@ -214,6 +214,16 @@ var useResource = function (params) {
             }
         });
     }); };
+    var upload = function (resource) { return __awaiter(void 0, void 0, void 0, function () {
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, loadingWrapper(function () {
+                        return api.upload(resource, apiParams);
+                    })];
+                case 1: return [2 /*return*/, _a.sent()];
+            }
+        });
+    }); };
     var updateMany = function (ids, resource) { return __awaiter(void 0, void 0, void 0, function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
@@ -413,6 +423,7 @@ var useResource = function (params) {
         update: update,
         create: create,
         destroy: destroy,
+        upload: upload,
         updateMany: updateMany,
         deleteMany: deleteMany,
         publish: publish,

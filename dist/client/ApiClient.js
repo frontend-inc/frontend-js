@@ -224,6 +224,26 @@ var ApiClient = /** @class */ (function () {
             });
         });
     };
+    ApiClient.prototype.upload = function (data, options) {
+        return __awaiter(this, void 0, void 0, function () {
+            var _a, name, url;
+            var _b;
+            return __generator(this, function (_c) {
+                switch (_c.label) {
+                    case 0:
+                        _a = options || {}, name = _a.name, url = _a.url;
+                        this.name = name;
+                        this.payload = (_b = {},
+                            _b[this.name] = data,
+                            _b);
+                        this.handleFormatData();
+                        this.endpoint = url;
+                        return [4 /*yield*/, this.post(this.endpoint, this.payload, this.headers)];
+                    case 1: return [2 /*return*/, _c.sent()];
+                }
+            });
+        });
+    };
     ApiClient.prototype.updatePositions = function (sorted, options) {
         return __awaiter(this, void 0, void 0, function () {
             var _a, name, url;
