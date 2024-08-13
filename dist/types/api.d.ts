@@ -150,6 +150,7 @@ export type FilterOption = {
 export type OptionType = {
     label: string;
     value: string | number;
+    icon?: string;
 };
 export type SearchFilterInputProps = {
     filter?: FilterOption;
