@@ -28,6 +28,7 @@ const ResourceProvider = (props: ResourceProviderProps) => {
   const [openShow, setOpenShow] = useState(false) 
   const [openDelete, setOpenDelete] = useState(false)
   const [openEdit, setOpenEdit] = useState(false)
+  const [openComments, setOpenComments] = useState(false) 
 
   useEffect(() => {
     if(_resource){
@@ -75,7 +76,10 @@ const ResourceProvider = (props: ResourceProviderProps) => {
     setOpenEdit,
 
     openDelete,
-    setOpenDelete
+    setOpenDelete,
+
+    openComments,
+    setOpenComments
 	}
 
 	return (

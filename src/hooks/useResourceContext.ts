@@ -49,7 +49,9 @@ const useResourceContext = (): UseResourceContextResponse => {
     openEdit,
     setOpenEdit,
     openDelete,
-    setOpenDelete 
+    setOpenDelete,
+    openComments,
+    setOpenComments 
   } = useContext(ResourceContext)
 
   const apiParams = { 
@@ -346,7 +348,9 @@ const useResourceContext = (): UseResourceContextResponse => {
     openEdit,
     setOpenEdit,
     openDelete,
-    setOpenDelete 
+    setOpenDelete,
+    openComments,
+    setOpenComments,     
 	}
 }
 
