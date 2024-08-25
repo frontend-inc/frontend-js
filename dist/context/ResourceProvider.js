@@ -45,6 +45,7 @@ var ResourceProvider = function (props) {
     var _o = (0, react_1.useState)(false), openDelete = _o[0], setOpenDelete = _o[1];
     var _p = (0, react_1.useState)(false), openEdit = _p[0], setOpenEdit = _p[1];
     var _q = (0, react_1.useState)(false), openComments = _q[0], setOpenComments = _q[1];
+    var _r = (0, react_1.useState)(false), openReferences = _r[0], setOpenReferences = _r[1];
     (0, react_1.useEffect)(function () {
         if (_resource) {
             setResource(_resource);
@@ -82,7 +83,9 @@ var ResourceProvider = function (props) {
         openDelete: openDelete,
         setOpenDelete: setOpenDelete,
         openComments: openComments,
-        setOpenComments: setOpenComments
+        setOpenComments: setOpenComments,
+        openReferences: openReferences,
+        setOpenReferences: setOpenReferences
     };
     return (react_1.default.createElement(ResourceContext_1.default.Provider, { value: value }, children));
 };

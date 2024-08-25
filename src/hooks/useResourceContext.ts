@@ -51,7 +51,9 @@ const useResourceContext = (): UseResourceContextResponse => {
     openDelete,
     setOpenDelete,
     openComments,
-    setOpenComments 
+    setOpenComments,
+    openReferences,
+    setOpenReferences, 
   } = useContext(ResourceContext)
 
   const apiParams = { 
@@ -350,7 +352,9 @@ const useResourceContext = (): UseResourceContextResponse => {
     openDelete,
     setOpenDelete,
     openComments,
-    setOpenComments,     
+    setOpenComments,   
+    openReferences,
+    setOpenReferences,  
 	}
 }
 
