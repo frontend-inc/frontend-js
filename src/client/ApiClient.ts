@@ -216,7 +216,7 @@ export class ApiClient {
     this.name = name
 		this.payload = {
 			ids: ids,
-			resoure: resource,
+			resource: resource,
 		}
 		this.endpoint = `${url}/update_many`
 		return await this.post(this.endpoint, this.payload, this.headers)

@@ -292,7 +292,7 @@ var ApiClient = /** @class */ (function () {
                         this.name = name;
                         this.payload = {
                             ids: ids,
-                            resoure: resource,
+                            resource: resource,
                         };
                         this.endpoint = "".concat(url, "/update_many");
                         return [4 /*yield*/, this.post(this.endpoint, this.payload, this.headers)];
