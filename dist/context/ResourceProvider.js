@@ -41,11 +41,13 @@ var ResourceProvider = function (props) {
     var _j = (0, react_1.useState)({}), errors = _j[0], setErrors = _j[1];
     var _k = (0, react_1.useState)(), resource = _k[0], setResource = _k[1];
     var _l = (0, react_1.useState)([]), resources = _l[0], setResources = _l[1];
-    var _m = (0, react_1.useState)(false), openShow = _m[0], setOpenShow = _m[1];
-    var _o = (0, react_1.useState)(false), openDelete = _o[0], setOpenDelete = _o[1];
-    var _p = (0, react_1.useState)(false), openEdit = _p[0], setOpenEdit = _p[1];
-    var _q = (0, react_1.useState)(false), openComments = _q[0], setOpenComments = _q[1];
-    var _r = (0, react_1.useState)(false), openReferences = _r[0], setOpenReferences = _r[1];
+    var _m = (0, react_1.useState)([]), selected = _m[0], setSelected = _m[1];
+    var _o = (0, react_1.useState)([]), selectedIds = _o[0], setSelectedIds = _o[1];
+    var _p = (0, react_1.useState)(false), openShow = _p[0], setOpenShow = _p[1];
+    var _q = (0, react_1.useState)(false), openDelete = _q[0], setOpenDelete = _q[1];
+    var _r = (0, react_1.useState)(false), openEdit = _r[0], setOpenEdit = _r[1];
+    var _s = (0, react_1.useState)(false), openComments = _s[0], setOpenComments = _s[1];
+    var _t = (0, react_1.useState)(false), openReferences = _t[0], setOpenReferences = _t[1];
     (0, react_1.useEffect)(function () {
         if (_resource) {
             setResource(_resource);
@@ -66,6 +68,10 @@ var ResourceProvider = function (props) {
         setResource: setResource,
         resources: resources,
         setResources: setResources,
+        selected: selected,
+        setSelected: setSelected,
+        selectedIds: selectedIds,
+        setSelectedIds: setSelectedIds,
         meta: meta,
         setMeta: setMeta,
         page: page,

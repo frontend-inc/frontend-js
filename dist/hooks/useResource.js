@@ -73,6 +73,19 @@ var useResource = function (params) {
     var _j = (0, react_1.useState)(10), perPage = _j[0], setPerPage = _j[1];
     var _k = (0, react_1.useState)(0), totalCount = _k[0], setTotalCount = _k[1];
     var _l = (0, react_1.useState)(0), numPages = _l[0], setNumPages = _l[1];
+    var _m = (0, react_1.useState)([]), selected = _m[0], setSelected = _m[1];
+    var _o = (0, react_1.useState)([]), selectedIds = _o[0], setSelectedIds = _o[1];
+    var handleSelect = function (item) {
+        if (selectedIds.find(function (id) { return id === item.id; })) {
+            setSelected(selected.filter(function (i) { return i.id != item.id; }));
+        }
+        else {
+            setSelected(selected.concat(item));
+        }
+    };
+    var handleClear = function () {
+        setSelected([]);
+    };
     var showLoading = function () { return setLoading(true); };
     var hideLoading = function () { return setLoading(false); };
     var findOne = function (id) { return __awaiter(void 0, void 0, void 0, function () {
@@ -400,6 +413,11 @@ var useResource = function (params) {
         }
         console.log('handleErrors', e);
     };
+    (0, react_1.useEffect)(function () {
+        if (selected) {
+            setSelectedIds(selected.map(function (item) { return item.id; }));
+        }
+    }, [selected]);
     var delayedLoading = (0, hooks_1.useDelayedLoading)({
         loading: loading
     }).loading;
@@ -416,6 +434,12 @@ var useResource = function (params) {
         resources: resources,
         setResource: setResource,
         setResources: setResources,
+        selected: selected,
+        selectedIds: selectedIds,
+        setSelected: setSelected,
+        setSelectedIds: setSelectedIds,
+        handleSelect: handleSelect,
+        handleClear: handleClear,
         findOne: findOne,
         setQuery: setQuery,
         reloadMany: reloadMany,

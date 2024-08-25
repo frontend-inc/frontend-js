@@ -24,6 +24,8 @@ const ResourceProvider = (props: ResourceProviderProps) => {
   const [errors, setErrors] = useState({})
 	const [resource, setResource] = useState()
   const [resources, setResources] = useState([])
+  const [selected, setSelected] = useState([])
+  const [selectedIds, setSelectedIds] = useState([])
 
   const [openShow, setOpenShow] = useState(false) 
   const [openDelete, setOpenDelete] = useState(false)
@@ -59,6 +61,11 @@ const ResourceProvider = (props: ResourceProviderProps) => {
     resources,
     setResources,
 
+    selected,
+    setSelected,
+    selectedIds,
+    setSelectedIds,
+    
     meta,
     setMeta,
     page,

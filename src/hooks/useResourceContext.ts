@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useEffect, useContext } from 'react'
 import { ResourceContext } from '../context'
 import {
   changeDocumentValue,
@@ -44,6 +44,11 @@ const useResourceContext = (): UseResourceContextResponse => {
     numPages,
     setNumPages,
     
+    selected,
+    setSelected,
+    selectedIds,
+    setSelectedIds,
+
     openShow,
     setOpenShow,
     openEdit,
@@ -64,6 +69,18 @@ const useResourceContext = (): UseResourceContextResponse => {
 	const showLoading = () => setLoading(true)
 	const hideLoading = () => setLoading(false)
 	
+  const handleSelect = (item) => {
+		if (selectedIds.find((id) => id === item.id)) {
+			setSelected(selected.filter((i) => i.id != item.id))
+		} else {
+			setSelected(selected.concat(item))
+		}
+	}
+
+	const handleClear = () => {
+		setSelected([])
+	}
+
 	const findOne = async (id: ID) => {
 		if (!id) return null
 		return await loadingWrapper(() => api.findOne(id, apiParams))
@@ -296,6 +313,12 @@ const useResourceContext = (): UseResourceContextResponse => {
     }
 		console.log('handleErrors', e)
 	}
+
+  useEffect(() => {
+		if (selected) {
+			setSelectedIds(selected.map((item) => item.id))
+		}
+	}, [selected])
 
   const { loading: delayedLoading } = useDelayedLoading({
     loading

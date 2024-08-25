@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import { ApiContext } from '../context'
 import { useDelayedLoading } from '../hooks'
 import { ID, QueryParamsType, UseResourceResponse, SyntheticEventType } from '../types'
@@ -26,6 +26,20 @@ const useResource = (params: UseResourceParams): UseResourceResponse => {
 	const [perPage, setPerPage] = useState<number>(10)
 	const [totalCount, setTotalCount] = useState<number>(0)
 	const [numPages, setNumPages] = useState<number>(0)  
+  const [selected, setSelected] = useState<any[]>([])
+	const [selectedIds, setSelectedIds] = useState<number[]>([])
+
+	const handleSelect = (item) => {
+		if (selectedIds.find((id) => id === item.id)) {
+			setSelected(selected.filter((i) => i.id != item.id))
+		} else {
+			setSelected(selected.concat(item))
+		}
+	}
+
+	const handleClear = () => {
+		setSelected([])
+	}
 
 	const showLoading = () => setLoading(true)
 	const hideLoading = () => setLoading(false)
@@ -262,6 +276,12 @@ const useResource = (params: UseResourceParams): UseResourceResponse => {
 		console.log('handleErrors', e)
 	}
 
+	useEffect(() => {
+		if (selected) {
+			setSelectedIds(selected.map((item) => item.id))
+		}
+	}, [selected])
+
   const { loading: delayedLoading } = useDelayedLoading({
     loading
   })
@@ -279,6 +299,14 @@ const useResource = (params: UseResourceParams): UseResourceResponse => {
 		resources,
 		setResource,
 		setResources,
+    
+    selected,
+    selectedIds,
+    setSelected,
+    setSelectedIds,
+    handleSelect,
+    handleClear,
+
 		findOne,
 		setQuery,
 		reloadMany,
