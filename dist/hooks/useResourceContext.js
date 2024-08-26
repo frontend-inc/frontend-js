@@ -91,7 +91,11 @@ var useResourceContext = function () {
         var url = _a[0], id = _a[1];
         return api.findOne(id, { url: url });
     };
-    var _c = (0, swr_1.default)(findOneCache, findOneFetcher), findOneIsLoading = _c.isLoading, findOneData = _c.data, findOneError = _c.error;
+    var _c = (0, swr_1.default)(findOneCache, findOneFetcher, {
+        revalidateOnFocus: true,
+        revalidateOnReconnect: true,
+        shouldRetryOnError: true, // Prevent automatic retries on error
+    }), findOneIsLoading = _c.isLoading, findOneData = _c.data, findOneError = _c.error;
     (0, react_1.useEffect)(function () {
         var _a;
         if ((_a = findOneData === null || findOneData === void 0 ? void 0 : findOneData.data) === null || _a === void 0 ? void 0 : _a.id) {
@@ -118,7 +122,11 @@ var useResourceContext = function () {
         var url = _a[0], query = _a[1];
         return api.findMany(query, { url: url });
     };
-    var _d = (0, swr_1.default)(findManyCache, findManyFetcher), isLoading = _d.isLoading, data = _d.data, error = _d.error;
+    var _d = (0, swr_1.default)(findManyCache, findManyFetcher, {
+        revalidateOnFocus: true,
+        revalidateOnReconnect: true,
+        shouldRetryOnError: true, // Prevent automatic retries on error
+    }), isLoading = _d.isLoading, data = _d.data, error = _d.error;
     (0, react_1.useEffect)(function () {
         if (data === null || data === void 0 ? void 0 : data.data) {
             if (infiniteLoad) {

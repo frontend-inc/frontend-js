@@ -55,7 +55,11 @@ const useResource = (params: UseResourceParams): UseResourceResponse => {
   const { isLoading: findOneIsLoading, 
     data: findOneData, 
     error: findOneError 
-  } = useSWR(findOneCache, findOneFetcher)
+  } = useSWR(findOneCache, findOneFetcher, {
+    revalidateOnFocus: true, // Prevent revalidation on window focus
+    revalidateOnReconnect: true, // Prevent revalidation on reconnect
+    shouldRetryOnError: true, // Prevent automatic retries on error
+  })
   
   useEffect(() => {
     if(findOneData?.data?.id) {               
@@ -80,7 +84,11 @@ const useResource = (params: UseResourceParams): UseResourceResponse => {
 
   /* Find Many */
   const findManyFetcher = ([url, query]) => api.findMany(query, { url })  
-  const { isLoading, data, error } = useSWR(findManyCache, findManyFetcher)
+  const { isLoading, data, error } = useSWR(findManyCache, findManyFetcher, {
+    revalidateOnFocus: true, // Prevent revalidation on window focus
+    revalidateOnReconnect: true, // Prevent revalidation on reconnect
+    shouldRetryOnError: true, // Prevent automatic retries on error
+  })
   
   useEffect(() => {
     if(data?.data) {   
