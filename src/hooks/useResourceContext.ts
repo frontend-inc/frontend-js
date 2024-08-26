@@ -188,7 +188,7 @@ const useResourceContext = (): UseResourceContextResponse => {
 	}
 
 	const reloadMany = async () => {
-    return await mutate(query)
+    return await mutate([url, query])
 		//return await findMany(query)
 	}
 
