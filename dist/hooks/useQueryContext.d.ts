@@ -1,4 +1,8 @@
-declare const useQueryContext: () => {
+import { QueryParamsType } from '../types';
+type QueryParams = {
+    query: QueryParamsType;
+};
+declare const useQueryContext: (params: QueryParams) => {
     loading: any;
     errors: any;
     data: any;

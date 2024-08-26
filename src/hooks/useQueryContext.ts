@@ -1,9 +1,15 @@
 import React, { useEffect, useContext } from 'react'
 import useSWR from 'swr'
 import { ApiContext, ResourceContext } from '../context'
+import { QueryParamsType } from '../types'
 
+type QueryParams = {
+  query: QueryParamsType
+}
 
-const useQueryContext = () => {
+const useQueryContext = (params: QueryParams ) => {
+
+  const { query: defaultQuery } = params || {}
 
   const { api } = useContext(ApiContext)
 
@@ -15,8 +21,6 @@ const useQueryContext = () => {
     setErrors,
     resources,
     setResources,
-    query,
-    setQuery,
     meta,
     page,
     perPage,
@@ -29,8 +33,8 @@ const useQueryContext = () => {
     setTotalCount, 
   } = useContext(ResourceContext)
 
-  const cache = (url && query) ? [url, query] : null
-  const fetcher = ([url, query]) => api.findMany(query, { url })
+  const cache = (url && defaultQuery) ? [url, defaultQuery] : null
+  const fetcher = ([url, defaultQuery]) => api.findMany(defaultQuery, { url })
   
   const { isLoading, data, error } = useSWR(cache, fetcher)
 
