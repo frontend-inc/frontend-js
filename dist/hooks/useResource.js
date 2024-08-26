@@ -95,26 +95,39 @@ var useResource = function (params) {
     };
     var showLoading = function () { return setLoading(true); };
     var hideLoading = function () { return setLoading(false); };
+    /* Find One */
+    var findOneFetcher = function (_a) {
+        var url = _a[0], id = _a[1];
+        return api.findOne(id, { url: url });
+    };
+    var _s = (0, swr_1.default)(findOneCache, findOneFetcher), findOneIsLoading = _s.isLoading, findOneData = _s.data, findOneError = _s.error;
+    (0, react_1.useEffect)(function () {
+        if (findOneData) {
+            setResource(findOneData.data);
+        }
+    }, [findOneData]);
+    (0, react_1.useEffect)(function () {
+        if (findOneError) {
+            handleErrors(findOneError);
+        }
+    }, [findOneError]);
+    (0, react_1.useEffect)(function () {
+        setLoading(findOneIsLoading);
+    }, [findOneIsLoading]);
     var findOne = function (id) { return __awaiter(void 0, void 0, void 0, function () {
         return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0:
-                    if (!id)
-                        return [2 /*return*/, null];
-                    return [4 /*yield*/, loadingWrapper(function () { return api.findOne(id, apiParams); })];
-                case 1: return [2 /*return*/, _a.sent()];
-            }
+            if (!id)
+                return [2 /*return*/, null];
+            setFindOneCache([url, id]);
+            return [2 /*return*/];
         });
     }); };
+    /* Find Many */
     var findManyFetcher = function (_a) {
         var url = _a[0], query = _a[1];
         return api.findMany(query, { url: url });
     };
-    var _s = (0, swr_1.default)(findManyCache, findManyFetcher, {
-        revalidateOnFocus: false,
-        revalidateOnReconnect: false,
-        shouldRetryOnError: false, // Prevent automatic retries on error
-    }), isLoading = _s.isLoading, data = _s.data, error = _s.error;
+    var _t = (0, swr_1.default)(findManyCache, findManyFetcher), isLoading = _t.isLoading, data = _t.data, error = _t.error;
     (0, react_1.useEffect)(function () {
         if (data) {
             if (infiniteLoad) {
@@ -132,6 +145,11 @@ var useResource = function (params) {
             }
         }
     }, [data]);
+    (0, react_1.useEffect)(function () {
+        if (error) {
+            handleErrors(error);
+        }
+    }, [error]);
     (0, react_1.useEffect)(function () {
         setLoading(isLoading);
     }, [isLoading]);

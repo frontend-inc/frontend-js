@@ -23,7 +23,7 @@ const useResource = (params: UseResourceParams): UseResourceResponse => {
   
   const [infiniteLoad, setInifinteLoad] = useState<boolean>(false)
   const [findManyCache, setFindManyCache] = useState<[url: string, query: QueryParamsType]>(null)
-  const [findOneCache, setFindOneCache] = useState<ID>(null)
+  const [findOneCache, setFindOneCache] = useState<[url: string, id: ID]>(null)
 
 	const [query, setQuery] = useState<QueryParamsType>({})
 	const [meta, setMeta] = useState<any>(null)  
@@ -49,20 +49,35 @@ const useResource = (params: UseResourceParams): UseResourceResponse => {
 	const showLoading = () => setLoading(true)
 	const hideLoading = () => setLoading(false)
 
-	const findOne = async (id: ID) => {
+  /* Find One */
+  const findOneFetcher = ([url, id]) => api.findOne(id, { url })  
+  const { isLoading: findOneIsLoading, data: findOneData, error: findOneError } = useSWR(findOneCache, findOneFetcher)
+  
+  useEffect(() => {
+    if(findOneData) {         
+      setResource(findOneData.data)      
+    }
+  }, [findOneData])
+
+  useEffect(() => {
+    if(findOneError){
+      handleErrors(findOneError)
+    }
+  }, [findOneError])
+
+  useEffect(() => {
+    setLoading(findOneIsLoading)
+  }, [findOneIsLoading])
+
+  const findOne = async (id: ID) => {
 		if (!id) return null
-		return await loadingWrapper(() => api.findOne(id, apiParams))
+    setFindOneCache([url, id])
 	}
 
-  
+  /* Find Many */
   const findManyFetcher = ([url, query]) => api.findMany(query, { url })  
-
-  const { isLoading, data, error } = useSWR(findManyCache, findManyFetcher, {
-    revalidateOnFocus: false, // Prevent revalidation on window focus
-    revalidateOnReconnect: false, // Prevent revalidation on reconnect
-    shouldRetryOnError: false, // Prevent automatic retries on error
-  })
-
+  const { isLoading, data, error } = useSWR(findManyCache, findManyFetcher)
+  
   useEffect(() => {
     if(data) {   
       if(infiniteLoad){
@@ -79,6 +94,12 @@ const useResource = (params: UseResourceParams): UseResourceResponse => {
       }  
     }
   }, [data])
+
+  useEffect(() => {
+    if(error){
+      handleErrors(error)
+    }
+  }, [error])
 
   useEffect(() => {
     setLoading(isLoading)
@@ -100,7 +121,7 @@ const useResource = (params: UseResourceParams): UseResourceResponse => {
     }
     setFindManyCache([url, { ...query, ...queryParams }])		
 	}
-
+  
 	const loadMore = async () => {
 		let nextPage = page + 1
 		await findMany({ 
