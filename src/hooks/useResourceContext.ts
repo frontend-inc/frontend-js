@@ -104,9 +104,9 @@ const useResourceContext = (): UseResourceContextResponse => {
   useEffect(() => {
     if(data?.data) {   
       if(infiniteLoad){
-        setResources(new Set([...resources, ...data.data]))
+        setResources(Array.from(new Set([...resources, ...data.data])))
       }else{
-        setResources(new Set(data.data))      
+        setResources(Array.from(new Set(data.data)))      
       }           
       if (data?.meta) {
         setMeta(data.meta  )
