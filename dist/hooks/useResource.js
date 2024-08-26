@@ -55,10 +55,14 @@ var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
     }
     return to.concat(ar || Array.prototype.slice.call(from));
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 var react_1 = require("react");
 var context_1 = require("../context");
 var hooks_1 = require("../hooks");
+var swr_1 = __importDefault(require("swr"));
 var useResource = function (params) {
     var _a = params || {}, url = _a.url, name = _a.name;
     var apiParams = { url: url, name: name };
@@ -67,14 +71,17 @@ var useResource = function (params) {
     var _c = (0, react_1.useState)(), errors = _c[0], setErrors = _c[1];
     var _d = (0, react_1.useState)({}), resource = _d[0], setResource = _d[1];
     var _e = (0, react_1.useState)([]), resources = _e[0], setResources = _e[1];
-    var _f = (0, react_1.useState)({}), query = _f[0], setQuery = _f[1];
-    var _g = (0, react_1.useState)(null), meta = _g[0], setMeta = _g[1];
-    var _h = (0, react_1.useState)(1), page = _h[0], setPage = _h[1];
-    var _j = (0, react_1.useState)(10), perPage = _j[0], setPerPage = _j[1];
-    var _k = (0, react_1.useState)(0), totalCount = _k[0], setTotalCount = _k[1];
-    var _l = (0, react_1.useState)(0), numPages = _l[0], setNumPages = _l[1];
-    var _m = (0, react_1.useState)([]), selected = _m[0], setSelected = _m[1];
-    var _o = (0, react_1.useState)([]), selectedIds = _o[0], setSelectedIds = _o[1];
+    var _f = (0, react_1.useState)(false), infiniteLoad = _f[0], setInifinteLoad = _f[1];
+    var _g = (0, react_1.useState)(null), findManyCache = _g[0], setFindManyCache = _g[1];
+    var _h = (0, react_1.useState)(null), findOneCache = _h[0], setFindOneCache = _h[1];
+    var _j = (0, react_1.useState)({}), query = _j[0], setQuery = _j[1];
+    var _k = (0, react_1.useState)(null), meta = _k[0], setMeta = _k[1];
+    var _l = (0, react_1.useState)(1), page = _l[0], setPage = _l[1];
+    var _m = (0, react_1.useState)(10), perPage = _m[0], setPerPage = _m[1];
+    var _o = (0, react_1.useState)(0), totalCount = _o[0], setTotalCount = _o[1];
+    var _p = (0, react_1.useState)(0), numPages = _p[0], setNumPages = _p[1];
+    var _q = (0, react_1.useState)([]), selected = _q[0], setSelected = _q[1];
+    var _r = (0, react_1.useState)([]), selectedIds = _r[0], setSelectedIds = _r[1];
     var handleSelect = function (item) {
         if (selectedIds.find(function (id) { return id === item.id; })) {
             setSelected(selected.filter(function (i) { return i.id != item.id; }));
@@ -99,54 +106,52 @@ var useResource = function (params) {
             }
         });
     }); };
+    var findManyFetcher = function (_a) {
+        var url = _a[0], query = _a[1];
+        return api.findMany(query, { url: url });
+    };
+    var _s = (0, swr_1.default)(findManyCache, findManyFetcher, {
+        revalidateOnFocus: false,
+        revalidateOnReconnect: false,
+        shouldRetryOnError: false, // Prevent automatic retries on error
+    }), isLoading = _s.isLoading, data = _s.data, error = _s.error;
+    (0, react_1.useEffect)(function () {
+        if (data) {
+            if (infiniteLoad) {
+                setResources(__spreadArray(__spreadArray([], resources, true), data.data, true));
+            }
+            else {
+                setResources(data.data);
+            }
+            if (data.meta) {
+                setMeta(data.meta);
+                setPage(data.meta.page);
+                setPerPage(data.meta.per_page);
+                setTotalCount(data.meta.total_count);
+                setNumPages(data.meta.num_pages);
+            }
+        }
+    }, [data]);
+    (0, react_1.useEffect)(function () {
+        setLoading(isLoading);
+    }, [isLoading]);
     var findMany = function (queryParams, opts) {
         if (queryParams === void 0) { queryParams = {}; }
         if (opts === void 0) { opts = {}; }
         return __awaiter(void 0, void 0, void 0, function () {
-            var res, e_1;
             return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0:
-                        if (url === null || url === void 0 ? void 0 : url.includes('undefined')) {
-                            console.log('Error: the URL contains undefined', url);
-                            return [2 /*return*/];
-                        }
-                        _a.label = 1;
-                    case 1:
-                        _a.trys.push([1, 3, 4, 5]);
-                        setLoading(true);
-                        if (queryParams) {
-                            setQuery(__assign(__assign({}, query), queryParams));
-                        }
-                        return [4 /*yield*/, api.findMany(__assign(__assign({}, query), queryParams), apiParams)];
-                    case 2:
-                        res = _a.sent();
-                        if (res.data) {
-                            if ((opts === null || opts === void 0 ? void 0 : opts.loadMore) !== true) {
-                                setResources(res.data);
-                            }
-                            else {
-                                setResources(__spreadArray(__spreadArray([], resources, true), res.data, true));
-                            }
-                            if (res.meta) {
-                                setMeta(res.meta);
-                                setPage(res.meta.page);
-                                setPerPage(res.meta.per_page);
-                                setTotalCount(res.meta.total_count);
-                                setNumPages(res.meta.num_pages);
-                            }
-                            return [2 /*return*/, res.data];
-                        }
-                        return [3 /*break*/, 5];
-                    case 3:
-                        e_1 = _a.sent();
-                        handleErrors(e_1);
-                        return [3 /*break*/, 5];
-                    case 4:
-                        setLoading(false);
-                        return [7 /*endfinally*/];
-                    case 5: return [2 /*return*/];
+                if (url === null || url === void 0 ? void 0 : url.includes('undefined')) {
+                    console.log('Error: the URL contains undefined', url);
+                    return [2 /*return*/];
                 }
+                if (opts === null || opts === void 0 ? void 0 : opts.loadMore) {
+                    setInifinteLoad(true);
+                }
+                else {
+                    setInifinteLoad(false);
+                }
+                setFindManyCache([url, __assign(__assign({}, query), queryParams)]);
+                return [2 /*return*/];
             });
         });
     };
@@ -376,7 +381,7 @@ var useResource = function (params) {
         setResource(updatedResource);
     };
     var loadingWrapper = function (apiMethod) { return __awaiter(void 0, void 0, void 0, function () {
-        var res, e_2;
+        var res, e_1;
         var _a;
         return __generator(this, function (_b) {
             switch (_b.label) {
@@ -395,7 +400,7 @@ var useResource = function (params) {
                     }
                     return [2 /*return*/, res === null || res === void 0 ? void 0 : res.data];
                 case 2:
-                    e_2 = _b.sent();
+                    e_1 = _b.sent();
                     return [3 /*break*/, 4];
                 case 3:
                     hideLoading();
