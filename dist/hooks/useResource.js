@@ -104,6 +104,8 @@ var useResource = function (params) {
     var _s = (0, swr_1.default)(findOneCache, findOneFetcher, {
         revalidateOnFocus: true,
         revalidateOnReconnect: true,
+        errorRetryCount: 3,
+        errorRetryInterval: 1000,
         shouldRetryOnError: true, // Prevent automatic retries on error
     }), findOneIsLoading = _s.isLoading, findOneData = _s.data, findOneError = _s.error;
     (0, react_1.useEffect)(function () {
@@ -136,6 +138,8 @@ var useResource = function (params) {
     var _t = (0, swr_1.default)(findManyCache, findManyFetcher, {
         revalidateOnFocus: true,
         revalidateOnReconnect: true,
+        errorRetryCount: 3,
+        errorRetryInterval: 1000,
         shouldRetryOnError: true, // Prevent automatic retries on error
     }), isLoading = _t.isLoading, data = _t.data, error = _t.error;
     (0, react_1.useEffect)(function () {

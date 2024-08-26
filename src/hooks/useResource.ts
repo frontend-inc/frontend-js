@@ -58,6 +58,8 @@ const useResource = (params: UseResourceParams): UseResourceResponse => {
   } = useSWR(findOneCache, findOneFetcher, {
     revalidateOnFocus: true, // Prevent revalidation on window focus
     revalidateOnReconnect: true, // Prevent revalidation on reconnect
+    errorRetryCount: 3, // Prevent retries on error
+    errorRetryInterval: 1000, // Retry every 1 second
     shouldRetryOnError: true, // Prevent automatic retries on error
   })
   
@@ -87,6 +89,8 @@ const useResource = (params: UseResourceParams): UseResourceResponse => {
   const { isLoading, data, error } = useSWR(findManyCache, findManyFetcher, {
     revalidateOnFocus: true, // Prevent revalidation on window focus
     revalidateOnReconnect: true, // Prevent revalidation on reconnect
+    errorRetryCount: 3, // Prevent retries on error
+    errorRetryInterval: 1000, // Retry every 1 second
     shouldRetryOnError: true, // Prevent automatic retries on error
   })
   

@@ -94,6 +94,8 @@ var useResourceContext = function () {
     var _c = (0, swr_1.default)(findOneCache, findOneFetcher, {
         revalidateOnFocus: true,
         revalidateOnReconnect: true,
+        errorRetryCount: 3,
+        errorRetryInterval: 1000,
         shouldRetryOnError: true, // Prevent automatic retries on error
     }), findOneIsLoading = _c.isLoading, findOneData = _c.data, findOneError = _c.error;
     (0, react_1.useEffect)(function () {
@@ -123,6 +125,8 @@ var useResourceContext = function () {
         return api.findMany(query, { url: url });
     };
     var _d = (0, swr_1.default)(findManyCache, findManyFetcher, {
+        errorRetryCount: 3,
+        errorRetryInterval: 1000,
         revalidateOnFocus: true,
         revalidateOnReconnect: true,
         shouldRetryOnError: true, // Prevent automatic retries on error
