@@ -66,7 +66,7 @@ var useQueryContext = function (params) {
         shouldRetryOnError: false, // Prevent automatic retries on error
     }), isLoading = _b.isLoading, data = _b.data, error = _b.error, mutate = _b.mutate;
     var findMany = function (query, opts) { return __awaiter(void 0, void 0, void 0, function () {
-        var resp, err_1;
+        var resp, data_1, err_1;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
@@ -75,19 +75,20 @@ var useQueryContext = function (params) {
                     return [4 /*yield*/, mutate([url, query])];
                 case 1:
                     resp = _a.sent();
-                    if (resp === null || resp === void 0 ? void 0 : resp.data) {
+                    data_1 = resp === null || resp === void 0 ? void 0 : resp.data;
+                    if (data_1 === null || data_1 === void 0 ? void 0 : data_1.data) {
                         if (opts === null || opts === void 0 ? void 0 : opts.loadMore) {
-                            setResources(__spreadArray(__spreadArray([], resources, true), resp.data, true));
+                            setResources(__spreadArray(__spreadArray([], resources, true), data_1.data, true));
                         }
                         else {
-                            setResources(resp.data);
+                            setResources(data_1.data);
                         }
-                        if (data.meta) {
-                            setMeta(data.meta);
-                            setPage(data.meta.page);
-                            setPerPage(data.meta.per_page);
-                            setTotalCount(data.meta.total_count);
-                            setNumPages(data.meta.num_pages);
+                        if (data_1.meta) {
+                            setMeta(data_1.meta);
+                            setPage(data_1.meta.page);
+                            setPerPage(data_1.meta.per_page);
+                            setTotalCount(data_1.meta.total_count);
+                            setNumPages(data_1.meta.num_pages);
                         }
                     }
                     if (resp === null || resp === void 0 ? void 0 : resp.errors) {

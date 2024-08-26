@@ -47,11 +47,12 @@ const useQueryContext = (params: QueryParams ) => {
     try{
       setLoading(true)
       resp = await mutate([url, query])
-      if(resp?.data) {
+      let data = resp?.data
+      if(data?.data) {
         if(opts?.loadMore){
-          setResources([...resources, ...resp.data])
+          setResources([...resources, ...data.data])
         }else{
-          setResources(resp.data)
+          setResources(data.data)
         }
         if (data.meta) {
           setMeta(data.meta)
