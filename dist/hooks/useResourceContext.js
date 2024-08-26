@@ -104,10 +104,10 @@ var useResourceContext = function () {
     (0, react_1.useEffect)(function () {
         if (data === null || data === void 0 ? void 0 : data.data) {
             if (infiniteLoad) {
-                setResources(__spreadArray(__spreadArray([], resources, true), data.data, true));
+                setResources(new Set(__spreadArray(__spreadArray([], resources, true), data.data, true)));
             }
             else {
-                setResources(data.data);
+                setResources(new Set(data.data));
             }
             if (data === null || data === void 0 ? void 0 : data.meta) {
                 setMeta(data.meta);

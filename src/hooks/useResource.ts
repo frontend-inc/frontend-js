@@ -84,9 +84,9 @@ const useResource = (params: UseResourceParams): UseResourceResponse => {
   useEffect(() => {
     if(data?.data) {   
       if(infiniteLoad){
-        setResources([...resources, ...data.data])
+        setResources(new Set([...resources, ...data.data]))
       }else{
-        setResources(data.data)      
+        setResources(new Set(data.data))      
       }           
       if (data?.meta) {
         setMeta(data.meta  )
