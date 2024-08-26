@@ -170,7 +170,7 @@ var useResource = function (params) {
                     setInfiniteLoad(false);
                 }
                 setQuery(queryParams);
-                setFindManyCache([url, queryParams]);
+                setFindManyCache([url, __assign(__assign({}, query), queryParams)]);
                 return [2 /*return*/];
             });
         });

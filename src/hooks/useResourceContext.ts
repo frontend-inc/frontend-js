@@ -139,7 +139,7 @@ const useResourceContext = (): UseResourceContextResponse => {
       setInfiniteLoad(false)
     }
     setQuery(queryParams)
-    setFindManyCache([url, queryParams])		
+    setFindManyCache([url, { ...query, ...queryParams }])		
 	}
 
 	const loadMore = async () => {

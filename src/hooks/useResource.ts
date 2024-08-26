@@ -123,7 +123,7 @@ const useResource = (params: UseResourceParams): UseResourceResponse => {
       setInfiniteLoad(false)
     }
     setQuery(queryParams)
-    setFindManyCache([url, queryParams])		
+    setFindManyCache([url, { ...query, ...queryParams }])		
 	}
   
 	const loadMore = async () => {
