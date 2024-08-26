@@ -86,13 +86,7 @@ const useResource = (params: UseResourceParams): UseResourceResponse => {
 
   /* Find Many */
   const findManyFetcher = ([url, query]) => api.findMany(query, { url })  
-  const { isLoading, data, error } = useSWR(findManyCache, findManyFetcher, {
-    revalidateOnFocus: true, // Prevent revalidation on window focus
-    revalidateOnReconnect: true, // Prevent revalidation on reconnect
-    errorRetryCount: 3, // Prevent retries on error
-    errorRetryInterval: 1000, // Retry every 1 second
-    shouldRetryOnError: true, // Prevent automatic retries on error
-  })
+  const { isLoading, data, error } = useSWR(findManyCache, findManyFetcher)
   
   useEffect(() => {
     if(data?.data) {   
@@ -135,8 +129,12 @@ const useResource = (params: UseResourceParams): UseResourceResponse => {
     }else{
       setInfiniteLoad(false)
     }
-    setQuery(queryParams)
-    setFindManyCache([url, { ...query, ...queryParams }])		
+    let searchQuery = { 
+      ...query, 
+      ...queryParams 
+    }
+    setQuery(searchQuery)
+    setFindManyCache([url, searchQuery])		
 	}
   
 	const loadMore = async () => {

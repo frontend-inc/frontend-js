@@ -135,13 +135,7 @@ var useResource = function (params) {
         var url = _a[0], query = _a[1];
         return api.findMany(query, { url: url });
     };
-    var _t = (0, swr_1.default)(findManyCache, findManyFetcher, {
-        revalidateOnFocus: true,
-        revalidateOnReconnect: true,
-        errorRetryCount: 3,
-        errorRetryInterval: 1000,
-        shouldRetryOnError: true, // Prevent automatic retries on error
-    }), isLoading = _t.isLoading, data = _t.data, error = _t.error;
+    var _t = (0, swr_1.default)(findManyCache, findManyFetcher), isLoading = _t.isLoading, data = _t.data, error = _t.error;
     (0, react_1.useEffect)(function () {
         if (data === null || data === void 0 ? void 0 : data.data) {
             if (infiniteLoad) {
@@ -171,6 +165,7 @@ var useResource = function (params) {
         if (queryParams === void 0) { queryParams = {}; }
         if (opts === void 0) { opts = {}; }
         return __awaiter(void 0, void 0, void 0, function () {
+            var searchQuery;
             return __generator(this, function (_a) {
                 if (url === null || url === void 0 ? void 0 : url.includes('undefined')) {
                     console.log('Error: the URL contains undefined', url);
@@ -182,8 +177,9 @@ var useResource = function (params) {
                 else {
                     setInfiniteLoad(false);
                 }
-                setQuery(queryParams);
-                setFindManyCache([url, __assign(__assign({}, query), queryParams)]);
+                searchQuery = __assign(__assign({}, query), queryParams);
+                setQuery(searchQuery);
+                setFindManyCache([url, searchQuery]);
                 return [2 /*return*/];
             });
         });
