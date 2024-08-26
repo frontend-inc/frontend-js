@@ -105,10 +105,10 @@ var useResourceContext = function () {
     (0, react_1.useEffect)(function () {
         if (data === null || data === void 0 ? void 0 : data.data) {
             if (infiniteLoad) {
-                setResources((0, lodash_1.uniq)(__spreadArray(__spreadArray([], resources, true), data.data, true)));
+                setResources((0, lodash_1.uniqBy)(__spreadArray(__spreadArray([], resources, true), data.data, true), 'id'));
             }
             else {
-                setResources((0, lodash_1.uniq)(data.data));
+                setResources((0, lodash_1.uniqBy)(data.data, 'id'));
             }
             if (data === null || data === void 0 ? void 0 : data.meta) {
                 setMeta(data.meta);

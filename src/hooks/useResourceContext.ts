@@ -7,7 +7,7 @@ import { ApiContext } from '../context'
 import { useDelayedLoading } from '.'
 import { ID, QueryParamsType, UseResourceResponse, SyntheticEventType } from '../types'
 import useSWR from 'swr'
-import { uniq } from 'lodash'
+import { uniqBy } from 'lodash'
 
 type UseResourceContextResponse = UseResourceResponse & {
   openShow: boolean
@@ -105,9 +105,9 @@ const useResourceContext = (): UseResourceContextResponse => {
   useEffect(() => {
     if(data?.data) {   
       if(infiniteLoad){
-        setResources(uniq([...resources, ...data.data]))
+        setResources(uniqBy([...resources, ...data.data], 'id'))
       }else{
-        setResources(uniq(data.data)) 
+        setResources(uniqBy(data.data, 'id')) 
       }           
       if (data?.meta) {
         setMeta(data.meta  )
