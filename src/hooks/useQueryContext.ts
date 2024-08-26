@@ -3,13 +3,7 @@ import useSWR from 'swr'
 import { ApiContext, ResourceContext } from '../context'
 import { QueryParamsType } from '../types'
 
-type QueryParams = {
-  query: QueryParamsType
-}
-
-const useQueryContext = (params: QueryParams ) => {
-
-  const { query: defaultQuery } = params || {}
+const useQueryContext = () => {
 
   const { api } = useContext(ApiContext)
 

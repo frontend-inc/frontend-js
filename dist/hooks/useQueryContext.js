@@ -51,8 +51,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var react_1 = require("react");
 var swr_1 = __importDefault(require("swr"));
 var context_1 = require("../context");
-var useQueryContext = function (params) {
-    var defaultQuery = (params || {}).query;
+var useQueryContext = function () {
     var api = (0, react_1.useContext)(context_1.ApiContext).api;
     var _a = (0, react_1.useContext)(context_1.ResourceContext), url = _a.url, loading = _a.loading, setLoading = _a.setLoading, errors = _a.errors, setErrors = _a.setErrors, resources = _a.resources, setResources = _a.setResources, meta = _a.meta, page = _a.page, perPage = _a.perPage, numPages = _a.numPages, totalCount = _a.totalCount, setNumPages = _a.setNumPages, setMeta = _a.setMeta, setPage = _a.setPage, setPerPage = _a.setPerPage, setTotalCount = _a.setTotalCount;
     //const cache = (url && defaultQuery) ? [url, defaultQuery] : null
