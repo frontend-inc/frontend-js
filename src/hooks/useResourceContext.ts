@@ -370,7 +370,7 @@ const useResourceContext = (): UseResourceContextResponse => {
 		if (selected) {
 			setSelectedIds(selected.map((item) => item.id))
 		}
-	}, [selected])
+	}, [selected])  
 
   const { loading: delayedLoading } = useDelayedLoading({
     loading
