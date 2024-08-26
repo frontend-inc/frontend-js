@@ -43,6 +43,7 @@ var react_1 = require("react");
 var context_1 = require("../context");
 var useResource_1 = __importDefault(require("./useResource"));
 var cookies_next_1 = require("cookies-next");
+var swr_1 = __importDefault(require("swr"));
 var useAuth = function () {
     var _a = (0, react_1.useContext)(context_1.ApiContext), api = _a.api, authCookie = _a.authCookie;
     var url = (0, react_1.useContext)(context_1.AuthContext).serverPath;
@@ -57,18 +58,25 @@ var useAuth = function () {
         url: url,
         name: 'user'
     };
+    var fetcher = function () { return loadingWrapper(function () { return api.fetchMe(apiParams); }); };
+    var mutate = (0, swr_1.default)('fetchMe', fetcher).mutate;
+    var fetchMe = function () { return __awaiter(void 0, void 0, void 0, function () {
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, mutate()];
+                case 1:
+                    _a.sent();
+                    return [2 /*return*/];
+            }
+        });
+    }); };
+    /*const fetchMe = async () => {
+          return await loadingWrapper(() => api.fetchMe(apiParams))
+      }*/
     var updateMe = function (user) { return __awaiter(void 0, void 0, void 0, function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0: return [4 /*yield*/, loadingWrapper(function () { return api.updateMe(user, apiParams); })];
-                case 1: return [2 /*return*/, _a.sent()];
-            }
-        });
-    }); };
-    var fetchMe = function () { return __awaiter(void 0, void 0, void 0, function () {
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0: return [4 /*yield*/, loadingWrapper(function () { return api.fetchMe(apiParams); })];
                 case 1: return [2 /*return*/, _a.sent()];
             }
         });

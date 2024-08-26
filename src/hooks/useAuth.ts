@@ -3,6 +3,7 @@ import { ApiContext, AuthContext } from '../context'
 import useResource from './useResource'
 import { deleteCookie, getCookie, setCookie } from 'cookies-next'
 import { UserType } from '../types'
+import useSWR from 'swr'
 
 const useAuth = () => {
 	let { api, authCookie } = useContext(ApiContext)
@@ -40,12 +41,19 @@ const useAuth = () => {
     name: 'user'
   }
 
+  const fetcher = () => loadingWrapper(() => api.fetchMe(apiParams))
+  const { mutate } = useSWR('fetchMe', fetcher)
+
+  const fetchMe = async () => {
+    await mutate()
+  }
+
+  /*const fetchMe = async () => {
+		return await loadingWrapper(() => api.fetchMe(apiParams))
+	}*/
+
 	const updateMe = async (user: UserType) => {
 		return await loadingWrapper(() => api.updateMe(user, apiParams))
-	}
-
-	const fetchMe = async () => {
-		return await loadingWrapper(() => api.fetchMe(apiParams))
 	}
 
 	const login = async (user: UserType) => {
