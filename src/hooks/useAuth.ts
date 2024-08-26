@@ -42,15 +42,11 @@ const useAuth = () => {
   }
 
   const fetcher = () => loadingWrapper(() => api.fetchMe(apiParams))
-  const { mutate } = useSWR('fetchMe', fetcher)
+  useSWR('fetchMe', fetcher)
 
   const fetchMe = async () => {
-    await mutate()
-  }
-
-  /*const fetchMe = async () => {
-		return await loadingWrapper(() => api.fetchMe(apiParams))
-	}*/
+		//return await loadingWrapper(() => api.fetchMe(apiParams))
+	}
 
 	const updateMe = async (user: UserType) => {
 		return await loadingWrapper(() => api.updateMe(user, apiParams))

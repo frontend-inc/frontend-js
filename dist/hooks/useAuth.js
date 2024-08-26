@@ -59,20 +59,12 @@ var useAuth = function () {
         name: 'user'
     };
     var fetcher = function () { return loadingWrapper(function () { return api.fetchMe(apiParams); }); };
-    var mutate = (0, swr_1.default)('fetchMe', fetcher).mutate;
+    (0, swr_1.default)('fetchMe', fetcher);
     var fetchMe = function () { return __awaiter(void 0, void 0, void 0, function () {
         return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0: return [4 /*yield*/, mutate()];
-                case 1:
-                    _a.sent();
-                    return [2 /*return*/];
-            }
+            return [2 /*return*/];
         });
     }); };
-    /*const fetchMe = async () => {
-          return await loadingWrapper(() => api.fetchMe(apiParams))
-      }*/
     var updateMe = function (user) { return __awaiter(void 0, void 0, void 0, function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
