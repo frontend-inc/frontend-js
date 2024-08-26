@@ -159,6 +159,7 @@ var useResourceContext = function () {
         if (queryParams === void 0) { queryParams = {}; }
         if (opts === void 0) { opts = {}; }
         return __awaiter(void 0, void 0, void 0, function () {
+            var searchQuery;
             return __generator(this, function (_a) {
                 if (url === null || url === void 0 ? void 0 : url.includes('undefined')) {
                     console.log('Error: the URL contains undefined', url);
@@ -170,8 +171,9 @@ var useResourceContext = function () {
                 else {
                     setInfiniteLoad(false);
                 }
-                setQuery(queryParams);
-                setFindManyCache([url, __assign(__assign({}, query), queryParams)]);
+                searchQuery = __assign(__assign({}, query), queryParams);
+                setQuery(searchQuery);
+                setFindManyCache([url, searchQuery]);
                 return [2 /*return*/];
             });
         });
