@@ -129,7 +129,7 @@ var useResourceContext = function () {
         errorRetryInterval: 1000,
         revalidateOnFocus: true,
         revalidateOnReconnect: true,
-    }), isLoading = _d.isLoading, data = _d.data, error = _d.error;
+    }), isLoading = _d.isLoading, data = _d.data, error = _d.error, mutate = _d.mutate;
     (0, react_1.useEffect)(function () {
         if (data === null || data === void 0 ? void 0 : data.data) {
             if (infiniteLoad) {
@@ -194,8 +194,12 @@ var useResourceContext = function () {
     var reloadMany = function () { return __awaiter(void 0, void 0, void 0, function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, findMany(query)];
-                case 1: return [2 /*return*/, _a.sent()];
+                case 0: return [4 /*yield*/, mutate(query)
+                    //return await findMany(query)
+                ];
+                case 1: return [2 /*return*/, _a.sent()
+                    //return await findMany(query)
+                ];
             }
         });
     }); };
