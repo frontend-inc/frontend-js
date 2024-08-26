@@ -9,6 +9,7 @@ type ApiProviderProps = {
   authUrl?: string
 	apiKey?: string
 	authCookie: string
+  requireApiKey?: boolean
 	children: React.ReactNode
 }
 
@@ -20,6 +21,7 @@ const ApiProvider = (props: ApiProviderProps) => {
     authUrl,
 		authCookie = 'auth-token',
 		apiKey,
+    requireApiKey,
 		children,
 	} = props || {}
 
@@ -42,7 +44,7 @@ const ApiProvider = (props: ApiProviderProps) => {
 		clientUrl,
 		authCookie,
 	}
-
+  if(requireApiKey && !apiKey) return null;
 	return <ApiContext.Provider value={value}>{children}</ApiContext.Provider>
 }
 
