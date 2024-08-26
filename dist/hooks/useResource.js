@@ -63,6 +63,7 @@ var react_1 = require("react");
 var context_1 = require("../context");
 var hooks_1 = require("../hooks");
 var swr_1 = __importDefault(require("swr"));
+var lodash_1 = require("lodash");
 var useResource = function (params) {
     var _a = params || {}, url = _a.url, name = _a.name;
     var apiParams = { url: url, name: name };
@@ -132,10 +133,10 @@ var useResource = function (params) {
     (0, react_1.useEffect)(function () {
         if (data === null || data === void 0 ? void 0 : data.data) {
             if (infiniteLoad) {
-                setResources(Array.from(new Set(__spreadArray(__spreadArray([], resources, true), data.data, true))));
+                setResources((0, lodash_1.uniq)(__spreadArray(__spreadArray([], resources, true), data.data, true)));
             }
             else {
-                setResources(Array.from(new Set(data.data)));
+                setResources((0, lodash_1.uniq)(data.data));
             }
             if (data === null || data === void 0 ? void 0 : data.meta) {
                 setMeta(data.meta);
