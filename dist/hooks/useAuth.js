@@ -58,8 +58,12 @@ var useAuth = function () {
         url: url,
         name: 'user'
     };
+    var cacheKey = token ? true : false;
     var fetcher = function () { return loadingWrapper(function () { return api.fetchMe(apiParams); }); };
-    (0, swr_1.default)('fetchMe', fetcher);
+    (0, swr_1.default)([cacheKey], fetcher, {
+        revalidateOnFocus: true,
+        revalidateOnReconnect: true
+    });
     var fetchMe = function () { return __awaiter(void 0, void 0, void 0, function () {
         return __generator(this, function (_a) {
             return [2 /*return*/];

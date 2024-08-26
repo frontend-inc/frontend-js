@@ -1,6 +1,6 @@
 {
     "name": "frontend-js",
-    "version": "0.0.148",
+    "version": "0.0.149",
     "license": "MIT",
     "description": "A JavaScript REST client for Frontend.co.",
     "homepage": "https://github.com/frontend-inc/frontend-js",

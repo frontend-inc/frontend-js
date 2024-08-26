@@ -41,8 +41,12 @@ const useAuth = () => {
     name: 'user'
   }
 
+  const cacheKey = token ? true : false 
   const fetcher = () => loadingWrapper(() => api.fetchMe(apiParams))
-  useSWR('fetchMe', fetcher)
+  useSWR([cacheKey], fetcher, {
+    revalidateOnFocus: true,
+    revalidateOnReconnect: true    
+  })
 
   const fetchMe = async () => {
 		//return await loadingWrapper(() => api.fetchMe(apiParams))
