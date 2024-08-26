@@ -194,12 +194,8 @@ var useResourceContext = function () {
     var reloadMany = function () { return __awaiter(void 0, void 0, void 0, function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, mutate([url, query])
-                    //return await findMany(query)
-                ];
-                case 1: return [2 /*return*/, _a.sent()
-                    //return await findMany(query)
-                ];
+                case 0: return [4 /*yield*/, findMany(query)];
+                case 1: return [2 /*return*/, _a.sent()];
             }
         });
     }); };

@@ -188,8 +188,7 @@ const useResourceContext = (): UseResourceContextResponse => {
 	}
 
 	const reloadMany = async () => {
-    return await mutate([url, query])
-		//return await findMany(query)
+    return await findMany(query)
 	}
 
 	const paginate = async (page: number) => {
