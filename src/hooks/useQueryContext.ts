@@ -36,15 +36,15 @@ const useQueryContext = () => {
     shouldRetryOnError: false, // Prevent automatic retries on error
   })
 
-  const findMany = async (query: QueryParamsType, opts) => {
+  const findMany = async (query: QueryParamsType ) => {
     let resp = await mutate([url, query])
-    let data = resp?.data
-    if(data?.data) {
-      if(opts?.loadMore){
-        setResources([...resources, ...data.data])
-      }else{
-        setResources(data.data)
-      }
+    console.log("Find Many", resp)
+    return resp
+  }
+
+  useEffect(() => {
+    if(data) {      
+      setResources(data.data)      
       if (data.meta) {
         setMeta(data.meta)
         setPage(data.meta.page)
@@ -53,8 +53,7 @@ const useQueryContext = () => {
         setNumPages(data.meta.num_pages)          
       }  
     }
-    return resp
-  }
+  }, [data])
 
   const handleError = (errors: any) => {
     console.log('Errors', errors)

@@ -35,15 +35,6 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
-    if (pack || arguments.length === 2) for (var i = 0, l = from.length, ar; i < l; i++) {
-        if (ar || !(i in from)) {
-            if (!ar) ar = Array.prototype.slice.call(from, 0, i);
-            ar[i] = from[i];
-        }
-    }
-    return to.concat(ar || Array.prototype.slice.call(from));
-};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -64,33 +55,30 @@ var useQueryContext = function () {
         revalidateOnReconnect: false,
         shouldRetryOnError: false, // Prevent automatic retries on error
     }), isLoading = _b.isLoading, data = _b.data, error = _b.error, mutate = _b.mutate;
-    var findMany = function (query, opts) { return __awaiter(void 0, void 0, void 0, function () {
-        var resp, data;
+    var findMany = function (query) { return __awaiter(void 0, void 0, void 0, function () {
+        var resp;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0: return [4 /*yield*/, mutate([url, query])];
                 case 1:
                     resp = _a.sent();
-                    data = resp === null || resp === void 0 ? void 0 : resp.data;
-                    if (data === null || data === void 0 ? void 0 : data.data) {
-                        if (opts === null || opts === void 0 ? void 0 : opts.loadMore) {
-                            setResources(__spreadArray(__spreadArray([], resources, true), data.data, true));
-                        }
-                        else {
-                            setResources(data.data);
-                        }
-                        if (data.meta) {
-                            setMeta(data.meta);
-                            setPage(data.meta.page);
-                            setPerPage(data.meta.per_page);
-                            setTotalCount(data.meta.total_count);
-                            setNumPages(data.meta.num_pages);
-                        }
-                    }
+                    console.log("Find Many", resp);
                     return [2 /*return*/, resp];
             }
         });
     }); };
+    (0, react_1.useEffect)(function () {
+        if (data) {
+            setResources(data.data);
+            if (data.meta) {
+                setMeta(data.meta);
+                setPage(data.meta.page);
+                setPerPage(data.meta.per_page);
+                setTotalCount(data.meta.total_count);
+                setNumPages(data.meta.num_pages);
+            }
+        }
+    }, [data]);
     var handleError = function (errors) {
         console.log('Errors', errors);
     };

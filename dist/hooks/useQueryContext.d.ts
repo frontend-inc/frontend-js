@@ -3,7 +3,7 @@ declare const useQueryContext: () => {
     loading: any;
     errors: any;
     data: any;
-    findMany: (query: QueryParamsType, opts: any) => Promise<any>;
+    findMany: (query: QueryParamsType) => Promise<any>;
     resources: any;
     meta: any;
     page: any;
