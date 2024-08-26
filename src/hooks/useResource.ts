@@ -21,7 +21,7 @@ const useResource = (params: UseResourceParams): UseResourceResponse => {
 	const [resource, setResource] = useState<any>({})
 	const [resources, setResources] = useState<any[]>([])
   
-  const [infiniteLoad, setInifinteLoad] = useState<boolean>(false)
+  const [infiniteLoad, setInfiniteLoad] = useState<boolean>(false)
   const [findManyCache, setFindManyCache] = useState<[url: string, query: QueryParamsType]>(null)
   const [findOneCache, setFindOneCache] = useState<[url: string, id: ID]>(null)
 
@@ -57,11 +57,10 @@ const useResource = (params: UseResourceParams): UseResourceResponse => {
   } = useSWR(findOneCache, findOneFetcher)
   
   useEffect(() => {
-    console.log('findOneData', findOneData)
     if(findOneData?.data?.id) {               
       setResource(findOneData.data)      
     }
-  }, [findOneData])
+  }, [findOneData?.data])
 
   useEffect(() => {
     if(findOneError){
@@ -83,14 +82,14 @@ const useResource = (params: UseResourceParams): UseResourceResponse => {
   const { isLoading, data, error } = useSWR(findManyCache, findManyFetcher)
   
   useEffect(() => {
-    if(data) {   
+    if(data?.data) {   
       if(infiniteLoad){
         setResources([...resources, ...data.data])
       }else{
         setResources(data.data)      
-      }      
-      if (data.meta) {
-        setMeta(data.meta)
+      }           
+      if (data?.meta) {
+        setMeta(data.meta  )
         setPage(data.meta.page)
         setPerPage(data.meta.per_page)
         setTotalCount(data.meta.total_count)
@@ -119,11 +118,12 @@ const useResource = (params: UseResourceParams): UseResourceResponse => {
 			return
 		}
     if(opts?.loadMore){
-      setInifinteLoad(true)
+      setInfiniteLoad(true)
     }else{
-      setInifinteLoad(false)
+      setInfiniteLoad(false)
     }
-    setFindManyCache([url, { ...query, ...queryParams }])		
+    setQuery(queryParams)
+    setFindManyCache([url, queryParams])		
 	}
   
 	const loadMore = async () => {

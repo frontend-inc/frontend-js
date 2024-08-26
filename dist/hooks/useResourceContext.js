@@ -55,15 +55,19 @@ var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
     }
     return to.concat(ar || Array.prototype.slice.call(from));
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 var react_1 = require("react");
 var context_1 = require("../context");
 var helpers_1 = require("../helpers");
 var context_2 = require("../context");
 var _1 = require(".");
+var swr_1 = __importDefault(require("swr"));
 var useResourceContext = function () {
     var api = (0, react_1.useContext)(context_2.ApiContext).api;
-    var _a = (0, react_1.useContext)(context_1.ResourceContext), url = _a.url, _b = _a.name, name = _b === void 0 ? 'document' : _b, loading = _a.loading, setLoading = _a.setLoading, errors = _a.errors, setErrors = _a.setErrors, resource = _a.resource, setResource = _a.setResource, resources = _a.resources, setResources = _a.setResources, query = _a.query, setQuery = _a.setQuery, meta = _a.meta, setMeta = _a.setMeta, page = _a.page, setPage = _a.setPage, perPage = _a.perPage, setPerPage = _a.setPerPage, totalCount = _a.totalCount, setTotalCount = _a.setTotalCount, numPages = _a.numPages, setNumPages = _a.setNumPages, selected = _a.selected, setSelected = _a.setSelected, selectedIds = _a.selectedIds, setSelectedIds = _a.setSelectedIds, openShow = _a.openShow, setOpenShow = _a.setOpenShow, openEdit = _a.openEdit, setOpenEdit = _a.setOpenEdit, openDelete = _a.openDelete, setOpenDelete = _a.setOpenDelete, openComments = _a.openComments, setOpenComments = _a.setOpenComments, openReferences = _a.openReferences, setOpenReferences = _a.setOpenReferences;
+    var _a = (0, react_1.useContext)(context_1.ResourceContext), url = _a.url, _b = _a.name, name = _b === void 0 ? 'document' : _b, loading = _a.loading, setLoading = _a.setLoading, errors = _a.errors, setErrors = _a.setErrors, resource = _a.resource, setResource = _a.setResource, resources = _a.resources, setResources = _a.setResources, query = _a.query, setQuery = _a.setQuery, meta = _a.meta, setMeta = _a.setMeta, page = _a.page, setPage = _a.setPage, perPage = _a.perPage, setPerPage = _a.setPerPage, totalCount = _a.totalCount, setTotalCount = _a.setTotalCount, numPages = _a.numPages, setNumPages = _a.setNumPages, infiniteLoad = _a.infiniteLoad, setInfiniteLoad = _a.setInfiniteLoad, findManyCache = _a.findManyCache, setFindManyCache = _a.setFindManyCache, findOneCache = _a.findOneCache, setFindOneCache = _a.setFindOneCache, selected = _a.selected, setSelected = _a.setSelected, selectedIds = _a.selectedIds, setSelectedIds = _a.setSelectedIds, openShow = _a.openShow, setOpenShow = _a.setOpenShow, openEdit = _a.openEdit, setOpenEdit = _a.setOpenEdit, openDelete = _a.openDelete, setOpenDelete = _a.setOpenDelete, openComments = _a.openComments, setOpenComments = _a.setOpenComments, openReferences = _a.openReferences, setOpenReferences = _a.setOpenReferences;
     var apiParams = {
         name: name,
         url: url
@@ -92,54 +96,54 @@ var useResourceContext = function () {
             }
         });
     }); };
+    var findManyFetcher = function (_a) {
+        var url = _a[0], query = _a[1];
+        return api.findMany(query, { url: url });
+    };
+    var _c = (0, swr_1.default)(findManyCache, findManyFetcher), isLoading = _c.isLoading, data = _c.data, error = _c.error;
+    (0, react_1.useEffect)(function () {
+        if (data === null || data === void 0 ? void 0 : data.data) {
+            if (infiniteLoad) {
+                setResources(__spreadArray(__spreadArray([], resources, true), data.data, true));
+            }
+            else {
+                setResources(data.data);
+            }
+            if (data === null || data === void 0 ? void 0 : data.meta) {
+                setMeta(data.meta);
+                setPage(data.meta.page);
+                setPerPage(data.meta.per_page);
+                setTotalCount(data.meta.total_count);
+                setNumPages(data.meta.num_pages);
+            }
+        }
+    }, [data]);
+    (0, react_1.useEffect)(function () {
+        if (error) {
+            handleErrors(error);
+        }
+    }, [error]);
+    (0, react_1.useEffect)(function () {
+        setLoading(isLoading);
+    }, [isLoading]);
     var findMany = function (queryParams, opts) {
         if (queryParams === void 0) { queryParams = {}; }
         if (opts === void 0) { opts = {}; }
         return __awaiter(void 0, void 0, void 0, function () {
-            var res_1, e_1;
             return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0:
-                        if (url === null || url === void 0 ? void 0 : url.includes('undefined')) {
-                            console.log('Error: the URL contains undefined', url);
-                            return [2 /*return*/];
-                        }
-                        _a.label = 1;
-                    case 1:
-                        _a.trys.push([1, 3, 4, 5]);
-                        setLoading(true);
-                        if (queryParams) {
-                            setQuery(__assign(__assign({}, query), queryParams));
-                        }
-                        return [4 /*yield*/, api.findMany(__assign(__assign({}, query), queryParams), apiParams)];
-                    case 2:
-                        res_1 = _a.sent();
-                        if (res_1.data) {
-                            if ((opts === null || opts === void 0 ? void 0 : opts.loadMore) !== true) {
-                                setResources(res_1.data);
-                            }
-                            else {
-                                setResources(function (prev) { return __spreadArray(__spreadArray([], prev, true), res_1.data, true); });
-                            }
-                            if (res_1.meta) {
-                                setMeta(res_1.meta);
-                                setPage(res_1.meta.page);
-                                setPerPage(res_1.meta.per_page);
-                                setTotalCount(res_1.meta.total_count);
-                                setNumPages(res_1.meta.num_pages);
-                            }
-                            return [2 /*return*/, res_1.data];
-                        }
-                        return [3 /*break*/, 5];
-                    case 3:
-                        e_1 = _a.sent();
-                        handleErrors(e_1);
-                        return [3 /*break*/, 5];
-                    case 4:
-                        setLoading(false);
-                        return [7 /*endfinally*/];
-                    case 5: return [2 /*return*/];
+                if (url === null || url === void 0 ? void 0 : url.includes('undefined')) {
+                    console.log('Error: the URL contains undefined', url);
+                    return [2 /*return*/];
                 }
+                if (opts === null || opts === void 0 ? void 0 : opts.loadMore) {
+                    setInfiniteLoad(true);
+                }
+                else {
+                    setInfiniteLoad(false);
+                }
+                setQuery(queryParams);
+                setFindManyCache([url, queryParams]);
+                return [2 /*return*/];
             });
         });
     };
@@ -364,7 +368,7 @@ var useResourceContext = function () {
         setResource(function (prev) { return (0, helpers_1.changeDocumentValue)(prev, name, value); });
     };
     var loadingWrapper = function (apiMethod) { return __awaiter(void 0, void 0, void 0, function () {
-        var res, e_2;
+        var res, e_1;
         var _a;
         return __generator(this, function (_b) {
             switch (_b.label) {
@@ -383,7 +387,7 @@ var useResourceContext = function () {
                     }
                     return [2 /*return*/, res === null || res === void 0 ? void 0 : res.data];
                 case 2:
-                    e_2 = _b.sent();
+                    e_1 = _b.sent();
                     return [3 /*break*/, 4];
                 case 3:
                     hideLoading();
@@ -452,6 +456,12 @@ var useResourceContext = function () {
         sort: sort,
         paginate: paginate,
         loadMore: loadMore,
+        infiniteLoad: infiniteLoad,
+        setInfiniteLoad: setInfiniteLoad,
+        findManyCache: findManyCache,
+        setFindManyCache: setFindManyCache,
+        findOneCache: findOneCache,
+        setFindOneCache: setFindOneCache,
         selected: selected,
         selectedIds: selectedIds,
         setSelected: setSelected,

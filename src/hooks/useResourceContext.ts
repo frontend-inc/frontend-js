@@ -6,6 +6,7 @@ import {
 import { ApiContext } from '../context'
 import { useDelayedLoading } from '.'
 import { ID, QueryParamsType, UseResourceResponse, SyntheticEventType } from '../types'
+import useSWR from 'swr'
 
 type UseResourceContextResponse = UseResourceResponse & {
   openShow: boolean
@@ -24,7 +25,7 @@ const useResourceContext = (): UseResourceContextResponse => {
     url,
     name='document',
     loading,
-    setLoading,
+    setLoading,        
     errors,
     setErrors,
     resource,
@@ -44,6 +45,13 @@ const useResourceContext = (): UseResourceContextResponse => {
     numPages,
     setNumPages,
     
+    infiniteLoad,
+    setInfiniteLoad,
+    findManyCache,
+    setFindManyCache,
+    findOneCache,
+    setFindOneCache,
+
     selected,
     setSelected,
     selectedIds,
@@ -90,43 +98,48 @@ const useResourceContext = (): UseResourceContextResponse => {
     loadMore?: boolean
   }
 
+  const findManyFetcher = ([url, query]) => api.findMany(query, { url })  
+  const { isLoading, data, error } = useSWR(findManyCache, findManyFetcher)
+  
+  useEffect(() => {
+    if(data?.data) {   
+      if(infiniteLoad){
+        setResources([...resources, ...data.data])
+      }else{
+        setResources(data.data)      
+      }           
+      if (data?.meta) {
+        setMeta(data.meta  )
+        setPage(data.meta.page)
+        setPerPage(data.meta.per_page)
+        setTotalCount(data.meta.total_count)
+        setNumPages(data.meta.num_pages)          
+      }  
+    }
+  }, [data])
+
+  useEffect(() => {
+    if(error){
+      handleErrors(error)
+    }
+  }, [error])
+
+  useEffect(() => {
+    setLoading(isLoading)
+  }, [isLoading])
+
 	const findMany = async (queryParams: QueryParamsType = {}, opts: FindManyOptionsType = {}) => {
 		if (url?.includes('undefined')) {
 			console.log('Error: the URL contains undefined', url)
 			return
 		}
-		try {
-			setLoading(true)
-			if (queryParams) {
-				setQuery({
-					...query,
-					...queryParams,
-				})
-			}      
-			const res = await api.findMany({
-				...query,
-				...queryParams,
-			}, apiParams)
-			if (res.data) {
-				if (opts?.loadMore !== true ) {
-					setResources(res.data)
-				} else {
-					setResources(prev => [...prev, ...res.data])
-				}
-				if (res.meta) {
-					setMeta(res.meta)
-					setPage(res.meta.page)
-					setPerPage(res.meta.per_page)
-					setTotalCount(res.meta.total_count)
-					setNumPages(res.meta.num_pages)          
-				}
-				return res.data
-			}
-		} catch (e) {
-			handleErrors(e)
-		} finally {
-			setLoading(false)
-		}
+    if(opts?.loadMore){
+      setInfiniteLoad(true)
+    }else{
+      setInfiniteLoad(false)
+    }
+    setQuery(queryParams)
+    setFindManyCache([url, queryParams])		
 	}
 
 	const loadMore = async () => {
@@ -367,6 +380,13 @@ const useResourceContext = (): UseResourceContextResponse => {
 		sort,
 		paginate,
 		loadMore,
+
+    infiniteLoad,
+    setInfiniteLoad,
+    findManyCache,
+    setFindManyCache,
+    findOneCache,
+    setFindOneCache,
 
     selected,
     selectedIds,

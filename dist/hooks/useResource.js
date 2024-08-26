@@ -71,7 +71,7 @@ var useResource = function (params) {
     var _c = (0, react_1.useState)(), errors = _c[0], setErrors = _c[1];
     var _d = (0, react_1.useState)({}), resource = _d[0], setResource = _d[1];
     var _e = (0, react_1.useState)([]), resources = _e[0], setResources = _e[1];
-    var _f = (0, react_1.useState)(false), infiniteLoad = _f[0], setInifinteLoad = _f[1];
+    var _f = (0, react_1.useState)(false), infiniteLoad = _f[0], setInfiniteLoad = _f[1];
     var _g = (0, react_1.useState)(null), findManyCache = _g[0], setFindManyCache = _g[1];
     var _h = (0, react_1.useState)(null), findOneCache = _h[0], setFindOneCache = _h[1];
     var _j = (0, react_1.useState)({}), query = _j[0], setQuery = _j[1];
@@ -103,11 +103,10 @@ var useResource = function (params) {
     var _s = (0, swr_1.default)(findOneCache, findOneFetcher), findOneIsLoading = _s.isLoading, findOneData = _s.data, findOneError = _s.error;
     (0, react_1.useEffect)(function () {
         var _a;
-        console.log('findOneData', findOneData);
         if ((_a = findOneData === null || findOneData === void 0 ? void 0 : findOneData.data) === null || _a === void 0 ? void 0 : _a.id) {
             setResource(findOneData.data);
         }
-    }, [findOneData]);
+    }, [findOneData === null || findOneData === void 0 ? void 0 : findOneData.data]);
     (0, react_1.useEffect)(function () {
         if (findOneError) {
             handleErrors(findOneError);
@@ -131,14 +130,14 @@ var useResource = function (params) {
     };
     var _t = (0, swr_1.default)(findManyCache, findManyFetcher), isLoading = _t.isLoading, data = _t.data, error = _t.error;
     (0, react_1.useEffect)(function () {
-        if (data) {
+        if (data === null || data === void 0 ? void 0 : data.data) {
             if (infiniteLoad) {
                 setResources(__spreadArray(__spreadArray([], resources, true), data.data, true));
             }
             else {
                 setResources(data.data);
             }
-            if (data.meta) {
+            if (data === null || data === void 0 ? void 0 : data.meta) {
                 setMeta(data.meta);
                 setPage(data.meta.page);
                 setPerPage(data.meta.per_page);
@@ -165,12 +164,13 @@ var useResource = function (params) {
                     return [2 /*return*/];
                 }
                 if (opts === null || opts === void 0 ? void 0 : opts.loadMore) {
-                    setInifinteLoad(true);
+                    setInfiniteLoad(true);
                 }
                 else {
-                    setInifinteLoad(false);
+                    setInfiniteLoad(false);
                 }
-                setFindManyCache([url, __assign(__assign({}, query), queryParams)]);
+                setQuery(queryParams);
+                setFindManyCache([url, queryParams]);
                 return [2 /*return*/];
             });
         });
