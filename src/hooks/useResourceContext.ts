@@ -368,6 +368,13 @@ const useResourceContext = (): UseResourceContextResponse => {
 		paginate,
 		loadMore,
 
+    selected,
+    selectedIds,
+    setSelected,
+    setSelectedIds,
+    handleSelect,
+    handleClear,
+
     openShow,
     setOpenShow,
     openEdit,

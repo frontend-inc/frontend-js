@@ -54,7 +54,7 @@ const useResource = (params: UseResourceParams): UseResourceResponse => {
   const { isLoading: findOneIsLoading, data: findOneData, error: findOneError } = useSWR(findOneCache, findOneFetcher)
   
   useEffect(() => {
-    if(findOneData) {         
+    if(findOneData?.data) {         
       setResource(findOneData.data)      
     }
   }, [findOneData])

@@ -102,7 +102,7 @@ var useResource = function (params) {
     };
     var _s = (0, swr_1.default)(findOneCache, findOneFetcher), findOneIsLoading = _s.isLoading, findOneData = _s.data, findOneError = _s.error;
     (0, react_1.useEffect)(function () {
-        if (findOneData) {
+        if (findOneData === null || findOneData === void 0 ? void 0 : findOneData.data) {
             setResource(findOneData.data);
         }
     }, [findOneData]);
