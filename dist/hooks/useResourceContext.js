@@ -86,22 +86,39 @@ var useResourceContext = function () {
     var handleClear = function () {
         setSelected([]);
     };
+    /* Find One */
+    var findOneFetcher = function (_a) {
+        var url = _a[0], id = _a[1];
+        return api.findOne(id, { url: url });
+    };
+    var _c = (0, swr_1.default)(findOneCache, findOneFetcher), findOneIsLoading = _c.isLoading, findOneData = _c.data, findOneError = _c.error;
+    (0, react_1.useEffect)(function () {
+        var _a;
+        if ((_a = findOneData === null || findOneData === void 0 ? void 0 : findOneData.data) === null || _a === void 0 ? void 0 : _a.id) {
+            setResource(findOneData.data);
+        }
+    }, [findOneData === null || findOneData === void 0 ? void 0 : findOneData.data]);
+    (0, react_1.useEffect)(function () {
+        if (findOneError) {
+            handleErrors(findOneError);
+        }
+    }, [findOneError]);
+    (0, react_1.useEffect)(function () {
+        setLoading(findOneIsLoading);
+    }, [findOneIsLoading]);
     var findOne = function (id) { return __awaiter(void 0, void 0, void 0, function () {
         return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0:
-                    if (!id)
-                        return [2 /*return*/, null];
-                    return [4 /*yield*/, loadingWrapper(function () { return api.findOne(id, apiParams); })];
-                case 1: return [2 /*return*/, _a.sent()];
-            }
+            if (!id)
+                return [2 /*return*/, null];
+            setFindOneCache([url, id]);
+            return [2 /*return*/];
         });
     }); };
     var findManyFetcher = function (_a) {
         var url = _a[0], query = _a[1];
         return api.findMany(query, { url: url });
     };
-    var _c = (0, swr_1.default)(findManyCache, findManyFetcher), isLoading = _c.isLoading, data = _c.data, error = _c.error;
+    var _d = (0, swr_1.default)(findManyCache, findManyFetcher), isLoading = _d.isLoading, data = _d.data, error = _d.error;
     (0, react_1.useEffect)(function () {
         if (data === null || data === void 0 ? void 0 : data.data) {
             if (infiniteLoad) {

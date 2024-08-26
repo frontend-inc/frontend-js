@@ -90,11 +90,34 @@ const useResourceContext = (): UseResourceContextResponse => {
 		setSelected([])
 	}
 
-	const findOne = async (id: ID) => {
-		if (!id) return null
-		return await loadingWrapper(() => api.findOne(id, apiParams))
-	}
+	/* Find One */
+  const findOneFetcher = ([url, id]) => api.findOne(id, { url })  
+  const { isLoading: findOneIsLoading, 
+    data: findOneData, 
+    error: findOneError 
+  } = useSWR(findOneCache, findOneFetcher)
+  
+  useEffect(() => {
+    if(findOneData?.data?.id) {               
+      setResource(findOneData.data)      
+    }
+  }, [findOneData?.data])
 
+  useEffect(() => {
+    if(findOneError){
+      handleErrors(findOneError)
+    }
+  }, [findOneError])
+
+  useEffect(() => {
+    setLoading(findOneIsLoading)
+  }, [findOneIsLoading])
+
+  const findOne = async (id: ID) => {
+		if (!id) return null
+    setFindOneCache([url, id])
+	}
+  
   type FindManyOptionsType = {
     loadMore?: boolean
   }
