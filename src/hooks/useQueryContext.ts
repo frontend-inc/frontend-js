@@ -43,39 +43,27 @@ const useQueryContext = (params: QueryParams ) => {
   })
 
   const findMany = async (query: QueryParamsType, opts) => {
-    let resp 
-    try{
-      setLoading(true)
-      resp = await mutate([url, query])
-      let data = resp?.data
-      if(data?.data) {
-        if(opts?.loadMore){
-          setResources([...resources, ...data.data])
-        }else{
-          setResources(data.data)
-        }
-        if (data.meta) {
-          setMeta(data.meta)
-          setPage(data.meta.page)
-          setPerPage(data.meta.per_page)
-          setTotalCount(data.meta.total_count)
-          setNumPages(data.meta.num_pages)          
-        }  
+    let resp = await mutate([url, query])
+    let data = resp?.data
+    if(data?.data) {
+      if(opts?.loadMore){
+        setResources([...resources, ...data.data])
+      }else{
+        setResources(data.data)
       }
-      if(resp?.errors) {
-        setErrors(resp.errors)
-        handleError(resp.errors)
-      }
-    }catch(err){
-      console.log('err', err)
-    }finally{
-      setLoading(false)
+      if (data.meta) {
+        setMeta(data.meta)
+        setPage(data.meta.page)
+        setPerPage(data.meta.per_page)
+        setTotalCount(data.meta.total_count)
+        setNumPages(data.meta.num_pages)          
+      }  
     }
     return resp
   }
 
   const handleError = (errors: any) => {
-    console.log('errors', errors)
+    console.log('Errors', errors)
   }
 
   useEffect(() => {    
@@ -83,7 +71,10 @@ const useQueryContext = (params: QueryParams ) => {
   }, [isLoading])
 
   useEffect(() => {    
-    setErrors(error)    
+    setErrors(error) 
+    if(error){
+      handleError(error)
+    }   
   }, [error])
 
   return {

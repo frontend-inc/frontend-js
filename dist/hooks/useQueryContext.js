@@ -66,55 +66,43 @@ var useQueryContext = function (params) {
         shouldRetryOnError: false, // Prevent automatic retries on error
     }), isLoading = _b.isLoading, data = _b.data, error = _b.error, mutate = _b.mutate;
     var findMany = function (query, opts) { return __awaiter(void 0, void 0, void 0, function () {
-        var resp, data_1, err_1;
+        var resp, data;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0:
-                    _a.trys.push([0, 2, 3, 4]);
-                    setLoading(true);
-                    return [4 /*yield*/, mutate([url, query])];
+                case 0: return [4 /*yield*/, mutate([url, query])];
                 case 1:
                     resp = _a.sent();
-                    data_1 = resp === null || resp === void 0 ? void 0 : resp.data;
-                    if (data_1 === null || data_1 === void 0 ? void 0 : data_1.data) {
+                    data = resp === null || resp === void 0 ? void 0 : resp.data;
+                    if (data === null || data === void 0 ? void 0 : data.data) {
                         if (opts === null || opts === void 0 ? void 0 : opts.loadMore) {
-                            setResources(__spreadArray(__spreadArray([], resources, true), data_1.data, true));
+                            setResources(__spreadArray(__spreadArray([], resources, true), data.data, true));
                         }
                         else {
-                            setResources(data_1.data);
+                            setResources(data.data);
                         }
-                        if (data_1.meta) {
-                            setMeta(data_1.meta);
-                            setPage(data_1.meta.page);
-                            setPerPage(data_1.meta.per_page);
-                            setTotalCount(data_1.meta.total_count);
-                            setNumPages(data_1.meta.num_pages);
+                        if (data.meta) {
+                            setMeta(data.meta);
+                            setPage(data.meta.page);
+                            setPerPage(data.meta.per_page);
+                            setTotalCount(data.meta.total_count);
+                            setNumPages(data.meta.num_pages);
                         }
                     }
-                    if (resp === null || resp === void 0 ? void 0 : resp.errors) {
-                        setErrors(resp.errors);
-                        handleError(resp.errors);
-                    }
-                    return [3 /*break*/, 4];
-                case 2:
-                    err_1 = _a.sent();
-                    console.log('err', err_1);
-                    return [3 /*break*/, 4];
-                case 3:
-                    setLoading(false);
-                    return [7 /*endfinally*/];
-                case 4: return [2 /*return*/, resp];
+                    return [2 /*return*/, resp];
             }
         });
     }); };
     var handleError = function (errors) {
-        console.log('errors', errors);
+        console.log('Errors', errors);
     };
     (0, react_1.useEffect)(function () {
         setLoading(isLoading);
     }, [isLoading]);
     (0, react_1.useEffect)(function () {
         setErrors(error);
+        if (error) {
+            handleError(error);
+        }
     }, [error]);
     return {
         loading: loading,
