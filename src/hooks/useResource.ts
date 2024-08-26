@@ -51,10 +51,14 @@ const useResource = (params: UseResourceParams): UseResourceResponse => {
 
   /* Find One */
   const findOneFetcher = ([url, id]) => api.findOne(id, { url })  
-  const { isLoading: findOneIsLoading, data: findOneData, error: findOneError } = useSWR(findOneCache, findOneFetcher)
+  const { isLoading: findOneIsLoading, 
+    data: findOneData, 
+    error: findOneError 
+  } = useSWR(findOneCache, findOneFetcher)
   
   useEffect(() => {
-    if(findOneData?.data) {         
+    console.log('findOneData', findOneData)
+    if(findOneData?.data?.id) {               
       setResource(findOneData.data)      
     }
   }, [findOneData])
