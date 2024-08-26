@@ -33,27 +33,45 @@ const useQueryContext = (params: QueryParams ) => {
     setTotalCount, 
   } = useContext(ResourceContext)
 
-  const cache = (url && defaultQuery) ? [url, defaultQuery] : null
+  //const cache = (url && defaultQuery) ? [url, defaultQuery] : null
   const fetcher = ([url, defaultQuery]) => api.findMany(defaultQuery, { url })
   
-  const { isLoading, data, error } = useSWR(cache, fetcher)
+  const { isLoading, data, error, mutate } = useSWR(null, fetcher, {
+    revalidateOnFocus: false, // Prevent revalidation on window focus
+    revalidateOnReconnect: false, // Prevent revalidation on reconnect
+    shouldRetryOnError: false, // Prevent automatic retries on error
+  })
 
-  useEffect(() => {
-    if(data?.data) {
-      setResources(data?.data)
-      if (data.meta) {
-        setMeta(data.meta)
-        setPage(data.meta.page)
-        setPerPage(data.meta.per_page)
-        setTotalCount(data.meta.total_count)
-        setNumPages(data.meta.num_pages)          
-      }      
+  const findMany = async (query: QueryParamsType, opts) => {
+    let resp 
+    try{
+      setLoading(true)
+      resp = await mutate([url, query])
+      if(resp?.data) {
+        if(opts?.loadMore){
+          setResources([...resources, ...resp.data])
+        }else{
+          setResources(resp.data)
+        }
+        if (data.meta) {
+          setMeta(data.meta)
+          setPage(data.meta.page)
+          setPerPage(data.meta.per_page)
+          setTotalCount(data.meta.total_count)
+          setNumPages(data.meta.num_pages)          
+        }  
+      }
+      if(resp?.errors) {
+        setErrors(resp.errors)
+        handleError(resp.errors)
+      }
+    }catch(err){
+      console.log('err', err)
+    }finally{
+      setLoading(false)
     }
-    if(data?.errors) {
-      setErrors(data.errors)
-      handleError(data.errors)
-    }    
-  }, [data])
+    return resp
+  }
 
   const handleError = (errors: any) => {
     console.log('errors', errors)
@@ -71,6 +89,7 @@ const useQueryContext = (params: QueryParams ) => {
     loading,
     errors,
     data,
+    findMany,
     resources,
     meta,
     page,
