@@ -66,6 +66,7 @@ var context_2 = require("../context");
 var _1 = require(".");
 var swr_1 = __importDefault(require("swr"));
 var lodash_1 = require("lodash");
+var react_query_1 = require("@tanstack/react-query");
 var useResourceContext = function () {
     var api = (0, react_1.useContext)(context_2.ApiContext).api;
     var _a = (0, react_1.useContext)(context_1.ResourceContext), url = _a.url, _b = _a.name, name = _b === void 0 ? 'document' : _b, loading = _a.loading, setLoading = _a.setLoading, errors = _a.errors, setErrors = _a.setErrors, resource = _a.resource, setResource = _a.setResource, resources = _a.resources, setResources = _a.setResources, query = _a.query, setQuery = _a.setQuery, meta = _a.meta, setMeta = _a.setMeta, page = _a.page, setPage = _a.setPage, perPage = _a.perPage, setPerPage = _a.setPerPage, totalCount = _a.totalCount, setTotalCount = _a.setTotalCount, numPages = _a.numPages, setNumPages = _a.setNumPages, infiniteLoad = _a.infiniteLoad, setInfiniteLoad = _a.setInfiniteLoad, findManyCache = _a.findManyCache, setFindManyCache = _a.setFindManyCache, findOneCache = _a.findOneCache, setFindOneCache = _a.setFindOneCache, selected = _a.selected, setSelected = _a.setSelected, selectedIds = _a.selectedIds, setSelectedIds = _a.setSelectedIds, openShow = _a.openShow, setOpenShow = _a.setOpenShow, openEdit = _a.openEdit, setOpenEdit = _a.setOpenEdit, openDelete = _a.openDelete, setOpenDelete = _a.setOpenDelete, openComments = _a.openComments, setOpenComments = _a.setOpenComments, openReferences = _a.openReferences, setOpenReferences = _a.setOpenReferences;
@@ -120,17 +121,11 @@ var useResourceContext = function () {
             return [2 /*return*/];
         });
     }); };
-    var findManyFetcher = function (_a) {
-        var url = _a[0], query = _a[1];
-        return api.findMany(query, { url: url });
-    };
-    var _d = (0, swr_1.default)(findManyCache, findManyFetcher, {
-        errorRetryCount: 3,
-        errorRetryInterval: 1000,
-        revalidateOnFocus: true,
-        revalidateOnReconnect: true,
-        shouldRetryOnError: true, // Prevent automatic retries on error
-    }), isLoading = _d.isLoading, data = _d.data, error = _d.error;
+    var _d = (0, react_query_1.useQuery)({
+        queryKey: [url, query],
+        queryFn: function () { return api.findMany(query, { url: url }); },
+        enabled: false
+    }), isLoading = _d.isLoading, data = _d.data, error = _d.error, refetch = _d.refetch;
     (0, react_1.useEffect)(function () {
         if (data === null || data === void 0 ? void 0 : data.data) {
             if (infiniteLoad) {
@@ -172,7 +167,7 @@ var useResourceContext = function () {
                     setInfiniteLoad(false);
                 }
                 setQuery(queryParams);
-                setFindManyCache([url, __assign(__assign({}, query), queryParams)]);
+                refetch();
                 return [2 /*return*/];
             });
         });

@@ -8,6 +8,7 @@ import { useDelayedLoading } from '.'
 import { ID, QueryParamsType, UseResourceResponse, SyntheticEventType } from '../types'
 import useSWR from 'swr'
 import { uniqBy } from 'lodash'
+import { useQuery } from '@tanstack/react-query'
 
 type UseResourceContextResponse = UseResourceResponse & {
   openShow: boolean
@@ -127,14 +128,11 @@ const useResourceContext = (): UseResourceContextResponse => {
   type FindManyOptionsType = {
     loadMore?: boolean
   }
-
-  const findManyFetcher = ([url, query]) => api.findMany(query, { url })  
-  const { isLoading, data, error } = useSWR(findManyCache, findManyFetcher, {
-    errorRetryCount: 3, // Prevent retries on error
-    errorRetryInterval: 1000, // Retry every 1 second
-    revalidateOnFocus: true, // Prevent revalidation on window focus
-    revalidateOnReconnect: true, // Prevent revalidation on reconnect
-    shouldRetryOnError: true, // Prevent automatic retries on error
+  
+  const { isLoading, data, error, refetch } = useQuery({ 
+    queryKey: [url, query], 
+    queryFn: () => api.findMany(query, { url }),    
+    enabled:false 
   })
   
   useEffect(() => {
@@ -175,7 +173,8 @@ const useResourceContext = (): UseResourceContextResponse => {
       setInfiniteLoad(false)
     }
     setQuery(queryParams)
-    setFindManyCache([url, { ...query, ...queryParams }])		
+    refetch()
+    //setFindManyCache([url, { ...query, ...queryParams }])		
 	}
 
 	const loadMore = async () => {
