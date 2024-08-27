@@ -181,25 +181,30 @@ const useResourceContext = (): UseResourceContextResponse => {
     setFindManyCache([url, searchQuery])		
 	}
 
-	const loadMore = async () => {
-		let nextPage = page + 1
-		await findMany({ 
-      ...query, 
-      page: nextPage 
-    }, {
-      loadMore: true 
-    })
+	const reloadMany = async () => {
+    return await mutate([url, query])
 	}
 
-	const reloadMany = async () => {
-    return await findMany(query)
+	const loadMore = async () => {		
+    let nextPage = query?.page + 1
+    nextPage = nextPage <= 1 ? 2 : nextPage
+    let searchQuery = {
+      ...query,
+      page: nextPage
+    }
+    setQuery(searchQuery)
+    setInfiniteLoad(true)
+    mutate([url, searchQuery])		
 	}
 
 	const paginate = async (page: number) => {
-		return await findMany({
-			...query,
-			page: page,
-		})
+    let searchQuery = {
+      ...query,
+      page: page
+    }
+    setQuery(searchQuery)
+    setInfiniteLoad(false)
+    mutate([url, searchQuery])				
 	}
 
 	const sort = async (sortBy: string, sortDirection: 'asc' | 'desc') => {
