@@ -285,18 +285,22 @@ var ApiClient = /** @class */ (function () {
     ApiClient.prototype.updateMany = function (ids, resource, options) {
         return __awaiter(this, void 0, void 0, function () {
             var _a, name, url;
-            return __generator(this, function (_b) {
-                switch (_b.label) {
+            var _b;
+            return __generator(this, function (_c) {
+                switch (_c.label) {
                     case 0:
                         _a = options || {}, name = _a.name, url = _a.url;
                         this.name = name;
-                        this.payload = {
-                            ids: ids,
-                            resource: resource,
-                        };
+                        this.payload = (_b = {
+                                ids: ids
+                            },
+                            _b[this.name] = {
+                                resource: resource,
+                            },
+                            _b);
                         this.endpoint = "".concat(url, "/update_many");
                         return [4 /*yield*/, this.post(this.endpoint, this.payload, this.headers)];
-                    case 1: return [2 /*return*/, _b.sent()];
+                    case 1: return [2 /*return*/, _c.sent()];
                 }
             });
         });
