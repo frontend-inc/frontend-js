@@ -165,10 +165,10 @@ var useResourceContext = function () {
                     console.log('Error: the URL contains undefined', url);
                     return [2 /*return*/];
                 }
-                if (opts === null || opts === void 0 ? void 0 : opts.loadMore) {
+                if ((opts === null || opts === void 0 ? void 0 : opts.loadMore) == true) {
                     setInfiniteLoad(true);
                 }
-                else {
+                if ((opts === null || opts === void 0 ? void 0 : opts.loadMore) == false) {
                     setInfiniteLoad(false);
                 }
                 searchQuery = __assign(__assign({}, query), queryParams);

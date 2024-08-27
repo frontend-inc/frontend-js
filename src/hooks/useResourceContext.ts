@@ -168,9 +168,10 @@ const useResourceContext = (): UseResourceContextResponse => {
 			console.log('Error: the URL contains undefined', url)
 			return
 		}
-    if(opts?.loadMore){
+    if(opts?.loadMore == true){
       setInfiniteLoad(true)
-    }else{
+    }
+    if(opts?.loadMore == false){
       setInfiniteLoad(false)
     }
     let searchQuery = { 
