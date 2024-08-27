@@ -68,7 +68,7 @@ var swr_1 = __importDefault(require("swr"));
 var lodash_1 = require("lodash");
 var useResourceContext = function () {
     var api = (0, react_1.useContext)(context_2.ApiContext).api;
-    var _a = (0, react_1.useContext)(context_1.ResourceContext), url = _a.url, _b = _a.name, name = _b === void 0 ? 'document' : _b, loading = _a.loading, setLoading = _a.setLoading, errors = _a.errors, setErrors = _a.setErrors, resource = _a.resource, setResource = _a.setResource, resources = _a.resources, setResources = _a.setResources, query = _a.query, setQuery = _a.setQuery, meta = _a.meta, setMeta = _a.setMeta, page = _a.page, setPage = _a.setPage, perPage = _a.perPage, setPerPage = _a.setPerPage, totalCount = _a.totalCount, setTotalCount = _a.setTotalCount, numPages = _a.numPages, setNumPages = _a.setNumPages, infiniteLoad = _a.infiniteLoad, setInfiniteLoad = _a.setInfiniteLoad, findManyCache = _a.findManyCache, setFindManyCache = _a.setFindManyCache, findOneCache = _a.findOneCache, setFindOneCache = _a.setFindOneCache, selected = _a.selected, setSelected = _a.setSelected, selectedIds = _a.selectedIds, setSelectedIds = _a.setSelectedIds, openShow = _a.openShow, setOpenShow = _a.setOpenShow, openEdit = _a.openEdit, setOpenEdit = _a.setOpenEdit, openDelete = _a.openDelete, setOpenDelete = _a.setOpenDelete, openComments = _a.openComments, setOpenComments = _a.setOpenComments, openReferences = _a.openReferences, setOpenReferences = _a.setOpenReferences;
+    var _a = (0, react_1.useContext)(context_1.ResourceContext), url = _a.url, foreignUrl = _a.foreignUrl, _b = _a.name, name = _b === void 0 ? 'document' : _b, loading = _a.loading, setLoading = _a.setLoading, errors = _a.errors, setErrors = _a.setErrors, resource = _a.resource, setResource = _a.setResource, resources = _a.resources, setResources = _a.setResources, query = _a.query, setQuery = _a.setQuery, meta = _a.meta, setMeta = _a.setMeta, page = _a.page, setPage = _a.setPage, perPage = _a.perPage, setPerPage = _a.setPerPage, totalCount = _a.totalCount, setTotalCount = _a.setTotalCount, numPages = _a.numPages, setNumPages = _a.setNumPages, infiniteLoad = _a.infiniteLoad, setInfiniteLoad = _a.setInfiniteLoad, findManyCache = _a.findManyCache, setFindManyCache = _a.setFindManyCache, findOneCache = _a.findOneCache, setFindOneCache = _a.setFindOneCache, selected = _a.selected, setSelected = _a.setSelected, selectedIds = _a.selectedIds, setSelectedIds = _a.setSelectedIds, openShow = _a.openShow, setOpenShow = _a.setOpenShow, openEdit = _a.openEdit, setOpenEdit = _a.setOpenEdit, openDelete = _a.openDelete, setOpenDelete = _a.setOpenDelete, openComments = _a.openComments, setOpenComments = _a.setOpenComments, openReferences = _a.openReferences, setOpenReferences = _a.setOpenReferences;
     var apiParams = {
         name: name,
         url: url
@@ -441,6 +441,7 @@ var useResourceContext = function () {
     }).loading;
     return {
         url: url,
+        foreignUrl: foreignUrl,
         name: name,
         loading: loading,
         delayedLoading: delayedLoading,

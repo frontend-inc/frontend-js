@@ -24,6 +24,7 @@ const useResourceContext = (): UseResourceContextResponse => {
 
   const {
     url,
+    foreignUrl,
     name='document',
     loading,
     setLoading,        
@@ -380,6 +381,7 @@ const useResourceContext = (): UseResourceContextResponse => {
 
 	return {
     url,
+    foreignUrl,
     name,    
 		loading,
     delayedLoading,
