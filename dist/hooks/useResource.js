@@ -165,10 +165,10 @@ var useResource = function (params) {
                     console.log('Error: the URL contains undefined', url);
                     return [2 /*return*/];
                 }
-                if (opts === null || opts === void 0 ? void 0 : opts.loadMore) {
+                if ((opts === null || opts === void 0 ? void 0 : opts.loadMore) == true) {
                     setInfiniteLoad(true);
                 }
-                else {
+                if ((opts === null || opts === void 0 ? void 0 : opts.loadMore) == false) {
                     setInfiniteLoad(false);
                 }
                 searchQuery = __assign(__assign({}, query), queryParams);
@@ -181,29 +181,19 @@ var useResource = function (params) {
     var loadMore = function () { return __awaiter(void 0, void 0, void 0, function () {
         var nextPage, searchQuery;
         return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0:
-                    nextPage = page + 1;
-                    nextPage = nextPage < 2 ? 2 : nextPage;
-                    searchQuery = __assign(__assign({}, query), { page: nextPage });
-                    setQuery(searchQuery);
-                    setInfiniteLoad(true);
-                    return [4 /*yield*/, mutate([url, searchQuery])];
-                case 1: return [2 /*return*/, _a.sent()];
-            }
+            nextPage = page + 1;
+            nextPage = nextPage < 2 ? 2 : nextPage;
+            searchQuery = __assign(__assign({}, query), { page: nextPage });
+            findMany(searchQuery, { loadMore: true });
+            return [2 /*return*/];
         });
     }); };
     var paginate = function (page) { return __awaiter(void 0, void 0, void 0, function () {
         var searchQuery;
         return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0:
-                    searchQuery = __assign(__assign({}, query), { page: page });
-                    setQuery(searchQuery);
-                    setInfiniteLoad(false);
-                    return [4 /*yield*/, mutate([url, searchQuery])];
-                case 1: return [2 /*return*/, _a.sent()];
-            }
+            searchQuery = __assign(__assign({}, query), { page: page });
+            findMany(searchQuery, { loadMore: false });
+            return [2 /*return*/];
         });
     }); };
     var reloadMany = function () { return __awaiter(void 0, void 0, void 0, function () {

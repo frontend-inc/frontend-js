@@ -199,11 +199,9 @@ const useResourceContext = (): UseResourceContextResponse => {
 	const paginate = async (page: number) => {
     let searchQuery = {
       ...query,
-      page: page
+      page
     }
-    setQuery(searchQuery)
-    setInfiniteLoad(false)
-    return await mutate([url, searchQuery])				
+    findMany(searchQuery, { loadMore: false })    
 	}
 
 	const sort = async (sortBy: string, sortDirection: 'asc' | 'desc') => {

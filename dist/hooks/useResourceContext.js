@@ -199,14 +199,9 @@ var useResourceContext = function () {
     var paginate = function (page) { return __awaiter(void 0, void 0, void 0, function () {
         var searchQuery;
         return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0:
-                    searchQuery = __assign(__assign({}, query), { page: page });
-                    setQuery(searchQuery);
-                    setInfiniteLoad(false);
-                    return [4 /*yield*/, mutate([url, searchQuery])];
-                case 1: return [2 /*return*/, _a.sent()];
-            }
+            searchQuery = __assign(__assign({}, query), { page: page });
+            findMany(searchQuery, { loadMore: false });
+            return [2 /*return*/];
         });
     }); };
     var sort = function (sortBy, sortDirection) { return __awaiter(void 0, void 0, void 0, function () {

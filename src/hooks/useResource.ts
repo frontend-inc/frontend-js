@@ -118,9 +118,10 @@ const useResource = (params: UseResourceParams): UseResourceResponse => {
 			console.log('Error: the URL contains undefined', url)
 			return
 		}
-    if(opts?.loadMore){
+    if(opts?.loadMore == true){
       setInfiniteLoad(true)
-    }else{
+    }
+    if(opts?.loadMore == false){
       setInfiniteLoad(false)
     }
     let searchQuery = { 
@@ -138,19 +139,15 @@ const useResource = (params: UseResourceParams): UseResourceResponse => {
       ...query,
       page: nextPage
     }
-    setQuery(searchQuery)
-    setInfiniteLoad(true)
-    return await mutate([url, searchQuery])		
+    findMany(searchQuery, { loadMore: true })    
 	}
 
 	const paginate = async (page: number) => {
     let searchQuery = {
       ...query,
-      page: page
+      page
     }
-    setQuery(searchQuery)
-    setInfiniteLoad(false)
-    return await mutate([url, searchQuery])				
+    findMany(searchQuery, { loadMore: false })    
 	}
 	
   const reloadMany = async () => {		
