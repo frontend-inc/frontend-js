@@ -4,13 +4,14 @@ import { QueryParamsType } from '../types'
 
 type ResourceProviderProps = {
   url: string
+  foreignUrl?: string
   name: string 
   resource?: any
 	children: React.ReactNode
 }
 
 const ResourceProvider = (props: ResourceProviderProps) => {
-	const { url, name, children, resource: _resource } = props
+	const { url, foreignUrl, name, children, resource: _resource } = props
 	
 	const [loading, setLoading] = useState(false)
   const [delayedLoading, setDelayedLoading] = useState(false)
@@ -35,8 +36,6 @@ const ResourceProvider = (props: ResourceProviderProps) => {
   const [openShow, setOpenShow] = useState(false) 
   const [openDelete, setOpenDelete] = useState(false)
   const [openEdit, setOpenEdit] = useState(false)
-  const [openComments, setOpenComments] = useState(false) 
-  const [openReferences, setOpenReferences] = useState(false)
 
   useEffect(() => {
     if(_resource){
@@ -46,6 +45,7 @@ const ResourceProvider = (props: ResourceProviderProps) => {
 
 	const value = {
 		url,
+    foreignUrl,
     name,
     
 		loading,
@@ -97,12 +97,6 @@ const ResourceProvider = (props: ResourceProviderProps) => {
 
     openDelete,
     setOpenDelete,
-
-    openComments,
-    setOpenComments,
-
-    openReferences,
-    setOpenReferences
 	}
 
 	return (

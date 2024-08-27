@@ -29,7 +29,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var react_1 = __importStar(require("react"));
 var ResourceContext_1 = __importDefault(require("./ResourceContext"));
 var ResourceProvider = function (props) {
-    var url = props.url, name = props.name, children = props.children, _resource = props.resource;
+    var url = props.url, foreignUrl = props.foreignUrl, name = props.name, children = props.children, _resource = props.resource;
     var _a = (0, react_1.useState)(false), loading = _a[0], setLoading = _a[1];
     var _b = (0, react_1.useState)(false), delayedLoading = _b[0], setDelayedLoading = _b[1];
     var _c = (0, react_1.useState)({}), query = _c[0], setQuery = _c[1];
@@ -49,8 +49,6 @@ var ResourceProvider = function (props) {
     var _s = (0, react_1.useState)(false), openShow = _s[0], setOpenShow = _s[1];
     var _t = (0, react_1.useState)(false), openDelete = _t[0], setOpenDelete = _t[1];
     var _u = (0, react_1.useState)(false), openEdit = _u[0], setOpenEdit = _u[1];
-    var _v = (0, react_1.useState)(false), openComments = _v[0], setOpenComments = _v[1];
-    var _w = (0, react_1.useState)(false), openReferences = _w[0], setOpenReferences = _w[1];
     (0, react_1.useEffect)(function () {
         if (_resource) {
             setResource(_resource);
@@ -58,6 +56,7 @@ var ResourceProvider = function (props) {
     }, [_resource]);
     var value = {
         url: url,
+        foreignUrl: foreignUrl,
         name: name,
         loading: loading,
         setLoading: setLoading,
@@ -97,10 +96,6 @@ var ResourceProvider = function (props) {
         setOpenEdit: setOpenEdit,
         openDelete: openDelete,
         setOpenDelete: setOpenDelete,
-        openComments: openComments,
-        setOpenComments: setOpenComments,
-        openReferences: openReferences,
-        setOpenReferences: setOpenReferences
     };
     return (react_1.default.createElement(ResourceContext_1.default.Provider, { value: value }, children));
 };
