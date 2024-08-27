@@ -121,8 +121,8 @@ var useResourceContext = function () {
         });
     }); };
     var findManyFetcher = function (_a) {
-        var url = _a[0], query = _a[1];
-        return api.findMany(query, { url: url });
+        var url = _a[0], query = _a[1], page = _a[2];
+        return api.findMany(__assign(__assign({}, query), { page: page }), { url: url });
     };
     var _d = (0, swr_1.default)(findManyCache, findManyFetcher, {
         errorRetryCount: 3,
@@ -173,7 +173,7 @@ var useResourceContext = function () {
                 }
                 searchQuery = __assign(__assign({}, query), queryParams);
                 setQuery(searchQuery);
-                setFindManyCache([url, searchQuery]);
+                setFindManyCache([url, searchQuery, searchQuery === null || searchQuery === void 0 ? void 0 : searchQuery.page]);
                 return [2 /*return*/];
             });
         });
@@ -189,16 +189,11 @@ var useResourceContext = function () {
     var loadMore = function () { return __awaiter(void 0, void 0, void 0, function () {
         var nextPage, searchQuery;
         return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0:
-                    nextPage = page + 1;
-                    nextPage = nextPage < 2 ? 2 : nextPage;
-                    searchQuery = __assign(__assign({}, query), { page: nextPage });
-                    setQuery(searchQuery);
-                    setInfiniteLoad(true);
-                    return [4 /*yield*/, mutate([url, searchQuery])];
-                case 1: return [2 /*return*/, _a.sent()];
-            }
+            nextPage = page + 1;
+            nextPage = nextPage < 2 ? 2 : nextPage;
+            searchQuery = __assign(__assign({}, query), { page: nextPage });
+            findMany(searchQuery, { loadMore: true });
+            return [2 /*return*/];
         });
     }); };
     var paginate = function (page) { return __awaiter(void 0, void 0, void 0, function () {

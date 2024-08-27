@@ -128,7 +128,7 @@ const useResourceContext = (): UseResourceContextResponse => {
     loadMore?: boolean
   }
 
-  const findManyFetcher = ([url, query]) => api.findMany(query, { url })  
+  const findManyFetcher = ([url, query, page]) => api.findMany({ ...query, page }, { url })  
   const { isLoading, data, error, mutate } = useSWR(findManyCache, findManyFetcher, {
     errorRetryCount: 3, 
     errorRetryInterval: 1000,
@@ -178,7 +178,7 @@ const useResourceContext = (): UseResourceContextResponse => {
       ...queryParams 
     }
     setQuery(searchQuery)
-    setFindManyCache([url, searchQuery])		
+    setFindManyCache([url, searchQuery, searchQuery?.page])		
 	}
 
 	const reloadMany = async () => {
@@ -192,9 +192,7 @@ const useResourceContext = (): UseResourceContextResponse => {
       ...query,
       page: nextPage
     }
-    setQuery(searchQuery)
-    setInfiniteLoad(true)
-    return await mutate([url, searchQuery])		
+    findMany(searchQuery, { loadMore: true })    
 	}
 
 	const paginate = async (page: number) => {
