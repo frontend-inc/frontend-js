@@ -186,15 +186,15 @@ const useResourceContext = (): UseResourceContextResponse => {
 	}
 
 	const loadMore = async () => {		
-    let nextPage = query?.page + 1
-    nextPage = nextPage <= 1 ? 2 : nextPage
+    let nextPage = page + 1
+    nextPage = nextPage < 2 ? 2 : nextPage
     let searchQuery = {
       ...query,
       page: nextPage
     }
     setQuery(searchQuery)
     setInfiniteLoad(true)
-    mutate([url, searchQuery])		
+    return await mutate([url, searchQuery])		
 	}
 
 	const paginate = async (page: number) => {
@@ -204,7 +204,7 @@ const useResourceContext = (): UseResourceContextResponse => {
     }
     setQuery(searchQuery)
     setInfiniteLoad(false)
-    mutate([url, searchQuery])				
+    return await mutate([url, searchQuery])				
 	}
 
 	const sort = async (sortBy: string, sortDirection: 'asc' | 'desc') => {

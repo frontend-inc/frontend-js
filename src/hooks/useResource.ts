@@ -55,13 +55,7 @@ const useResource = (params: UseResourceParams): UseResourceResponse => {
   const { isLoading: findOneIsLoading, 
     data: findOneData, 
     error: findOneError 
-  } = useSWR(findOneCache, findOneFetcher, {
-    revalidateOnFocus: true, // Prevent revalidation on window focus
-    revalidateOnReconnect: true, // Prevent revalidation on reconnect
-    errorRetryCount: 3, // Prevent retries on error
-    errorRetryInterval: 1000, // Retry every 1 second
-    shouldRetryOnError: true, // Prevent automatic retries on error
-  })
+  } = useSWR(findOneCache, findOneFetcher)
   
   useEffect(() => {
     if(findOneData?.data?.id) {               
@@ -86,7 +80,7 @@ const useResource = (params: UseResourceParams): UseResourceResponse => {
 
   /* Find Many */
   const findManyFetcher = ([url, query]) => api.findMany(query, { url })  
-  const { isLoading, data, error } = useSWR(findManyCache, findManyFetcher)
+  const { isLoading, data, error, mutate } = useSWR(findManyCache, findManyFetcher)
   
   useEffect(() => {
     if(data?.data) {   
@@ -137,25 +131,30 @@ const useResource = (params: UseResourceParams): UseResourceResponse => {
     setFindManyCache([url, searchQuery])		
 	}
   
-	const loadMore = async () => {
-		let nextPage = page + 1
-		await findMany({ 
-      ...query, 
-      page: nextPage 
-    }, {
-      loadMore: true 
-    })
-	}
-
-	const reloadMany = async () => {
-		return await findMany(query)
+	const loadMore = async () => {		
+    let nextPage = page + 1
+    nextPage = nextPage < 2 ? 2 : nextPage
+    let searchQuery = {
+      ...query,
+      page: nextPage
+    }
+    setQuery(searchQuery)
+    setInfiniteLoad(true)
+    return await mutate([url, searchQuery])		
 	}
 
 	const paginate = async (page: number) => {
-		return await findMany({
-			...query,
-			page: page,
-		})
+    let searchQuery = {
+      ...query,
+      page: page
+    }
+    setQuery(searchQuery)
+    setInfiniteLoad(false)
+    return await mutate([url, searchQuery])				
+	}
+	
+  const reloadMany = async () => {		
+    return await mutate([url, query])	
 	}
 
 	const sort = async (sortBy: string, sortDirection: 'asc' | 'desc') => {

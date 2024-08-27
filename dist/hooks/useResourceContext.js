@@ -189,23 +189,29 @@ var useResourceContext = function () {
     var loadMore = function () { return __awaiter(void 0, void 0, void 0, function () {
         var nextPage, searchQuery;
         return __generator(this, function (_a) {
-            nextPage = (query === null || query === void 0 ? void 0 : query.page) + 1;
-            nextPage = nextPage <= 1 ? 2 : nextPage;
-            searchQuery = __assign(__assign({}, query), { page: nextPage });
-            setQuery(searchQuery);
-            setInfiniteLoad(true);
-            mutate([url, searchQuery]);
-            return [2 /*return*/];
+            switch (_a.label) {
+                case 0:
+                    nextPage = page + 1;
+                    nextPage = nextPage < 2 ? 2 : nextPage;
+                    searchQuery = __assign(__assign({}, query), { page: nextPage });
+                    setQuery(searchQuery);
+                    setInfiniteLoad(true);
+                    return [4 /*yield*/, mutate([url, searchQuery])];
+                case 1: return [2 /*return*/, _a.sent()];
+            }
         });
     }); };
     var paginate = function (page) { return __awaiter(void 0, void 0, void 0, function () {
         var searchQuery;
         return __generator(this, function (_a) {
-            searchQuery = __assign(__assign({}, query), { page: page });
-            setQuery(searchQuery);
-            setInfiniteLoad(false);
-            mutate([url, searchQuery]);
-            return [2 /*return*/];
+            switch (_a.label) {
+                case 0:
+                    searchQuery = __assign(__assign({}, query), { page: page });
+                    setQuery(searchQuery);
+                    setInfiniteLoad(false);
+                    return [4 /*yield*/, mutate([url, searchQuery])];
+                case 1: return [2 /*return*/, _a.sent()];
+            }
         });
     }); };
     var sort = function (sortBy, sortDirection) { return __awaiter(void 0, void 0, void 0, function () {
