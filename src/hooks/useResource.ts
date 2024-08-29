@@ -153,11 +153,15 @@ const useResource = (params: UseResourceParams): UseResourceResponse => {
 	}
 	
   const reloadOne = async () => {		
-    return await mutateOne([url, resource?.id])	
+    return await mutateOne([url, resource?.id], { 
+      revalidate: true 
+    })	
 	}
 
   const reloadMany = async () => {		
-    return await mutateMany([url, query])	
+    return await mutateMany([url, query], { 
+      revalidate: true 
+    })	
 	}
 
 	const sort = async (sortBy: string, sortDirection: 'asc' | 'desc') => {

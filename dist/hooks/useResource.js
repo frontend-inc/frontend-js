@@ -199,7 +199,9 @@ var useResource = function (params) {
     var reloadOne = function () { return __awaiter(void 0, void 0, void 0, function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, mutateOne([url, resource === null || resource === void 0 ? void 0 : resource.id])];
+                case 0: return [4 /*yield*/, mutateOne([url, resource === null || resource === void 0 ? void 0 : resource.id], {
+                        revalidate: true
+                    })];
                 case 1: return [2 /*return*/, _a.sent()];
             }
         });
@@ -207,7 +209,9 @@ var useResource = function (params) {
     var reloadMany = function () { return __awaiter(void 0, void 0, void 0, function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, mutateMany([url, query])];
+                case 0: return [4 /*yield*/, mutateMany([url, query], {
+                        revalidate: true
+                    })];
                 case 1: return [2 /*return*/, _a.sent()];
             }
         });
