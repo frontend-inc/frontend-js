@@ -153,15 +153,15 @@ const useResource = (params: UseResourceParams): UseResourceResponse => {
 	}
 	
   const reloadOne = async () => {		
-    return await mutateOne([url, resource?.id], { 
-      revalidate: true 
-    })	
+    return await loadingWrapper(() => 
+      api.findOne(resource?.id, { url })
+    )
 	}
 
   const reloadMany = async () => {		
-    return await mutateMany([url, query], { 
-      revalidate: true 
-    })	
+    return await loadingWrapper(() => 
+      api.findMany(query, { url })
+    )
 	}
 
 	const sort = async (sortBy: string, sortDirection: 'asc' | 'desc') => {

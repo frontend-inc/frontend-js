@@ -178,18 +178,18 @@ const useResourceContext = (): UseResourceContextResponse => {
     setFindManyCache([url, searchQuery, searchQuery?.page])		
 	}
 
-  const reloadOne = async () => {
-    return await mutateOne([url, resource?.id], {
-      revalidate: true
-    })
+  const reloadOne = async () => {		
+    return await loadingWrapper(() => 
+      api.findOne(resource?.id, { url })
+    )
 	}
 
-	const reloadMany = async () => {
-    return await mutateMany([url, query], {
-      revalidate: true
-    })
+  const reloadMany = async () => {		
+    return await loadingWrapper(() => 
+      api.findMany(query, { url })
+    )
 	}
-
+  
 	const loadMore = async () => {		
     let nextPage = page + 1
     nextPage = nextPage < 2 ? 2 : nextPage
