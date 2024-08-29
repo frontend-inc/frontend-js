@@ -101,7 +101,7 @@ var useResource = function (params) {
         var url = _a[0], id = _a[1];
         return api.findOne(id, { url: url });
     };
-    var _s = (0, swr_1.default)(findOneCache, findOneFetcher), findOneIsLoading = _s.isLoading, findOneData = _s.data, findOneError = _s.error;
+    var _s = (0, swr_1.default)(findOneCache, findOneFetcher), findOneIsLoading = _s.isLoading, findOneData = _s.data, findOneError = _s.error, mutateOne = _s.mutate;
     (0, react_1.useEffect)(function () {
         var _a;
         if ((_a = findOneData === null || findOneData === void 0 ? void 0 : findOneData.data) === null || _a === void 0 ? void 0 : _a.id) {
@@ -129,7 +129,7 @@ var useResource = function (params) {
         var url = _a[0], query = _a[1];
         return api.findMany(query, { url: url });
     };
-    var _t = (0, swr_1.default)(findManyCache, findManyFetcher), isLoading = _t.isLoading, data = _t.data, error = _t.error, mutate = _t.mutate;
+    var _t = (0, swr_1.default)(findManyCache, findManyFetcher), isLoading = _t.isLoading, data = _t.data, error = _t.error, mutateMany = _t.mutate;
     (0, react_1.useEffect)(function () {
         if (data === null || data === void 0 ? void 0 : data.data) {
             if (infiniteLoad) {
@@ -196,10 +196,18 @@ var useResource = function (params) {
             return [2 /*return*/];
         });
     }); };
+    var reload = function () { return __awaiter(void 0, void 0, void 0, function () {
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, mutateOne([url, resource === null || resource === void 0 ? void 0 : resource.id])];
+                case 1: return [2 /*return*/, _a.sent()];
+            }
+        });
+    }); };
     var reloadMany = function () { return __awaiter(void 0, void 0, void 0, function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, mutate([url, query])];
+                case 0: return [4 /*yield*/, mutateMany([url, query])];
                 case 1: return [2 /*return*/, _a.sent()];
             }
         });
@@ -465,6 +473,7 @@ var useResource = function (params) {
         handleClear: handleClear,
         findOne: findOne,
         setQuery: setQuery,
+        reload: reload,
         reloadMany: reloadMany,
         save: save,
         update: update,

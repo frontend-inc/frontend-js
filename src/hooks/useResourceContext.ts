@@ -95,14 +95,9 @@ const useResourceContext = (): UseResourceContextResponse => {
   const findOneFetcher = ([url, id]) => api.findOne(id, { url })  
   const { isLoading: findOneIsLoading, 
     data: findOneData, 
-    error: findOneError 
-  } = useSWR(findOneCache, findOneFetcher, {
-    revalidateOnFocus: true, // Prevent revalidation on window focus
-    revalidateOnReconnect: true, // Prevent revalidation on reconnect
-    errorRetryCount: 3, // Prevent retries on error
-    errorRetryInterval: 1000, // Retry every 1 second
-    shouldRetryOnError: true, // Prevent automatic retries on error
-  })
+    error: findOneError,
+    mutate: mutateOne  
+  } = useSWR(findOneCache, findOneFetcher)
   
   useEffect(() => {
     if(findOneData?.data?.id) {               
@@ -130,7 +125,7 @@ const useResourceContext = (): UseResourceContextResponse => {
   }
 
   const findManyFetcher = ([url, query, page]) => api.findMany({ ...query, page }, { url })  
-  const { isLoading, data, error, mutate } = useSWR(findManyCache, findManyFetcher, {
+  const { isLoading, data, error, mutate: mutateMany } = useSWR(findManyCache, findManyFetcher, {
     errorRetryCount: 3, 
     errorRetryInterval: 1000,
     revalidateOnFocus: true,
@@ -183,8 +178,12 @@ const useResourceContext = (): UseResourceContextResponse => {
     setFindManyCache([url, searchQuery, searchQuery?.page])		
 	}
 
+  const reload = async () => {
+    return await mutateOne([url, resource?.id])
+	}
+
 	const reloadMany = async () => {
-    return await mutate([url, query])
+    return await mutateMany([url, query])
 	}
 
 	const loadMore = async () => {		
@@ -398,6 +397,7 @@ const useResourceContext = (): UseResourceContextResponse => {
 		setResources,
 		findOne,
 		findMany,
+    reload,
 		reloadMany,
 		save,
 		update,

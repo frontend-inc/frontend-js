@@ -52,9 +52,11 @@ const useResource = (params: UseResourceParams): UseResourceResponse => {
 
   /* Find One */
   const findOneFetcher = ([url, id]) => api.findOne(id, { url })  
-  const { isLoading: findOneIsLoading, 
+  const { 
+    isLoading: findOneIsLoading, 
     data: findOneData, 
-    error: findOneError 
+    error: findOneError,
+    mutate: mutateOne, 
   } = useSWR(findOneCache, findOneFetcher)
   
   useEffect(() => {
@@ -80,7 +82,7 @@ const useResource = (params: UseResourceParams): UseResourceResponse => {
 
   /* Find Many */
   const findManyFetcher = ([url, query]) => api.findMany(query, { url })  
-  const { isLoading, data, error, mutate } = useSWR(findManyCache, findManyFetcher)
+  const { isLoading, data, error, mutate: mutateMany } = useSWR(findManyCache, findManyFetcher)
   
   useEffect(() => {
     if(data?.data) {   
@@ -150,8 +152,12 @@ const useResource = (params: UseResourceParams): UseResourceResponse => {
     findMany(searchQuery, { loadMore: false })    
 	}
 	
+  const reload = async () => {		
+    return await mutateOne([url, resource?.id])	
+	}
+
   const reloadMany = async () => {		
-    return await mutate([url, query])	
+    return await mutateMany([url, query])	
 	}
 
 	const sort = async (sortBy: string, sortDirection: 'asc' | 'desc') => {
@@ -350,6 +356,7 @@ const useResource = (params: UseResourceParams): UseResourceResponse => {
 
 		findOne,
 		setQuery,
+    reload,
 		reloadMany,
 		save,
 		update,

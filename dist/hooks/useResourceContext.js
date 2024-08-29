@@ -91,13 +91,7 @@ var useResourceContext = function () {
         var url = _a[0], id = _a[1];
         return api.findOne(id, { url: url });
     };
-    var _c = (0, swr_1.default)(findOneCache, findOneFetcher, {
-        revalidateOnFocus: true,
-        revalidateOnReconnect: true,
-        errorRetryCount: 3,
-        errorRetryInterval: 1000,
-        shouldRetryOnError: true, // Prevent automatic retries on error
-    }), findOneIsLoading = _c.isLoading, findOneData = _c.data, findOneError = _c.error;
+    var _c = (0, swr_1.default)(findOneCache, findOneFetcher), findOneIsLoading = _c.isLoading, findOneData = _c.data, findOneError = _c.error, mutateOne = _c.mutate;
     (0, react_1.useEffect)(function () {
         var _a;
         if ((_a = findOneData === null || findOneData === void 0 ? void 0 : findOneData.data) === null || _a === void 0 ? void 0 : _a.id) {
@@ -129,7 +123,7 @@ var useResourceContext = function () {
         errorRetryInterval: 1000,
         revalidateOnFocus: true,
         revalidateOnReconnect: true,
-    }), isLoading = _d.isLoading, data = _d.data, error = _d.error, mutate = _d.mutate;
+    }), isLoading = _d.isLoading, data = _d.data, error = _d.error, mutateMany = _d.mutate;
     (0, react_1.useEffect)(function () {
         if (data === null || data === void 0 ? void 0 : data.data) {
             if (infiniteLoad) {
@@ -178,10 +172,18 @@ var useResourceContext = function () {
             });
         });
     };
+    var reload = function () { return __awaiter(void 0, void 0, void 0, function () {
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, mutateOne([url, resource === null || resource === void 0 ? void 0 : resource.id])];
+                case 1: return [2 /*return*/, _a.sent()];
+            }
+        });
+    }); };
     var reloadMany = function () { return __awaiter(void 0, void 0, void 0, function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, mutate([url, query])];
+                case 0: return [4 /*yield*/, mutateMany([url, query])];
                 case 1: return [2 /*return*/, _a.sent()];
             }
         });
@@ -458,6 +460,7 @@ var useResourceContext = function () {
         setResources: setResources,
         findOne: findOne,
         findMany: findMany,
+        reload: reload,
         reloadMany: reloadMany,
         save: save,
         update: update,
