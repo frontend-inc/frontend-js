@@ -179,11 +179,15 @@ const useResourceContext = (): UseResourceContextResponse => {
 	}
 
   const reloadOne = async () => {
-    return await mutateOne([url, resource?.id])
+    return await mutateOne([url, resource?.id], {
+      revalidate: true
+    })
 	}
 
 	const reloadMany = async () => {
-    return await mutateMany([url, query])
+    return await mutateMany([url, query], {
+      revalidate: true
+    })
 	}
 
 	const loadMore = async () => {		
