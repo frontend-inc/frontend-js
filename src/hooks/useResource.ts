@@ -152,7 +152,7 @@ const useResource = (params: UseResourceParams): UseResourceResponse => {
     findMany(searchQuery, { loadMore: false })    
 	}
 	
-  const reload = async () => {		
+  const reloadOne = async () => {		
     return await mutateOne([url, resource?.id])	
 	}
 
@@ -356,7 +356,7 @@ const useResource = (params: UseResourceParams): UseResourceResponse => {
 
 		findOne,
 		setQuery,
-    reload,
+    reloadOne,
 		reloadMany,
 		save,
 		update,

@@ -172,7 +172,7 @@ var useResourceContext = function () {
             });
         });
     };
-    var reload = function () { return __awaiter(void 0, void 0, void 0, function () {
+    var reloadOne = function () { return __awaiter(void 0, void 0, void 0, function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0: return [4 /*yield*/, mutateOne([url, resource === null || resource === void 0 ? void 0 : resource.id])];
@@ -460,7 +460,7 @@ var useResourceContext = function () {
         setResources: setResources,
         findOne: findOne,
         findMany: findMany,
-        reload: reload,
+        reloadOne: reloadOne,
         reloadMany: reloadMany,
         save: save,
         update: update,

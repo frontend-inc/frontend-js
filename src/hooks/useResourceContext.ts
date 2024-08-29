@@ -178,7 +178,7 @@ const useResourceContext = (): UseResourceContextResponse => {
     setFindManyCache([url, searchQuery, searchQuery?.page])		
 	}
 
-  const reload = async () => {
+  const reloadOne = async () => {
     return await mutateOne([url, resource?.id])
 	}
 
@@ -397,7 +397,7 @@ const useResourceContext = (): UseResourceContextResponse => {
 		setResources,
 		findOne,
 		findMany,
-    reload,
+    reloadOne,
 		reloadMany,
 		save,
 		update,
