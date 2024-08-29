@@ -96,7 +96,6 @@ const useResourceContext = (): UseResourceContextResponse => {
   const { isLoading: findOneIsLoading, 
     data: findOneData, 
     error: findOneError,
-    mutate: mutateOne  
   } = useSWR(findOneCache, findOneFetcher)
   
   useEffect(() => {
@@ -125,12 +124,7 @@ const useResourceContext = (): UseResourceContextResponse => {
   }
 
   const findManyFetcher = ([url, query, page]) => api.findMany({ ...query, page }, { url })  
-  const { isLoading, data, error, mutate: mutateMany } = useSWR(findManyCache, findManyFetcher, {
-    errorRetryCount: 3, 
-    errorRetryInterval: 1000,
-    revalidateOnFocus: true,
-    revalidateOnReconnect: true,
-  })
+  const { isLoading, data, error } = useSWR(findManyCache, findManyFetcher)
   
   useEffect(() => {
     if(data?.data) {   
@@ -178,9 +172,10 @@ const useResourceContext = (): UseResourceContextResponse => {
     setFindManyCache([url, searchQuery, searchQuery?.page])		
 	}
 
-  const reloadOne = async () => {		
+  const reloadOne = async (resourceId: number | string) => {		
+    resourceId = resourceId || resource?.id
     return await loadingWrapper(() => 
-      api.findOne(resource?.id, { url })
+      api.findOne(resourceId, { url })
     )
 	}
 

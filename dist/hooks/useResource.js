@@ -196,12 +196,14 @@ var useResource = function (params) {
             return [2 /*return*/];
         });
     }); };
-    var reloadOne = function () { return __awaiter(void 0, void 0, void 0, function () {
+    var reloadOne = function (resourceId) { return __awaiter(void 0, void 0, void 0, function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, loadingWrapper(function () {
-                        return api.findOne(resource === null || resource === void 0 ? void 0 : resource.id, { url: url });
-                    })];
+                case 0:
+                    resourceId = resourceId || (resource === null || resource === void 0 ? void 0 : resource.id);
+                    return [4 /*yield*/, loadingWrapper(function () {
+                            return api.findOne(resourceId, { url: url });
+                        })];
                 case 1: return [2 /*return*/, _a.sent()];
             }
         });

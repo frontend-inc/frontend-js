@@ -91,7 +91,7 @@ var useResourceContext = function () {
         var url = _a[0], id = _a[1];
         return api.findOne(id, { url: url });
     };
-    var _c = (0, swr_1.default)(findOneCache, findOneFetcher), findOneIsLoading = _c.isLoading, findOneData = _c.data, findOneError = _c.error, mutateOne = _c.mutate;
+    var _c = (0, swr_1.default)(findOneCache, findOneFetcher), findOneIsLoading = _c.isLoading, findOneData = _c.data, findOneError = _c.error;
     (0, react_1.useEffect)(function () {
         var _a;
         if ((_a = findOneData === null || findOneData === void 0 ? void 0 : findOneData.data) === null || _a === void 0 ? void 0 : _a.id) {
@@ -118,12 +118,7 @@ var useResourceContext = function () {
         var url = _a[0], query = _a[1], page = _a[2];
         return api.findMany(__assign(__assign({}, query), { page: page }), { url: url });
     };
-    var _d = (0, swr_1.default)(findManyCache, findManyFetcher, {
-        errorRetryCount: 3,
-        errorRetryInterval: 1000,
-        revalidateOnFocus: true,
-        revalidateOnReconnect: true,
-    }), isLoading = _d.isLoading, data = _d.data, error = _d.error, mutateMany = _d.mutate;
+    var _d = (0, swr_1.default)(findManyCache, findManyFetcher), isLoading = _d.isLoading, data = _d.data, error = _d.error;
     (0, react_1.useEffect)(function () {
         if (data === null || data === void 0 ? void 0 : data.data) {
             if (infiniteLoad) {
@@ -172,12 +167,14 @@ var useResourceContext = function () {
             });
         });
     };
-    var reloadOne = function () { return __awaiter(void 0, void 0, void 0, function () {
+    var reloadOne = function (resourceId) { return __awaiter(void 0, void 0, void 0, function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, loadingWrapper(function () {
-                        return api.findOne(resource === null || resource === void 0 ? void 0 : resource.id, { url: url });
-                    })];
+                case 0:
+                    resourceId = resourceId || (resource === null || resource === void 0 ? void 0 : resource.id);
+                    return [4 /*yield*/, loadingWrapper(function () {
+                            return api.findOne(resourceId, { url: url });
+                        })];
                 case 1: return [2 /*return*/, _a.sent()];
             }
         });

@@ -152,9 +152,10 @@ const useResource = (params: UseResourceParams): UseResourceResponse => {
     findMany(searchQuery, { loadMore: false })    
 	}
 	
-  const reloadOne = async () => {		
+  const reloadOne = async (resourceId: number | string) => {		
+    resourceId = resourceId || resource?.id
     return await loadingWrapper(() => 
-      api.findOne(resource?.id, { url })
+      api.findOne(resourceId, { url })
     )
 	}
 
