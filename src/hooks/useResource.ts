@@ -302,14 +302,23 @@ const useResource = (params: UseResourceParams): UseResourceResponse => {
     setResource(updatedResource);
   };
   
-	const loadingWrapper = async (apiMethod: () => any) => {
+  const loadingWrapper = async (apiMethod: () => any) => {
 		try {
 			showLoading()
 			setErrors(null)
 			const res = await apiMethod()
 			if (res?.data?.id) {
-				setResource(res.data)
-			} else if (res?.errors) {
+				setResource(res.data)      
+			} else if(res?.data?.length > 0){
+        setResources(res.data)
+        if(res.meta){
+          setMeta(res.meta)
+          setPage(res.meta.page)
+          setPerPage(res.meta.per_page)
+          setTotalCount(res.meta.total_count)
+          setNumPages(res.meta.num_pages)
+        }        
+      } else if (res?.errors) {
 				handleErrors(res?.errors)
 			}
 			return res?.data
@@ -318,6 +327,7 @@ const useResource = (params: UseResourceParams): UseResourceResponse => {
 			hideLoading()
 		}
 	}
+
 
 	const handleErrors = (e: any) => {    
 		if(e?.status === 401) {      

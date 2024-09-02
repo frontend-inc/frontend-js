@@ -347,8 +347,17 @@ const useResourceContext = (): UseResourceContextResponse => {
 			setErrors(null)
 			const res = await apiMethod()
 			if (res?.data?.id) {
-				setResource(res.data)
-			} else if (res?.errors) {
+				setResource(res.data)      
+			} else if(res?.data?.length > 0){
+        setResources(res.data)
+        if(res.meta){
+          setMeta(res.meta)
+          setPage(res.meta.page)
+          setPerPage(res.meta.per_page)
+          setTotalCount(res.meta.total_count)
+          setNumPages(res.meta.num_pages)
+        }        
+      } else if (res?.errors) {
 				handleErrors(res?.errors)
 			}
 			return res?.data

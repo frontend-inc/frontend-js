@@ -398,25 +398,35 @@ var useResourceContext = function () {
     };
     var loadingWrapper = function (apiMethod) { return __awaiter(void 0, void 0, void 0, function () {
         var res, e_1;
-        var _a;
-        return __generator(this, function (_b) {
-            switch (_b.label) {
+        var _a, _b;
+        return __generator(this, function (_c) {
+            switch (_c.label) {
                 case 0:
-                    _b.trys.push([0, 2, 3, 4]);
+                    _c.trys.push([0, 2, 3, 4]);
                     showLoading();
                     setErrors(null);
                     return [4 /*yield*/, apiMethod()];
                 case 1:
-                    res = _b.sent();
+                    res = _c.sent();
                     if ((_a = res === null || res === void 0 ? void 0 : res.data) === null || _a === void 0 ? void 0 : _a.id) {
                         setResource(res.data);
+                    }
+                    else if (((_b = res === null || res === void 0 ? void 0 : res.data) === null || _b === void 0 ? void 0 : _b.length) > 0) {
+                        setResources(res.data);
+                        if (res.meta) {
+                            setMeta(res.meta);
+                            setPage(res.meta.page);
+                            setPerPage(res.meta.per_page);
+                            setTotalCount(res.meta.total_count);
+                            setNumPages(res.meta.num_pages);
+                        }
                     }
                     else if (res === null || res === void 0 ? void 0 : res.errors) {
                         handleErrors(res === null || res === void 0 ? void 0 : res.errors);
                     }
                     return [2 /*return*/, res === null || res === void 0 ? void 0 : res.data];
                 case 2:
-                    e_1 = _b.sent();
+                    e_1 = _c.sent();
                     return [3 /*break*/, 4];
                 case 3:
                     hideLoading();
