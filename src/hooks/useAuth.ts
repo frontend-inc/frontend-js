@@ -49,7 +49,7 @@ const useAuth = () => {
   })
 
   const fetchMe = async () => {
-		//return await loadingWrapper(() => api.fetchMe(apiParams))
+		return await loadingWrapper(() => api.fetchMe(apiParams))
 	}
 
 	const updateMe = async (user: UserType) => {
