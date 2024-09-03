@@ -283,17 +283,31 @@ export class ApiClient {
 		return await this.post(this.endpoint, null, this.headers)
 	}
 
-	async follow(id: number, options: MutateOptionsType): Promise<ExecuteResponseType> {
+	async follow(username: string, options: MutateOptionsType): Promise<ExecuteResponseType> {
     const { name, url } = options || {}
     this.name = name
-		this.endpoint = `${url}/${id}/follow`
+		this.endpoint = `${url}/${username}/follow`
 		return await this.post(this.endpoint, null, this.headers)
 	}
 
-	async unfollow(id: number, options: MutateOptionsType): Promise<ExecuteResponseType> {
+	async unfollow(username: string, options: MutateOptionsType): Promise<ExecuteResponseType> {
     const { name, url } = options || {}
     this.name = name
-		this.endpoint = `${url}/${id}/unfollow`
+		this.endpoint = `${url}/${username}/unfollow`
+		return await this.post(this.endpoint, null, this.headers)
+	}
+
+  async shopifyFavorite(handle: string, options: MutateOptionsType): Promise<ExecuteResponseType> {
+    const { name, url } = options || {}
+    this.name = name
+		this.endpoint = `${url}/${handle}/shopify_favorite`
+		return await this.post(this.endpoint, null, this.headers)
+	}
+
+	async shopifyUnfavorite(handle: string, options: MutateOptionsType): Promise<ExecuteResponseType> {
+    const { name, url } = options || {}
+    this.name = name    
+		this.endpoint = `${url}/${handle}/shopify_unfavorite`
 		return await this.post(this.endpoint, null, this.headers)
 	}
 

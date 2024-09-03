@@ -41,8 +41,10 @@ export declare class ApiClient {
     unlike(id: number, options: MutateOptionsType): Promise<ExecuteResponseType>;
     favorite(id: number, options: MutateOptionsType): Promise<ExecuteResponseType>;
     unfavorite(id: number, options: MutateOptionsType): Promise<ExecuteResponseType>;
-    follow(id: number, options: MutateOptionsType): Promise<ExecuteResponseType>;
-    unfollow(id: number, options: MutateOptionsType): Promise<ExecuteResponseType>;
+    follow(username: string, options: MutateOptionsType): Promise<ExecuteResponseType>;
+    unfollow(username: string, options: MutateOptionsType): Promise<ExecuteResponseType>;
+    shopifyFavorite(handle: string, options: MutateOptionsType): Promise<ExecuteResponseType>;
+    shopifyUnfavorite(handle: string, options: MutateOptionsType): Promise<ExecuteResponseType>;
     addReferences(sourceId: number, targetIds: number[], options: MutateOptionsType): Promise<ExecuteResponseType>;
     removeReferences(sourceId: number, targetIds: number[], options: MutateOptionsType): Promise<ExecuteResponseType>;
     addAttachment(id: number, name: string, attachmentId: number, options: MutateOptionsType): Promise<ExecuteResponseType>;

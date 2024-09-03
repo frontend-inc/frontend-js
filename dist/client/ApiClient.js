@@ -420,7 +420,7 @@ var ApiClient = /** @class */ (function () {
             });
         });
     };
-    ApiClient.prototype.follow = function (id, options) {
+    ApiClient.prototype.follow = function (username, options) {
         return __awaiter(this, void 0, void 0, function () {
             var _a, name, url;
             return __generator(this, function (_b) {
@@ -428,14 +428,14 @@ var ApiClient = /** @class */ (function () {
                     case 0:
                         _a = options || {}, name = _a.name, url = _a.url;
                         this.name = name;
-                        this.endpoint = "".concat(url, "/").concat(id, "/follow");
+                        this.endpoint = "".concat(url, "/").concat(username, "/follow");
                         return [4 /*yield*/, this.post(this.endpoint, null, this.headers)];
                     case 1: return [2 /*return*/, _b.sent()];
                 }
             });
         });
     };
-    ApiClient.prototype.unfollow = function (id, options) {
+    ApiClient.prototype.unfollow = function (username, options) {
         return __awaiter(this, void 0, void 0, function () {
             var _a, name, url;
             return __generator(this, function (_b) {
@@ -443,7 +443,37 @@ var ApiClient = /** @class */ (function () {
                     case 0:
                         _a = options || {}, name = _a.name, url = _a.url;
                         this.name = name;
-                        this.endpoint = "".concat(url, "/").concat(id, "/unfollow");
+                        this.endpoint = "".concat(url, "/").concat(username, "/unfollow");
+                        return [4 /*yield*/, this.post(this.endpoint, null, this.headers)];
+                    case 1: return [2 /*return*/, _b.sent()];
+                }
+            });
+        });
+    };
+    ApiClient.prototype.shopifyFavorite = function (handle, options) {
+        return __awaiter(this, void 0, void 0, function () {
+            var _a, name, url;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
+                    case 0:
+                        _a = options || {}, name = _a.name, url = _a.url;
+                        this.name = name;
+                        this.endpoint = "".concat(url, "/").concat(handle, "/shopify_favorite");
+                        return [4 /*yield*/, this.post(this.endpoint, null, this.headers)];
+                    case 1: return [2 /*return*/, _b.sent()];
+                }
+            });
+        });
+    };
+    ApiClient.prototype.shopifyUnfavorite = function (handle, options) {
+        return __awaiter(this, void 0, void 0, function () {
+            var _a, name, url;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
+                    case 0:
+                        _a = options || {}, name = _a.name, url = _a.url;
+                        this.name = name;
+                        this.endpoint = "".concat(url, "/").concat(handle, "/shopify_unfavorite");
                         return [4 /*yield*/, this.post(this.endpoint, null, this.headers)];
                     case 1: return [2 /*return*/, _b.sent()];
                 }
