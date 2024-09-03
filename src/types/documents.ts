@@ -28,6 +28,7 @@ export type UserType = {
 	image?: StorageType
   password?: string | undefined
   password_confirmation?: string | undefined
+  shopify_favorites?: string[]
 }
 
 export type ImageContentType =

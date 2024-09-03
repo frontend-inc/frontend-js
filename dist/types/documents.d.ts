@@ -27,6 +27,7 @@ export type UserType = {
     image?: StorageType;
     password?: string | undefined;
     password_confirmation?: string | undefined;
+    shopify_favorites?: string[];
 };
 export type ImageContentType = 'jpg' | 'jpeg' | 'png' | 'gif' | 'bmp' | 'webp' | 'heic';
 export type VideoContentType = 'mp4' | 'webm' | 'ogg' | 'mov' | 'm4v';
