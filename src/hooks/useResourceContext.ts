@@ -1,8 +1,5 @@
 import React, { useEffect, useContext } from 'react'
 import { ResourceContext } from '../context'
-import {
-  changeDocumentValue,
-} from '../helpers'
 import { ApiContext } from '../context'
 import { useDelayedLoading } from '.'
 import { ID, QueryParamsType, UseResourceResponse, SyntheticEventType } from '../types'
@@ -326,20 +323,13 @@ const useResourceContext = (): UseResourceContextResponse => {
     })
   }
   
-  const handleChange = (ev) => {
+  const handleChange = (ev: SyntheticEventType) => {
     const { name } = ev.target;
     const value = ev.target.type === 'checkbox' ? ev.target.checked : ev.target.value;  
     const updatedResource = { ...resource };
     setNestedValue(updatedResource, name, value);  
     setResource(updatedResource);
   };
-
-	const handleDataChange = (ev: SyntheticEventType) => {
-		const { name } = ev.target
-		const value =
-			ev.target.type === 'checkbox' ? ev.target.checked : ev.target.value    
-    setResource(prev => changeDocumentValue(prev, name, value))
-	}
 
 	const loadingWrapper = async (apiMethod: () => any) => {
 		try {
@@ -396,8 +386,7 @@ const useResourceContext = (): UseResourceContextResponse => {
 		loadingWrapper,
 		errors,
 		setErrors,
-    handleChange,
-    handleDataChange,
+    handleChange,    
 		handleErrors,
 		resource,
 		resources,

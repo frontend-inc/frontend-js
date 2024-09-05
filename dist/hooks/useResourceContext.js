@@ -61,7 +61,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var react_1 = require("react");
 var context_1 = require("../context");
-var helpers_1 = require("../helpers");
 var context_2 = require("../context");
 var _1 = require(".");
 var swr_1 = __importDefault(require("swr"));
@@ -391,11 +390,6 @@ var useResourceContext = function () {
         setNestedValue(updatedResource, name, value);
         setResource(updatedResource);
     };
-    var handleDataChange = function (ev) {
-        var name = ev.target.name;
-        var value = ev.target.type === 'checkbox' ? ev.target.checked : ev.target.value;
-        setResource(function (prev) { return (0, helpers_1.changeDocumentValue)(prev, name, value); });
-    };
     var loadingWrapper = function (apiMethod) { return __awaiter(void 0, void 0, void 0, function () {
         var res, e_1;
         var _a, _b;
@@ -463,7 +457,6 @@ var useResourceContext = function () {
         errors: errors,
         setErrors: setErrors,
         handleChange: handleChange,
-        handleDataChange: handleDataChange,
         handleErrors: handleErrors,
         resource: resource,
         resources: resources,

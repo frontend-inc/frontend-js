@@ -292,7 +292,7 @@ const useResource = (params: UseResourceParams): UseResourceResponse => {
     })
   }
   
-  const handleChange = (ev) => {
+  const handleChange = (ev: SyntheticEventType) => {
     const { name } = ev.target;
     const value = ev.target.type === 'checkbox' ? ev.target.checked : ev.target.value;  
     const updatedResource = { ...resource };
