@@ -340,7 +340,7 @@ export class ApiClient {
 			},
 		}
 		this.endpoint = `${url}/${sourceId}/remove_references`
-		return await this.restClient.post(this.endpoint, this.payload, this.headers)
+		return await this.post(this.endpoint, this.payload, this.headers)
 	}
 
 	async addAttachment(

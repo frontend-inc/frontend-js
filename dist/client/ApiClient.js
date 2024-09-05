@@ -516,7 +516,7 @@ var ApiClient = /** @class */ (function () {
                             },
                             _a);
                         this.endpoint = "".concat(url, "/").concat(sourceId, "/remove_references");
-                        return [4 /*yield*/, this.restClient.post(this.endpoint, this.payload, this.headers)];
+                        return [4 /*yield*/, this.post(this.endpoint, this.payload, this.headers)];
                     case 1: return [2 /*return*/, _b.sent()];
                 }
             });
