@@ -315,27 +315,21 @@ var useResource = function (params) {
         });
     }); };
     var addReferences = function (sourceId, targetIds) { return __awaiter(void 0, void 0, void 0, function () {
-        var options;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0:
-                    options = { url: url };
-                    return [4 /*yield*/, loadingWrapper(function () {
-                            return api.addReferences(sourceId, targetIds, options);
-                        })];
+                case 0: return [4 /*yield*/, loadingWrapper(function () {
+                        return api.addReferences(sourceId, targetIds, apiParams);
+                    })];
                 case 1: return [2 /*return*/, _a.sent()];
             }
         });
     }); };
     var removeReferences = function (sourceId, targetIds) { return __awaiter(void 0, void 0, void 0, function () {
-        var options;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0:
-                    options = { url: url };
-                    return [4 /*yield*/, loadingWrapper(function () {
-                            return api.removeReferences(sourceId, targetIds, options);
-                        })];
+                case 0: return [4 /*yield*/, loadingWrapper(function () {
+                        return api.removeReferences(sourceId, targetIds, apiParams);
+                    })];
                 case 1: return [2 /*return*/, _a.sent()];
             }
         });

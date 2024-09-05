@@ -233,20 +233,18 @@ const useResource = (params: UseResourceParams): UseResourceResponse => {
 		sourceId: ID,
 		targetIds: ID[]
 	) => {
-    const options = { url }
 		return await loadingWrapper(() =>
-			api.addReferences(sourceId, targetIds, options)
+			api.addReferences(sourceId, targetIds, apiParams)
 		)
 	}
 
-	const removeReferences = async (sourceId: ID, targetIds: ID[]) => {
-    const options = { url }
+	const removeReferences = async (sourceId: ID, targetIds: ID[]) => {    
 		return await loadingWrapper(() =>
-			api.removeReferences(sourceId, targetIds, options)
+			api.removeReferences(sourceId, targetIds, apiParams)
 		)
 	}
 
-  const updateReferencePositions = async (id: number, sorted) => {
+  const updateReferencePositions = async (id: number, sorted: any[]) => {
     return await api.updateReferencePositions(id, sorted, apiParams)
 	}
 
@@ -257,7 +255,7 @@ const useResource = (params: UseResourceParams): UseResourceResponse => {
 	) => {
     const options = {
       name: 'attachment',
-      url
+      url: url 
     }
 		return await loadingWrapper(() =>
 			api.addAttachment(id, fieldName, attachmentId, options)
@@ -267,7 +265,7 @@ const useResource = (params: UseResourceParams): UseResourceResponse => {
 	const removeAttachment = async (id: ID, fieldName: string) => {
     const options = {
       name: 'attachment',
-      url
+      url: url 
     }
 		return await loadingWrapper(() =>
 			api.removeAttachment(id, fieldName, options)
