@@ -450,6 +450,67 @@ var ApiClient = /** @class */ (function () {
             });
         });
     };
+    /* Ecommerce */
+    ApiClient.prototype.product_like = function (id, options) {
+        return __awaiter(this, void 0, void 0, function () {
+            var _a, name, url;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
+                    case 0:
+                        _a = options || {}, name = _a.name, url = _a.url;
+                        this.name = name;
+                        this.endpoint = "".concat(url, "/").concat(id, "/product_like");
+                        return [4 /*yield*/, this.post(this.endpoint, null, this.headers)];
+                    case 1: return [2 /*return*/, _b.sent()];
+                }
+            });
+        });
+    };
+    ApiClient.prototype.product_unlike = function (id, options) {
+        return __awaiter(this, void 0, void 0, function () {
+            var _a, name, url;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
+                    case 0:
+                        _a = options || {}, name = _a.name, url = _a.url;
+                        this.name = name;
+                        this.endpoint = "".concat(url, "/").concat(id, "/product_unlike");
+                        return [4 /*yield*/, this.post(this.endpoint, null, this.headers)];
+                    case 1: return [2 /*return*/, _b.sent()];
+                }
+            });
+        });
+    };
+    ApiClient.prototype.product_favorite = function (id, options) {
+        return __awaiter(this, void 0, void 0, function () {
+            var _a, name, url;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
+                    case 0:
+                        _a = options || {}, name = _a.name, url = _a.url;
+                        this.name = name;
+                        this.endpoint = "".concat(url, "/").concat(id, "/product_favorite");
+                        return [4 /*yield*/, this.post(this.endpoint, null, this.headers)];
+                    case 1: return [2 /*return*/, _b.sent()];
+                }
+            });
+        });
+    };
+    ApiClient.prototype.product_unfavorite = function (id, options) {
+        return __awaiter(this, void 0, void 0, function () {
+            var _a, name, url;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
+                    case 0:
+                        _a = options || {}, name = _a.name, url = _a.url;
+                        this.name = name;
+                        this.endpoint = "".concat(url, "/").concat(id, "/product_unfavorite");
+                        return [4 /*yield*/, this.post(this.endpoint, null, this.headers)];
+                    case 1: return [2 /*return*/, _b.sent()];
+                }
+            });
+        });
+    };
     ApiClient.prototype.shopifyFavorite = function (handle, options) {
         return __awaiter(this, void 0, void 0, function () {
             var _a, name, url;
@@ -516,6 +577,69 @@ var ApiClient = /** @class */ (function () {
                             },
                             _a);
                         this.endpoint = "".concat(url, "/").concat(sourceId, "/remove_references");
+                        return [4 /*yield*/, this.post(this.endpoint, this.payload, this.headers)];
+                    case 1: return [2 /*return*/, _b.sent()];
+                }
+            });
+        });
+    };
+    ApiClient.prototype.addRelatedProducts = function (productId, relatedProductIds, options) {
+        return __awaiter(this, void 0, void 0, function () {
+            var url;
+            var _a;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
+                    case 0:
+                        url = (options || {}).url;
+                        this.name = 'related_products';
+                        this.payload = (_a = {},
+                            _a[this.name] = {
+                                ids: relatedProductIds,
+                            },
+                            _a);
+                        this.endpoint = "".concat(url, "/").concat(productId, "/add_related_products");
+                        return [4 /*yield*/, this.post(this.endpoint, this.payload, this.headers)];
+                    case 1: return [2 /*return*/, _b.sent()];
+                }
+            });
+        });
+    };
+    ApiClient.prototype.removeRelatedProducts = function (productId, relatedProductIds, options) {
+        return __awaiter(this, void 0, void 0, function () {
+            var url;
+            var _a;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
+                    case 0:
+                        url = (options || {}).url;
+                        this.name = 'related_product';
+                        this.payload = (_a = {},
+                            _a[this.name] = {
+                                ids: relatedProductIds,
+                            },
+                            _a);
+                        this.endpoint = "".concat(url, "/").concat(productId, "/remove_related_products");
+                        return [4 /*yield*/, this.post(this.endpoint, this.payload, this.headers)];
+                    case 1: return [2 /*return*/, _b.sent()];
+                }
+            });
+        });
+    };
+    ApiClient.prototype.checkout = function (productIds, options) {
+        return __awaiter(this, void 0, void 0, function () {
+            var url;
+            var _a;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
+                    case 0:
+                        url = (options || {}).url;
+                        this.name = 'products';
+                        this.payload = (_a = {},
+                            _a[this.name] = {
+                                ids: productIds,
+                            },
+                            _a);
+                        this.endpoint = "".concat(url, "/checkout");
                         return [4 /*yield*/, this.post(this.endpoint, this.payload, this.headers)];
                     case 1: return [2 /*return*/, _b.sent()];
                 }

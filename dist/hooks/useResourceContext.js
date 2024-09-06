@@ -326,6 +326,44 @@ var useResourceContext = function () {
             }
         });
     }); };
+    var addRelatedProducts = function (productId, relatedProductIds) { return __awaiter(void 0, void 0, void 0, function () {
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, loadingWrapper(function () {
+                        return api.addRelatedProducts(productId, relatedProductIds, apiParams);
+                    })];
+                case 1: return [2 /*return*/, _a.sent()];
+            }
+        });
+    }); };
+    var removeRelatedProducts = function (productId, relatedProductIds) { return __awaiter(void 0, void 0, void 0, function () {
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, loadingWrapper(function () {
+                        return api.removeRelatedProducts(productId, relatedProductIds, apiParams);
+                    })];
+                case 1: return [2 /*return*/, _a.sent()];
+            }
+        });
+    }); };
+    var updateRelatedProductPositions = function (id, sorted) { return __awaiter(void 0, void 0, void 0, function () {
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, api.updateRelatedProductPositions(id, sorted, apiParams)];
+                case 1: return [2 /*return*/, _a.sent()];
+            }
+        });
+    }); };
+    var checkout = function (ids) { return __awaiter(void 0, void 0, void 0, function () {
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, loadingWrapper(function () {
+                        return api.checkout(ids, apiParams);
+                    })];
+                case 1: return [2 /*return*/, _a.sent()];
+            }
+        });
+    }); };
     var addAttachment = function (id, fieldName, attachmentId) { return __awaiter(void 0, void 0, void 0, function () {
         var options;
         return __generator(this, function (_a) {
@@ -358,13 +396,12 @@ var useResourceContext = function () {
             }
         });
     }); };
+    // Intentionally avoid loading wrapper for this method
     var updatePositions = function (sorted) { return __awaiter(void 0, void 0, void 0, function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0: return [4 /*yield*/, api.updatePositions(sorted, apiParams)];
-                case 1: 
-                // Intentionally avoid loading for drag-drop UIs
-                return [2 /*return*/, _a.sent()];
+                case 1: return [2 /*return*/, _a.sent()];
             }
         });
     }); };
@@ -477,6 +514,10 @@ var useResourceContext = function () {
         addReferences: addReferences,
         removeReferences: removeReferences,
         updateReferencePositions: updateReferencePositions,
+        addRelatedProducts: addRelatedProducts,
+        removeRelatedProducts: removeRelatedProducts,
+        updateRelatedProductPositions: updateRelatedProductPositions,
+        checkout: checkout,
         addAttachment: addAttachment,
         removeAttachment: removeAttachment,
         updatePositions: updatePositions,

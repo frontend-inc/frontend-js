@@ -246,7 +246,32 @@ const useResource = (params: UseResourceParams): UseResourceResponse => {
 
   const updateReferencePositions = async (id: number, sorted: any[]) => {
     return await api.updateReferencePositions(id, sorted, apiParams)
+	}  
+
+  const addRelatedProducts = async (
+		productId: ID,
+		relatedProductIds: ID[]
+	) => {
+		return await loadingWrapper(() =>
+			api.addRelatedProducts(productId, relatedProductIds, apiParams)
+		)
 	}
+
+	const removeRelatedProducts = async (productId: ID, relatedProductIds: ID[]) => {    
+		return await loadingWrapper(() =>
+			api.removeRelatedProducts(productId, relatedProductIds, apiParams)
+		)
+	}
+
+  const updateRelatedProductPositions = async (id: number, sorted: any[]) => {
+    return await api.updateRelatedProductPositions(id, sorted, apiParams)
+	}
+
+  const checkout = async (ids: ID[]) => {
+    return await loadingWrapper(() =>
+      api.checkout(ids, apiParams)
+    )
+  }
 
 	const addAttachment = async (
 		id: ID,
@@ -383,6 +408,12 @@ const useResource = (params: UseResourceParams): UseResourceResponse => {
 		addReferences,
 		removeReferences,
     updateReferencePositions,
+
+    addRelatedProducts,
+    removeRelatedProducts,
+    updateRelatedProductPositions,
+    checkout,
+    
 		addAttachment,
 		removeAttachment,
 		updatePositions,

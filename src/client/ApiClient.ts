@@ -297,6 +297,35 @@ export class ApiClient {
 		return await this.post(this.endpoint, null, this.headers)
 	}
 
+  /* Ecommerce */
+  async product_like(id: number, options: MutateOptionsType): Promise<ExecuteResponseType> {
+    const { name, url } = options || {}
+    this.name = name
+		this.endpoint = `${url}/${id}/product_like`
+		return await this.post(this.endpoint, null, this.headers)
+	}
+
+	async product_unlike(id: number, options: MutateOptionsType): Promise<ExecuteResponseType> {
+    const { name, url } = options || {}
+    this.name = name
+		this.endpoint = `${url}/${id}/product_unlike`
+		return await this.post(this.endpoint, null, this.headers)
+	}
+
+	async product_favorite(id: number, options: MutateOptionsType): Promise<ExecuteResponseType> {
+    const { name, url } = options || {}
+    this.name = name
+		this.endpoint = `${url}/${id}/product_favorite`
+		return await this.post(this.endpoint, null, this.headers)
+	}
+
+	async product_unfavorite(id: number, options: MutateOptionsType): Promise<ExecuteResponseType> {
+    const { name, url } = options || {}
+    this.name = name
+		this.endpoint = `${url}/${id}/product_unfavorite`
+		return await this.post(this.endpoint, null, this.headers)
+	}
+
   async shopifyFavorite(handle: string, options: MutateOptionsType): Promise<ExecuteResponseType> {
     const { name, url } = options || {}
     this.name = name
@@ -340,6 +369,53 @@ export class ApiClient {
 			},
 		}
 		this.endpoint = `${url}/${sourceId}/remove_references`
+		return await this.post(this.endpoint, this.payload, this.headers)
+	}
+
+  async addRelatedProducts(
+		productId: number,
+		relatedProductIds: number[], 
+    options: MutateOptionsType
+  ): Promise<ExecuteResponseType> {
+    const { url } = options || {}
+    this.name = 'related_products'
+		this.payload = {
+			[this.name]: {
+				ids: relatedProductIds,
+			},
+		}
+		this.endpoint = `${url}/${productId}/add_related_products`
+		return await this.post(this.endpoint, this.payload, this.headers)
+	}
+
+	async removeRelatedProducts(
+		productId: number,
+		relatedProductIds: number[], 
+    options: MutateOptionsType
+  ): Promise<ExecuteResponseType> {
+    const { url } = options || {}
+    this.name = 'related_product'
+		this.payload = {
+			[this.name]: {
+				ids: relatedProductIds,
+			},
+		}
+		this.endpoint = `${url}/${productId}/remove_related_products`
+		return await this.post(this.endpoint, this.payload, this.headers)
+	}
+
+  async checkout(
+		productIds: number[],
+    options: MutateOptionsType
+  ): Promise<ExecuteResponseType> {
+    const { url } = options || {}
+    this.name = 'products'
+		this.payload = {
+			[this.name]: {
+				ids: productIds,
+			},
+		}
+		this.endpoint = `${url}/checkout`
 		return await this.post(this.endpoint, this.payload, this.headers)
 	}
 

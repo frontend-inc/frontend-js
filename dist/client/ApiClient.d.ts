@@ -43,10 +43,17 @@ export declare class ApiClient {
     unfavorite(id: number, options: MutateOptionsType): Promise<ExecuteResponseType>;
     follow(username: string, options: MutateOptionsType): Promise<ExecuteResponseType>;
     unfollow(username: string, options: MutateOptionsType): Promise<ExecuteResponseType>;
+    product_like(id: number, options: MutateOptionsType): Promise<ExecuteResponseType>;
+    product_unlike(id: number, options: MutateOptionsType): Promise<ExecuteResponseType>;
+    product_favorite(id: number, options: MutateOptionsType): Promise<ExecuteResponseType>;
+    product_unfavorite(id: number, options: MutateOptionsType): Promise<ExecuteResponseType>;
     shopifyFavorite(handle: string, options: MutateOptionsType): Promise<ExecuteResponseType>;
     shopifyUnfavorite(handle: string, options: MutateOptionsType): Promise<ExecuteResponseType>;
     addReferences(sourceId: number, targetIds: number[], options: MutateOptionsType): Promise<ExecuteResponseType>;
     removeReferences(sourceId: number, targetIds: number[], options: MutateOptionsType): Promise<ExecuteResponseType>;
+    addRelatedProducts(productId: number, relatedProductIds: number[], options: MutateOptionsType): Promise<ExecuteResponseType>;
+    removeRelatedProducts(productId: number, relatedProductIds: number[], options: MutateOptionsType): Promise<ExecuteResponseType>;
+    checkout(productIds: number[], options: MutateOptionsType): Promise<ExecuteResponseType>;
     addAttachment(id: number, name: string, attachmentId: number, options: MutateOptionsType): Promise<ExecuteResponseType>;
     removeAttachment(id: number, name: string, options: MutateOptionsType): Promise<ExecuteResponseType>;
     addImage(id: number, attachmentId: number, options: MutateOptionsType): Promise<ExecuteResponseType>;
