@@ -267,9 +267,9 @@ const useResource = (params: UseResourceParams): UseResourceResponse => {
     return await api.updateRelatedProductPositions(id, sorted, apiParams)
 	}
 
-  const checkout = async (ids: ID[]) => {
+  const checkout = async (cartId: ID) => {
     return await loadingWrapper(() =>
-      api.checkout(ids, apiParams)
+      api.checkout(cartId, apiParams)
     )
   }
 

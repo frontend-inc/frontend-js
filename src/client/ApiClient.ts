@@ -405,18 +405,12 @@ export class ApiClient {
 	}
 
   async checkout(
-		productIds: number[],
+		cartId: number,
     options: MutateOptionsType
   ): Promise<ExecuteResponseType> {
     const { url } = options || {}
-    this.name = 'products'
-		this.payload = {
-			[this.name]: {
-				ids: productIds,
-			},
-		}
-		this.endpoint = `${url}/checkout`
-		return await this.post(this.endpoint, this.payload, this.headers)
+		this.endpoint = `${url}/${cartId}/checkout`
+		return await this.post(this.endpoint, null, this.headers)
 	}
 
 	async addAttachment(

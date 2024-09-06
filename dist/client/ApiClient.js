@@ -625,23 +625,16 @@ var ApiClient = /** @class */ (function () {
             });
         });
     };
-    ApiClient.prototype.checkout = function (productIds, options) {
+    ApiClient.prototype.checkout = function (cartId, options) {
         return __awaiter(this, void 0, void 0, function () {
             var url;
-            var _a;
-            return __generator(this, function (_b) {
-                switch (_b.label) {
+            return __generator(this, function (_a) {
+                switch (_a.label) {
                     case 0:
                         url = (options || {}).url;
-                        this.name = 'products';
-                        this.payload = (_a = {},
-                            _a[this.name] = {
-                                ids: productIds,
-                            },
-                            _a);
-                        this.endpoint = "".concat(url, "/checkout");
-                        return [4 /*yield*/, this.post(this.endpoint, this.payload, this.headers)];
-                    case 1: return [2 /*return*/, _b.sent()];
+                        this.endpoint = "".concat(url, "/").concat(cartId, "/checkout");
+                        return [4 /*yield*/, this.post(this.endpoint, null, this.headers)];
+                    case 1: return [2 /*return*/, _a.sent()];
                 }
             });
         });
