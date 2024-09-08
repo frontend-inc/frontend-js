@@ -326,39 +326,21 @@ var useResourceContext = function () {
             }
         });
     }); };
-    var addRelatedProducts = function (productId, relatedProductIds) { return __awaiter(void 0, void 0, void 0, function () {
+    var addProducts = function (productCollectionId, productIds) { return __awaiter(void 0, void 0, void 0, function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0: return [4 /*yield*/, loadingWrapper(function () {
-                        return api.addRelatedProducts(productId, relatedProductIds, apiParams);
+                        return api.addProducts(productCollectionId, productIds, apiParams);
                     })];
                 case 1: return [2 /*return*/, _a.sent()];
             }
         });
     }); };
-    var removeRelatedProducts = function (productId, relatedProductIds) { return __awaiter(void 0, void 0, void 0, function () {
+    var removeProducts = function (productCollectionId, productIds) { return __awaiter(void 0, void 0, void 0, function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0: return [4 /*yield*/, loadingWrapper(function () {
-                        return api.removeRelatedProducts(productId, relatedProductIds, apiParams);
-                    })];
-                case 1: return [2 /*return*/, _a.sent()];
-            }
-        });
-    }); };
-    var updateRelatedProductPositions = function (id, sorted) { return __awaiter(void 0, void 0, void 0, function () {
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0: return [4 /*yield*/, api.updateRelatedProductPositions(id, sorted, apiParams)];
-                case 1: return [2 /*return*/, _a.sent()];
-            }
-        });
-    }); };
-    var checkout = function (cartId) { return __awaiter(void 0, void 0, void 0, function () {
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0: return [4 /*yield*/, loadingWrapper(function () {
-                        return api.checkout(cartId, apiParams);
+                        return api.removeProducts(productCollectionId, productIds, apiParams);
                     })];
                 case 1: return [2 /*return*/, _a.sent()];
             }
@@ -514,10 +496,8 @@ var useResourceContext = function () {
         addReferences: addReferences,
         removeReferences: removeReferences,
         updateReferencePositions: updateReferencePositions,
-        addRelatedProducts: addRelatedProducts,
-        removeRelatedProducts: removeRelatedProducts,
-        updateRelatedProductPositions: updateRelatedProductPositions,
-        checkout: checkout,
+        addProducts: addProducts,
+        removeProducts: removeProducts,
         addAttachment: addAttachment,
         removeAttachment: removeAttachment,
         updatePositions: updatePositions,

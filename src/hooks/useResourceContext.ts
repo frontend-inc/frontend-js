@@ -279,30 +279,20 @@ const useResourceContext = (): UseResourceContextResponse => {
     return await api.updateReferencePositions(id, sorted, apiParams)
 	}
 
-  const addRelatedProducts = async (
-		productId: ID,
-		relatedProductIds: ID[]
+  const addProducts = async (
+		productCollectionId: ID,
+		productIds: ID[]
 	) => {
 		return await loadingWrapper(() =>
-			api.addRelatedProducts(productId, relatedProductIds, apiParams)
+			api.addProducts(productCollectionId, productIds, apiParams)
 		)
 	}
 
-	const removeRelatedProducts = async (productId: ID, relatedProductIds: ID[]) => {    
+	const removeProducts = async (productCollectionId: ID, productIds: ID[]) => {    
 		return await loadingWrapper(() =>
-			api.removeRelatedProducts(productId, relatedProductIds, apiParams)
+			api.removeProducts(productCollectionId, productIds, apiParams)
 		)
 	}
-
-  const updateRelatedProductPositions = async (id: number, sorted: any[]) => {
-    return await api.updateRelatedProductPositions(id, sorted, apiParams)
-	}
-  
-  const checkout = async (cartId: ID) => {
-    return await loadingWrapper(() =>
-      api.checkout(cartId, apiParams)
-    )
-  }
 
 	const addAttachment = async (
 		id: ID,
@@ -433,10 +423,9 @@ const useResourceContext = (): UseResourceContextResponse => {
 		removeReferences,
     
     updateReferencePositions,
-    addRelatedProducts,
-    removeRelatedProducts,
-    updateRelatedProductPositions,
-    checkout,
+    
+    addProducts,
+    removeProducts,
 
 		addAttachment,
 		removeAttachment,
