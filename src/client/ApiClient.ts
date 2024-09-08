@@ -297,32 +297,31 @@ export class ApiClient {
 		return await this.post(this.endpoint, null, this.headers)
 	}
 
-  /* Ecommerce */
-  async product_like(id: number, options: MutateOptionsType): Promise<ExecuteResponseType> {
+  async likeProduct(id: number, options: MutateOptionsType): Promise<ExecuteResponseType> {
     const { name, url } = options || {}
     this.name = name
-		this.endpoint = `${url}/${id}/product_like`
+		this.endpoint = `${url}/${id}/like_product`
 		return await this.post(this.endpoint, null, this.headers)
 	}
 
-	async product_unlike(id: number, options: MutateOptionsType): Promise<ExecuteResponseType> {
+	async unlikeProduct(id: number, options: MutateOptionsType): Promise<ExecuteResponseType> {
     const { name, url } = options || {}
     this.name = name
-		this.endpoint = `${url}/${id}/product_unlike`
+		this.endpoint = `${url}/${id}/unlike_product`
 		return await this.post(this.endpoint, null, this.headers)
 	}
 
-	async product_favorite(id: number, options: MutateOptionsType): Promise<ExecuteResponseType> {
+	async favoriteProduct(id: number, options: MutateOptionsType): Promise<ExecuteResponseType> {
     const { name, url } = options || {}
     this.name = name
-		this.endpoint = `${url}/${id}/product_favorite`
+		this.endpoint = `${url}/${id}/favorite_product`
 		return await this.post(this.endpoint, null, this.headers)
 	}
 
-	async product_unfavorite(id: number, options: MutateOptionsType): Promise<ExecuteResponseType> {
+	async unfavoriteProduct(id: number, options: MutateOptionsType): Promise<ExecuteResponseType> {
     const { name, url } = options || {}
     this.name = name
-		this.endpoint = `${url}/${id}/product_unfavorite`
+		this.endpoint = `${url}/${id}/unfavorite_product`
 		return await this.post(this.endpoint, null, this.headers)
 	}
 

@@ -450,8 +450,7 @@ var ApiClient = /** @class */ (function () {
             });
         });
     };
-    /* Ecommerce */
-    ApiClient.prototype.product_like = function (id, options) {
+    ApiClient.prototype.likeProduct = function (id, options) {
         return __awaiter(this, void 0, void 0, function () {
             var _a, name, url;
             return __generator(this, function (_b) {
@@ -459,14 +458,14 @@ var ApiClient = /** @class */ (function () {
                     case 0:
                         _a = options || {}, name = _a.name, url = _a.url;
                         this.name = name;
-                        this.endpoint = "".concat(url, "/").concat(id, "/product_like");
+                        this.endpoint = "".concat(url, "/").concat(id, "/like_product");
                         return [4 /*yield*/, this.post(this.endpoint, null, this.headers)];
                     case 1: return [2 /*return*/, _b.sent()];
                 }
             });
         });
     };
-    ApiClient.prototype.product_unlike = function (id, options) {
+    ApiClient.prototype.unlikeProduct = function (id, options) {
         return __awaiter(this, void 0, void 0, function () {
             var _a, name, url;
             return __generator(this, function (_b) {
@@ -474,14 +473,14 @@ var ApiClient = /** @class */ (function () {
                     case 0:
                         _a = options || {}, name = _a.name, url = _a.url;
                         this.name = name;
-                        this.endpoint = "".concat(url, "/").concat(id, "/product_unlike");
+                        this.endpoint = "".concat(url, "/").concat(id, "/unlike_product");
                         return [4 /*yield*/, this.post(this.endpoint, null, this.headers)];
                     case 1: return [2 /*return*/, _b.sent()];
                 }
             });
         });
     };
-    ApiClient.prototype.product_favorite = function (id, options) {
+    ApiClient.prototype.favoriteProduct = function (id, options) {
         return __awaiter(this, void 0, void 0, function () {
             var _a, name, url;
             return __generator(this, function (_b) {
@@ -489,14 +488,14 @@ var ApiClient = /** @class */ (function () {
                     case 0:
                         _a = options || {}, name = _a.name, url = _a.url;
                         this.name = name;
-                        this.endpoint = "".concat(url, "/").concat(id, "/product_favorite");
+                        this.endpoint = "".concat(url, "/").concat(id, "/favorite_product");
                         return [4 /*yield*/, this.post(this.endpoint, null, this.headers)];
                     case 1: return [2 /*return*/, _b.sent()];
                 }
             });
         });
     };
-    ApiClient.prototype.product_unfavorite = function (id, options) {
+    ApiClient.prototype.unfavoriteProduct = function (id, options) {
         return __awaiter(this, void 0, void 0, function () {
             var _a, name, url;
             return __generator(this, function (_b) {
@@ -504,7 +503,7 @@ var ApiClient = /** @class */ (function () {
                     case 0:
                         _a = options || {}, name = _a.name, url = _a.url;
                         this.name = name;
-                        this.endpoint = "".concat(url, "/").concat(id, "/product_unfavorite");
+                        this.endpoint = "".concat(url, "/").concat(id, "/unfavorite_product");
                         return [4 /*yield*/, this.post(this.endpoint, null, this.headers)];
                     case 1: return [2 /*return*/, _b.sent()];
                 }
