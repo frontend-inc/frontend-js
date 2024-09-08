@@ -51,9 +51,8 @@ export declare class ApiClient {
     shopifyUnfavorite(handle: string, options: MutateOptionsType): Promise<ExecuteResponseType>;
     addReferences(sourceId: number, targetIds: number[], options: MutateOptionsType): Promise<ExecuteResponseType>;
     removeReferences(sourceId: number, targetIds: number[], options: MutateOptionsType): Promise<ExecuteResponseType>;
-    addRelatedProducts(productId: number, relatedProductIds: number[], options: MutateOptionsType): Promise<ExecuteResponseType>;
-    removeRelatedProducts(productId: number, relatedProductIds: number[], options: MutateOptionsType): Promise<ExecuteResponseType>;
-    checkout(cartId: number, options: MutateOptionsType): Promise<ExecuteResponseType>;
+    addProducts(productCollectionId: number, productIds: number[], options: MutateOptionsType): Promise<ExecuteResponseType>;
+    removeProducts(productCollectionId: number, productIds: number[], options: MutateOptionsType): Promise<ExecuteResponseType>;
     addAttachment(id: number, name: string, attachmentId: number, options: MutateOptionsType): Promise<ExecuteResponseType>;
     removeAttachment(id: number, name: string, options: MutateOptionsType): Promise<ExecuteResponseType>;
     addImage(id: number, attachmentId: number, options: MutateOptionsType): Promise<ExecuteResponseType>;

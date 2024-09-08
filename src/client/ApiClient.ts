@@ -371,46 +371,38 @@ export class ApiClient {
 		return await this.post(this.endpoint, this.payload, this.headers)
 	}
 
-  async addRelatedProducts(
-		productId: number,
-		relatedProductIds: number[], 
+	async addProducts(
+		productCollectionId: number,
+		productIds: number[], 
     options: MutateOptionsType
   ): Promise<ExecuteResponseType> {
     const { url } = options || {}
-    this.name = 'related_products'
+    this.name = 'products'
 		this.payload = {
 			[this.name]: {
-				ids: relatedProductIds,
+				ids: productIds
 			},
 		}
-		this.endpoint = `${url}/${productId}/add_related_products`
+		this.endpoint = `${url}/${productCollectionId}/add_products`
 		return await this.post(this.endpoint, this.payload, this.headers)
 	}
 
-	async removeRelatedProducts(
-		productId: number,
-		relatedProductIds: number[], 
+	async removeProducts(
+		productCollectionId: number,
+		productIds: number[], 
     options: MutateOptionsType
   ): Promise<ExecuteResponseType> {
     const { url } = options || {}
-    this.name = 'related_product'
+    this.name = 'references'
 		this.payload = {
 			[this.name]: {
-				ids: relatedProductIds,
+				ids: productIds,
 			},
 		}
-		this.endpoint = `${url}/${productId}/remove_related_products`
+		this.endpoint = `${url}/${productCollectionId}/remove_products`
 		return await this.post(this.endpoint, this.payload, this.headers)
 	}
 
-  async checkout(
-		cartId: number,
-    options: MutateOptionsType
-  ): Promise<ExecuteResponseType> {
-    const { url } = options || {}
-		this.endpoint = `${url}/${cartId}/checkout`
-		return await this.post(this.endpoint, null, this.headers)
-	}
 
 	async addAttachment(
 		id: number,

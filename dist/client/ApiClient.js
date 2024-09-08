@@ -582,7 +582,7 @@ var ApiClient = /** @class */ (function () {
             });
         });
     };
-    ApiClient.prototype.addRelatedProducts = function (productId, relatedProductIds, options) {
+    ApiClient.prototype.addProducts = function (productCollectionId, productIds, options) {
         return __awaiter(this, void 0, void 0, function () {
             var url;
             var _a;
@@ -590,20 +590,20 @@ var ApiClient = /** @class */ (function () {
                 switch (_b.label) {
                     case 0:
                         url = (options || {}).url;
-                        this.name = 'related_products';
+                        this.name = 'products';
                         this.payload = (_a = {},
                             _a[this.name] = {
-                                ids: relatedProductIds,
+                                ids: productIds
                             },
                             _a);
-                        this.endpoint = "".concat(url, "/").concat(productId, "/add_related_products");
+                        this.endpoint = "".concat(url, "/").concat(productCollectionId, "/add_products");
                         return [4 /*yield*/, this.post(this.endpoint, this.payload, this.headers)];
                     case 1: return [2 /*return*/, _b.sent()];
                 }
             });
         });
     };
-    ApiClient.prototype.removeRelatedProducts = function (productId, relatedProductIds, options) {
+    ApiClient.prototype.removeProducts = function (productCollectionId, productIds, options) {
         return __awaiter(this, void 0, void 0, function () {
             var url;
             var _a;
@@ -611,29 +611,15 @@ var ApiClient = /** @class */ (function () {
                 switch (_b.label) {
                     case 0:
                         url = (options || {}).url;
-                        this.name = 'related_product';
+                        this.name = 'references';
                         this.payload = (_a = {},
                             _a[this.name] = {
-                                ids: relatedProductIds,
+                                ids: productIds,
                             },
                             _a);
-                        this.endpoint = "".concat(url, "/").concat(productId, "/remove_related_products");
+                        this.endpoint = "".concat(url, "/").concat(productCollectionId, "/remove_products");
                         return [4 /*yield*/, this.post(this.endpoint, this.payload, this.headers)];
                     case 1: return [2 /*return*/, _b.sent()];
-                }
-            });
-        });
-    };
-    ApiClient.prototype.checkout = function (cartId, options) {
-        return __awaiter(this, void 0, void 0, function () {
-            var url;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0:
-                        url = (options || {}).url;
-                        this.endpoint = "".concat(url, "/").concat(cartId, "/checkout");
-                        return [4 /*yield*/, this.post(this.endpoint, null, this.headers)];
-                    case 1: return [2 /*return*/, _a.sent()];
                 }
             });
         });
