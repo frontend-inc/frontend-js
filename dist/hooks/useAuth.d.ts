@@ -7,11 +7,12 @@ declare const useAuth: () => {
     setUser: (value: any) => void;
     currentUser: any;
     setCurrentUser: any;
-    fetchMe: () => Promise<any>;
+    fetchMe: () => Promise<void>;
     updateMe: (user: UserType) => Promise<any>;
     forgotPassword: (user: UserType) => Promise<any>;
     handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
     authenticateFromToken: (token: string) => Promise<void>;
+    reloadMe: () => Promise<any>;
     login: (user: UserType) => Promise<any>;
     logout: () => Promise<void>;
     signup: (user: UserType) => Promise<any>;

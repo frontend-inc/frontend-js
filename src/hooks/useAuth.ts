@@ -49,6 +49,10 @@ const useAuth = () => {
   })
 
   const fetchMe = async () => {
+		//return await loadingWrapper(() => api.fetchMe(apiParams))
+	}
+
+  const reloadMe = async () => {
 		return await loadingWrapper(() => api.fetchMe(apiParams))
 	}
 
@@ -185,6 +189,8 @@ const useAuth = () => {
 		handleChange,
 		authenticateFromToken,
 
+    reloadMe,
+    
 		login,
 		logout,
 		signup,
