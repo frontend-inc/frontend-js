@@ -279,21 +279,6 @@ const useResourceContext = (): UseResourceContextResponse => {
     return await api.updateReferencePositions(id, sorted, apiParams)
 	}
 
-  const addProducts = async (
-		productCollectionId: ID,
-		productIds: ID[]
-	) => {
-		return await loadingWrapper(() =>
-			api.addProducts(productCollectionId, productIds, apiParams)
-		)
-	}
-
-	const removeProducts = async (productCollectionId: ID, productIds: ID[]) => {    
-		return await loadingWrapper(() =>
-			api.removeProducts(productCollectionId, productIds, apiParams)
-		)
-	}
-
 	const addAttachment = async (
 		id: ID,
 		fieldName: string,
@@ -420,12 +405,8 @@ const useResourceContext = (): UseResourceContextResponse => {
 		publish,
 		unpublish,
 		addReferences,
-		removeReferences,
-    
+		removeReferences,    
     updateReferencePositions,
-    
-    addProducts,
-    removeProducts,
 
 		addAttachment,
 		removeAttachment,

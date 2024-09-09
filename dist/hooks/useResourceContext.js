@@ -326,26 +326,6 @@ var useResourceContext = function () {
             }
         });
     }); };
-    var addProducts = function (productCollectionId, productIds) { return __awaiter(void 0, void 0, void 0, function () {
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0: return [4 /*yield*/, loadingWrapper(function () {
-                        return api.addProducts(productCollectionId, productIds, apiParams);
-                    })];
-                case 1: return [2 /*return*/, _a.sent()];
-            }
-        });
-    }); };
-    var removeProducts = function (productCollectionId, productIds) { return __awaiter(void 0, void 0, void 0, function () {
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0: return [4 /*yield*/, loadingWrapper(function () {
-                        return api.removeProducts(productCollectionId, productIds, apiParams);
-                    })];
-                case 1: return [2 /*return*/, _a.sent()];
-            }
-        });
-    }); };
     var addAttachment = function (id, fieldName, attachmentId) { return __awaiter(void 0, void 0, void 0, function () {
         var options;
         return __generator(this, function (_a) {
@@ -496,8 +476,6 @@ var useResourceContext = function () {
         addReferences: addReferences,
         removeReferences: removeReferences,
         updateReferencePositions: updateReferencePositions,
-        addProducts: addProducts,
-        removeProducts: removeProducts,
         addAttachment: addAttachment,
         removeAttachment: removeAttachment,
         updatePositions: updatePositions,

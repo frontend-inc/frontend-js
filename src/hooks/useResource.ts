@@ -244,20 +244,6 @@ const useResource = (params: UseResourceParams): UseResourceResponse => {
 		)
 	}
 
-  const addProducts = async (
-		productCollectionId: ID,
-		productIds: ID[]
-	) => {
-		return await loadingWrapper(() =>
-			api.addProducts(productCollectionId, productIds, apiParams)
-		)
-	}
-
-	const removeProducts = async (productCollectionId: ID, productIds: ID[]) => {    
-		return await loadingWrapper(() =>
-			api.removeProducts(productCollectionId, productIds, apiParams)
-		)
-	}
 
   const updateReferencePositions = async (id: number, sorted: any[]) => {
     return await api.updateReferencePositions(id, sorted, apiParams)
@@ -398,9 +384,6 @@ const useResource = (params: UseResourceParams): UseResourceResponse => {
 		addReferences,
 		removeReferences,
     updateReferencePositions,
-    
-    addProducts,
-    removeProducts,
     
 		addAttachment,
 		removeAttachment,
