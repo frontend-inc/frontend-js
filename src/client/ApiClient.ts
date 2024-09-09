@@ -469,10 +469,12 @@ export class ApiClient {
 		return await this.post(this.endpoint, this.payload, this.headers)
 	}
 
-  async checkout(cartId: number, options: MutateOptionsType): Promise<ExecuteResponseType> {
+  async checkout(cartId: number, cartOptions={},  options: MutateOptionsType): Promise<ExecuteResponseType> {
     const { url } = options || {}
-    this.name = 'cart'
-    this.payload = {}
+    this.name = 'checkout'
+    this.payload = {
+      [this.name]: cartOptions
+    }
 		this.endpoint = `${url}/${cartId}/checkout`
 		return await this.post(this.endpoint, this.payload, this.headers)
 	}

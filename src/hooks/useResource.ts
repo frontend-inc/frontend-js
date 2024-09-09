@@ -379,7 +379,8 @@ const useResource = (params: UseResourceParams): UseResourceResponse => {
     upload,
 		updateMany,
 		deleteMany,
-		publish,
+		
+    publish,
 		unpublish,
 		addReferences,
 		removeReferences,

@@ -736,18 +736,22 @@ var ApiClient = /** @class */ (function () {
             });
         });
     };
-    ApiClient.prototype.checkout = function (cartId, options) {
+    ApiClient.prototype.checkout = function (cartId, cartOptions, options) {
+        if (cartOptions === void 0) { cartOptions = {}; }
         return __awaiter(this, void 0, void 0, function () {
             var url;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
+            var _a;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
                     case 0:
                         url = (options || {}).url;
-                        this.name = 'cart';
-                        this.payload = {};
+                        this.name = 'checkout';
+                        this.payload = (_a = {},
+                            _a[this.name] = cartOptions,
+                            _a);
                         this.endpoint = "".concat(url, "/").concat(cartId, "/checkout");
                         return [4 /*yield*/, this.post(this.endpoint, this.payload, this.headers)];
-                    case 1: return [2 /*return*/, _a.sent()];
+                    case 1: return [2 /*return*/, _b.sent()];
                 }
             });
         });
