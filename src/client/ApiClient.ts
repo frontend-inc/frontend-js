@@ -403,7 +403,6 @@ export class ApiClient {
 		return await this.post(this.endpoint, this.payload, this.headers)
 	}
 
-
 	async addAttachment(
 		id: number,
 		name: string,
@@ -451,6 +450,54 @@ export class ApiClient {
     this.name = name
 		this.payload = {}
 		this.endpoint = `${url}/${id}/remove_image`
+		return await this.post(this.endpoint, this.payload, this.headers)
+	}
+
+  // Cart methods 
+  async fetchCart(options: MutateOptionsType): Promise<ExecuteResponseType> {
+    const { name='cart', url } = options || {}
+    this.name = name
+		this.endpoint = `${url}/me`
+		return await this.get(this.endpoint)
+	}
+
+  async addToCart(productId: number, options: MutateOptionsType): Promise<ExecuteResponseType> {
+    const { url } = options || {}
+    this.name = 'cart'
+    this.payload = {}
+		this.endpoint = `${url}/${productId}/add_to_cart`
+		return await this.post(this.endpoint, this.payload, this.headers)
+	}
+
+  async checkout(cartId: number, options: MutateOptionsType): Promise<ExecuteResponseType> {
+    const { url } = options || {}
+    this.name = 'cart'
+    this.payload = {}
+		this.endpoint = `${url}/${cartId}/checkout`
+		return await this.post(this.endpoint, this.payload, this.headers)
+	}
+
+	async removeFromCart(productId: number, options: MutateOptionsType): Promise<ExecuteResponseType> {
+    const { url } = options || {}
+    this.name = 'cart'
+    this.payload = {}
+		this.endpoint = `${url}/${productId}/remove_from_cart`
+		return await this.post(this.endpoint, this.payload, this.headers)
+	}
+
+  async addQuantity(productId: number, options: MutateOptionsType): Promise<ExecuteResponseType> {
+    const { url } = options || {}
+    this.name = 'cart'
+    this.payload = {}
+		this.endpoint = `${url}/${productId}/add_quantity`
+		return await this.post(this.endpoint, this.payload, this.headers)
+	}
+
+	async removeQuantity(productId: number, options: MutateOptionsType): Promise<ExecuteResponseType> {
+    const { url } = options || {}
+    this.name = 'cart'
+    this.payload = {}
+		this.endpoint = `${url}/${productId}/remove_quantity`
 		return await this.post(this.endpoint, this.payload, this.headers)
 	}
 

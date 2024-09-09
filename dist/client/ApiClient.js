@@ -704,6 +704,102 @@ var ApiClient = /** @class */ (function () {
             });
         });
     };
+    // Cart methods 
+    ApiClient.prototype.fetchCart = function (options) {
+        return __awaiter(this, void 0, void 0, function () {
+            var _a, _b, name, url;
+            return __generator(this, function (_c) {
+                switch (_c.label) {
+                    case 0:
+                        _a = options || {}, _b = _a.name, name = _b === void 0 ? 'cart' : _b, url = _a.url;
+                        this.name = name;
+                        this.endpoint = "".concat(url, "/me");
+                        return [4 /*yield*/, this.get(this.endpoint)];
+                    case 1: return [2 /*return*/, _c.sent()];
+                }
+            });
+        });
+    };
+    ApiClient.prototype.addToCart = function (productId, options) {
+        return __awaiter(this, void 0, void 0, function () {
+            var url;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        url = (options || {}).url;
+                        this.name = 'cart';
+                        this.payload = {};
+                        this.endpoint = "".concat(url, "/").concat(productId, "/add_to_cart");
+                        return [4 /*yield*/, this.post(this.endpoint, this.payload, this.headers)];
+                    case 1: return [2 /*return*/, _a.sent()];
+                }
+            });
+        });
+    };
+    ApiClient.prototype.checkout = function (cartId, options) {
+        return __awaiter(this, void 0, void 0, function () {
+            var url;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        url = (options || {}).url;
+                        this.name = 'cart';
+                        this.payload = {};
+                        this.endpoint = "".concat(url, "/").concat(cartId, "/checkout");
+                        return [4 /*yield*/, this.post(this.endpoint, this.payload, this.headers)];
+                    case 1: return [2 /*return*/, _a.sent()];
+                }
+            });
+        });
+    };
+    ApiClient.prototype.removeFromCart = function (productId, options) {
+        return __awaiter(this, void 0, void 0, function () {
+            var url;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        url = (options || {}).url;
+                        this.name = 'cart';
+                        this.payload = {};
+                        this.endpoint = "".concat(url, "/").concat(productId, "/remove_from_cart");
+                        return [4 /*yield*/, this.post(this.endpoint, this.payload, this.headers)];
+                    case 1: return [2 /*return*/, _a.sent()];
+                }
+            });
+        });
+    };
+    ApiClient.prototype.addQuantity = function (productId, options) {
+        return __awaiter(this, void 0, void 0, function () {
+            var url;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        url = (options || {}).url;
+                        this.name = 'cart';
+                        this.payload = {};
+                        this.endpoint = "".concat(url, "/").concat(productId, "/add_quantity");
+                        return [4 /*yield*/, this.post(this.endpoint, this.payload, this.headers)];
+                    case 1: return [2 /*return*/, _a.sent()];
+                }
+            });
+        });
+    };
+    ApiClient.prototype.removeQuantity = function (productId, options) {
+        return __awaiter(this, void 0, void 0, function () {
+            var url;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        url = (options || {}).url;
+                        this.name = 'cart';
+                        this.payload = {};
+                        this.endpoint = "".concat(url, "/").concat(productId, "/remove_quantity");
+                        return [4 /*yield*/, this.post(this.endpoint, this.payload, this.headers)];
+                    case 1: return [2 /*return*/, _a.sent()];
+                }
+            });
+        });
+    };
     // Auth methods
     ApiClient.prototype.fetchMe = function (options) {
         return __awaiter(this, void 0, void 0, function () {
