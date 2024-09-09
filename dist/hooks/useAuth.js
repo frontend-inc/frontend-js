@@ -234,17 +234,17 @@ var useAuth = function () {
         });
     }); };
     (0, react_1.useEffect)(function () {
-        if (currentUser && !authenticated) {
-            setToken(currentUser === null || currentUser === void 0 ? void 0 : currentUser.token);
-            setAuthenticated(true);
-        }
-        if (!currentUser && !authenticated) {
+        if (!(currentUser === null || currentUser === void 0 ? void 0 : currentUser.id)) {
             var jwtToken = (0, cookies_next_1.getCookie)(authCookie);
             if (jwtToken) {
                 authenticateFromToken(String(jwtToken));
             }
         }
-    }, [currentUser]);
+        else if ((currentUser === null || currentUser === void 0 ? void 0 : currentUser.id) && !authenticated) {
+            setToken(currentUser === null || currentUser === void 0 ? void 0 : currentUser.token);
+            setAuthenticated(true);
+        }
+    }, [currentUser === null || currentUser === void 0 ? void 0 : currentUser.id]);
     return {
         loading: loading,
         delayedLoading: delayedLoading,

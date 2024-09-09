@@ -159,17 +159,16 @@ const useAuth = () => {
 	}
 
 	useEffect(() => {
-		if (currentUser && !authenticated) {
-			setToken(currentUser?.token)
-			setAuthenticated(true)
-		}
-		if (!currentUser && !authenticated) {
+    if (!currentUser?.id) {
 			let jwtToken = getCookie(authCookie)
 			if (jwtToken) {
 				authenticateFromToken(String(jwtToken))
 			}
-		}
-	}, [currentUser])
+		}else if(currentUser?.id && !authenticated) {
+			setToken(currentUser?.token)
+			setAuthenticated(true)
+		}		
+	}, [currentUser?.id])
 
 	return {
 		loading,
