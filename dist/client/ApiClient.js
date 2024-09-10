@@ -735,7 +735,7 @@ var ApiClient = /** @class */ (function () {
                                 quantity: quantity
                             },
                             _a);
-                        this.endpoint = "".concat(url, "/add_to_cart");
+                        this.endpoint = "".concat(url, "/").concat(productId, "/add_to_cart");
                         return [4 /*yield*/, this.post(this.endpoint, this.payload, this.headers)];
                     case 1: return [2 /*return*/, _b.sent()];
                 }

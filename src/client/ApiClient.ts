@@ -461,6 +461,7 @@ export class ApiClient {
 		return await this.get(this.endpoint)
 	}
   
+
   async addToCart(productId: number, quantity: number, options: MutateOptionsType): Promise<ExecuteResponseType> {
     const { url } = options || {}
     this.name = 'line_item'
@@ -470,7 +471,7 @@ export class ApiClient {
         quantity: quantity
       }
     }
-		this.endpoint = `${url}/add_to_cart`
+		this.endpoint = `${url}/${productId}/add_to_cart`
 		return await this.post(this.endpoint, this.payload, this.headers)
 	}
 
