@@ -72,14 +72,6 @@ var useAuth = function () {
             }
         });
     }); };
-    var reloadMe = function () { return __awaiter(void 0, void 0, void 0, function () {
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0: return [4 /*yield*/, loadingWrapper(function () { return api.fetchMe(apiParams); })];
-                case 1: return [2 /*return*/, _a.sent()];
-            }
-        });
-    }); };
     var updateMe = function (user) { return __awaiter(void 0, void 0, void 0, function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
@@ -266,7 +258,6 @@ var useAuth = function () {
         forgotPassword: forgotPassword,
         handleChange: handleChange,
         authenticateFromToken: authenticateFromToken,
-        reloadMe: reloadMe,
         login: login,
         logout: logout,
         signup: signup,

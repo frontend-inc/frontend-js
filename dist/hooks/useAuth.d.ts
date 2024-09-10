@@ -12,7 +12,6 @@ declare const useAuth: () => {
     forgotPassword: (user: UserType) => Promise<any>;
     handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
     authenticateFromToken: (token: string) => Promise<void>;
-    reloadMe: () => Promise<any>;
     login: (user: UserType) => Promise<any>;
     logout: () => Promise<void>;
     signup: (user: UserType) => Promise<any>;
