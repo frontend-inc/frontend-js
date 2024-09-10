@@ -830,6 +830,22 @@ var ApiClient = /** @class */ (function () {
             });
         });
     };
+    ApiClient.prototype.unsubscribe = function (options) {
+        return __awaiter(this, void 0, void 0, function () {
+            var url;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        url = (options || {}).url;
+                        this.name = 'subscription';
+                        this.payload = {};
+                        this.endpoint = "".concat(url, "/unsubscribe");
+                        return [4 /*yield*/, this.post(this.endpoint, this.payload, this.headers)];
+                    case 1: return [2 /*return*/, _a.sent()];
+                }
+            });
+        });
+    };
     // Auth methods
     ApiClient.prototype.fetchMe = function (options) {
         return __awaiter(this, void 0, void 0, function () {

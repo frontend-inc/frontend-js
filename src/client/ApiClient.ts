@@ -519,6 +519,14 @@ export class ApiClient {
 		return await this.post(this.endpoint, this.payload, this.headers)
 	}
 
+  async unsubscribe(options: MutateOptionsType): Promise<ExecuteResponseType> {
+    const { url } = options || {}
+    this.name = 'subscription'
+    this.payload = {}
+		this.endpoint = `${url}/unsubscribe`
+		return await this.post(this.endpoint, this.payload, this.headers)
+	}
+
 	// Auth methods
 	async fetchMe(options: MutateOptionsType): Promise<ExecuteResponseType> {
     const { name='user', url } = options || {}
