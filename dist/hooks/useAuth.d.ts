@@ -7,7 +7,7 @@ declare const useAuth: () => {
     setUser: (value: any) => void;
     currentUser: any;
     setCurrentUser: any;
-    fetchMe: () => Promise<void>;
+    fetchMe: () => Promise<any>;
     updateMe: (user: UserType) => Promise<any>;
     forgotPassword: (user: UserType) => Promise<any>;
     handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;

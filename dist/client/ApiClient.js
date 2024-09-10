@@ -720,18 +720,24 @@ var ApiClient = /** @class */ (function () {
             });
         });
     };
-    ApiClient.prototype.addToCart = function (productId, options) {
+    ApiClient.prototype.addToCart = function (productId, quantity, options) {
         return __awaiter(this, void 0, void 0, function () {
             var url;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
+            var _a;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
                     case 0:
                         url = (options || {}).url;
-                        this.name = 'cart';
-                        this.payload = {};
-                        this.endpoint = "".concat(url, "/").concat(productId, "/add_to_cart");
+                        this.name = 'line_item';
+                        this.payload = (_a = {},
+                            _a[this.name] = {
+                                product_id: productId,
+                                quantity: quantity
+                            },
+                            _a);
+                        this.endpoint = "".concat(url, "/add_to_cart");
                         return [4 /*yield*/, this.post(this.endpoint, this.payload, this.headers)];
-                    case 1: return [2 /*return*/, _a.sent()];
+                    case 1: return [2 /*return*/, _b.sent()];
                 }
             });
         });
@@ -800,6 +806,26 @@ var ApiClient = /** @class */ (function () {
                         this.endpoint = "".concat(url, "/").concat(productId, "/remove_quantity");
                         return [4 /*yield*/, this.post(this.endpoint, this.payload, this.headers)];
                     case 1: return [2 /*return*/, _a.sent()];
+                }
+            });
+        });
+    };
+    ApiClient.prototype.subscribe = function (subscriptionId, subOptions, options) {
+        if (subOptions === void 0) { subOptions = {}; }
+        return __awaiter(this, void 0, void 0, function () {
+            var url;
+            var _a;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
+                    case 0:
+                        url = (options || {}).url;
+                        this.name = 'subscription';
+                        this.payload = (_a = {},
+                            _a[this.name] = subOptions,
+                            _a);
+                        this.endpoint = "".concat(url, "/").concat(subscriptionId, "/subscribe");
+                        return [4 /*yield*/, this.post(this.endpoint, this.payload, this.headers)];
+                    case 1: return [2 /*return*/, _b.sent()];
                 }
             });
         });

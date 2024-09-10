@@ -58,11 +58,12 @@ export declare class ApiClient {
     addImage(id: number, attachmentId: number, options: MutateOptionsType): Promise<ExecuteResponseType>;
     removeImage(id: number, options: MutateOptionsType): Promise<ExecuteResponseType>;
     fetchCart(options: MutateOptionsType): Promise<ExecuteResponseType>;
-    addToCart(productId: number, options: MutateOptionsType): Promise<ExecuteResponseType>;
+    addToCart(productId: number, quantity: number, options: MutateOptionsType): Promise<ExecuteResponseType>;
     checkout(cartId: number, cartOptions: {}, options: MutateOptionsType): Promise<ExecuteResponseType>;
     removeFromCart(productId: number, options: MutateOptionsType): Promise<ExecuteResponseType>;
     addQuantity(productId: number, options: MutateOptionsType): Promise<ExecuteResponseType>;
     removeQuantity(productId: number, options: MutateOptionsType): Promise<ExecuteResponseType>;
+    subscribe(subscriptionId: number, subOptions: {}, options: MutateOptionsType): Promise<ExecuteResponseType>;
     fetchMe(options: MutateOptionsType): Promise<ExecuteResponseType>;
     updateMe(user: UserType, options: MutateOptionsType): Promise<ExecuteResponseType>;
     login(user: UserType, options: MutateOptionsType): Promise<ExecuteResponseType>;

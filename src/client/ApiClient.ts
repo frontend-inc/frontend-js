@@ -460,12 +460,17 @@ export class ApiClient {
 		this.endpoint = `${url}/me`
 		return await this.get(this.endpoint)
 	}
-
-  async addToCart(productId: number, options: MutateOptionsType): Promise<ExecuteResponseType> {
+  
+  async addToCart(productId: number, quantity: number, options: MutateOptionsType): Promise<ExecuteResponseType> {
     const { url } = options || {}
-    this.name = 'cart'
-    this.payload = {}
-		this.endpoint = `${url}/${productId}/add_to_cart`
+    this.name = 'line_item'
+    this.payload = {
+      [this.name]: {
+        product_id: productId,
+        quantity: quantity
+      }
+    }
+		this.endpoint = `${url}/add_to_cart`
 		return await this.post(this.endpoint, this.payload, this.headers)
 	}
 
@@ -500,6 +505,16 @@ export class ApiClient {
     this.name = 'cart'
     this.payload = {}
 		this.endpoint = `${url}/${productId}/remove_quantity`
+		return await this.post(this.endpoint, this.payload, this.headers)
+	}
+
+  async subscribe(subscriptionId: number, subOptions={},  options: MutateOptionsType): Promise<ExecuteResponseType> {
+    const { url } = options || {}
+    this.name = 'subscription'
+    this.payload = {
+      [this.name]: subOptions
+    }
+		this.endpoint = `${url}/${subscriptionId}/subscribe`
 		return await this.post(this.endpoint, this.payload, this.headers)
 	}
 
