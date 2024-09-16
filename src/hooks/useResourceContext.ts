@@ -61,11 +61,7 @@ const useResourceContext = (): UseResourceContextResponse => {
     openEdit,
     setOpenEdit,
     openDelete,
-    setOpenDelete,
-    openComments,
-    setOpenComments,
-    openReferences,
-    setOpenReferences, 
+    setOpenDelete,    
   } = useContext(ResourceContext)
 
   const apiParams = { 
@@ -258,27 +254,6 @@ const useResourceContext = (): UseResourceContextResponse => {
 		)
 	}
 
-	const addReferences = async (
-		sourceId: ID,
-		targetIds: ID[]
-	) => {
-    const options = { url }
-		return await loadingWrapper(() =>
-			api.addReferences(sourceId, targetIds, options)
-		)
-	}
-
-	const removeReferences = async (sourceId: ID, targetIds: ID[]) => {
-    const options = { url }
-		return await loadingWrapper(() =>
-			api.removeReferences(sourceId, targetIds, options)
-		)
-	}
-
-  const updateReferencePositions = async (id: number, sorted) => {
-    return await api.updateReferencePositions(id, sorted, apiParams)
-	}
-
 	const addAttachment = async (
 		id: ID,
 		fieldName: string,
@@ -404,10 +379,7 @@ const useResourceContext = (): UseResourceContextResponse => {
 		deleteMany,
 		publish,
 		unpublish,
-		addReferences,
-		removeReferences,    
-    updateReferencePositions,
-
+		
 		addAttachment,
 		removeAttachment,
 		updatePositions,
@@ -441,11 +413,7 @@ const useResourceContext = (): UseResourceContextResponse => {
     openEdit,
     setOpenEdit,
     openDelete,
-    setOpenDelete,
-    openComments,
-    setOpenComments,   
-    openReferences,
-    setOpenReferences,  
+    setOpenDelete,   
 	}
 }
 

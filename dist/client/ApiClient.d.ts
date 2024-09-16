@@ -33,6 +33,7 @@ export declare class ApiClient {
     upload(data: Record<string, any>, options: MutateOptionsType): Promise<ExecuteResponseType>;
     updatePositions(sorted: Record<string, any>[], options: MutateOptionsType): Promise<ExecuteResponseType>;
     updateReferencePositions(id: number, sorted: Record<string, any>[], options: MutateOptionsType): Promise<ExecuteResponseType>;
+    updateProductReferencePositions(id: number, sorted: Record<string, any>[], options: MutateOptionsType): Promise<ExecuteResponseType>;
     updateMany(ids: number[], resource: object, options: MutateOptionsType): Promise<ExecuteResponseType>;
     destroyMany(ids: number[], options: MutateOptionsType): Promise<ExecuteResponseType>;
     publish(ids: number[], options: MutateOptionsType): Promise<ExecuteResponseType>;
@@ -51,6 +52,8 @@ export declare class ApiClient {
     shopifyUnfavorite(handle: string, options: MutateOptionsType): Promise<ExecuteResponseType>;
     addReferences(sourceId: number, targetIds: number[], options: MutateOptionsType): Promise<ExecuteResponseType>;
     removeReferences(sourceId: number, targetIds: number[], options: MutateOptionsType): Promise<ExecuteResponseType>;
+    addProductReferences(documentId: number, productIds: number[], options: MutateOptionsType): Promise<ExecuteResponseType>;
+    removeProductReferences(documentId: number, productIds: number[], options: MutateOptionsType): Promise<ExecuteResponseType>;
     addProducts(productCollectionId: number, productIds: number[], options: MutateOptionsType): Promise<ExecuteResponseType>;
     removeProducts(productCollectionId: number, productIds: number[], options: MutateOptionsType): Promise<ExecuteResponseType>;
     addAttachment(id: number, name: string, attachmentId: number, options: MutateOptionsType): Promise<ExecuteResponseType>;

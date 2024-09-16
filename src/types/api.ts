@@ -129,12 +129,9 @@ export type UseResourceResponse = Record<string, any> & {
   deleteMany: (ids: ID[]) => void
   publish: (ids: ID[]) => Promise<any>
   unpublish: (id: ID[]) => Promise<any>
-  addReferences: (sourceId: ID, targetIds: ID[]) => Promise<any>
-  removeReferences: (sourceId: ID, targetIds: ID[]) => Promise<any>
   addAttachment: (id: ID, fieldName: string, attachmentId: ID) => any
   removeAttachment: (id: ID, fieldName: string) => any
   updatePositions: (sorted: any[]) => Promise<any>
-  updateReferencePositions: (id: ID, sorted: any[]) => Promise<any>
   query: QueryParamsType
   setQuery: (params: QueryParamsType) => void
   meta: Record<string, any>

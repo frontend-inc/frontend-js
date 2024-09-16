@@ -282,6 +282,25 @@ var ApiClient = /** @class */ (function () {
             });
         });
     };
+    ApiClient.prototype.updateProductReferencePositions = function (id, sorted, options) {
+        return __awaiter(this, void 0, void 0, function () {
+            var _a, name, url;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
+                    case 0:
+                        _a = options || {}, name = _a.name, url = _a.url;
+                        this.name = name;
+                        this.payload = {
+                            ids: sorted.map(function (resource) { return resource.id; }),
+                            positions: sorted.map(function (_, index) { return index; }),
+                        };
+                        this.endpoint = "".concat(url, "/").concat(id, "/update_product_reference_positions");
+                        return [4 /*yield*/, this.post(this.endpoint, this.payload, this.headers)];
+                    case 1: return [2 /*return*/, _b.sent()];
+                }
+            });
+        });
+    };
     ApiClient.prototype.updateMany = function (ids, resource, options) {
         return __awaiter(this, void 0, void 0, function () {
             var _a, name, url;
@@ -576,6 +595,48 @@ var ApiClient = /** @class */ (function () {
                             },
                             _a);
                         this.endpoint = "".concat(url, "/").concat(sourceId, "/remove_references");
+                        return [4 /*yield*/, this.post(this.endpoint, this.payload, this.headers)];
+                    case 1: return [2 /*return*/, _b.sent()];
+                }
+            });
+        });
+    };
+    ApiClient.prototype.addProductReferences = function (documentId, productIds, options) {
+        return __awaiter(this, void 0, void 0, function () {
+            var url;
+            var _a;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
+                    case 0:
+                        url = (options || {}).url;
+                        this.name = 'product_references';
+                        this.payload = (_a = {},
+                            _a[this.name] = {
+                                ids: productIds,
+                            },
+                            _a);
+                        this.endpoint = "".concat(url, "/").concat(documentId, "/add_product_references");
+                        return [4 /*yield*/, this.post(this.endpoint, this.payload, this.headers)];
+                    case 1: return [2 /*return*/, _b.sent()];
+                }
+            });
+        });
+    };
+    ApiClient.prototype.removeProductReferences = function (documentId, productIds, options) {
+        return __awaiter(this, void 0, void 0, function () {
+            var url;
+            var _a;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
+                    case 0:
+                        url = (options || {}).url;
+                        this.name = 'product_references';
+                        this.payload = (_a = {},
+                            _a[this.name] = {
+                                ids: productIds,
+                            },
+                            _a);
+                        this.endpoint = "".concat(url, "/").concat(documentId, "/remove_product_references");
                         return [4 /*yield*/, this.post(this.endpoint, this.payload, this.headers)];
                     case 1: return [2 /*return*/, _b.sent()];
                 }

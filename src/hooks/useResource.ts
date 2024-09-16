@@ -229,26 +229,6 @@ const useResource = (params: UseResourceParams): UseResourceResponse => {
 		)
 	}
 
-	const addReferences = async (
-		sourceId: ID,
-		targetIds: ID[]
-	) => {
-		return await loadingWrapper(() =>
-			api.addReferences(sourceId, targetIds, apiParams)
-		)
-	}
-
-	const removeReferences = async (sourceId: ID, targetIds: ID[]) => {    
-		return await loadingWrapper(() =>
-			api.removeReferences(sourceId, targetIds, apiParams)
-		)
-	}
-
-
-  const updateReferencePositions = async (id: number, sorted: any[]) => {
-    return await api.updateReferencePositions(id, sorted, apiParams)
-	}  
-
 	const addAttachment = async (
 		id: ID,
 		fieldName: string,
@@ -382,9 +362,6 @@ const useResource = (params: UseResourceParams): UseResourceResponse => {
 		
     publish,
 		unpublish,
-		addReferences,
-		removeReferences,
-    updateReferencePositions,
     
 		addAttachment,
 		removeAttachment,

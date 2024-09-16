@@ -211,6 +211,17 @@ export class ApiClient {
 		return await this.post(this.endpoint, this.payload, this.headers)
 	}
 
+  async updateProductReferencePositions(id: number, sorted: Record<string, any>[], options: MutateOptionsType): Promise<ExecuteResponseType> {
+    const { name, url } = options || {}
+    this.name = name
+		this.payload = {
+			ids: sorted.map((resource) => resource.id),
+			positions: sorted.map((_, index) => index),
+		}
+		this.endpoint = `${url}/${id}/update_product_reference_positions`
+		return await this.post(this.endpoint, this.payload, this.headers)
+	}
+
 	async updateMany(ids: number[], resource: object, options: MutateOptionsType): Promise<ExecuteResponseType> {
     const { name, url } = options || {}
     this.name = name
@@ -368,6 +379,38 @@ export class ApiClient {
 			},
 		}
 		this.endpoint = `${url}/${sourceId}/remove_references`
+		return await this.post(this.endpoint, this.payload, this.headers)
+	}
+
+  async addProductReferences(
+		documentId: number,
+		productIds: number[], 
+    options: MutateOptionsType
+  ): Promise<ExecuteResponseType> {
+    const { url } = options || {}
+    this.name = 'product_references'
+		this.payload = {
+			[this.name]: {
+				ids: productIds,
+			},
+		}
+		this.endpoint = `${url}/${documentId}/add_product_references`
+		return await this.post(this.endpoint, this.payload, this.headers)
+	}
+
+	async removeProductReferences(
+		documentId: number,
+		productIds: number[], 
+    options: MutateOptionsType
+  ): Promise<ExecuteResponseType> {
+    const { url } = options || {}
+    this.name = 'product_references'
+		this.payload = {
+			[this.name]: {
+				ids: productIds,
+			},
+		}
+		this.endpoint = `${url}/${documentId}/remove_product_references`
 		return await this.post(this.endpoint, this.payload, this.headers)
 	}
 

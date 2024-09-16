@@ -67,7 +67,7 @@ var swr_1 = __importDefault(require("swr"));
 var lodash_1 = require("lodash");
 var useResourceContext = function () {
     var api = (0, react_1.useContext)(context_2.ApiContext).api;
-    var _a = (0, react_1.useContext)(context_1.ResourceContext), url = _a.url, foreignUrl = _a.foreignUrl, _b = _a.name, name = _b === void 0 ? 'document' : _b, loading = _a.loading, setLoading = _a.setLoading, errors = _a.errors, setErrors = _a.setErrors, resource = _a.resource, setResource = _a.setResource, resources = _a.resources, setResources = _a.setResources, query = _a.query, setQuery = _a.setQuery, meta = _a.meta, setMeta = _a.setMeta, page = _a.page, setPage = _a.setPage, perPage = _a.perPage, setPerPage = _a.setPerPage, totalCount = _a.totalCount, setTotalCount = _a.setTotalCount, numPages = _a.numPages, setNumPages = _a.setNumPages, infiniteLoad = _a.infiniteLoad, setInfiniteLoad = _a.setInfiniteLoad, findManyCache = _a.findManyCache, setFindManyCache = _a.setFindManyCache, findOneCache = _a.findOneCache, setFindOneCache = _a.setFindOneCache, selected = _a.selected, setSelected = _a.setSelected, selectedIds = _a.selectedIds, setSelectedIds = _a.setSelectedIds, openShow = _a.openShow, setOpenShow = _a.setOpenShow, openEdit = _a.openEdit, setOpenEdit = _a.setOpenEdit, openDelete = _a.openDelete, setOpenDelete = _a.setOpenDelete, openComments = _a.openComments, setOpenComments = _a.setOpenComments, openReferences = _a.openReferences, setOpenReferences = _a.setOpenReferences;
+    var _a = (0, react_1.useContext)(context_1.ResourceContext), url = _a.url, foreignUrl = _a.foreignUrl, _b = _a.name, name = _b === void 0 ? 'document' : _b, loading = _a.loading, setLoading = _a.setLoading, errors = _a.errors, setErrors = _a.setErrors, resource = _a.resource, setResource = _a.setResource, resources = _a.resources, setResources = _a.setResources, query = _a.query, setQuery = _a.setQuery, meta = _a.meta, setMeta = _a.setMeta, page = _a.page, setPage = _a.setPage, perPage = _a.perPage, setPerPage = _a.setPerPage, totalCount = _a.totalCount, setTotalCount = _a.setTotalCount, numPages = _a.numPages, setNumPages = _a.setNumPages, infiniteLoad = _a.infiniteLoad, setInfiniteLoad = _a.setInfiniteLoad, findManyCache = _a.findManyCache, setFindManyCache = _a.setFindManyCache, findOneCache = _a.findOneCache, setFindOneCache = _a.setFindOneCache, selected = _a.selected, setSelected = _a.setSelected, selectedIds = _a.selectedIds, setSelectedIds = _a.setSelectedIds, openShow = _a.openShow, setOpenShow = _a.setOpenShow, openEdit = _a.openEdit, setOpenEdit = _a.setOpenEdit, openDelete = _a.openDelete, setOpenDelete = _a.setOpenDelete;
     var apiParams = {
         name: name,
         url: url
@@ -292,40 +292,6 @@ var useResourceContext = function () {
             }
         });
     }); };
-    var addReferences = function (sourceId, targetIds) { return __awaiter(void 0, void 0, void 0, function () {
-        var options;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0:
-                    options = { url: url };
-                    return [4 /*yield*/, loadingWrapper(function () {
-                            return api.addReferences(sourceId, targetIds, options);
-                        })];
-                case 1: return [2 /*return*/, _a.sent()];
-            }
-        });
-    }); };
-    var removeReferences = function (sourceId, targetIds) { return __awaiter(void 0, void 0, void 0, function () {
-        var options;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0:
-                    options = { url: url };
-                    return [4 /*yield*/, loadingWrapper(function () {
-                            return api.removeReferences(sourceId, targetIds, options);
-                        })];
-                case 1: return [2 /*return*/, _a.sent()];
-            }
-        });
-    }); };
-    var updateReferencePositions = function (id, sorted) { return __awaiter(void 0, void 0, void 0, function () {
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0: return [4 /*yield*/, api.updateReferencePositions(id, sorted, apiParams)];
-                case 1: return [2 /*return*/, _a.sent()];
-            }
-        });
-    }); };
     var addAttachment = function (id, fieldName, attachmentId) { return __awaiter(void 0, void 0, void 0, function () {
         var options;
         return __generator(this, function (_a) {
@@ -473,9 +439,6 @@ var useResourceContext = function () {
         deleteMany: deleteMany,
         publish: publish,
         unpublish: unpublish,
-        addReferences: addReferences,
-        removeReferences: removeReferences,
-        updateReferencePositions: updateReferencePositions,
         addAttachment: addAttachment,
         removeAttachment: removeAttachment,
         updatePositions: updatePositions,
@@ -507,10 +470,6 @@ var useResourceContext = function () {
         setOpenEdit: setOpenEdit,
         openDelete: openDelete,
         setOpenDelete: setOpenDelete,
-        openComments: openComments,
-        setOpenComments: setOpenComments,
-        openReferences: openReferences,
-        setOpenReferences: setOpenReferences,
     };
 };
 exports.default = useResourceContext;
