@@ -56,6 +56,8 @@ export declare class ApiClient {
     removeProductReferences(documentId: number, productIds: number[], options: MutateOptionsType): Promise<ExecuteResponseType>;
     addProducts(productCollectionId: number, productIds: number[], options: MutateOptionsType): Promise<ExecuteResponseType>;
     removeProducts(productCollectionId: number, productIds: number[], options: MutateOptionsType): Promise<ExecuteResponseType>;
+    addQuestions(formId: number, questionIds: number[], options: MutateOptionsType): Promise<ExecuteResponseType>;
+    removeQuestions(formId: number, questionIds: number[], options: MutateOptionsType): Promise<ExecuteResponseType>;
     addAttachment(id: number, name: string, attachmentId: number, options: MutateOptionsType): Promise<ExecuteResponseType>;
     removeAttachment(id: number, name: string, options: MutateOptionsType): Promise<ExecuteResponseType>;
     addImage(id: number, attachmentId: number, options: MutateOptionsType): Promise<ExecuteResponseType>;

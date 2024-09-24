@@ -436,13 +436,45 @@ export class ApiClient {
     options: MutateOptionsType
   ): Promise<ExecuteResponseType> {
     const { url } = options || {}
-    this.name = 'references'
+    this.name = 'products'
 		this.payload = {
 			[this.name]: {
 				ids: productIds,
 			},
 		}
 		this.endpoint = `${url}/${productCollectionId}/remove_products`
+		return await this.post(this.endpoint, this.payload, this.headers)
+	}
+
+  async addQuestions(
+		formId: number,
+		questionIds: number[], 
+    options: MutateOptionsType
+  ): Promise<ExecuteResponseType> {
+    const { url } = options || {}
+    this.name = 'questions'
+		this.payload = {
+			[this.name]: {
+				ids: questionIds
+			},
+		}
+		this.endpoint = `${url}/${formId}/add_questions`
+		return await this.post(this.endpoint, this.payload, this.headers)
+	}
+
+	async removeQuestions(
+		formId: number,
+		questionIds: number[], 
+    options: MutateOptionsType
+  ): Promise<ExecuteResponseType> {
+    const { url } = options || {}
+    this.name = 'questions'
+		this.payload = {
+			[this.name]: {
+				ids: questionIds
+			},
+		}
+		this.endpoint = `${url}/${formId}/remove_questions`
 		return await this.post(this.endpoint, this.payload, this.headers)
 	}
 
