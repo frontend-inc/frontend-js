@@ -1535,6 +1535,11 @@
   dependencies:
     "@sinonjs/commons" "^1.7.0"
 
+"@stdlib/streams-node-stdin@0.2.2":
+  version "0.2.2"
+  resolved "https://registry.yarnpkg.com/@stdlib/streams-node-stdin/-/streams-node-stdin-0.2.2.tgz#c2ea4c4f01c486b643ee0a57a201eb23816bac89"
+  integrity sha512-QClx9hOPrDuEdd8B6jemH6pwRjpuY8+MvDBap10pZ1v9U97PIjqLKr7rMHvHHJ3tOC1XUDuOAbRCOe948LUd9Q==
+
 "@surma/rollup-plugin-off-main-thread@^1.1.1":
   version "1.4.2"
   resolved "https://registry.npmjs.org/@surma/rollup-plugin-off-main-thread/-/rollup-plugin-off-main-thread-1.4.2.tgz"
