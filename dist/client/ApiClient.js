@@ -808,6 +808,21 @@ var ApiClient = /** @class */ (function () {
         });
     };
     // Cart methods 
+    ApiClient.prototype.createCart = function (options) {
+        return __awaiter(this, void 0, void 0, function () {
+            var _a, _b, name, url;
+            return __generator(this, function (_c) {
+                switch (_c.label) {
+                    case 0:
+                        _a = options || {}, _b = _a.name, name = _b === void 0 ? 'cart' : _b, url = _a.url;
+                        this.name = name;
+                        this.endpoint = url;
+                        return [4 /*yield*/, this.post(this.endpoint)];
+                    case 1: return [2 /*return*/, _c.sent()];
+                }
+            });
+        });
+    };
     ApiClient.prototype.fetchCart = function (options) {
         return __awaiter(this, void 0, void 0, function () {
             var _a, _b, name, url;

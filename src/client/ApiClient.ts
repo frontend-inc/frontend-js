@@ -529,13 +529,19 @@ export class ApiClient {
 	}
 
   // Cart methods 
+  async createCart(options: MutateOptionsType): Promise<ExecuteResponseType> {
+    const { name='cart', url } = options || {}
+    this.name = name
+		this.endpoint = url
+		return await this.post(this.endpoint)
+	}
+
   async fetchCart(options: MutateOptionsType): Promise<ExecuteResponseType> {
     const { name='cart', url } = options || {}
     this.name = name
 		this.endpoint = `${url}/me`
 		return await this.get(this.endpoint)
-	}
-  
+	}  
 
   async addToCart(productId: number, quantity: number, options: MutateOptionsType): Promise<ExecuteResponseType> {
     const { url } = options || {}
