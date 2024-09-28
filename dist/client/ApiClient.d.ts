@@ -63,12 +63,12 @@ export declare class ApiClient {
     addImage(id: number, attachmentId: number, options: MutateOptionsType): Promise<ExecuteResponseType>;
     removeImage(id: number, options: MutateOptionsType): Promise<ExecuteResponseType>;
     createCart(options: MutateOptionsType): Promise<ExecuteResponseType>;
-    fetchCart(options: MutateOptionsType): Promise<ExecuteResponseType>;
-    addToCart(productId: number, quantity: number, options: MutateOptionsType): Promise<ExecuteResponseType>;
+    fetchCart(cartId: string, options: MutateOptionsType): Promise<ExecuteResponseType>;
+    addToCart(cartId: string, productId: number, quantity: number, options: MutateOptionsType): Promise<ExecuteResponseType>;
     checkout(cartId: number, cartOptions: {}, options: MutateOptionsType): Promise<ExecuteResponseType>;
-    removeFromCart(productId: number, options: MutateOptionsType): Promise<ExecuteResponseType>;
-    addQuantity(productId: number, options: MutateOptionsType): Promise<ExecuteResponseType>;
-    removeQuantity(productId: number, options: MutateOptionsType): Promise<ExecuteResponseType>;
+    removeFromCart(cartId: string, productId: number, options: MutateOptionsType): Promise<ExecuteResponseType>;
+    addQuantity(cartId: string, productId: number, options: MutateOptionsType): Promise<ExecuteResponseType>;
+    removeQuantity(cartId: string, productId: number, options: MutateOptionsType): Promise<ExecuteResponseType>;
     subscribe(subscriptionId: number, subOptions: {}, options: MutateOptionsType): Promise<ExecuteResponseType>;
     unsubscribe(options: MutateOptionsType): Promise<ExecuteResponseType>;
     fetchMe(options: MutateOptionsType): Promise<ExecuteResponseType>;

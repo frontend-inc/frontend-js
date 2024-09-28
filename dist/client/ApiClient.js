@@ -823,7 +823,7 @@ var ApiClient = /** @class */ (function () {
             });
         });
     };
-    ApiClient.prototype.fetchCart = function (options) {
+    ApiClient.prototype.fetchCart = function (cartId, options) {
         return __awaiter(this, void 0, void 0, function () {
             var _a, _b, name, url;
             return __generator(this, function (_c) {
@@ -831,14 +831,14 @@ var ApiClient = /** @class */ (function () {
                     case 0:
                         _a = options || {}, _b = _a.name, name = _b === void 0 ? 'cart' : _b, url = _a.url;
                         this.name = name;
-                        this.endpoint = "".concat(url, "/me");
+                        this.endpoint = "".concat(url, "/").concat(cartId);
                         return [4 /*yield*/, this.get(this.endpoint)];
                     case 1: return [2 /*return*/, _c.sent()];
                 }
             });
         });
     };
-    ApiClient.prototype.addToCart = function (productId, quantity, options) {
+    ApiClient.prototype.addToCart = function (cartId, productId, quantity, options) {
         return __awaiter(this, void 0, void 0, function () {
             var url;
             var _a;
@@ -853,7 +853,7 @@ var ApiClient = /** @class */ (function () {
                                 quantity: quantity
                             },
                             _a);
-                        this.endpoint = "".concat(url, "/").concat(productId, "/add_to_cart");
+                        this.endpoint = "".concat(url, "/").concat(cartId, "/add_to_cart");
                         return [4 /*yield*/, this.post(this.endpoint, this.payload, this.headers)];
                     case 1: return [2 /*return*/, _b.sent()];
                 }
@@ -880,50 +880,65 @@ var ApiClient = /** @class */ (function () {
             });
         });
     };
-    ApiClient.prototype.removeFromCart = function (productId, options) {
+    ApiClient.prototype.removeFromCart = function (cartId, productId, options) {
         return __awaiter(this, void 0, void 0, function () {
             var url;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
+            var _a;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
                     case 0:
                         url = (options || {}).url;
                         this.name = 'cart';
-                        this.payload = {};
-                        this.endpoint = "".concat(url, "/").concat(productId, "/remove_from_cart");
+                        this.payload = (_a = {},
+                            _a[this.name] = {
+                                product_id: productId
+                            },
+                            _a);
+                        this.endpoint = "".concat(url, "/").concat(cartId, "/remove_from_cart");
                         return [4 /*yield*/, this.post(this.endpoint, this.payload, this.headers)];
-                    case 1: return [2 /*return*/, _a.sent()];
+                    case 1: return [2 /*return*/, _b.sent()];
                 }
             });
         });
     };
-    ApiClient.prototype.addQuantity = function (productId, options) {
+    ApiClient.prototype.addQuantity = function (cartId, productId, options) {
         return __awaiter(this, void 0, void 0, function () {
             var url;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
+            var _a;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
                     case 0:
                         url = (options || {}).url;
                         this.name = 'cart';
-                        this.payload = {};
-                        this.endpoint = "".concat(url, "/").concat(productId, "/add_quantity");
+                        this.payload = (_a = {},
+                            _a[this.name] = {
+                                product_id: productId
+                            },
+                            _a);
+                        this.endpoint = "".concat(url, "/").concat(cartId, "/add_quantity");
                         return [4 /*yield*/, this.post(this.endpoint, this.payload, this.headers)];
-                    case 1: return [2 /*return*/, _a.sent()];
+                    case 1: return [2 /*return*/, _b.sent()];
                 }
             });
         });
     };
-    ApiClient.prototype.removeQuantity = function (productId, options) {
+    ApiClient.prototype.removeQuantity = function (cartId, productId, options) {
         return __awaiter(this, void 0, void 0, function () {
             var url;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
+            var _a;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
                     case 0:
                         url = (options || {}).url;
                         this.name = 'cart';
-                        this.payload = {};
-                        this.endpoint = "".concat(url, "/").concat(productId, "/remove_quantity");
+                        this.payload = (_a = {},
+                            _a[this.name] = {
+                                product_id: productId
+                            },
+                            _a);
+                        this.endpoint = "".concat(url, "/").concat(cartId, "/remove_quantity");
                         return [4 /*yield*/, this.post(this.endpoint, this.payload, this.headers)];
-                    case 1: return [2 /*return*/, _a.sent()];
+                    case 1: return [2 /*return*/, _b.sent()];
                 }
             });
         });
