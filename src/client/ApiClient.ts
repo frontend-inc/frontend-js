@@ -545,7 +545,7 @@ export class ApiClient {
 
   async addToCart(cartId: string, productId: number, quantity: number, options: MutateOptionsType): Promise<ExecuteResponseType> {
     const { url } = options || {}
-    this.name = 'line_item'
+    this.name = 'cart'
     this.payload = {
       [this.name]: {
         product_id: productId,
@@ -553,16 +553,6 @@ export class ApiClient {
       }
     }
 		this.endpoint = `${url}/${cartId}/add_to_cart`
-		return await this.post(this.endpoint, this.payload, this.headers)
-	}
-
-  async checkout(cartId: number, cartOptions={},  options: MutateOptionsType): Promise<ExecuteResponseType> {
-    const { url } = options || {}
-    this.name = 'checkout'
-    this.payload = {
-      [this.name]: cartOptions
-    }
-		this.endpoint = `${url}/${cartId}/checkout`
 		return await this.post(this.endpoint, this.payload, this.headers)
 	}
 
@@ -599,6 +589,16 @@ export class ApiClient {
       }
     }
 		this.endpoint = `${url}/${cartId}/remove_quantity`
+		return await this.post(this.endpoint, this.payload, this.headers)
+	}
+
+  async checkout(cartId: number, cartOptions={},  options: MutateOptionsType): Promise<ExecuteResponseType> {
+    const { url } = options || {}
+    this.name = 'checkout'
+    this.payload = {
+      [this.name]: cartOptions
+    }
+		this.endpoint = `${url}/${cartId}/checkout`
 		return await this.post(this.endpoint, this.payload, this.headers)
 	}
 

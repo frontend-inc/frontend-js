@@ -846,7 +846,7 @@ var ApiClient = /** @class */ (function () {
                 switch (_b.label) {
                     case 0:
                         url = (options || {}).url;
-                        this.name = 'line_item';
+                        this.name = 'cart';
                         this.payload = (_a = {},
                             _a[this.name] = {
                                 product_id: productId,
@@ -854,26 +854,6 @@ var ApiClient = /** @class */ (function () {
                             },
                             _a);
                         this.endpoint = "".concat(url, "/").concat(cartId, "/add_to_cart");
-                        return [4 /*yield*/, this.post(this.endpoint, this.payload, this.headers)];
-                    case 1: return [2 /*return*/, _b.sent()];
-                }
-            });
-        });
-    };
-    ApiClient.prototype.checkout = function (cartId, cartOptions, options) {
-        if (cartOptions === void 0) { cartOptions = {}; }
-        return __awaiter(this, void 0, void 0, function () {
-            var url;
-            var _a;
-            return __generator(this, function (_b) {
-                switch (_b.label) {
-                    case 0:
-                        url = (options || {}).url;
-                        this.name = 'checkout';
-                        this.payload = (_a = {},
-                            _a[this.name] = cartOptions,
-                            _a);
-                        this.endpoint = "".concat(url, "/").concat(cartId, "/checkout");
                         return [4 /*yield*/, this.post(this.endpoint, this.payload, this.headers)];
                     case 1: return [2 /*return*/, _b.sent()];
                 }
@@ -937,6 +917,26 @@ var ApiClient = /** @class */ (function () {
                             },
                             _a);
                         this.endpoint = "".concat(url, "/").concat(cartId, "/remove_quantity");
+                        return [4 /*yield*/, this.post(this.endpoint, this.payload, this.headers)];
+                    case 1: return [2 /*return*/, _b.sent()];
+                }
+            });
+        });
+    };
+    ApiClient.prototype.checkout = function (cartId, cartOptions, options) {
+        if (cartOptions === void 0) { cartOptions = {}; }
+        return __awaiter(this, void 0, void 0, function () {
+            var url;
+            var _a;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
+                    case 0:
+                        url = (options || {}).url;
+                        this.name = 'checkout';
+                        this.payload = (_a = {},
+                            _a[this.name] = cartOptions,
+                            _a);
+                        this.endpoint = "".concat(url, "/").concat(cartId, "/checkout");
                         return [4 /*yield*/, this.post(this.endpoint, this.payload, this.headers)];
                     case 1: return [2 /*return*/, _b.sent()];
                 }
