@@ -313,7 +313,7 @@ const useResourceContext = (): UseResourceContextResponse => {
 			const res = await apiMethod()
 			if (res?.data?.id) {
 				setResource(res.data)      
-			} else if(res?.data?.length > 0){
+			} else if(Array.isArray(res?.data)){
         setResources(res.data)
         if(res.meta){
           setMeta(res.meta)

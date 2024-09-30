@@ -380,20 +380,20 @@ var useResource = function (params) {
     };
     var loadingWrapper = function (apiMethod) { return __awaiter(void 0, void 0, void 0, function () {
         var res, e_1;
-        var _a, _b;
-        return __generator(this, function (_c) {
-            switch (_c.label) {
+        var _a;
+        return __generator(this, function (_b) {
+            switch (_b.label) {
                 case 0:
-                    _c.trys.push([0, 2, 3, 4]);
+                    _b.trys.push([0, 2, 3, 4]);
                     showLoading();
                     setErrors(null);
                     return [4 /*yield*/, apiMethod()];
                 case 1:
-                    res = _c.sent();
+                    res = _b.sent();
                     if ((_a = res === null || res === void 0 ? void 0 : res.data) === null || _a === void 0 ? void 0 : _a.id) {
                         setResource(res.data);
                     }
-                    else if (((_b = res === null || res === void 0 ? void 0 : res.data) === null || _b === void 0 ? void 0 : _b.length) > 0) {
+                    else if (Array.isArray(res === null || res === void 0 ? void 0 : res.data)) {
                         setResources(res.data);
                         if (res.meta) {
                             setMeta(res.meta);
@@ -408,7 +408,7 @@ var useResource = function (params) {
                     }
                     return [2 /*return*/, res === null || res === void 0 ? void 0 : res.data];
                 case 2:
-                    e_1 = _c.sent();
+                    e_1 = _b.sent();
                     return [3 /*break*/, 4];
                 case 3:
                     hideLoading();
