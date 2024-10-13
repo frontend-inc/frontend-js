@@ -1,3 +1,5 @@
+'use client';
+
 import React from 'react'
 import ApiContext from './ApiContext'
 import { createClient } from '../client'
