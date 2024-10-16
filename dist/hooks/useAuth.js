@@ -201,30 +201,33 @@ var useAuth = function () {
     }); };
     var loadingWrapper = function (apiMethod) { return __awaiter(void 0, void 0, void 0, function () {
         var resp, e_1;
-        var _a;
-        return __generator(this, function (_b) {
-            switch (_b.label) {
+        var _a, _b;
+        return __generator(this, function (_c) {
+            switch (_c.label) {
                 case 0:
-                    _b.trys.push([0, 2, 3, 4]);
+                    _c.trys.push([0, 2, 3, 4]);
                     showLoading();
                     setErrors(null);
                     return [4 /*yield*/, apiMethod()];
                 case 1:
-                    resp = _b.sent();
+                    resp = _c.sent();
                     if ((_a = resp === null || resp === void 0 ? void 0 : resp.data) === null || _a === void 0 ? void 0 : _a.id) {
                         setUser(resp.data);
                         setCurrentUser(resp.data);
                         setAuthenticated(true);
-                        setToken(resp.data.jwt_token);
-                        console.log("Auth success: ", authCookie, resp.data);
-                        (0, cookies_next_1.setCookie)(authCookie, resp.data.jwt_token);
+                        console.log("Auth attempt: ", authCookie, resp.data);
+                        if ((_b = resp.data) === null || _b === void 0 ? void 0 : _b.jwt_token) {
+                            console.log("Auth success: ", authCookie, resp.data.jwt_token);
+                            setToken(resp.data.jwt_token);
+                            (0, cookies_next_1.setCookie)(authCookie, resp.data.jwt_token);
+                        }
                     }
                     else if (resp === null || resp === void 0 ? void 0 : resp.errors) {
                         handleErrors(resp === null || resp === void 0 ? void 0 : resp.errors);
                     }
                     return [2 /*return*/, resp === null || resp === void 0 ? void 0 : resp.data];
                 case 2:
-                    e_1 = _b.sent();
+                    e_1 = _c.sent();
                     handleErrors(e_1);
                     return [3 /*break*/, 4];
                 case 3:
