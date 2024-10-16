@@ -146,6 +146,7 @@ const useAuth = () => {
 				setCurrentUser(resp.data)
 				setAuthenticated(true)
 				setToken(resp.data.jwt_token)
+        console.log("Auth success: ", authCookie, resp.data)
 				setCookie(authCookie, resp.data.jwt_token)
 			} else if (resp?.errors) {
 				handleErrors(resp?.errors)
