@@ -281,11 +281,11 @@ const useResource = (params: UseResourceParams): UseResourceResponse => {
     setResource(updatedResource);
   };
   
-  const loadingWrapper = async (apiMethod: () => any) => {
+  const loadingWrapper = async (fn: () => any) => {
 		try {
 			showLoading()
 			setErrors(null)
-			const res = await apiMethod()
+			const res = await fn()
 			if (res?.data?.id) {
 				setResource(res.data)      
 			} else if(Array.isArray(res?.data)){

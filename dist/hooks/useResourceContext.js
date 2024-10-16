@@ -355,7 +355,7 @@ var useResourceContext = function () {
         setNestedValue(updatedResource, name, value);
         setResource(updatedResource);
     };
-    var loadingWrapper = function (apiMethod) { return __awaiter(void 0, void 0, void 0, function () {
+    var loadingWrapper = function (fn) { return __awaiter(void 0, void 0, void 0, function () {
         var res, e_1;
         var _a;
         return __generator(this, function (_b) {
@@ -364,7 +364,7 @@ var useResourceContext = function () {
                     _b.trys.push([0, 2, 3, 4]);
                     showLoading();
                     setErrors(null);
-                    return [4 /*yield*/, apiMethod()];
+                    return [4 /*yield*/, fn()];
                 case 1:
                     res = _b.sent();
                     if ((_a = res === null || res === void 0 ? void 0 : res.data) === null || _a === void 0 ? void 0 : _a.id) {

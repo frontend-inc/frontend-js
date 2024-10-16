@@ -136,11 +136,11 @@ const useAuth = () => {
 		setAuthenticated(true)
 	}
 
-	const loadingWrapper = async (apiMethod: () => any) => {
+	const loadingWrapper = async (fn: () => any) => {
 		try {
 			showLoading()
 			setErrors(null)
-			const resp = await apiMethod()
+			const resp = await fn()
 			if (resp?.data?.id) {
 				setUser(resp.data)
 				setCurrentUser(resp.data)				

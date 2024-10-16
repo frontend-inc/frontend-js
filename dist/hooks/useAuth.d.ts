@@ -23,7 +23,7 @@ declare const useAuth: () => {
     verifyOneTimePassword: (otp: string) => Promise<any>;
     googleLogin: (accessToken: string) => Promise<any>;
     deleteAvatar: () => Promise<any>;
-    loadingWrapper: (apiMethod: () => any) => Promise<any>;
+    loadingWrapper: (fn: () => any) => Promise<any>;
     authenticated: any;
     token: any;
     setToken: any;

@@ -199,7 +199,7 @@ var useAuth = function () {
             return [2 /*return*/];
         });
     }); };
-    var loadingWrapper = function (apiMethod) { return __awaiter(void 0, void 0, void 0, function () {
+    var loadingWrapper = function (fn) { return __awaiter(void 0, void 0, void 0, function () {
         var resp, e_1;
         var _a, _b;
         return __generator(this, function (_c) {
@@ -208,7 +208,7 @@ var useAuth = function () {
                     _c.trys.push([0, 2, 3, 4]);
                     showLoading();
                     setErrors(null);
-                    return [4 /*yield*/, apiMethod()];
+                    return [4 /*yield*/, fn()];
                 case 1:
                     resp = _c.sent();
                     if ((_a = resp === null || resp === void 0 ? void 0 : resp.data) === null || _a === void 0 ? void 0 : _a.id) {
