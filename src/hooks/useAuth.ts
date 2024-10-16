@@ -143,11 +143,9 @@ const useAuth = () => {
 			const resp = await apiMethod()
 			if (resp?.data?.id) {
 				setUser(resp.data)
-				setCurrentUser(resp.data)
-				setAuthenticated(true)
-        console.log("Auth attempt: ", authCookie, resp.data)
+				setCurrentUser(resp.data)				
         if(resp.data?.jwt_token){
-          console.log("Auth success: ", authCookie, resp.data.jwt_token)
+          setAuthenticated(true)
 				  setToken(resp.data.jwt_token)         
 				  setCookie(authCookie, resp.data.jwt_token)
         }

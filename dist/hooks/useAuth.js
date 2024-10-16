@@ -214,10 +214,8 @@ var useAuth = function () {
                     if ((_a = resp === null || resp === void 0 ? void 0 : resp.data) === null || _a === void 0 ? void 0 : _a.id) {
                         setUser(resp.data);
                         setCurrentUser(resp.data);
-                        setAuthenticated(true);
-                        console.log("Auth attempt: ", authCookie, resp.data);
                         if ((_b = resp.data) === null || _b === void 0 ? void 0 : _b.jwt_token) {
-                            console.log("Auth success: ", authCookie, resp.data.jwt_token);
+                            setAuthenticated(true);
                             setToken(resp.data.jwt_token);
                             (0, cookies_next_1.setCookie)(authCookie, resp.data.jwt_token);
                         }
