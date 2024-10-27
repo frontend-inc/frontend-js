@@ -135,7 +135,7 @@ const useAuth = () => {
 	const authenticateFromToken = async (token: string) => {    
 		setToken(token)
 		setAuthenticated(true)    
-    return await loadingWrapper(() => api.authenticate(token))
+    return await loadingWrapper(() => api.authenticate(token, apiParams))
 	}
 
 	const loadingWrapper = async (fn: () => any) => {

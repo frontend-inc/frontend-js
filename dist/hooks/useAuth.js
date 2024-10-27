@@ -195,7 +195,7 @@ var useAuth = function () {
                 case 0:
                     setToken(token);
                     setAuthenticated(true);
-                    return [4 /*yield*/, loadingWrapper(function () { return api.authenticate(token); })];
+                    return [4 /*yield*/, loadingWrapper(function () { return api.authenticate(token, apiParams); })];
                 case 1: return [2 /*return*/, _a.sent()];
             }
         });
