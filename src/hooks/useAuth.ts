@@ -117,9 +117,10 @@ const useAuth = () => {
 	}
 
 	const logout = async () => {
-		await deleteCookie(authCookie)
-		setCurrentUser(null)
+		setCurrentUser({})
 		setAuthenticated(false)
+    setToken(null)
+    deleteCookie(authCookie)
 	}
 
 	const googleLogin = async (accessToken: string) => {		
@@ -131,9 +132,10 @@ const useAuth = () => {
 		return await loadingWrapper(() => api.post(deleteAvatarUrl))
 	}
 
-	const authenticateFromToken = async (token: string) => {
+	const authenticateFromToken = async (token: string) => {    
 		setToken(token)
-		setAuthenticated(true)
+		setAuthenticated(true)    
+    return await loadingWrapper(() => api.authenticate(token))
 	}
 
 	const loadingWrapper = async (fn: () => any) => {

@@ -1136,6 +1136,24 @@ var ApiClient = /** @class */ (function () {
             });
         });
     };
+    ApiClient.prototype.authenticate = function (token, options) {
+        return __awaiter(this, void 0, void 0, function () {
+            var _a, _b, name, url;
+            return __generator(this, function (_c) {
+                switch (_c.label) {
+                    case 0:
+                        _a = options || {}, _b = _a.name, name = _b === void 0 ? 'user' : _b, url = _a.url;
+                        this.name = name;
+                        this.payload = {
+                            token: token,
+                        };
+                        this.endpoint = "".concat(url, "/authenticate");
+                        return [4 /*yield*/, this.post(this.endpoint, this.payload, this.headers)];
+                    case 1: return [2 /*return*/, _c.sent()];
+                }
+            });
+        });
+    };
     ApiClient.prototype.googleLogin = function (accessToken, options) {
         return __awaiter(this, void 0, void 0, function () {
             var _a, _b, name, url;
