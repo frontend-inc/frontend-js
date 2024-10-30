@@ -161,17 +161,6 @@ const useAuth = () => {
 			hideLoading()
 		}
 	}
-  const mounted = useRef(false)
-
-	useEffect(() => {
-    if (!mounted.current) {
-      mounted.current = true
-			let jwtToken = getCookie(authCookie)
-			if (jwtToken) {
-				authenticateFromToken(String(jwtToken))
-			}
-		}
-	}, [])
 
 	return {
 		loading,

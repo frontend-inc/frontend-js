@@ -236,16 +236,6 @@ var useAuth = function () {
             }
         });
     }); };
-    var mounted = (0, react_1.useRef)(false);
-    (0, react_1.useEffect)(function () {
-        if (!mounted.current) {
-            mounted.current = true;
-            var jwtToken = (0, cookies_next_1.getCookie)(authCookie);
-            if (jwtToken) {
-                authenticateFromToken(String(jwtToken));
-            }
-        }
-    }, []);
     return {
         loading: loading,
         delayedLoading: delayedLoading,
