@@ -236,18 +236,16 @@ var useAuth = function () {
             }
         });
     }); };
+    var mounted = (0, react_1.useRef)(false);
     (0, react_1.useEffect)(function () {
-        if (!(currentUser === null || currentUser === void 0 ? void 0 : currentUser.id)) {
+        if (!mounted.current) {
+            mounted.current = true;
             var jwtToken = (0, cookies_next_1.getCookie)(authCookie);
             if (jwtToken) {
                 authenticateFromToken(String(jwtToken));
             }
         }
-        else if ((currentUser === null || currentUser === void 0 ? void 0 : currentUser.id) && !authenticated) {
-            setToken(currentUser === null || currentUser === void 0 ? void 0 : currentUser.token);
-            setAuthenticated(true);
-        }
-    }, [currentUser === null || currentUser === void 0 ? void 0 : currentUser.id]);
+    }, []);
     return {
         loading: loading,
         delayedLoading: delayedLoading,

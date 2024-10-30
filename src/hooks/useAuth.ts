@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useRef, useContext, useEffect } from 'react'
 import { ApiContext, AuthContext } from '../context'
 import useResource from './useResource'
 import { deleteCookie, getCookie, setCookie } from 'cookies-next'
@@ -161,18 +161,17 @@ const useAuth = () => {
 			hideLoading()
 		}
 	}
+  const mounted = useRef(false)
 
 	useEffect(() => {
-    if (!currentUser?.id) {
+    if (!mounted.current) {
+      mounted.current = true
 			let jwtToken = getCookie(authCookie)
 			if (jwtToken) {
 				authenticateFromToken(String(jwtToken))
 			}
-		}else if(currentUser?.id && !authenticated) {
-			setToken(currentUser?.token)
-			setAuthenticated(true)
-		}		
-	}, [currentUser?.id])
+		}
+	}, [])
 
 	return {
 		loading,
