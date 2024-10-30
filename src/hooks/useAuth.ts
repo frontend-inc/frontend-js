@@ -1,7 +1,7 @@
-import React, { useRef, useContext, useEffect } from 'react'
+import React, { useContext } from 'react'
 import { ApiContext, AuthContext } from '../context'
 import useResource from './useResource'
-import { deleteCookie, getCookie, setCookie } from 'cookies-next'
+import { deleteCookie, setCookie } from 'cookies-next'
 import { UserType } from '../types'
 import useSWR from 'swr'
 
