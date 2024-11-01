@@ -56,10 +56,12 @@ const useResourceContext = (): UseResourceContextResponse => {
 
     openShow,
     setOpenShow,
-    openEdit,
+    openEdit,    
     setOpenEdit,
     openDelete,
     setOpenDelete,    
+    openCreate,
+    setOpenCreate,
   } = useContext(ResourceContext)
 
   const apiParams = { 
@@ -403,6 +405,8 @@ const useResourceContext = (): UseResourceContextResponse => {
     setOpenEdit,
     openDelete,
     setOpenDelete,   
+    openCreate,
+    setOpenCreate,
 	}
 }
 
