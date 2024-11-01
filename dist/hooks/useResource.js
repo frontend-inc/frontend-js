@@ -72,17 +72,16 @@ var useResource = function (params) {
     var _c = (0, react_1.useState)(), errors = _c[0], setErrors = _c[1];
     var _d = (0, react_1.useState)({}), resource = _d[0], setResource = _d[1];
     var _e = (0, react_1.useState)([]), resources = _e[0], setResources = _e[1];
-    var _f = (0, react_1.useState)(false), infiniteLoad = _f[0], setInfiniteLoad = _f[1];
-    var _g = (0, react_1.useState)(null), findManyCache = _g[0], setFindManyCache = _g[1];
-    var _h = (0, react_1.useState)(null), findOneCache = _h[0], setFindOneCache = _h[1];
-    var _j = (0, react_1.useState)({}), query = _j[0], setQuery = _j[1];
-    var _k = (0, react_1.useState)(null), meta = _k[0], setMeta = _k[1];
-    var _l = (0, react_1.useState)(1), page = _l[0], setPage = _l[1];
-    var _m = (0, react_1.useState)(10), perPage = _m[0], setPerPage = _m[1];
-    var _o = (0, react_1.useState)(0), totalCount = _o[0], setTotalCount = _o[1];
-    var _p = (0, react_1.useState)(0), numPages = _p[0], setNumPages = _p[1];
-    var _q = (0, react_1.useState)([]), selected = _q[0], setSelected = _q[1];
-    var _r = (0, react_1.useState)([]), selectedIds = _r[0], setSelectedIds = _r[1];
+    var _f = (0, react_1.useState)(null), findManyCache = _f[0], setFindManyCache = _f[1];
+    var _g = (0, react_1.useState)(null), findOneCache = _g[0], setFindOneCache = _g[1];
+    var _h = (0, react_1.useState)({}), query = _h[0], setQuery = _h[1];
+    var _j = (0, react_1.useState)(null), meta = _j[0], setMeta = _j[1];
+    var _k = (0, react_1.useState)(1), page = _k[0], setPage = _k[1];
+    var _l = (0, react_1.useState)(10), perPage = _l[0], setPerPage = _l[1];
+    var _m = (0, react_1.useState)(0), totalCount = _m[0], setTotalCount = _m[1];
+    var _o = (0, react_1.useState)(0), numPages = _o[0], setNumPages = _o[1];
+    var _p = (0, react_1.useState)([]), selected = _p[0], setSelected = _p[1];
+    var _q = (0, react_1.useState)([]), selectedIds = _q[0], setSelectedIds = _q[1];
     var handleSelect = function (item) {
         if (selectedIds.find(function (id) { return id === item.id; })) {
             setSelected(selected.filter(function (i) { return i.id != item.id; }));
@@ -101,7 +100,7 @@ var useResource = function (params) {
         var url = _a[0], id = _a[1];
         return api.findOne(id, { url: url });
     };
-    var _s = (0, swr_1.default)(findOneCache, findOneFetcher), findOneIsLoading = _s.isLoading, findOneData = _s.data, findOneError = _s.error, mutateOne = _s.mutate;
+    var _r = (0, swr_1.default)(findOneCache, findOneFetcher), findOneIsLoading = _r.isLoading, findOneData = _r.data, findOneError = _r.error, mutateOne = _r.mutate;
     (0, react_1.useEffect)(function () {
         var _a;
         if ((_a = findOneData === null || findOneData === void 0 ? void 0 : findOneData.data) === null || _a === void 0 ? void 0 : _a.id) {
@@ -129,15 +128,10 @@ var useResource = function (params) {
         var url = _a[0], query = _a[1];
         return api.findMany(query, { url: url });
     };
-    var _t = (0, swr_1.default)(findManyCache, findManyFetcher), isLoading = _t.isLoading, data = _t.data, error = _t.error, mutateMany = _t.mutate;
+    var _s = (0, swr_1.default)(findManyCache, findManyFetcher), isLoading = _s.isLoading, data = _s.data, error = _s.error, mutateMany = _s.mutate;
     (0, react_1.useEffect)(function () {
         if (data === null || data === void 0 ? void 0 : data.data) {
-            if (infiniteLoad) {
-                setResources((0, lodash_1.uniqBy)(__spreadArray(__spreadArray([], resources, true), data.data, true), 'id'));
-            }
-            else {
-                setResources((0, lodash_1.uniqBy)(data.data, 'id'));
-            }
+            setResources((0, lodash_1.uniqBy)(__spreadArray(__spreadArray([], resources, true), data.data, true), 'id'));
             if (data === null || data === void 0 ? void 0 : data.meta) {
                 setMeta(data.meta);
                 setPage(data.meta.page);
@@ -165,11 +159,8 @@ var useResource = function (params) {
                     console.log('Error: the URL contains undefined', url);
                     return [2 /*return*/];
                 }
-                if ((opts === null || opts === void 0 ? void 0 : opts.loadMore) == true) {
-                    setInfiniteLoad(true);
-                }
-                if ((opts === null || opts === void 0 ? void 0 : opts.loadMore) == false) {
-                    setInfiniteLoad(false);
+                if ((opts === null || opts === void 0 ? void 0 : opts.loadMore) != true) {
+                    setResources([]);
                 }
                 searchQuery = __assign(__assign({}, query), queryParams);
                 setQuery(searchQuery);

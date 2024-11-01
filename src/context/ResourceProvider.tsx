@@ -6,20 +6,18 @@ import { QueryParamsType } from '../types'
 
 type ResourceProviderProps = {
   url: string
-  foreignUrl?: string
   name: string 
   resource?: any
 	children: React.ReactNode
 }
 
 const ResourceProvider = (props: ResourceProviderProps) => {
-	const { url, foreignUrl, name, children, resource: _resource } = props
+	const { url, name, children, resource: _resource } = props
 	
 	const [loading, setLoading] = useState(false)
   const [delayedLoading, setDelayedLoading] = useState(false)
   const [query, setQuery] = useState({})  
-
-  const [infiniteLoad, setInfiniteLoad] = useState(false)
+  
   const [findManyCache, setFindManyCache] = useState<[url: string, query: QueryParamsType]>(null)
   const [findOneCache, setFindOneCache] = useState<[url: string, id: number | string]>(null)
 
@@ -38,6 +36,7 @@ const ResourceProvider = (props: ResourceProviderProps) => {
   const [openShow, setOpenShow] = useState(false) 
   const [openDelete, setOpenDelete] = useState(false)
   const [openEdit, setOpenEdit] = useState(false)
+  const [openCreate, setOpenCreate] = useState(false)
 
   useEffect(() => {
     if(_resource){
@@ -47,7 +46,6 @@ const ResourceProvider = (props: ResourceProviderProps) => {
 
 	const value = {
 		url,
-    foreignUrl,
     name,
     
 		loading,
@@ -56,8 +54,6 @@ const ResourceProvider = (props: ResourceProviderProps) => {
     delayedLoading,
     setDelayedLoading,
 
-    infiniteLoad,
-    setInfiniteLoad,
     findManyCache,
     setFindManyCache,
     findOneCache,
@@ -96,6 +92,9 @@ const ResourceProvider = (props: ResourceProviderProps) => {
 
     openEdit,
     setOpenEdit,
+
+    openCreate,
+    setOpenCreate,
 
     openDelete,
     setOpenDelete,

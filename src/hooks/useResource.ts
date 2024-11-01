@@ -22,7 +22,6 @@ const useResource = (params: UseResourceParams): UseResourceResponse => {
 	const [resource, setResource] = useState<any>({})
 	const [resources, setResources] = useState<any[]>([])
   
-  const [infiniteLoad, setInfiniteLoad] = useState<boolean>(false)
   const [findManyCache, setFindManyCache] = useState<[url: string, query: QueryParamsType]>(null)
   const [findOneCache, setFindOneCache] = useState<[url: string, id: ID]>(null)
 
@@ -86,11 +85,7 @@ const useResource = (params: UseResourceParams): UseResourceResponse => {
   
   useEffect(() => {
     if(data?.data) {   
-      if(infiniteLoad){
-        setResources(uniqBy([...resources, ...data.data], 'id'))
-      }else{
-        setResources(uniqBy(data.data, 'id'))
-      }           
+      setResources(uniqBy([...resources, ...data.data], 'id'))
       if (data?.meta) {
         setMeta(data.meta  )
         setPage(data.meta.page)
@@ -120,11 +115,8 @@ const useResource = (params: UseResourceParams): UseResourceResponse => {
 			console.log('Error: the URL contains undefined', url)
 			return
 		}
-    if(opts?.loadMore == true){
-      setInfiniteLoad(true)
-    }
-    if(opts?.loadMore == false){
-      setInfiniteLoad(false)
+    if(opts?.loadMore != true){
+      setResources([])
     }
     let searchQuery = { 
       ...query, 
