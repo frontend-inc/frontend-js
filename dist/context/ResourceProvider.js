@@ -51,6 +51,10 @@ var ResourceProvider = function (props) {
     var _t = (0, react_1.useState)(false), openDelete = _t[0], setOpenDelete = _t[1];
     var _u = (0, react_1.useState)(false), openEdit = _u[0], setOpenEdit = _u[1];
     var _v = (0, react_1.useState)(false), openCreate = _v[0], setOpenCreate = _v[1];
+    (0, react_1.useEffect)(function () {
+        if (_resource)
+            setResource(_resource);
+    }, [_resource]);
     var value = {
         url: url,
         name: name,

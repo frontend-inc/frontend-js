@@ -39,6 +39,10 @@ const ResourceProvider = (props: ResourceProviderProps) => {
   const [openEdit, setOpenEdit] = useState(false)
   const [openCreate, setOpenCreate] = useState(false)
 
+  useEffect(() => {
+    if(_resource) setResource(_resource)
+  }, [_resource])
+
 	const value = {
 		url,
     name,
