@@ -34,22 +34,23 @@ var ResourceProvider = function (props) {
     var _a = (0, react_1.useState)(false), loading = _a[0], setLoading = _a[1];
     var _b = (0, react_1.useState)(false), delayedLoading = _b[0], setDelayedLoading = _b[1];
     var _c = (0, react_1.useState)({}), query = _c[0], setQuery = _c[1];
-    var _d = (0, react_1.useState)(null), findManyCache = _d[0], setFindManyCache = _d[1];
-    var _e = (0, react_1.useState)(null), findOneCache = _e[0], setFindOneCache = _e[1];
-    var _f = (0, react_1.useState)({}), meta = _f[0], setMeta = _f[1];
-    var _g = (0, react_1.useState)(1), page = _g[0], setPage = _g[1];
-    var _h = (0, react_1.useState)(20), perPage = _h[0], setPerPage = _h[1];
-    var _j = (0, react_1.useState)(0), numPages = _j[0], setNumPages = _j[1];
-    var _k = (0, react_1.useState)(0), totalCount = _k[0], setTotalCount = _k[1];
-    var _l = (0, react_1.useState)({}), errors = _l[0], setErrors = _l[1];
-    var _m = (0, react_1.useState)(_resource), resource = _m[0], setResource = _m[1];
-    var _o = (0, react_1.useState)([]), resources = _o[0], setResources = _o[1];
-    var _p = (0, react_1.useState)([]), selected = _p[0], setSelected = _p[1];
-    var _q = (0, react_1.useState)([]), selectedIds = _q[0], setSelectedIds = _q[1];
-    var _r = (0, react_1.useState)(false), openShow = _r[0], setOpenShow = _r[1];
-    var _s = (0, react_1.useState)(false), openDelete = _s[0], setOpenDelete = _s[1];
-    var _t = (0, react_1.useState)(false), openEdit = _t[0], setOpenEdit = _t[1];
-    var _u = (0, react_1.useState)(false), openCreate = _u[0], setOpenCreate = _u[1];
+    var _d = (0, react_1.useState)(false), infiniteLoad = _d[0], setInfiniteLoad = _d[1];
+    var _e = (0, react_1.useState)(null), findManyCache = _e[0], setFindManyCache = _e[1];
+    var _f = (0, react_1.useState)(null), findOneCache = _f[0], setFindOneCache = _f[1];
+    var _g = (0, react_1.useState)({}), meta = _g[0], setMeta = _g[1];
+    var _h = (0, react_1.useState)(1), page = _h[0], setPage = _h[1];
+    var _j = (0, react_1.useState)(20), perPage = _j[0], setPerPage = _j[1];
+    var _k = (0, react_1.useState)(0), numPages = _k[0], setNumPages = _k[1];
+    var _l = (0, react_1.useState)(0), totalCount = _l[0], setTotalCount = _l[1];
+    var _m = (0, react_1.useState)({}), errors = _m[0], setErrors = _m[1];
+    var _o = (0, react_1.useState)(_resource), resource = _o[0], setResource = _o[1];
+    var _p = (0, react_1.useState)([]), resources = _p[0], setResources = _p[1];
+    var _q = (0, react_1.useState)([]), selected = _q[0], setSelected = _q[1];
+    var _r = (0, react_1.useState)([]), selectedIds = _r[0], setSelectedIds = _r[1];
+    var _s = (0, react_1.useState)(false), openShow = _s[0], setOpenShow = _s[1];
+    var _t = (0, react_1.useState)(false), openDelete = _t[0], setOpenDelete = _t[1];
+    var _u = (0, react_1.useState)(false), openEdit = _u[0], setOpenEdit = _u[1];
+    var _v = (0, react_1.useState)(false), openCreate = _v[0], setOpenCreate = _v[1];
     var value = {
         url: url,
         name: name,
@@ -57,6 +58,8 @@ var ResourceProvider = function (props) {
         setLoading: setLoading,
         delayedLoading: delayedLoading,
         setDelayedLoading: setDelayedLoading,
+        infiniteLoad: infiniteLoad,
+        setInfiniteLoad: setInfiniteLoad,
         findManyCache: findManyCache,
         setFindManyCache: setFindManyCache,
         findOneCache: findOneCache,

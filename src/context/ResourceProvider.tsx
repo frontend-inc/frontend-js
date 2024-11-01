@@ -18,6 +18,7 @@ const ResourceProvider = (props: ResourceProviderProps) => {
   const [delayedLoading, setDelayedLoading] = useState(false)
   const [query, setQuery] = useState({})  
   
+  const [infiniteLoad, setInfiniteLoad] = useState(false)
   const [findManyCache, setFindManyCache] = useState<[url: string, query: QueryParamsType]>(null)
   const [findOneCache, setFindOneCache] = useState<[url: string, id: number | string]>(null)
 
@@ -48,6 +49,9 @@ const ResourceProvider = (props: ResourceProviderProps) => {
     delayedLoading,
     setDelayedLoading,
 
+    infiniteLoad,
+    setInfiniteLoad,
+    
     findManyCache,
     setFindManyCache,
     findOneCache,

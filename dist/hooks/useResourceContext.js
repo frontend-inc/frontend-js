@@ -67,7 +67,7 @@ var swr_1 = __importDefault(require("swr"));
 var lodash_1 = require("lodash");
 var useResourceContext = function () {
     var api = (0, react_1.useContext)(context_2.ApiContext).api;
-    var _a = (0, react_1.useContext)(context_1.ResourceContext), url = _a.url, foreignUrl = _a.foreignUrl, _b = _a.name, name = _b === void 0 ? 'document' : _b, loading = _a.loading, setLoading = _a.setLoading, errors = _a.errors, setErrors = _a.setErrors, resource = _a.resource, setResource = _a.setResource, resources = _a.resources, setResources = _a.setResources, query = _a.query, setQuery = _a.setQuery, meta = _a.meta, setMeta = _a.setMeta, page = _a.page, setPage = _a.setPage, perPage = _a.perPage, setPerPage = _a.setPerPage, totalCount = _a.totalCount, setTotalCount = _a.setTotalCount, numPages = _a.numPages, setNumPages = _a.setNumPages, findManyCache = _a.findManyCache, setFindManyCache = _a.setFindManyCache, findOneCache = _a.findOneCache, setFindOneCache = _a.setFindOneCache, selected = _a.selected, setSelected = _a.setSelected, selectedIds = _a.selectedIds, setSelectedIds = _a.setSelectedIds, openShow = _a.openShow, setOpenShow = _a.setOpenShow, openEdit = _a.openEdit, setOpenEdit = _a.setOpenEdit, openDelete = _a.openDelete, setOpenDelete = _a.setOpenDelete, openCreate = _a.openCreate, setOpenCreate = _a.setOpenCreate;
+    var _a = (0, react_1.useContext)(context_1.ResourceContext), url = _a.url, foreignUrl = _a.foreignUrl, _b = _a.name, name = _b === void 0 ? 'document' : _b, loading = _a.loading, setLoading = _a.setLoading, errors = _a.errors, setErrors = _a.setErrors, resource = _a.resource, setResource = _a.setResource, resources = _a.resources, setResources = _a.setResources, query = _a.query, setQuery = _a.setQuery, meta = _a.meta, setMeta = _a.setMeta, page = _a.page, setPage = _a.setPage, perPage = _a.perPage, setPerPage = _a.setPerPage, totalCount = _a.totalCount, setTotalCount = _a.setTotalCount, numPages = _a.numPages, setNumPages = _a.setNumPages, infiniteLoad = _a.infiniteLoad, setInfiniteLoad = _a.setInfiniteLoad, findManyCache = _a.findManyCache, setFindManyCache = _a.setFindManyCache, findOneCache = _a.findOneCache, setFindOneCache = _a.setFindOneCache, selected = _a.selected, setSelected = _a.setSelected, selectedIds = _a.selectedIds, setSelectedIds = _a.setSelectedIds, openShow = _a.openShow, setOpenShow = _a.setOpenShow, openEdit = _a.openEdit, setOpenEdit = _a.setOpenEdit, openCreate = _a.openCreate, setOpenCreate = _a.setOpenCreate, openDelete = _a.openDelete, setOpenDelete = _a.setOpenDelete;
     var apiParams = {
         name: name,
         url: url
@@ -120,7 +120,12 @@ var useResourceContext = function () {
     var _d = (0, swr_1.default)(findManyCache, findManyFetcher), isLoading = _d.isLoading, data = _d.data, error = _d.error;
     (0, react_1.useEffect)(function () {
         if (data === null || data === void 0 ? void 0 : data.data) {
-            setResources((0, lodash_1.uniqBy)(__spreadArray(__spreadArray([], resources, true), data.data, true), 'id'));
+            if (infiniteLoad) {
+                setResources((0, lodash_1.uniqBy)(__spreadArray(__spreadArray([], resources, true), data.data, true), 'id'));
+            }
+            else {
+                setResources((0, lodash_1.uniqBy)(data.data, 'id'));
+            }
             if (data === null || data === void 0 ? void 0 : data.meta) {
                 setMeta(data.meta);
                 setPage(data.meta.page);
@@ -148,8 +153,11 @@ var useResourceContext = function () {
                     console.log('Error: the URL contains undefined', url);
                     return [2 /*return*/];
                 }
-                if ((opts === null || opts === void 0 ? void 0 : opts.loadMore) != true) {
-                    setResources([]);
+                if ((opts === null || opts === void 0 ? void 0 : opts.loadMore) == true) {
+                    setInfiniteLoad(true);
+                }
+                if ((opts === null || opts === void 0 ? void 0 : opts.loadMore) == false) {
+                    setInfiniteLoad(false);
                 }
                 searchQuery = __assign(__assign({}, query), queryParams);
                 setQuery(searchQuery);
@@ -444,6 +452,8 @@ var useResourceContext = function () {
         sort: sort,
         paginate: paginate,
         loadMore: loadMore,
+        infiniteLoad: infiniteLoad,
+        setInfiniteLoad: setInfiniteLoad,
         findManyCache: findManyCache,
         setFindManyCache: setFindManyCache,
         findOneCache: findOneCache,
@@ -458,10 +468,10 @@ var useResourceContext = function () {
         setOpenShow: setOpenShow,
         openEdit: openEdit,
         setOpenEdit: setOpenEdit,
-        openDelete: openDelete,
-        setOpenDelete: setOpenDelete,
         openCreate: openCreate,
         setOpenCreate: setOpenCreate,
+        openDelete: openDelete,
+        setOpenDelete: setOpenDelete,
     };
 };
 exports.default = useResourceContext;

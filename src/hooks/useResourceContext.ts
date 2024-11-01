@@ -44,6 +44,8 @@ const useResourceContext = (): UseResourceContextResponse => {
     numPages,
     setNumPages,
     
+    infiniteLoad,
+    setInfiniteLoad,
     findManyCache,
     setFindManyCache,
     findOneCache,
@@ -56,12 +58,13 @@ const useResourceContext = (): UseResourceContextResponse => {
 
     openShow,
     setOpenShow,
-    openEdit,    
+    openEdit,
     setOpenEdit,
-    openDelete,
-    setOpenDelete,    
     openCreate,
     setOpenCreate,
+
+    openDelete,
+    setOpenDelete,    
   } = useContext(ResourceContext)
 
   const apiParams = { 
@@ -121,7 +124,11 @@ const useResourceContext = (): UseResourceContextResponse => {
   
   useEffect(() => {
     if(data?.data) {   
-      setResources(uniqBy([...resources, ...data.data], 'id'))
+      if(infiniteLoad){
+        setResources(uniqBy([...resources, ...data.data], 'id'))
+      }else{
+        setResources(uniqBy(data.data, 'id')) 
+      }           
       if (data?.meta) {
         setMeta(data.meta  )
         setPage(data.meta.page)
@@ -147,8 +154,11 @@ const useResourceContext = (): UseResourceContextResponse => {
 			console.log('Error: the URL contains undefined', url)
 			return
 		}
-    if(opts?.loadMore != true){
-      setResources([])
+    if(opts?.loadMore == true){
+      setInfiniteLoad(true)
+    }
+    if(opts?.loadMore == false){
+      setInfiniteLoad(false)
     }
     let searchQuery = { 
       ...query, 
@@ -387,6 +397,8 @@ const useResourceContext = (): UseResourceContextResponse => {
 		paginate,
 		loadMore,
 
+    infiniteLoad,
+    setInfiniteLoad,
     findManyCache,
     setFindManyCache,
     findOneCache,
@@ -403,10 +415,10 @@ const useResourceContext = (): UseResourceContextResponse => {
     setOpenShow,
     openEdit,
     setOpenEdit,
+    openCreate,
+    setOpenCreate,    
     openDelete,
     setOpenDelete,   
-    openCreate,
-    setOpenCreate,
 	}
 }
 
