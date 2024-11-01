@@ -28,7 +28,7 @@ const ResourceProvider = (props: ResourceProviderProps) => {
   const [totalCount, setTotalCount] = useState(0)
 
   const [errors, setErrors] = useState({})
-	const [resource, setResource] = useState()
+	const [resource, setResource] = useState(_resource)
   const [resources, setResources] = useState([])
   const [selected, setSelected] = useState([])
   const [selectedIds, setSelectedIds] = useState([])
@@ -37,12 +37,6 @@ const ResourceProvider = (props: ResourceProviderProps) => {
   const [openDelete, setOpenDelete] = useState(false)
   const [openEdit, setOpenEdit] = useState(false)
   const [openCreate, setOpenCreate] = useState(false)
-
-  useEffect(() => {
-    if(_resource){
-      setResource(_resource)
-    }
-  }, [_resource])
 
 	const value = {
 		url,

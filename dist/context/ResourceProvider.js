@@ -42,7 +42,7 @@ var ResourceProvider = function (props) {
     var _j = (0, react_1.useState)(0), numPages = _j[0], setNumPages = _j[1];
     var _k = (0, react_1.useState)(0), totalCount = _k[0], setTotalCount = _k[1];
     var _l = (0, react_1.useState)({}), errors = _l[0], setErrors = _l[1];
-    var _m = (0, react_1.useState)(), resource = _m[0], setResource = _m[1];
+    var _m = (0, react_1.useState)(_resource), resource = _m[0], setResource = _m[1];
     var _o = (0, react_1.useState)([]), resources = _o[0], setResources = _o[1];
     var _p = (0, react_1.useState)([]), selected = _p[0], setSelected = _p[1];
     var _q = (0, react_1.useState)([]), selectedIds = _q[0], setSelectedIds = _q[1];
@@ -50,11 +50,6 @@ var ResourceProvider = function (props) {
     var _s = (0, react_1.useState)(false), openDelete = _s[0], setOpenDelete = _s[1];
     var _t = (0, react_1.useState)(false), openEdit = _t[0], setOpenEdit = _t[1];
     var _u = (0, react_1.useState)(false), openCreate = _u[0], setOpenCreate = _u[1];
-    (0, react_1.useEffect)(function () {
-        if (_resource) {
-            setResource(_resource);
-        }
-    }, [_resource]);
     var value = {
         url: url,
         name: name,
