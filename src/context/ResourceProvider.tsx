@@ -5,8 +5,8 @@ import ResourceContext from './ResourceContext'
 import { QueryParamsType } from '../types'
 
 type ResourceProviderProps = {
-  url: string
-  name: string 
+  url?: string
+  name?: string 
   resource?: any
 	children: React.ReactNode
 }
