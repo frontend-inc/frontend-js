@@ -69,7 +69,7 @@ export declare class ApiClient {
     addQuantity(cartId: string, productId: number, options: MutateOptionsType): Promise<ExecuteResponseType>;
     removeQuantity(cartId: string, productId: number, options: MutateOptionsType): Promise<ExecuteResponseType>;
     checkout(cartId: number, cartOptions: {}, options: MutateOptionsType): Promise<ExecuteResponseType>;
-    subscribe(subscriptionId: number, subOptions: {}, options: MutateOptionsType): Promise<ExecuteResponseType>;
+    subscribe(subOptions: {}, options: MutateOptionsType): Promise<ExecuteResponseType>;
     unsubscribe(options: MutateOptionsType): Promise<ExecuteResponseType>;
     fetchMe(options: MutateOptionsType): Promise<ExecuteResponseType>;
     updateMe(user: UserType, options: MutateOptionsType): Promise<ExecuteResponseType>;

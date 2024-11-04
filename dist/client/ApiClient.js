@@ -943,7 +943,7 @@ var ApiClient = /** @class */ (function () {
             });
         });
     };
-    ApiClient.prototype.subscribe = function (subscriptionId, subOptions, options) {
+    ApiClient.prototype.subscribe = function (subOptions, options) {
         if (subOptions === void 0) { subOptions = {}; }
         return __awaiter(this, void 0, void 0, function () {
             var url;
@@ -956,7 +956,7 @@ var ApiClient = /** @class */ (function () {
                         this.payload = (_a = {},
                             _a[this.name] = subOptions,
                             _a);
-                        this.endpoint = "".concat(url, "/").concat(subscriptionId, "/subscribe");
+                        this.endpoint = "".concat(url, "/subscribe");
                         return [4 /*yield*/, this.post(this.endpoint, this.payload, this.headers)];
                     case 1: return [2 /*return*/, _b.sent()];
                 }
