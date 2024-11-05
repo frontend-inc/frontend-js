@@ -1,4 +1,4 @@
-import { QueryParamsType, FilterType, QueryFilterArrayParamsType } from '../types';
+import { QueryParamsType, FilterType } from '../types';
 export declare class ApiQuery {
     private _sort_by?;
     private _sort_direction?;
@@ -14,14 +14,14 @@ export declare class ApiQuery {
     get per_page(): number;
     set keywords(value: string);
     get keywords(): string;
-    get filters(): {} | FilterType;
-    set filters(value: {} | FilterType);
+    get filters(): FilterType[];
+    set filters(value: FilterType[]);
     get sort_by(): string;
     set sort_by(value: string);
     set sort_direction(value: string);
     get sort_direction(): string;
-    where(searchParams: QueryParamsType | QueryFilterArrayParamsType): ApiQuery;
-    filter(filters: FilterType | {}): ApiQuery;
+    where(searchParams: QueryParamsType): ApiQuery;
+    filter(filters: FilterType[]): ApiQuery;
     sort(field: string, direction?: string | null): ApiQuery;
     search(query: string): ApiQuery;
     eq(field: string, value: string | number): ApiQuery;
@@ -32,26 +32,16 @@ export declare class ApiQuery {
     lte(field: string, value: string | number): ApiQuery;
     in(field: string, value: string | number): ApiQuery;
     nin(field: string, value: string | number): ApiQuery;
-    orEq(field: string, value: string | number): ApiQuery;
-    orNeq(field: string, value: string | number): ApiQuery;
-    orLt(field: string, value: string | number): ApiQuery;
-    orLte(field: string, value: string | number): ApiQuery;
-    orGt(field: string, value: string | number): ApiQuery;
-    orGte(field: string, value: string | number): ApiQuery;
-    orIn(field: string, value: string | number): ApiQuery;
-    orNin(field: string, value: string | number): ApiQuery;
-    AND_filter(filter: FilterType): ApiQuery;
-    OR_filter(filter: FilterType): ApiQuery;
+    AND_filter(filter: FilterType | any): ApiQuery;
     url(): string;
-    parseURL(routerParams?: Record<string, any>): this;
-    transformFilterArray(filters: Record<string, any>): void;
+    parseURL(routerParams?: any): this;
     query(): {
         keywords: string;
         page: number;
         per_page: number;
         sort_by: string;
         sort_direction: string;
-        filters: {} | FilterType;
+        filters: FilterType[];
     };
     isValidFilter: (filter: any) => boolean;
 }

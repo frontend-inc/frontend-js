@@ -943,8 +943,8 @@ var ApiClient = /** @class */ (function () {
             });
         });
     };
-    ApiClient.prototype.subscribe = function (subOptions, options) {
-        if (subOptions === void 0) { subOptions = {}; }
+    ApiClient.prototype.subscribe = function (subscripeOptions, options) {
+        if (subscripeOptions === void 0) { subscripeOptions = {}; }
         return __awaiter(this, void 0, void 0, function () {
             var url;
             var _a;
@@ -954,7 +954,7 @@ var ApiClient = /** @class */ (function () {
                         url = (options || {}).url;
                         this.name = 'subscription';
                         this.payload = (_a = {},
-                            _a[this.name] = subOptions,
+                            _a[this.name] = subscripeOptions,
                             _a);
                         this.endpoint = "".concat(url, "/subscribe");
                         return [4 /*yield*/, this.post(this.endpoint, this.payload, this.headers)];

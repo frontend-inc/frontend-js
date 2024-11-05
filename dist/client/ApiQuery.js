@@ -58,10 +58,7 @@ var ApiQuery = /** @class */ (function () {
         this._sort_by = sort_by || 'id';
         this._sort_direction = sort_direction || 'desc';
         this._keywords = keywords;
-        this._filters = filters || {
-            AND: [],
-            OR: [],
-        };
+        this._filters = filters || [];
         this._page = page;
         this._per_page = per_page;
         this._params = rest;
@@ -158,11 +155,10 @@ var ApiQuery = /** @class */ (function () {
     });
     ApiQuery.prototype.where = function (searchParams) {
         var _a = searchParams || {}, _b = _a.sort_by, sort_by = _b === void 0 ? 'id' : _b, _c = _a.sort_direction, sort_direction = _c === void 0 ? 'desc' : _c, keywords = _a.keywords, filters = _a.filters, _d = _a.page, page = _d === void 0 ? 1 : _d, _e = _a.per_page, per_page = _e === void 0 ? 20 : _e, rest = __rest(_a, ["sort_by", "sort_direction", "keywords", "filters", "page", "per_page"]);
-        this.transformFilterArray(filters);
+        this._filters = filters || this._filters;
         this._sort_by = sort_by || this._sort_by;
         this._sort_direction = sort_direction || this._sort_direction;
         this._keywords = keywords || this._keywords;
-        this._filters = filters || this._filters;
         this._page = page || this._page;
         this._per_page = per_page || this._per_page;
         this._params = rest || {};
@@ -232,56 +228,15 @@ var ApiQuery = /** @class */ (function () {
         this.AND_filter((_a = {}, _a[field] = { nin: value }, _a));
         return this;
     };
-    ApiQuery.prototype.orEq = function (field, value) {
-        var _a;
-        this.OR_filter((_a = {}, _a[field] = { eq: value }, _a));
-        return this;
-    };
-    ApiQuery.prototype.orNeq = function (field, value) {
-        var _a;
-        this.OR_filter((_a = {}, _a[field] = { neq: value }, _a));
-        return this;
-    };
-    ApiQuery.prototype.orLt = function (field, value) {
-        var _a;
-        this.OR_filter((_a = {}, _a[field] = { lt: value }, _a));
-        return this;
-    };
-    ApiQuery.prototype.orLte = function (field, value) {
-        var _a;
-        this.OR_filter((_a = {}, _a[field] = { lte: value }, _a));
-        return this;
-    };
-    ApiQuery.prototype.orGt = function (field, value) {
-        var _a;
-        this.OR_filter((_a = {}, _a[field] = { gt: value }, _a));
-        return this;
-    };
-    ApiQuery.prototype.orGte = function (field, value) {
-        var _a;
-        this.OR_filter((_a = {}, _a[field] = { gte: value }, _a));
-        return this;
-    };
-    ApiQuery.prototype.orIn = function (field, value) {
-        var _a;
-        this.OR_filter((_a = {}, _a[field] = { in: value }, _a));
-        return this;
-    };
-    ApiQuery.prototype.orNin = function (field, value) {
-        var _a;
-        this.OR_filter((_a = {}, _a[field] = { nin: value }, _a));
-        return this;
-    };
     ApiQuery.prototype.AND_filter = function (filter) {
-        this._filters = __assign(__assign({}, this._filters), { AND: __spreadArray(__spreadArray([], (this._filters['AND'] || []), true), [filter], false) });
-        return this;
-    };
-    ApiQuery.prototype.OR_filter = function (filter) {
-        this._filters = __assign(__assign({}, this._filters), { OR: __spreadArray(__spreadArray([], (this._filters['OR'] || []), true), [filter], false) });
+        this._filters = __spreadArray([
+            filter
+        ], (this._filters || []), true);
         return this;
     };
     ApiQuery.prototype.url = function () {
         var _this = this;
+        var _a;
         var searchParams = {
             page: this._page || 1,
             per_page: this._per_page || 20,
@@ -292,38 +247,21 @@ var ApiQuery = /** @class */ (function () {
         if (this._keywords && this._keywords.length > 0) {
             searchParams = __assign(__assign({}, searchParams), { keywords: this._keywords });
         }
-        var andFiltersType = [];
-        var orFiltersType = [];
-        if (typeof this._filters === 'object' &&
-            Object.keys(this._filters).length > 0) {
-            Object.keys(this._filters).forEach(function (where) {
-                var andOrfilters = _this._filters[where];
-                andOrfilters === null || andOrfilters === void 0 ? void 0 : andOrfilters.forEach(function (filter) {
-                    if (_this.isValidFilter(filter)) {
-                        var field = Object.keys(filter)[0];
-                        var operator = Object.keys(filter[field])[0];
-                        var value = filter[field][operator];
-                        if (Array.isArray(value)) {
-                            value = "[".concat(value.join(','), "]");
-                        }
-                        if (where == 'AND') {
-                            andFiltersType.push("".concat(field, ":").concat(operator, ":").concat(value));
-                        }
-                        if (where == 'OR') {
-                            orFiltersType.push("".concat(field, ":").concat(operator, ":").concat(value));
-                        }
+        var filterParts = [];
+        if (Array.isArray(this._filters) && this._filters.length > 0) {
+            (_a = this._filters) === null || _a === void 0 ? void 0 : _a.forEach(function (filter) {
+                if (_this.isValidFilter(filter)) {
+                    var field = Object.keys(filter)[0];
+                    var operator = Object.keys(filter[field])[0];
+                    var value = filter[field][operator];
+                    if (Array.isArray(value)) {
+                        value = "[".concat(value.join(','), "]");
                     }
-                });
+                    filterParts.push("".concat(field, ":").concat(operator, ":").concat(value));
+                }
             });
         }
-        var andOrFiltersType = [];
-        if (andFiltersType.length > 0) {
-            andOrFiltersType.push("and(".concat(andFiltersType.join(','), ")"));
-        }
-        if (orFiltersType.length > 0) {
-            andOrFiltersType.push("or(".concat(orFiltersType.join(','), ")"));
-        }
-        searchParams = __assign(__assign({}, searchParams), { filters: andOrFiltersType.join('') });
+        searchParams = __assign(__assign({}, searchParams), { filters: filterParts.join('') });
         searchParams = __assign(__assign({}, searchParams), (this._params || {}));
         var url = [];
         for (var key in searchParams) {
@@ -337,73 +275,30 @@ var ApiQuery = /** @class */ (function () {
         if (routerParams === void 0) { routerParams = {}; }
         var keywords = routerParams.keywords, page = routerParams.page, per_page = routerParams.per_page, filterParams = routerParams.filters, order = routerParams.order;
         var _a = order ? order.split(':') : [], sort_by = _a[0], sort_direction = _a[1];
-        var filters = {};
+        var filters = [];
         // Split the string into "AND" and "OR" parts
         if (filterParams) {
-            var andPart = filterParams.match(/and\((.*?)\)/);
-            var andFilterArray = [];
-            var orPart = filterParams.match(/or\((.*?)\)$/);
-            var orFilterArray = [];
-            // Parse AND filters
-            if (andPart) {
-                var andFiltersType = andPart[1];
-                // Regular expression to also handle
-                // filters=and(id:in:[1,2,3])
-                var filterRegex = /,(?![^\[]*\])/;
-                andFilterArray = andFiltersType.split(filterRegex).map(function (filter) {
-                    var _a, _b;
-                    var _c = filter.split(':'), field = _c[0], operator = _c[1], value = _c[2];
-                    if (operator == 'in' || operator == 'nin') {
-                        value = value.replace('[', '').replace(']', '').split(',');
-                    }
-                    return _a = {},
-                        _a[field] = (_b = {}, _b[operator] = value, _b),
-                        _a;
-                });
-                filters = __assign(__assign({}, filters), { AND: andFilterArray });
-            }
-            // Parse OR filters
-            if (orPart) {
-                var orFiltersType = orPart[1];
-                orFilterArray = orFiltersType.split(',').map(function (filter) {
-                    var _a, _b;
-                    var _c = filter.split(':'), field = _c[0], operator = _c[1], value = _c[2];
-                    return _a = {},
-                        _a[field] = (_b = {}, _b[operator] = value, _b),
-                        _a;
-                });
-                filters = __assign(__assign({}, filters), { OR: orFilterArray });
-            }
+            // Regular expression to also handle
+            // filters=(id:in:[1,2,3])
+            var filterRegex = /,(?![^\[]*\])/;
+            filters = filterParams.split(filterRegex).map(function (filter) {
+                var _a, _b;
+                var _c = filter.split(':'), field = _c[0], operator = _c[1], value = _c[2];
+                if (operator == 'in' || operator == 'nin') {
+                    value = value.replace('[', '').replace(']', '').split(',');
+                }
+                return _a = {},
+                    _a[field] = (_b = {}, _b[operator] = value, _b),
+                    _a;
+            });
         }
         this._keywords = keywords || '';
         this._page = page || 1;
         this._per_page = per_page || 20;
         this._sort_by = sort_by || 'id';
         this._sort_direction = sort_direction || 'desc';
-        this._filters = filters || {};
+        this._filters = filters || [];
         return this;
-    };
-    ApiQuery.prototype.transformFilterArray = function (filters) {
-        var _a, _b, _c, _d;
-        if (Array.isArray(filters)) {
-            for (var _i = 0, filters_1 = filters; _i < filters_1.length; _i++) {
-                var filter = filters_1[_i];
-                var where = filter.where, field = filter.field, operator = filter.operator, value = filter.value;
-                if (where !== 'AND' && where !== 'OR') {
-                    throw new Error('Filter must include AND or OR.');
-                }
-                if (where === 'AND') {
-                    this.AND_filter((_a = {},
-                        _a[field] = (_b = {}, _b[operator] = value, _b),
-                        _a));
-                }
-                if (where === 'OR') {
-                    this.OR_filter((_c = {},
-                        _c[field] = (_d = {}, _d[operator] = value, _d),
-                        _c));
-                }
-            }
-        }
     };
     ApiQuery.prototype.query = function () {
         return {

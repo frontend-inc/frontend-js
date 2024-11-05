@@ -102,32 +102,15 @@ export type FilterFieldType = {
         [operator in OperatorType]?: string | number;
     };
 };
-export type FilterType = {
-    AND?: FilterFieldType[];
-    OR?: FilterFieldType[];
-};
+export type FilterType = FilterFieldType[];
 export type QueryParamsType = {
     keywords?: string | null;
-    filters?: FilterType | Record<string, any>;
+    filters?: FilterType[];
     page?: number;
     per_page?: number;
     sort_by?: string;
     sort_direction?: 'asc' | 'desc';
-    current_user?: boolean;
-    current_team?: boolean;
-    belongs_to?: number;
-    similar_to?: number;
-    location?: string;
-    radius?: number;
     rest?: any;
-};
-export type QueryFilterArrayParamsType = {
-    sort_by: string;
-    sort_direction: 'asc' | 'desc';
-    keywords?: string;
-    filters?: FilterOption[];
-    page: number;
-    per_page: number;
 };
 export type QueryURLParamsType = {
     order?: string;
@@ -137,26 +120,10 @@ export type QueryURLParamsType = {
     per_page?: number;
 };
 export type FilterOperatorType = 'asc' | 'desc' | 'true' | 'false' | 'eq' | 'neq' | 'like' | 'gt' | 'gte' | 'lt' | 'lte' | 'in' | 'nin' | '1_day_ago' | '7_days_ago' | '14_days_ago' | '30_days_ago' | '60_days_ago' | '90_days_ago' | 'current_year' | '1_day' | '7_days' | '14_days' | '30_days' | '60_days' | '90_days' | 'next_year';
-export type FilterWhereType = 'AND' | 'OR';
-export type FilterOption = {
-    where: FilterWhereType;
-    field: string;
-    operator: FilterOperatorType;
-    value: any;
-};
 export type OptionType = {
     label: string;
     value: string | number;
     icon?: string;
-};
-export type SearchFilterInputProps = {
-    filter?: FilterOption;
-    field?: string;
-    label?: string;
-    where?: FilterWhereType;
-    operator?: FilterOperatorType;
-    options?: OptionType[];
-    handleSubmit: (value: any) => void;
 };
 export type FindManyOptionType = {
     loadMore?: boolean;

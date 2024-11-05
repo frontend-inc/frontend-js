@@ -159,24 +159,16 @@ export type FilterFieldType = {
 	}
 }
 
-export type FilterType = {
-	AND?: FilterFieldType[]
-	OR?: FilterFieldType[]
-}
+export type FilterType = FilterFieldType[]
 
 /* This is the JSON formatted query
    Example: 
   {     
     keywords: 'harry potter', 
-    filters: {
-      AND: [
-        { category: { in: ['books', 'movies'] },      
-        { price: { gt: 20 } }
-      ],
-      OR: [
-        { rating: { gte: 4 } }        
-      ]
-    },
+    filters: [
+      { category: { in: ['books', 'movies'] },      
+      { price: { gt: 20 }},
+    ]
     sort_by: 'rating', 
     sort_direction: 'desc' 
   }
@@ -184,27 +176,12 @@ export type FilterType = {
 
 export type QueryParamsType = {
 	keywords?: string | null
-	filters?: FilterType | Record<string, any>
+	filters?: FilterType[]
 	page?: number 
 	per_page?: number
   sort_by?: string
 	sort_direction?: 'asc' | 'desc'
-  current_user?: boolean 
-  current_team?: boolean
-  belongs_to?: number 
-  similar_to?: number
-  location?: string
-  radius?: number
 	rest?: any
-}
-
-export type QueryFilterArrayParamsType = {
-	sort_by: string
-	sort_direction: 'asc' | 'desc'
-	keywords?: string
-	filters?: FilterOption[]
-	page: number
-	per_page: number
 }
 
 export type QueryURLParamsType = {
@@ -244,29 +221,10 @@ export type FilterOperatorType =
 	| '90_days'
 	| 'next_year'
 
-export type FilterWhereType = 'AND' | 'OR'
-
-export type FilterOption = {
-	where: FilterWhereType
-	field: string
-	operator: FilterOperatorType
-	value: any
-}
-
 export type OptionType = {
   label: string
   value: string | number  
   icon?: string 
-}
-
-export type SearchFilterInputProps = {
-	filter?: FilterOption
-	field?: string
-	label?: string
-	where?: FilterWhereType
-	operator?: FilterOperatorType
-	options?: OptionType[]
-	handleSubmit: (value: any) => void
 }
 
 export type FindManyOptionType = {
