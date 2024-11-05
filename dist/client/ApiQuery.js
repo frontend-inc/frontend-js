@@ -261,7 +261,7 @@ var ApiQuery = /** @class */ (function () {
                 }
             });
         }
-        searchParams = __assign(__assign({}, searchParams), { filters: filterParts.join('') });
+        searchParams = __assign(__assign({}, searchParams), { filters: filterParts.join(',') });
         searchParams = __assign(__assign({}, searchParams), (this._params || {}));
         var url = [];
         for (var key in searchParams) {

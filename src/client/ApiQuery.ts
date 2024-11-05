@@ -240,7 +240,7 @@ export class ApiQuery {
 
 		searchParams = {
 			...searchParams,
-			filters: filterParts.join(''),
+			filters: filterParts.join(','),
 		}
 
 		searchParams = {
