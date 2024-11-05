@@ -270,7 +270,6 @@ export class ApiQuery {
 		let [sort_by, sort_direction] = order ? order.split(':') : []
 
 		let filters = []
-		// Split the string into "AND" and "OR" parts
 		if (filterParams) {
 				// Regular expression to also handle
 				// filters=(id:in:[1,2,3])

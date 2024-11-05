@@ -943,8 +943,8 @@ var ApiClient = /** @class */ (function () {
             });
         });
     };
-    ApiClient.prototype.subscribe = function (subscripeOptions, options) {
-        if (subscripeOptions === void 0) { subscripeOptions = {}; }
+    ApiClient.prototype.subscribe = function (productId, stripeOptions, options) {
+        if (stripeOptions === void 0) { stripeOptions = {}; }
         return __awaiter(this, void 0, void 0, function () {
             var url;
             var _a;
@@ -954,27 +954,11 @@ var ApiClient = /** @class */ (function () {
                         url = (options || {}).url;
                         this.name = 'subscription';
                         this.payload = (_a = {},
-                            _a[this.name] = subscripeOptions,
+                            _a[this.name] = stripeOptions,
                             _a);
-                        this.endpoint = "".concat(url, "/subscribe");
+                        this.endpoint = "".concat(url, "/").concat(productId, "/subscribe");
                         return [4 /*yield*/, this.post(this.endpoint, this.payload, this.headers)];
                     case 1: return [2 /*return*/, _b.sent()];
-                }
-            });
-        });
-    };
-    ApiClient.prototype.unsubscribe = function (options) {
-        return __awaiter(this, void 0, void 0, function () {
-            var url;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0:
-                        url = (options || {}).url;
-                        this.name = 'subscription';
-                        this.payload = {};
-                        this.endpoint = "".concat(url, "/unsubscribe");
-                        return [4 /*yield*/, this.post(this.endpoint, this.payload, this.headers)];
-                    case 1: return [2 /*return*/, _a.sent()];
                 }
             });
         });

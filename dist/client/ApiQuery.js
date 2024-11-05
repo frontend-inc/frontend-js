@@ -276,7 +276,6 @@ var ApiQuery = /** @class */ (function () {
         var keywords = routerParams.keywords, page = routerParams.page, per_page = routerParams.per_page, filterParams = routerParams.filters, order = routerParams.order;
         var _a = order ? order.split(':') : [], sort_by = _a[0], sort_direction = _a[1];
         var filters = [];
-        // Split the string into "AND" and "OR" parts
         if (filterParams) {
             // Regular expression to also handle
             // filters=(id:in:[1,2,3])

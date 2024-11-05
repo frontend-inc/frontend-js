@@ -602,21 +602,13 @@ export class ApiClient {
 		return await this.post(this.endpoint, this.payload, this.headers)
 	}
 
-  async subscribe(subscripeOptions={},  options: MutateOptionsType): Promise<ExecuteResponseType> {
+  async subscribe(productId: string | number, stripeOptions={},  options: MutateOptionsType): Promise<ExecuteResponseType> {
     const { url } = options || {}
     this.name = 'subscription'
     this.payload = {
-      [this.name]: subscripeOptions
+      [this.name]: stripeOptions
     }
-		this.endpoint = `${url}/subscribe`
-		return await this.post(this.endpoint, this.payload, this.headers)
-	}
-
-  async unsubscribe(options: MutateOptionsType): Promise<ExecuteResponseType> {
-    const { url } = options || {}
-    this.name = 'subscription'
-    this.payload = {}
-		this.endpoint = `${url}/unsubscribe`
+		this.endpoint = `${url}/${productId}/subscribe`
 		return await this.post(this.endpoint, this.payload, this.headers)
 	}
 
