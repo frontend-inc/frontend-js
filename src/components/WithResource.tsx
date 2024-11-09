@@ -2,7 +2,7 @@ import React from 'react'
 import { useResourceContext } from '../hooks'
 
 export type WithResourceProps = {
-  render: (resource: any) => React.ReactNode
+  render: (resource: any, rest: any) => React.ReactNode
 }
 
 const WithResource: React.FC<WithResourceProps> = (props) => {
