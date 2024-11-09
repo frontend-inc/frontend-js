@@ -8,8 +8,8 @@ export type WithResourcesProps = {
 const WithResources: React.FC<WithResourcesProps> = (props) => {
   const { render } = props || {}
   const { resources, ...rest } = useResourceContext()
-
-  return(render(resources, rest))
+  
+  return(resources?.map((resource, idx) => render(resource, idx, rest)))
 }
 
 export default WithResources

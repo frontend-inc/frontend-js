@@ -15,6 +15,6 @@ var hooks_1 = require("../hooks");
 var WithResources = function (props) {
     var render = (props || {}).render;
     var _a = (0, hooks_1.useResourceContext)(), resources = _a.resources, rest = __rest(_a, ["resources"]);
-    return (render(resources, rest));
+    return (resources === null || resources === void 0 ? void 0 : resources.map(function (resource, idx) { return render(resource, idx, rest); }));
 };
 exports.default = WithResources;
