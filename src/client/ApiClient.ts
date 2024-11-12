@@ -222,6 +222,16 @@ export class ApiClient {
 		return await this.post(this.endpoint, this.payload, this.headers)
 	}
 
+  async createMany(resources: any[], options: MutateOptionsType): Promise<ExecuteResponseType> {
+    const { name, url } = options || {}
+    this.name = name
+		this.payload = {      
+      [this.name]: resources,      
+		}
+		this.endpoint = `${url}/create_many`
+		return await this.post(this.endpoint, this.payload, this.headers)
+	}
+
 	async updateMany(ids: number[], resource: object, options: MutateOptionsType): Promise<ExecuteResponseType> {
     const { name, url } = options || {}
     this.name = name

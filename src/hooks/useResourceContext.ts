@@ -233,6 +233,12 @@ const useResourceContext = (): UseResourceContextResponse => {
     )
 	}
 
+  const createMany = async (resources: any[]) => {
+    return await loadingWrapper(() =>
+      api.createMany(resources, apiParams)
+    )
+  }
+
 	const updateMany = async (ids: ID[], resource: any) => {
 		return await loadingWrapper(() =>
 			api.updateMany(ids, resource, apiParams)
@@ -378,6 +384,7 @@ const useResourceContext = (): UseResourceContextResponse => {
 		update,
 		create,
 		destroy,
+    createMany,
 		updateMany,
 		deleteMany,
 		publish,

@@ -252,6 +252,16 @@ var useResourceContext = function () {
             }
         });
     }); };
+    var createMany = function (resources) { return __awaiter(void 0, void 0, void 0, function () {
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, loadingWrapper(function () {
+                        return api.createMany(resources, apiParams);
+                    })];
+                case 1: return [2 /*return*/, _a.sent()];
+            }
+        });
+    }); };
     var updateMany = function (ids, resource) { return __awaiter(void 0, void 0, void 0, function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
@@ -435,6 +445,7 @@ var useResourceContext = function () {
         update: update,
         create: create,
         destroy: destroy,
+        createMany: createMany,
         updateMany: updateMany,
         deleteMany: deleteMany,
         publish: publish,

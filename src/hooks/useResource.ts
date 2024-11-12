@@ -205,6 +205,12 @@ const useResource = (params: UseResourceParams): UseResourceResponse => {
 		)
 	}
 
+  const createMany = async (resources: any[]) => {
+    return await loadingWrapper(() =>
+      api.createMany(resources, apiParams)
+    )
+  }
+
 	const updateMany = async (ids: ID[], resource: any) => {
 		return await loadingWrapper(() =>
 			api.updateMany(ids, resource, apiParams)
@@ -357,6 +363,8 @@ const useResource = (params: UseResourceParams): UseResourceResponse => {
 		create,
 		destroy,
     upload,
+    
+    createMany,
 		updateMany,
 		deleteMany,
 		
