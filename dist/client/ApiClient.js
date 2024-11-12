@@ -304,18 +304,17 @@ var ApiClient = /** @class */ (function () {
     ApiClient.prototype.createMany = function (resources, options) {
         return __awaiter(this, void 0, void 0, function () {
             var _a, name, url;
-            var _b;
-            return __generator(this, function (_c) {
-                switch (_c.label) {
+            return __generator(this, function (_b) {
+                switch (_b.label) {
                     case 0:
                         _a = options || {}, name = _a.name, url = _a.url;
                         this.name = name;
-                        this.payload = (_b = {},
-                            _b[this.name] = resources,
-                            _b);
+                        this.payload = {
+                            data: resources,
+                        };
                         this.endpoint = "".concat(url, "/create_many");
                         return [4 /*yield*/, this.post(this.endpoint, this.payload, this.headers)];
-                    case 1: return [2 /*return*/, _c.sent()];
+                    case 1: return [2 /*return*/, _b.sent()];
                 }
             });
         });

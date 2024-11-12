@@ -226,7 +226,7 @@ export class ApiClient {
     const { name, url } = options || {}
     this.name = name
 		this.payload = {      
-      [this.name]: resources,      
+      data: resources,      
 		}
 		this.endpoint = `${url}/create_many`
 		return await this.post(this.endpoint, this.payload, this.headers)
