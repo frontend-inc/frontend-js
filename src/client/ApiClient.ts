@@ -304,20 +304,6 @@ export class ApiClient {
 		return await this.post(this.endpoint, null, this.headers)
 	}
 
-	async follow(username: string, options: MutateOptionsType): Promise<ExecuteResponseType> {
-    const { name, url } = options || {}
-    this.name = name
-		this.endpoint = `${url}/${username}/follow`
-		return await this.post(this.endpoint, null, this.headers)
-	}
-
-	async unfollow(username: string, options: MutateOptionsType): Promise<ExecuteResponseType> {
-    const { name, url } = options || {}
-    this.name = name
-		this.endpoint = `${url}/${username}/unfollow`
-		return await this.post(this.endpoint, null, this.headers)
-	}
-
   async likeProduct(id: number, options: MutateOptionsType): Promise<ExecuteResponseType> {
     const { name, url } = options || {}
     this.name = name
@@ -358,6 +344,38 @@ export class ApiClient {
     this.name = name    
 		this.endpoint = `${url}/${handle}/shopify_unfavorite`
 		return await this.post(this.endpoint, null, this.headers)
+	}
+
+  async addDocuments(
+		collectionId: number,
+		documentIds: number[], 
+    options: MutateOptionsType
+  ): Promise<ExecuteResponseType> {
+    const { url } = options || {}
+    this.name = 'documents'
+		this.payload = {
+			[this.name]: {
+				ids: documentIds
+			},
+		}
+		this.endpoint = `${url}/${collectionId}/add_documents`
+		return await this.post(this.endpoint, this.payload, this.headers)
+	}
+
+	async removeDocuments(
+		collectionId: number,
+		documentIds: number[], 
+    options: MutateOptionsType
+  ): Promise<ExecuteResponseType> {
+    const { url } = options || {}
+    this.name = 'products'
+		this.payload = {
+			[this.name]: {
+				ids: documentIds,
+			},
+		}
+		this.endpoint = `${url}/${collectionId}/remove_documents`
+		return await this.post(this.endpoint, this.payload, this.headers)
 	}
 
 	async addReferences(

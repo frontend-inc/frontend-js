@@ -457,36 +457,6 @@ var ApiClient = /** @class */ (function () {
             });
         });
     };
-    ApiClient.prototype.follow = function (username, options) {
-        return __awaiter(this, void 0, void 0, function () {
-            var _a, name, url;
-            return __generator(this, function (_b) {
-                switch (_b.label) {
-                    case 0:
-                        _a = options || {}, name = _a.name, url = _a.url;
-                        this.name = name;
-                        this.endpoint = "".concat(url, "/").concat(username, "/follow");
-                        return [4 /*yield*/, this.post(this.endpoint, null, this.headers)];
-                    case 1: return [2 /*return*/, _b.sent()];
-                }
-            });
-        });
-    };
-    ApiClient.prototype.unfollow = function (username, options) {
-        return __awaiter(this, void 0, void 0, function () {
-            var _a, name, url;
-            return __generator(this, function (_b) {
-                switch (_b.label) {
-                    case 0:
-                        _a = options || {}, name = _a.name, url = _a.url;
-                        this.name = name;
-                        this.endpoint = "".concat(url, "/").concat(username, "/unfollow");
-                        return [4 /*yield*/, this.post(this.endpoint, null, this.headers)];
-                    case 1: return [2 /*return*/, _b.sent()];
-                }
-            });
-        });
-    };
     ApiClient.prototype.likeProduct = function (id, options) {
         return __awaiter(this, void 0, void 0, function () {
             var _a, name, url;
@@ -572,6 +542,48 @@ var ApiClient = /** @class */ (function () {
                         this.name = name;
                         this.endpoint = "".concat(url, "/").concat(handle, "/shopify_unfavorite");
                         return [4 /*yield*/, this.post(this.endpoint, null, this.headers)];
+                    case 1: return [2 /*return*/, _b.sent()];
+                }
+            });
+        });
+    };
+    ApiClient.prototype.addDocuments = function (collectionId, documentIds, options) {
+        return __awaiter(this, void 0, void 0, function () {
+            var url;
+            var _a;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
+                    case 0:
+                        url = (options || {}).url;
+                        this.name = 'documents';
+                        this.payload = (_a = {},
+                            _a[this.name] = {
+                                ids: documentIds
+                            },
+                            _a);
+                        this.endpoint = "".concat(url, "/").concat(collectionId, "/add_documents");
+                        return [4 /*yield*/, this.post(this.endpoint, this.payload, this.headers)];
+                    case 1: return [2 /*return*/, _b.sent()];
+                }
+            });
+        });
+    };
+    ApiClient.prototype.removeDocuments = function (collectionId, documentIds, options) {
+        return __awaiter(this, void 0, void 0, function () {
+            var url;
+            var _a;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
+                    case 0:
+                        url = (options || {}).url;
+                        this.name = 'products';
+                        this.payload = (_a = {},
+                            _a[this.name] = {
+                                ids: documentIds,
+                            },
+                            _a);
+                        this.endpoint = "".concat(url, "/").concat(collectionId, "/remove_documents");
+                        return [4 /*yield*/, this.post(this.endpoint, this.payload, this.headers)];
                     case 1: return [2 /*return*/, _b.sent()];
                 }
             });
