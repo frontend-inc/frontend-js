@@ -217,6 +217,12 @@ const useResource = (params: UseResourceParams): UseResourceResponse => {
 		)
 	}
 
+  const exportMany = async (ids: ID[]) => {
+		return await loadingWrapper(() =>
+			api.exportMany(ids, apiParams)
+		)
+	}
+
 	const deleteMany = async (ids: ID[]) => {
 		return await loadingWrapper(() =>
 			api.destroyMany(ids, apiParams)
@@ -367,7 +373,8 @@ const useResource = (params: UseResourceParams): UseResourceResponse => {
     createMany,
 		updateMany,
 		deleteMany,
-		
+		exportMany,
+    
     publish,
 		unpublish,
     

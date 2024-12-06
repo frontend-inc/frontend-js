@@ -243,6 +243,16 @@ export class ApiClient {
 		return await this.post(this.endpoint, this.payload, this.headers)
 	}
 
+  async exportMany(ids: number[], options: MutateOptionsType): Promise<ExecuteResponseType> {
+    const { name, url } = options || {}
+    this.name = name
+		this.payload = {
+      ids: ids      
+		}
+		this.endpoint = `${url}/export_many`
+		return await this.post(this.endpoint, this.payload, this.headers)
+	}
+
 	async destroyMany(ids: number[], options: MutateOptionsType): Promise<ExecuteResponseType> {
     const { name, url } = options || {}
     this.name = name

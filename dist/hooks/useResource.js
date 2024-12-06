@@ -294,6 +294,16 @@ var useResource = function (params) {
             }
         });
     }); };
+    var exportMany = function (ids) { return __awaiter(void 0, void 0, void 0, function () {
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, loadingWrapper(function () {
+                        return api.exportMany(ids, apiParams);
+                    })];
+                case 1: return [2 /*return*/, _a.sent()];
+            }
+        });
+    }); };
     var deleteMany = function (ids) { return __awaiter(void 0, void 0, void 0, function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
@@ -475,6 +485,7 @@ var useResource = function (params) {
         createMany: createMany,
         updateMany: updateMany,
         deleteMany: deleteMany,
+        exportMany: exportMany,
         publish: publish,
         unpublish: unpublish,
         addAttachment: addAttachment,

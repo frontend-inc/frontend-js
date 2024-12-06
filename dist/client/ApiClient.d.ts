@@ -36,6 +36,7 @@ export declare class ApiClient {
     updateProductReferencePositions(id: number, sorted: Record<string, any>[], options: MutateOptionsType): Promise<ExecuteResponseType>;
     createMany(resources: any[], options: MutateOptionsType): Promise<ExecuteResponseType>;
     updateMany(ids: number[], resource: object, options: MutateOptionsType): Promise<ExecuteResponseType>;
+    exportMany(ids: number[], options: MutateOptionsType): Promise<ExecuteResponseType>;
     destroyMany(ids: number[], options: MutateOptionsType): Promise<ExecuteResponseType>;
     publish(ids: number[], options: MutateOptionsType): Promise<ExecuteResponseType>;
     unpublish(ids: number[], options: MutateOptionsType): Promise<ExecuteResponseType>;
