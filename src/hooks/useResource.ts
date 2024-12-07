@@ -82,7 +82,13 @@ const useResource = (params: UseResourceParams): UseResourceResponse => {
 
   /* Find Many */
   const findManyFetcher = ([url, query]) => api.findMany(query, { url })  
-  const { isLoading, data, error, mutate: mutateMany } = useSWR(findManyCache, findManyFetcher)
+  
+  const { 
+    isLoading, 
+    data, 
+    error, 
+    mutate: mutateMany 
+  } = useSWR(findManyCache, findManyFetcher)
   
   useEffect(() => {
     if(data?.data) {   
@@ -119,7 +125,7 @@ const useResource = (params: UseResourceParams): UseResourceResponse => {
 		if (url?.includes('undefined')) {
 			console.log('Error: the URL contains undefined', url)
 			return
-		}
+		}    
     if(opts?.loadMore == true){
       setInfiniteLoad(true)
     }
@@ -131,7 +137,8 @@ const useResource = (params: UseResourceParams): UseResourceResponse => {
       ...queryParams 
     }
     setQuery(searchQuery)
-    setFindManyCache([url, searchQuery])		
+    const resp = await mutateMany([url, queryParams])
+    return resp
 	}
   
 	const loadMore = async () => {		

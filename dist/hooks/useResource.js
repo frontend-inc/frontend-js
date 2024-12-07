@@ -159,22 +159,27 @@ var useResource = function (params) {
         if (queryParams === void 0) { queryParams = {}; }
         if (opts === void 0) { opts = {}; }
         return __awaiter(void 0, void 0, void 0, function () {
-            var searchQuery;
+            var searchQuery, resp;
             return __generator(this, function (_a) {
-                if (url === null || url === void 0 ? void 0 : url.includes('undefined')) {
-                    console.log('Error: the URL contains undefined', url);
-                    return [2 /*return*/];
+                switch (_a.label) {
+                    case 0:
+                        if (url === null || url === void 0 ? void 0 : url.includes('undefined')) {
+                            console.log('Error: the URL contains undefined', url);
+                            return [2 /*return*/];
+                        }
+                        if ((opts === null || opts === void 0 ? void 0 : opts.loadMore) == true) {
+                            setInfiniteLoad(true);
+                        }
+                        if ((opts === null || opts === void 0 ? void 0 : opts.loadMore) == false) {
+                            setInfiniteLoad(false);
+                        }
+                        searchQuery = __assign(__assign({}, query), queryParams);
+                        setQuery(searchQuery);
+                        return [4 /*yield*/, mutateMany([url, queryParams])];
+                    case 1:
+                        resp = _a.sent();
+                        return [2 /*return*/, resp];
                 }
-                if ((opts === null || opts === void 0 ? void 0 : opts.loadMore) == true) {
-                    setInfiniteLoad(true);
-                }
-                if ((opts === null || opts === void 0 ? void 0 : opts.loadMore) == false) {
-                    setInfiniteLoad(false);
-                }
-                searchQuery = __assign(__assign({}, query), queryParams);
-                setQuery(searchQuery);
-                setFindManyCache([url, searchQuery]);
-                return [2 /*return*/];
             });
         });
     };
