@@ -120,7 +120,7 @@ const useResourceContext = (): UseResourceContextResponse => {
   }
 
   const findManyFetcher = ([url, query, page]) => api.findMany({ ...query, page }, { url })  
-  const { isLoading, data, error } = useSWR(findManyCache, findManyFetcher)
+  const { isLoading, data, error, mutate: mutateMany } = useSWR(findManyCache, findManyFetcher)
   
   useEffect(() => {
     if(data?.data) {   
@@ -166,7 +166,21 @@ const useResourceContext = (): UseResourceContextResponse => {
     }
     setQuery(searchQuery)
     setFindManyCache([url, searchQuery, searchQuery?.page])		
+    const resp = await mutateMany([url, searchQuery, searchQuery?.page])
+    return resp  
 	}
+
+  const getOne = async (resourceId: number | string) => {
+    return await loadingWrapper(() => 
+      api.findOne(resourceId, apiParams)
+    )
+  }
+
+  const getMany = async (queryParams: QueryParamsType = {}) => {
+    return await loadingWrapper(() =>
+      api.findMany(queryParams, apiParams)
+    )
+  }
 
   const reloadOne = async (resourceId: number | string) => {		
     resourceId = resourceId || resource?.id
@@ -387,6 +401,8 @@ const useResourceContext = (): UseResourceContextResponse => {
     createMany,
 		updateMany,
 		deleteMany,
+    getOne,
+    getMany,
 		publish,
 		unpublish,
 		

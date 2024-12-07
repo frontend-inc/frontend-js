@@ -159,27 +159,44 @@ var useResource = function (params) {
         if (queryParams === void 0) { queryParams = {}; }
         if (opts === void 0) { opts = {}; }
         return __awaiter(void 0, void 0, void 0, function () {
-            var searchQuery, resp;
+            var searchQuery;
+            return __generator(this, function (_a) {
+                if (url === null || url === void 0 ? void 0 : url.includes('undefined')) {
+                    console.log('Error: the URL contains undefined', url);
+                    return [2 /*return*/];
+                }
+                if ((opts === null || opts === void 0 ? void 0 : opts.loadMore) == true) {
+                    setInfiniteLoad(true);
+                }
+                if ((opts === null || opts === void 0 ? void 0 : opts.loadMore) == false) {
+                    setInfiniteLoad(false);
+                }
+                searchQuery = __assign(__assign({}, query), queryParams);
+                setQuery(searchQuery);
+                setFindManyCache([url, searchQuery]);
+                return [2 /*return*/];
+            });
+        });
+    };
+    var getOne = function (resourceId) { return __awaiter(void 0, void 0, void 0, function () {
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, loadingWrapper(function () {
+                        return api.findOne(resourceId, apiParams);
+                    })];
+                case 1: return [2 /*return*/, _a.sent()];
+            }
+        });
+    }); };
+    var getMany = function (queryParams) {
+        if (queryParams === void 0) { queryParams = {}; }
+        return __awaiter(void 0, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0:
-                        if (url === null || url === void 0 ? void 0 : url.includes('undefined')) {
-                            console.log('Error: the URL contains undefined', url);
-                            return [2 /*return*/];
-                        }
-                        if ((opts === null || opts === void 0 ? void 0 : opts.loadMore) == true) {
-                            setInfiniteLoad(true);
-                        }
-                        if ((opts === null || opts === void 0 ? void 0 : opts.loadMore) == false) {
-                            setInfiniteLoad(false);
-                        }
-                        searchQuery = __assign(__assign({}, query), queryParams);
-                        setQuery(searchQuery);
-                        setFindManyCache([url, searchQuery]);
-                        return [4 /*yield*/, mutateMany([url, searchQuery])];
-                    case 1:
-                        resp = _a.sent();
-                        return [2 /*return*/, resp];
+                    case 0: return [4 /*yield*/, loadingWrapper(function () {
+                            return api.findMany(queryParams, apiParams);
+                        })];
+                    case 1: return [2 /*return*/, _a.sent()];
                 }
             });
         });
@@ -483,6 +500,8 @@ var useResource = function (params) {
         setQuery: setQuery,
         reloadOne: reloadOne,
         reloadMany: reloadMany,
+        getOne: getOne,
+        getMany: getMany,
         save: save,
         update: update,
         create: create,

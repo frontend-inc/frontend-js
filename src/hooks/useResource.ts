@@ -138,9 +138,19 @@ const useResource = (params: UseResourceParams): UseResourceResponse => {
     }
     setQuery(searchQuery)
     setFindManyCache([url, searchQuery])		
-    const resp = await mutateMany([url, searchQuery])
-    return resp  
 	}
+
+  const getOne = async (resourceId: number | string) => {
+    return await loadingWrapper(() => 
+      api.findOne(resourceId, apiParams)
+    )
+  }
+
+  const getMany = async (queryParams: QueryParamsType = {}) => {
+    return await loadingWrapper(() =>
+      api.findMany(queryParams, apiParams)
+    )
+  }
   
 	const loadMore = async () => {		
     let nextPage = page + 1
@@ -372,6 +382,8 @@ const useResource = (params: UseResourceParams): UseResourceResponse => {
 		setQuery,
     reloadOne,
 		reloadMany,
+    getOne,
+    getMany,    
 		save,
 		update,
 		create,
