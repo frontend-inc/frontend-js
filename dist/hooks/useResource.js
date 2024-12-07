@@ -175,7 +175,8 @@ var useResource = function (params) {
                         }
                         searchQuery = __assign(__assign({}, query), queryParams);
                         setQuery(searchQuery);
-                        return [4 /*yield*/, mutateMany([url, queryParams])];
+                        setFindManyCache([url, searchQuery]);
+                        return [4 /*yield*/, mutateMany([url, searchQuery])];
                     case 1:
                         resp = _a.sent();
                         return [2 /*return*/, resp];

@@ -137,8 +137,9 @@ const useResource = (params: UseResourceParams): UseResourceResponse => {
       ...queryParams 
     }
     setQuery(searchQuery)
-    const resp = await mutateMany([url, queryParams])
-    return resp
+    setFindManyCache([url, searchQuery])		
+    const resp = await mutateMany([url, searchQuery])
+    return resp  
 	}
   
 	const loadMore = async () => {		
