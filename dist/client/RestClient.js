@@ -123,9 +123,9 @@ var RestClient = /** @class */ (function () {
     RestClient.prototype.execute = function (url) {
         if (url === void 0) { url = ''; }
         return __awaiter(this, void 0, void 0, function () {
-            var response, fetchResponse, _a, _b, _c, resp, error_1;
-            return __generator(this, function (_d) {
-                switch (_d.label) {
+            var response, fetchResponse, resp, error_1;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
                     case 0:
                         response = {
                             data: null,
@@ -168,30 +168,26 @@ var RestClient = /** @class */ (function () {
                         if (this.method === 'POST' || this.method === 'PUT') {
                             this.options = __assign(__assign({}, this.options), { method: this.method, body: this.payload });
                         }
-                        _d.label = 1;
+                        _a.label = 1;
                     case 1:
-                        _d.trys.push([1, 5, , 6]);
+                        _a.trys.push([1, 4, , 5]);
                         console.log('RestClient Fetch', url, this.options);
                         return [4 /*yield*/, fetch(url, this.options)];
                     case 2:
-                        fetchResponse = _d.sent();
-                        _b = (_a = console).log;
-                        _c = ['RestClient Resp'];
+                        fetchResponse = _a.sent();
                         return [4 /*yield*/, fetchResponse.json()];
                     case 3:
-                        _b.apply(_a, _c.concat([_d.sent()]));
-                        return [4 /*yield*/, fetchResponse.json()];
-                    case 4:
-                        resp = _d.sent();
+                        resp = _a.sent();
+                        console.log('RestClient Resp', resp);
                         response.data = resp === null || resp === void 0 ? void 0 : resp.data;
                         response.meta = resp === null || resp === void 0 ? void 0 : resp.meta;
                         response.errors = resp === null || resp === void 0 ? void 0 : resp.errors;
-                        return [3 /*break*/, 6];
-                    case 5:
-                        error_1 = _d.sent();
+                        return [3 /*break*/, 5];
+                    case 4:
+                        error_1 = _a.sent();
                         response.errors = error_1;
-                        return [3 /*break*/, 6];
-                    case 6: return [2 /*return*/, response];
+                        return [3 /*break*/, 5];
+                    case 5: return [2 /*return*/, response];
                 }
             });
         });
