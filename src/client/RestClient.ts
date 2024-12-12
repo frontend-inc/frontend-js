@@ -113,7 +113,9 @@ export class RestClient {
 			}
 		}
 		try {			      
+      console.log('RestClient Fetch', url, this.options)
       const fetchResponse = await fetch(url, this.options)
+      console.log('RestClient Resp', await fetchResponse.json())
       const resp = await fetchResponse.json()
       response.data = resp?.data 
       response.meta = resp?.meta
