@@ -116,7 +116,7 @@ export class RestClient {
 			}
 		}
 		try {			      
-      console.log('RestClient Fetch', url, this.options)
+      console.log('RestClient Fetch', url, this.options, this.options.body, typeof this.options.body)
       const fetchResponse = await fetch(url, this.options)            
       const resp = await fetchResponse.json()
       console.log('RestClient Resp', resp)

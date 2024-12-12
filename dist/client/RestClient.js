@@ -171,7 +171,7 @@ var RestClient = /** @class */ (function () {
                         _a.label = 1;
                     case 1:
                         _a.trys.push([1, 4, , 5]);
-                        console.log('RestClient Fetch', url, this.options);
+                        console.log('RestClient Fetch', url, this.options, this.options.body, typeof this.options.body);
                         return [4 /*yield*/, fetch(url, this.options)];
                     case 2:
                         fetchResponse = _a.sent();
