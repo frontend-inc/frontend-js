@@ -87,6 +87,7 @@ var RestClient = /** @class */ (function () {
                         this.method = 'PUT';
                         this.payload = payload;
                         this.options.headers = headers || this.options.headers;
+                        console.log("RestClient PUT", url, payload, headers);
                         return [4 /*yield*/, this.execute(url)];
                     case 1: return [2 /*return*/, _a.sent()];
                 }

@@ -50,6 +50,9 @@ export class RestClient {
 		this.method = 'PUT'
 		this.payload = payload
 		this.options.headers = headers || this.options.headers
+
+    console.log("RestClient PUT", url, payload, headers)
+
 		return await this.execute(url)
 	}
 
