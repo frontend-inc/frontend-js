@@ -87,7 +87,6 @@ var RestClient = /** @class */ (function () {
                         this.method = 'PUT';
                         this.payload = payload;
                         this.options.headers = headers || this.options.headers;
-                        console.log("RestClient PUT", url, payload, headers);
                         return [4 /*yield*/, this.execute(url)];
                     case 1: return [2 /*return*/, _a.sent()];
                 }
@@ -171,14 +170,12 @@ var RestClient = /** @class */ (function () {
                         _a.label = 1;
                     case 1:
                         _a.trys.push([1, 4, , 5]);
-                        console.log('RestClient Fetch', url, this.options, this.options.body, typeof this.options.body);
                         return [4 /*yield*/, fetch(url, this.options)];
                     case 2:
                         fetchResponse = _a.sent();
                         return [4 /*yield*/, fetchResponse.json()];
                     case 3:
                         resp = _a.sent();
-                        console.log('RestClient Resp', resp);
                         response.data = resp === null || resp === void 0 ? void 0 : resp.data;
                         response.meta = resp === null || resp === void 0 ? void 0 : resp.meta;
                         response.errors = resp === null || resp === void 0 ? void 0 : resp.errors;

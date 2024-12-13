@@ -50,9 +50,6 @@ export class RestClient {
 		this.method = 'PUT'
 		this.payload = payload
 		this.options.headers = headers || this.options.headers
-
-    console.log("RestClient PUT", url, payload, headers)
-
 		return await this.execute(url)
 	}
 
@@ -116,10 +113,8 @@ export class RestClient {
 			}
 		}
 		try {			      
-      console.log('RestClient Fetch', url, this.options, this.options.body, typeof this.options.body)
       const fetchResponse = await fetch(url, this.options)            
       const resp = await fetchResponse.json()
-      console.log('RestClient Resp', resp)
       response.data = resp?.data 
       response.meta = resp?.meta
       response.errors = resp?.errors      
