@@ -107,17 +107,13 @@ const useResource = (params: UseResourceParams): UseResourceResponse => {
     findMany(searchQuery, { loadMore: false })    
 	}
 	
-  const reloadOne = async (resourceId: number | string) => {		    
+  const reloadOne = async (resourceId?: number | string) => {		    
     resourceId = resourceId || resource?.id
-    return await loadingWrapper(() => 
-      api.findOne(resourceId, { url })
-    )
+    return await findOne(resourceId)
 	}
 
   const reloadMany = async () => {		
-    return await loadingWrapper(() => 
-      api.findMany(query, { url })
-    )
+    return await findMany(query)
 	}
 
 	const sort = async (sortBy: string, sortDirection: 'asc' | 'desc') => {

@@ -147,9 +147,7 @@ var useResourceContext = function () {
             switch (_a.label) {
                 case 0:
                     resourceId = resourceId || (resource === null || resource === void 0 ? void 0 : resource.id);
-                    return [4 /*yield*/, loadingWrapper(function () {
-                            return api.findOne(resourceId, { url: url });
-                        })];
+                    return [4 /*yield*/, findOne(resourceId)];
                 case 1: return [2 /*return*/, _a.sent()];
             }
         });
@@ -157,9 +155,7 @@ var useResourceContext = function () {
     var reloadMany = function () { return __awaiter(void 0, void 0, void 0, function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, loadingWrapper(function () {
-                        return api.findMany(query, { url: url });
-                    })];
+                case 0: return [4 /*yield*/, findMany(query)];
                 case 1: return [2 /*return*/, _a.sent()];
             }
         });
