@@ -139,9 +139,10 @@ const useResource = (params: UseResourceParams): UseResourceResponse => {
 	}
 
 	const update = async (resource: any) => {
-		return await loadingWrapper(() =>
+		const resp = await loadingWrapper(() =>
 			api.update(resource, apiParams)
 		)
+    return resp?.data
 	}
 
 	const destroy = async (id: ID) => {

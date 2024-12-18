@@ -172,9 +172,10 @@ const useResourceContext = (): UseResourceContextResponse => {
 	}
 
 	const update = async (resource: any) => {
-		return await loadingWrapper(() =>
+		let resp = await loadingWrapper(() =>
 			api.update(resource, apiParams)
 		)
+    return resp?.data
 	}
 
 	const destroy = async (id: ID) => {
@@ -276,7 +277,7 @@ const useResourceContext = (): UseResourceContextResponse => {
 			if (resp?.errors) {
 				handleErrors(resp?.errors)
 			}
-			return resp
+			return resp?.data
 		} catch (e) {
       console.log('loadingWrapper error', e)
 		} finally {

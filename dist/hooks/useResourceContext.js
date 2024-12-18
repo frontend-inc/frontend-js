@@ -205,12 +205,15 @@ var useResourceContext = function () {
         });
     }); };
     var update = function (resource) { return __awaiter(void 0, void 0, void 0, function () {
+        var resp;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0: return [4 /*yield*/, loadingWrapper(function () {
                         return api.update(resource, apiParams);
                     })];
-                case 1: return [2 /*return*/, _a.sent()];
+                case 1:
+                    resp = _a.sent();
+                    return [2 /*return*/, resp === null || resp === void 0 ? void 0 : resp.data];
             }
         });
     }); };
@@ -355,7 +358,7 @@ var useResourceContext = function () {
                     if (resp === null || resp === void 0 ? void 0 : resp.errors) {
                         handleErrors(resp === null || resp === void 0 ? void 0 : resp.errors);
                     }
-                    return [2 /*return*/, resp];
+                    return [2 /*return*/, resp === null || resp === void 0 ? void 0 : resp.data];
                 case 2:
                     e_1 = _b.sent();
                     console.log('loadingWrapper error', e_1);
