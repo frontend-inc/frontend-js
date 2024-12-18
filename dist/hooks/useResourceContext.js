@@ -358,7 +358,7 @@ var useResourceContext = function () {
                     if (resp === null || resp === void 0 ? void 0 : resp.errors) {
                         handleErrors(resp === null || resp === void 0 ? void 0 : resp.errors);
                     }
-                    return [2 /*return*/, resp === null || resp === void 0 ? void 0 : resp.data];
+                    return [2 /*return*/, resp];
                 case 2:
                     e_1 = _b.sent();
                     console.log('loadingWrapper error', e_1);

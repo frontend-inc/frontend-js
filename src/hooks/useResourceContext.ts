@@ -277,7 +277,7 @@ const useResourceContext = (): UseResourceContextResponse => {
 			if (resp?.errors) {
 				handleErrors(resp?.errors)
 			}
-			return resp?.data
+			return resp
 		} catch (e) {
       console.log('loadingWrapper error', e)
 		} finally {
