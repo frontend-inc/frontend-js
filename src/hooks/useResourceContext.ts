@@ -1,10 +1,8 @@
 import React, { useEffect, useContext } from 'react'
 import { ResourceContext } from '../context'
 import { ApiContext } from '../context'
-import { useDelayedLoading } from '.'
 import { ID, QueryParamsType, UseResourceResponse, SyntheticEventType } from '../types'
-import useSWR from 'swr'
-import { uniqBy } from 'lodash'
+import { useDebounce } from 'use-debounce'
 
 type UseResourceContextResponse = UseResourceResponse & {
   openShow: boolean
@@ -21,7 +19,6 @@ const useResourceContext = (): UseResourceContextResponse => {
 
   const {
     url,
-    foreignUrl,
     name='document',
     loading,
     setLoading,        
@@ -43,13 +40,6 @@ const useResourceContext = (): UseResourceContextResponse => {
     setTotalCount,
     numPages,
     setNumPages,
-    
-    infiniteLoad,
-    setInfiniteLoad,
-    findManyCache,
-    setFindManyCache,
-    findOneCache,
-    setFindOneCache,
 
     selected,
     setSelected,
@@ -87,100 +77,51 @@ const useResourceContext = (): UseResourceContextResponse => {
 		setSelected([])
 	}
 
-	/* Find One */
-  const findOneFetcher = ([url, id]) => api.findOne(id, { url })  
-  const { isLoading: findOneIsLoading, 
-    data: findOneData, 
-    error: findOneError,
-  } = useSWR(findOneCache, findOneFetcher)
-  
-  useEffect(() => {
-    if(findOneData?.data?.id) {               
-      setResource(findOneData.data)      
-    }
-  }, [findOneData?.data])
-
-  useEffect(() => {
-    if(findOneError){
-      handleErrors(findOneError)
-    }
-  }, [findOneError])
-
-  useEffect(() => {
-    setLoading(findOneIsLoading)
-  }, [findOneIsLoading])
-
   const findOne = async (id: ID) => {
 		if (!id) return null
-    setFindOneCache([url, id])
+    if (url?.includes('undefined')) {
+      console.log('Error the url contains undefined', url)
+      return
+    }  
+    let resp = await loadingWrapper(() =>
+      api.findOne(id, apiParams)
+    )
+    if(resp?.data?.id){
+      setResource(resp?.data)
+    }
+    return resp?.data
 	}
 
-  type FindManyOptionsType = {
-    loadMore?: boolean
-  }
-
-  const findManyFetcher = ([url, query, page]) => api.findMany({ ...query, page }, { url })  
-  const { isLoading, data, error, mutate: mutateMany } = useSWR(findManyCache, findManyFetcher)
-  
-  useEffect(() => {
-    if(data?.data) {   
-      if(infiniteLoad){
-        setResources(uniqBy([...resources, ...data.data], 'id'))
-      }else{
-        setResources(uniqBy(data.data, 'id')) 
-      }           
-      if (data?.meta) {
-        setMeta(data.meta  )
-        setPage(data.meta.page)
-        setPerPage(data.meta.per_page)
-        setTotalCount(data.meta.total_count)
-        setNumPages(data.meta.num_pages)          
-      }  
-    }
-  }, [data])
-
-  useEffect(() => {
-    if(error){
-      handleErrors(error)
-    }
-  }, [error])
-
-  useEffect(() => {
-    setLoading(isLoading)
-  }, [isLoading])
-
-	const findMany = async (queryParams: QueryParamsType = {}, opts: FindManyOptionsType = {}) => {
-		if (url?.includes('undefined')) {
+	const findMany = async (queryParams: QueryParamsType = {}, opts?: { loadMore: boolean }) => {
+    if (url?.includes('undefined')) {
 			console.log('Error: the URL contains undefined', url)
 			return
-		}
-    if(opts?.loadMore == true){
-      setInfiniteLoad(true)
-    }
-    if(opts?.loadMore == false){
-      setInfiniteLoad(false)
-    }
+		}    
     let searchQuery = { 
       ...query, 
       ...queryParams 
     }
     setQuery(searchQuery)
-    setFindManyCache([url, searchQuery, searchQuery?.page])		
-    const resp = await mutateMany([url, searchQuery, searchQuery?.page])
-    return resp  
+    const resp = await loadingWrapper(() =>
+      api.findMany(searchQuery, apiParams)
+    )    
+    if(Array.isArray(resp?.data)){
+      if(opts?.loadMore == true){
+        setResources(prev => [...prev, ...resp.data])
+      }else{
+        setResources(resp?.data)
+      }    
+    }
+    if(resp?.meta){
+      setMeta(resp.meta)
+      setPage(resp.meta.page)
+      setPerPage(resp.meta.per_page)
+      setTotalCount(resp.meta.total_count)
+      setNumPages(resp.meta.num_pages)
+    }
+    return resp?.data
 	}
 
-  const getOne = async (resourceId: number | string) => {
-    return await loadingWrapper(() => 
-      api.findOne(resourceId, apiParams)
-    )
-  }
-
-  const getMany = async (queryParams: QueryParamsType = {}) => {
-    return await loadingWrapper(() =>
-      api.findMany(queryParams, apiParams)
-    )
-  }
 
   const reloadOne = async (resourceId: number | string) => {		
     resourceId = resourceId || resource?.id
@@ -333,23 +274,13 @@ const useResourceContext = (): UseResourceContextResponse => {
 		try {
 			showLoading()
 			setErrors(null)
-			const res = await fn()
-			if (res?.data?.id) {
-				setResource(res.data)      
-			} else if(Array.isArray(res?.data)){
-        setResources(res.data)
-        if(res.meta){
-          setMeta(res.meta)
-          setPage(res.meta.page)
-          setPerPage(res.meta.per_page)
-          setTotalCount(res.meta.total_count)
-          setNumPages(res.meta.num_pages)
-        }        
-      } else if (res?.errors) {
-				handleErrors(res?.errors)
+			const resp = await fn()
+			if (resp?.errors) {
+				handleErrors(resp?.errors)
 			}
-			return res?.data
+			return resp
 		} catch (e) {
+      console.log('loadingWrapper error', e)
 		} finally {
 			hideLoading()
 		}
@@ -370,13 +301,11 @@ const useResourceContext = (): UseResourceContextResponse => {
 		}
 	}, [selected])  
 
-  const { loading: delayedLoading } = useDelayedLoading({
-    loading
-  })
+  const [delayedLoading] = useDebounce(loading, 350)
+  
 
 	return {
-    url,
-    foreignUrl,
+    url,    
     name,    
 		loading,
     delayedLoading,
@@ -401,8 +330,6 @@ const useResourceContext = (): UseResourceContextResponse => {
     createMany,
 		updateMany,
 		deleteMany,
-    getOne,
-    getMany,
 		publish,
 		unpublish,
 		
@@ -419,13 +346,6 @@ const useResourceContext = (): UseResourceContextResponse => {
 		sort,
 		paginate,
 		loadMore,
-
-    infiniteLoad,
-    setInfiniteLoad,
-    findManyCache,
-    setFindManyCache,
-    findOneCache,
-    setFindOneCache,
 
     selected,
     selectedIds,

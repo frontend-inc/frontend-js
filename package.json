@@ -1,6 +1,6 @@
 {
     "name": "frontend-js",
-    "version": "0.0.246",
+    "version": "0.0.248",
     "license": "MIT",
     "description": "A JavaScript REST client for Frontend.co.",
     "homepage": "https://github.com/frontend-inc/frontend-js",
@@ -61,11 +61,12 @@
         ]
     },
     "dependencies": {
+        "@stdlib/streams-node-stdin": "0.2.2",
         "@tanstack/react-query": "^5.52.2",
         "cookies-next": "^2.1.1",
         "lodash": "^4.17.21",
         "swr": "^2.2.5",
-        "@stdlib/streams-node-stdin": "0.2.2"
+        "use-debounce": "^10.0.4"
     },
     "devDependencies": {
         "babel-cli": "^6.26.0",
