@@ -153,19 +153,25 @@ var useResource = function (params) {
     var loadMore = function () { return __awaiter(void 0, void 0, void 0, function () {
         var nextPage, searchQuery;
         return __generator(this, function (_a) {
-            nextPage = page + 1;
-            nextPage = nextPage < 2 ? 2 : nextPage;
-            searchQuery = __assign(__assign({}, query), { page: nextPage });
-            findMany(searchQuery, { loadMore: true });
-            return [2 /*return*/];
+            switch (_a.label) {
+                case 0:
+                    nextPage = page + 1;
+                    nextPage = nextPage < 2 ? 2 : nextPage;
+                    searchQuery = __assign(__assign({}, query), { page: nextPage });
+                    return [4 /*yield*/, findMany(searchQuery, { loadMore: true })];
+                case 1: return [2 /*return*/, _a.sent()];
+            }
         });
     }); };
     var paginate = function (page) { return __awaiter(void 0, void 0, void 0, function () {
         var searchQuery;
         return __generator(this, function (_a) {
-            searchQuery = __assign(__assign({}, query), { page: page });
-            findMany(searchQuery, { loadMore: false });
-            return [2 /*return*/];
+            switch (_a.label) {
+                case 0:
+                    searchQuery = __assign(__assign({}, query), { page: page });
+                    return [4 /*yield*/, findMany(searchQuery, { loadMore: false })];
+                case 1: return [2 /*return*/, _a.sent()];
+            }
         });
     }); };
     var reloadOne = function (resourceId) { return __awaiter(void 0, void 0, void 0, function () {
@@ -203,12 +209,15 @@ var useResource = function (params) {
         }
     };
     var create = function (resource) { return __awaiter(void 0, void 0, void 0, function () {
+        var resp;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0: return [4 /*yield*/, loadingWrapper(function () {
                         return api.create(resource, apiParams);
                     })];
-                case 1: return [2 /*return*/, _a.sent()];
+                case 1:
+                    resp = _a.sent();
+                    return [2 /*return*/, resp === null || resp === void 0 ? void 0 : resp.data];
             }
         });
     }); };
@@ -246,32 +255,41 @@ var useResource = function (params) {
         });
     }); };
     var createMany = function (resources) { return __awaiter(void 0, void 0, void 0, function () {
+        var resp;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0: return [4 /*yield*/, loadingWrapper(function () {
                         return api.createMany(resources, apiParams);
                     })];
-                case 1: return [2 /*return*/, _a.sent()];
+                case 1:
+                    resp = _a.sent();
+                    return [2 /*return*/, resp === null || resp === void 0 ? void 0 : resp.data];
             }
         });
     }); };
     var updateMany = function (ids, resource) { return __awaiter(void 0, void 0, void 0, function () {
+        var resp;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0: return [4 /*yield*/, loadingWrapper(function () {
                         return api.updateMany(ids, resource, apiParams);
                     })];
-                case 1: return [2 /*return*/, _a.sent()];
+                case 1:
+                    resp = _a.sent();
+                    return [2 /*return*/, resp === null || resp === void 0 ? void 0 : resp.data];
             }
         });
     }); };
     var exportMany = function (ids) { return __awaiter(void 0, void 0, void 0, function () {
+        var resp;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0: return [4 /*yield*/, loadingWrapper(function () {
                         return api.exportMany(ids, apiParams);
                     })];
-                case 1: return [2 /*return*/, _a.sent()];
+                case 1:
+                    resp = _a.sent();
+                    return [2 /*return*/, resp === null || resp === void 0 ? void 0 : resp.data];
             }
         });
     }); };
@@ -286,22 +304,28 @@ var useResource = function (params) {
         });
     }); };
     var publish = function (ids) { return __awaiter(void 0, void 0, void 0, function () {
+        var resp;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0: return [4 /*yield*/, loadingWrapper(function () {
                         return api.publish(ids, apiParams);
                     })];
-                case 1: return [2 /*return*/, _a.sent()];
+                case 1:
+                    resp = _a.sent();
+                    return [2 /*return*/, resp === null || resp === void 0 ? void 0 : resp.data];
             }
         });
     }); };
     var unpublish = function (ids) { return __awaiter(void 0, void 0, void 0, function () {
+        var resp;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0: return [4 /*yield*/, loadingWrapper(function () {
                         return api.unpublish(ids, apiParams);
                     })];
-                case 1: return [2 /*return*/, _a.sent()];
+                case 1:
+                    resp = _a.sent();
+                    return [2 /*return*/, resp === null || resp === void 0 ? void 0 : resp.data];
             }
         });
     }); };

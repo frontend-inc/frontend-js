@@ -96,7 +96,7 @@ const useResource = (params: UseResourceParams): UseResourceResponse => {
       ...query,
       page: nextPage
     }
-    findMany(searchQuery, { loadMore: true })    
+    return await findMany(searchQuery, { loadMore: true })    
 	}
 
 	const paginate = async (page: number) => {
@@ -104,7 +104,7 @@ const useResource = (params: UseResourceParams): UseResourceResponse => {
       ...query,
       page
     }
-    findMany(searchQuery, { loadMore: false })    
+    return await findMany(searchQuery, { loadMore: false })    
 	}
 	
   const reloadOne = async (resourceId?: number | string) => {		    
@@ -133,9 +133,10 @@ const useResource = (params: UseResourceParams): UseResourceResponse => {
 	}
 
 	const create = async (resource: any) => {
-		return await loadingWrapper(() =>
+		const resp = await loadingWrapper(() =>
 			api.create(resource, apiParams)
 		)
+    return resp?.data
 	}
 
 	const update = async (resource: any) => {
@@ -158,21 +159,24 @@ const useResource = (params: UseResourceParams): UseResourceResponse => {
 	}
 
   const createMany = async (resources: any[]) => {
-    return await loadingWrapper(() =>
+    const resp = await loadingWrapper(() =>
       api.createMany(resources, apiParams)
     )
+    return resp?.data
   }
 
 	const updateMany = async (ids: ID[], resource: any) => {
-		return await loadingWrapper(() =>
+		const resp = await loadingWrapper(() =>
 			api.updateMany(ids, resource, apiParams)
 		)
+    return resp?.data
 	}
 
   const exportMany = async (ids: ID[]) => {
-		return await loadingWrapper(() =>
+		const resp = await loadingWrapper(() =>
 			api.exportMany(ids, apiParams)
 		)
+    return resp?.data
 	}
 
 	const deleteMany = async (ids: ID[]) => {
@@ -182,15 +186,17 @@ const useResource = (params: UseResourceParams): UseResourceResponse => {
 	}
 
 	const publish = async (ids: ID[]) => {
-		return await loadingWrapper(() =>
+		const resp = await loadingWrapper(() =>
 			api.publish(ids, apiParams)
 		)
+    return resp?.data
 	}
 
 	const unpublish = async (ids: ID[]) => {
-		return await loadingWrapper(() =>
+		const resp = await loadingWrapper(() =>
 			api.unpublish(ids, apiParams)
 		)
+    return resp?.data
 	}
 
 	const addAttachment = async (

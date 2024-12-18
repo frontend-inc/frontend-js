@@ -138,7 +138,7 @@ const useResourceContext = (): UseResourceContextResponse => {
       ...query,
       page: nextPage
     }
-    findMany(searchQuery, { loadMore: true })    
+    return await findMany(searchQuery, { loadMore: true })    
 	}
 
 	const paginate = async (page: number) => {
@@ -146,7 +146,7 @@ const useResourceContext = (): UseResourceContextResponse => {
       ...query,
       page
     }
-    findMany(searchQuery, { loadMore: false })    
+    return await findMany(searchQuery, { loadMore: false })    
 	}
 
 	const sort = async (sortBy: string, sortDirection: 'asc' | 'desc') => {
@@ -166,13 +166,14 @@ const useResourceContext = (): UseResourceContextResponse => {
 	}
 
 	const create = async (resource: any) => {
-		return await loadingWrapper(() =>
+		const resp = await loadingWrapper(() =>
 			api.create(resource, apiParams)
 		)
+    return resp?.data
 	}
 
 	const update = async (resource: any) => {
-		let resp = await loadingWrapper(() =>
+		const resp = await loadingWrapper(() =>
 			api.update(resource, apiParams)
 		)
     return resp?.data
@@ -185,15 +186,17 @@ const useResourceContext = (): UseResourceContextResponse => {
 	}
 
   const createMany = async (resources: any[]) => {
-    return await loadingWrapper(() =>
+    const resp = await loadingWrapper(() =>
       api.createMany(resources, apiParams)
     )
+    return resp?.data
   }
 
 	const updateMany = async (ids: ID[], resource: any) => {
-		return await loadingWrapper(() =>
+		const resp = await loadingWrapper(() =>
 			api.updateMany(ids, resource, apiParams)
 		)
+    return resp?.data
 	}
 
 	const deleteMany = async (ids: ID[]) => {
@@ -203,15 +206,17 @@ const useResourceContext = (): UseResourceContextResponse => {
 	}
 
 	const publish = async (ids: ID[]) => {
-		return await loadingWrapper(() =>
+		const resp = await loadingWrapper(() =>
 			api.publish(ids, apiParams)
 		)
+    return resp?.data
 	}
 
 	const unpublish = async (ids: ID[]) => {
-		return await loadingWrapper(() =>
+		const resp = await loadingWrapper(() =>
 			api.unpublish(ids, apiParams)
 		)
+    return resp?.data
 	}
 
 	const addAttachment = async (
@@ -240,7 +245,8 @@ const useResourceContext = (): UseResourceContextResponse => {
 
   // Intentionally avoid loading wrapper for this method
 	const updatePositions = async (sorted: any[]) => {
-		return await api.updatePositions(sorted, apiParams)
+		const resp = await api.updatePositions(sorted, apiParams)
+    return resp?.data
 	}
 
   const setNestedValue = (obj, path, value) => {
