@@ -339,21 +339,25 @@ var useResourceContext = function () {
     };
     var loadingWrapper = function (fn) { return __awaiter(void 0, void 0, void 0, function () {
         var resp, e_1;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
+        var _a;
+        return __generator(this, function (_b) {
+            switch (_b.label) {
                 case 0:
-                    _a.trys.push([0, 2, 3, 4]);
+                    _b.trys.push([0, 2, 3, 4]);
                     showLoading();
                     setErrors(null);
                     return [4 /*yield*/, fn()];
                 case 1:
-                    resp = _a.sent();
+                    resp = _b.sent();
+                    if ((_a = resp === null || resp === void 0 ? void 0 : resp.data) === null || _a === void 0 ? void 0 : _a.id) {
+                        setResource(resp === null || resp === void 0 ? void 0 : resp.data);
+                    }
                     if (resp === null || resp === void 0 ? void 0 : resp.errors) {
                         handleErrors(resp === null || resp === void 0 ? void 0 : resp.errors);
                     }
                     return [2 /*return*/, resp];
                 case 2:
-                    e_1 = _a.sent();
+                    e_1 = _b.sent();
                     console.log('loadingWrapper error', e_1);
                     return [3 /*break*/, 4];
                 case 3:

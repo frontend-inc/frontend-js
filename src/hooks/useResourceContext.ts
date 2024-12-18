@@ -122,7 +122,6 @@ const useResourceContext = (): UseResourceContextResponse => {
     return resp?.data
 	}
 
-
   const reloadOne = async (resourceId?: number | string) => {		    
     resourceId = resourceId || resource?.id
     return await findOne(resourceId)
@@ -271,6 +270,9 @@ const useResourceContext = (): UseResourceContextResponse => {
 			showLoading()
 			setErrors(null)
 			const resp = await fn()
+      if(resp?.data?.id){
+        setResource(resp?.data)
+      }
 			if (resp?.errors) {
 				handleErrors(resp?.errors)
 			}

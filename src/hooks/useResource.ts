@@ -249,6 +249,9 @@ const useResource = (params: UseResourceParams): UseResourceResponse => {
 			showLoading()
 			setErrors(null)
 			const resp = await fn()			
+      if(resp?.data?.id){
+        setResource(resp?.data)
+      }
       if (resp?.errors) {
 				handleErrors(resp?.errors)
 			}
