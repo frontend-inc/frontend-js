@@ -1,7 +1,6 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import useSWR from 'swr'
 import useApi from './useApi'
-import { QueryParamsType } from '../types'
 
 type UseFindOneParams = {
   id: number | string 
@@ -17,6 +16,8 @@ const useFindOne = (params: UseFindOneParams) => {
     url,
   } = params || {}
 
+  const [resource, setResource] = useState(null)
+
   const fetcher = (id, url) => api.findOne(id, { url })
   
   const cacheKey = (url && id) ? [url, id] : null
@@ -25,10 +26,17 @@ const useFindOne = (params: UseFindOneParams) => {
     revalidateOnReconnect: true 
   })
 
+  useEffect(() => {
+    if(data?.data?.id){
+      setResource(data?.data)
+    }
+  }, [data])
+
   return { 
     isLoading, 
     data, 
-    error,     
+    error, 
+    resource,    
     mutate 
   }
 }

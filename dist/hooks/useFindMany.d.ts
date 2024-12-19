@@ -8,5 +8,11 @@ declare const useFindMany: (params: UseFindManyParams) => {
     data: any;
     error: any;
     mutate: import("swr/dist/_internal").KeyedMutator<any>;
+    resources: any;
+    meta: any;
+    page: any;
+    perPage: any;
+    totalCount: any;
+    numPages: any;
 };
 export default useFindMany;
