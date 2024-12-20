@@ -154,14 +154,14 @@ var ApiClient = /** @class */ (function () {
             });
         });
     };
-    ApiClient.prototype.findMany = function (searchParams, options) {
+    ApiClient.prototype.findMany = function (queryParams, options) {
         return __awaiter(this, void 0, void 0, function () {
             var url;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
                         url = (options || {}).url;
-                        this.apiQuery.where(searchParams);
+                        this.apiQuery.where(queryParams);
                         this.endpoint = url;
                         return [4 /*yield*/, this.get(this.endpoint, this.apiQuery.url())];
                     case 1: return [2 /*return*/, _a.sent()];

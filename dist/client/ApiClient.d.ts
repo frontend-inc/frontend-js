@@ -26,7 +26,7 @@ export declare class ApiClient {
     page(page: any): this;
     per(perPage: any): this;
     findOne(id: any, options: QueryOptionsType): Promise<ExecuteResponseType>;
-    findMany(searchParams: QueryParamsType, options: MutateOptionsType): Promise<ExecuteResponseType>;
+    findMany(queryParams: QueryParamsType, options: MutateOptionsType): Promise<ExecuteResponseType>;
     create(data: Record<string, any>, options: MutateOptionsType): Promise<ExecuteResponseType>;
     update(data: Record<string, any>, options: MutateOptionsType): Promise<ExecuteResponseType>;
     destroy(id: number, options: MutateOptionsType): Promise<ExecuteResponseType>;

@@ -139,9 +139,9 @@ export class ApiClient {
 		return await this.get(this.endpoint)
 	}
 
-	async findMany(searchParams: QueryParamsType, options: MutateOptionsType): Promise<ExecuteResponseType> {
+	async findMany(queryParams: QueryParamsType, options: MutateOptionsType): Promise<ExecuteResponseType> {
 		const { url } = options || {}    
-    this.apiQuery.where(searchParams)
+    this.apiQuery.where(queryParams)
 		this.endpoint = url
 		return await this.get(this.endpoint, this.apiQuery.url())
 	}
