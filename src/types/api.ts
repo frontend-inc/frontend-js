@@ -7,10 +7,10 @@ export type RestClientParamsType = {
 }
 
 export type ApiClientParamsType = {
-  baseUrl: string
-  fetchToken?: () => string | null
-  apiKey?: string | null
+  apiUrl: string
+  apiKey: string | null
   authToken?: string | null
+  fetchToken?: () => string | null
 }
 
 export type ConfigParamsType = {

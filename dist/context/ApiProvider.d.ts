@@ -1,10 +1,10 @@
 import React from 'react';
 type ApiProviderProps = {
-    url: string;
     clientUrl?: string;
+    apiUrl: string;
     authUrl?: string;
     apiKey?: string;
-    authCookie: string;
+    authCookie?: string;
     requireApiKey?: boolean;
     children: React.ReactNode;
 };

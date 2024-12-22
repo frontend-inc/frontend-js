@@ -2,7 +2,7 @@ import { UserType, QueryParamsType, QueryOptionsType, MutateOptionsType } from '
 import { ApiClientParamsType, ExecuteResponseType } from '../types';
 export declare class ApiClient {
     private payload?;
-    private baseUrl?;
+    private apiUrl?;
     private name?;
     private endpoint?;
     private headers?;

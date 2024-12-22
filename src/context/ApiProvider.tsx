@@ -6,11 +6,11 @@ import { createClient } from '../client'
 import { getCookie } from 'cookies-next'
 
 type ApiProviderProps = {
-	url: string
-	clientUrl?: string
+  clientUrl?: string
+	apiUrl: string
   authUrl?: string
 	apiKey?: string
-	authCookie: string
+	authCookie?: string
   requireApiKey?: boolean
 	children: React.ReactNode
 }
@@ -18,8 +18,8 @@ type ApiProviderProps = {
 const ApiProvider = (props: ApiProviderProps) => {
 	
   const {
-		url,
 		clientUrl,
+    apiUrl,
     authUrl,
 		authCookie = 'auth-token',
 		apiKey,
@@ -33,13 +33,13 @@ const ApiProvider = (props: ApiProviderProps) => {
   }
 
   const api = createClient({
-    baseUrl: url, 
+    apiUrl, 
     fetchToken: fetchAuthToken,
     apiKey
    })
 
 	const value = {
-    url,
+    apiUrl,
 		api,
 		apiKey,		
     authUrl,
