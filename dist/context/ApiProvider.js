@@ -9,18 +9,18 @@ var ApiContext_1 = __importDefault(require("./ApiContext"));
 var client_1 = require("../client");
 var cookies_next_1 = require("cookies-next");
 var ApiProvider = function (props) {
-    var _a = props || {}, clientUrl = _a.clientUrl, apiUrl = _a.apiUrl, authUrl = _a.authUrl, _b = _a.authCookie, authCookie = _b === void 0 ? 'auth-token' : _b, apiKey = _a.apiKey, requireApiKey = _a.requireApiKey, children = _a.children;
+    var _a = props || {}, clientUrl = _a.clientUrl, url = _a.url, authUrl = _a.authUrl, _b = _a.authCookie, authCookie = _b === void 0 ? 'auth-token' : _b, apiKey = _a.apiKey, requireApiKey = _a.requireApiKey, children = _a.children;
     var fetchAuthToken = function () {
         var token = (0, cookies_next_1.getCookie)(authCookie);
         return token ? String(token) : null;
     };
     var api = (0, client_1.createClient)({
-        apiUrl: apiUrl,
+        baseURL: url,
         fetchToken: fetchAuthToken,
         apiKey: apiKey
     });
     var value = {
-        apiUrl: apiUrl,
+        url: url,
         api: api,
         apiKey: apiKey,
         authUrl: authUrl,

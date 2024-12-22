@@ -13,7 +13,7 @@ import {
 
 export class ApiClient {
 	private payload?: object
-	private apiUrl?: string
+	private baseURL?: string
 	private name?: string
 	private endpoint?: string
 	private headers?: Record<string, any>
@@ -23,13 +23,13 @@ export class ApiClient {
 	constructor(params: ApiClientParamsType) {
     
     const {
-      apiUrl,
+      baseURL,
       fetchToken,
       apiKey,
       authToken
     } = params
 
-    this.apiUrl = apiUrl 
+    this.baseURL = baseURL 
 		this.restClient = new RestClient({ 
       fetchToken, 
       apiKey, 
@@ -823,7 +823,7 @@ export class ApiClient {
 
 	async get(endpoint: string, params?: string): Promise<ExecuteResponseType> {
 		this.init()
-    const url = `${this.apiUrl}${endpoint}`
+    const url = `${this.baseURL}${endpoint}`
 		return await this.restClient.get(url, params)
 	}
 
@@ -833,7 +833,7 @@ export class ApiClient {
 		headers?: any
 	): Promise<ExecuteResponseType> {
 		this.init()
-    const url = `${this.apiUrl}${endpoint}`
+    const url = `${this.baseURL}${endpoint}`
 		return await this.restClient.post(url, payload, headers)
 	}
 
@@ -843,13 +843,13 @@ export class ApiClient {
 		headers: any
   ): Promise<ExecuteResponseType> {
 		this.init()
-    const url = `${this.apiUrl}${endpoint}`
+    const url = `${this.baseURL}${endpoint}`
 		return await this.restClient.put(url, payload, headers)
 	}
 
 	async delete(endpoint: string): Promise<ExecuteResponseType> {
 		this.init()
-    const url = `${this.apiUrl}${endpoint}`
+    const url = `${this.baseURL}${endpoint}`
 		return await this.restClient.delete(url)
 	}
 
@@ -900,14 +900,14 @@ export class ApiClient {
 export const createClient = (params: ApiClientParamsType): ApiClient => {
 
   const {
-	  apiUrl,
+	  baseURL,
 	  fetchToken,
 	  apiKey,
 	  authToken
   } = params
 
 	return new ApiClient({ 
-    apiUrl, 
+    baseURL, 
     fetchToken, 
     apiKey, 
     authToken 

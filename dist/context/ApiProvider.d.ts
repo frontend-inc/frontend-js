@@ -1,7 +1,7 @@
 import React from 'react';
 type ApiProviderProps = {
     clientUrl?: string;
-    apiUrl: string;
+    url: string;
     authUrl?: string;
     apiKey?: string;
     authCookie?: string;

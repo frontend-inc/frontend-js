@@ -7,7 +7,7 @@ import { getCookie } from 'cookies-next'
 
 type ApiProviderProps = {
   clientUrl?: string
-	apiUrl: string
+	url: string
   authUrl?: string
 	apiKey?: string
 	authCookie?: string
@@ -19,7 +19,7 @@ const ApiProvider = (props: ApiProviderProps) => {
 	
   const {
 		clientUrl,
-    apiUrl,
+    url,
     authUrl,
 		authCookie = 'auth-token',
 		apiKey,
@@ -33,13 +33,13 @@ const ApiProvider = (props: ApiProviderProps) => {
   }
 
   const api = createClient({
-    apiUrl, 
+    baseURL: url, 
     fetchToken: fetchAuthToken,
     apiKey
    })
 
 	const value = {
-    apiUrl,
+    url,
 		api,
 		apiKey,		
     authUrl,

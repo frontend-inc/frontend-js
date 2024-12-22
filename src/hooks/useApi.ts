@@ -2,10 +2,10 @@ import React, { useContext } from 'react'
 import { ApiContext } from '../context'
 
 const useApi = () => {
-	const { api, apiUrl, apiKey } = useContext(ApiContext)
+	const { api, url, apiKey } = useContext(ApiContext)
 	return {
 		api,
-    apiUrl, 
+    url, 
     apiKey
 	}
 }

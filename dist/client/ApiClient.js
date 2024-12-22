@@ -52,8 +52,8 @@ var ApiQuery_1 = require("./ApiQuery");
 var RestClient_1 = require("./RestClient");
 var ApiClient = /** @class */ (function () {
     function ApiClient(params) {
-        var apiUrl = params.apiUrl, fetchToken = params.fetchToken, apiKey = params.apiKey, authToken = params.authToken;
-        this.apiUrl = apiUrl;
+        var baseURL = params.baseURL, fetchToken = params.fetchToken, apiKey = params.apiKey, authToken = params.authToken;
+        this.baseURL = baseURL;
         this.restClient = new RestClient_1.RestClient({
             fetchToken: fetchToken,
             apiKey: apiKey,
@@ -1283,7 +1283,7 @@ var ApiClient = /** @class */ (function () {
                 switch (_a.label) {
                     case 0:
                         this.init();
-                        url = "".concat(this.apiUrl).concat(endpoint);
+                        url = "".concat(this.baseURL).concat(endpoint);
                         return [4 /*yield*/, this.restClient.get(url, params)];
                     case 1: return [2 /*return*/, _a.sent()];
                 }
@@ -1297,7 +1297,7 @@ var ApiClient = /** @class */ (function () {
                 switch (_a.label) {
                     case 0:
                         this.init();
-                        url = "".concat(this.apiUrl).concat(endpoint);
+                        url = "".concat(this.baseURL).concat(endpoint);
                         return [4 /*yield*/, this.restClient.post(url, payload, headers)];
                     case 1: return [2 /*return*/, _a.sent()];
                 }
@@ -1311,7 +1311,7 @@ var ApiClient = /** @class */ (function () {
                 switch (_a.label) {
                     case 0:
                         this.init();
-                        url = "".concat(this.apiUrl).concat(endpoint);
+                        url = "".concat(this.baseURL).concat(endpoint);
                         return [4 /*yield*/, this.restClient.put(url, payload, headers)];
                     case 1: return [2 /*return*/, _a.sent()];
                 }
@@ -1325,7 +1325,7 @@ var ApiClient = /** @class */ (function () {
                 switch (_a.label) {
                     case 0:
                         this.init();
-                        url = "".concat(this.apiUrl).concat(endpoint);
+                        url = "".concat(this.baseURL).concat(endpoint);
                         return [4 /*yield*/, this.restClient.delete(url)];
                     case 1: return [2 /*return*/, _a.sent()];
                 }
@@ -1378,9 +1378,9 @@ var ApiClient = /** @class */ (function () {
 exports.ApiClient = ApiClient;
 // End ApiClient
 var createClient = function (params) {
-    var apiUrl = params.apiUrl, fetchToken = params.fetchToken, apiKey = params.apiKey, authToken = params.authToken;
+    var baseURL = params.baseURL, fetchToken = params.fetchToken, apiKey = params.apiKey, authToken = params.authToken;
     return new ApiClient({
-        apiUrl: apiUrl,
+        baseURL: baseURL,
         fetchToken: fetchToken,
         apiKey: apiKey,
         authToken: authToken

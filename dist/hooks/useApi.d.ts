@@ -1,6 +1,6 @@
 declare const useApi: () => {
     api: any;
-    apiUrl: any;
+    url: any;
     apiKey: any;
 };
 export default useApi;
