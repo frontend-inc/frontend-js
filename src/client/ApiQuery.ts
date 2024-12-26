@@ -156,46 +156,46 @@ export class ApiQuery {
 	}
 
 	eq(field: string, value: string | number): ApiQuery {
-		this.AND_filter({ [field]: { eq: value } })
+		this.addFilter({ [field]: { eq: value } })
 		return this
 	}
 
 	neq(field: string, value: string | number): ApiQuery {
-		this.AND_filter({ [field]: { neq: value } })
+		this.addFilter({ [field]: { neq: value } })
 		return this
 	}
 
 	gt(field: string, value: string | number): ApiQuery {
-		this.AND_filter({ [field]: { gt: value } })
+		this.addFilter({ [field]: { gt: value } })
 		return this
 	}
 
 	gte(field: string, value: string | number): ApiQuery {
-		this.AND_filter({ [field]: { gte: value } })
+		this.addFilter({ [field]: { gte: value } })
 		return this
 	}
 
 	lt(field: string, value: string | number): ApiQuery {
-		this.AND_filter({ [field]: { lt: value } })
+		this.addFilter({ [field]: { lt: value } })
 		return this
 	}
 
 	lte(field: string, value: string | number): ApiQuery {
-		this.AND_filter({ [field]: { lte: value } })
+		this.addFilter({ [field]: { lte: value } })
 		return this
 	}
 
 	in(field: string, value: string | number): ApiQuery {
-		this.AND_filter({ [field]: { in: value } })
+		this.addFilter({ [field]: { in: value } })
 		return this
 	}
 
 	nin(field: string, value: string | number): ApiQuery {
-		this.AND_filter({ [field]: { nin: value } })
+		this.addFilter({ [field]: { nin: value } })
 		return this
 	}
 
-	AND_filter(filter: FilterType | any): ApiQuery {    
+	addFilter(filter: FilterType | any): ApiQuery {    
 		this._filters = [
 			filter, 
 			...(this._filters || [])

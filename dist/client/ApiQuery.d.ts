@@ -32,7 +32,7 @@ export declare class ApiQuery {
     lte(field: string, value: string | number): ApiQuery;
     in(field: string, value: string | number): ApiQuery;
     nin(field: string, value: string | number): ApiQuery;
-    AND_filter(filter: FilterType | any): ApiQuery;
+    addFilter(filter: FilterType | any): ApiQuery;
     url(): string;
     parseURL(routerParams?: any): this;
     query(): {

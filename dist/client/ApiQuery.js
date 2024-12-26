@@ -190,45 +190,45 @@ var ApiQuery = /** @class */ (function () {
     };
     ApiQuery.prototype.eq = function (field, value) {
         var _a;
-        this.AND_filter((_a = {}, _a[field] = { eq: value }, _a));
+        this.addFilter((_a = {}, _a[field] = { eq: value }, _a));
         return this;
     };
     ApiQuery.prototype.neq = function (field, value) {
         var _a;
-        this.AND_filter((_a = {}, _a[field] = { neq: value }, _a));
+        this.addFilter((_a = {}, _a[field] = { neq: value }, _a));
         return this;
     };
     ApiQuery.prototype.gt = function (field, value) {
         var _a;
-        this.AND_filter((_a = {}, _a[field] = { gt: value }, _a));
+        this.addFilter((_a = {}, _a[field] = { gt: value }, _a));
         return this;
     };
     ApiQuery.prototype.gte = function (field, value) {
         var _a;
-        this.AND_filter((_a = {}, _a[field] = { gte: value }, _a));
+        this.addFilter((_a = {}, _a[field] = { gte: value }, _a));
         return this;
     };
     ApiQuery.prototype.lt = function (field, value) {
         var _a;
-        this.AND_filter((_a = {}, _a[field] = { lt: value }, _a));
+        this.addFilter((_a = {}, _a[field] = { lt: value }, _a));
         return this;
     };
     ApiQuery.prototype.lte = function (field, value) {
         var _a;
-        this.AND_filter((_a = {}, _a[field] = { lte: value }, _a));
+        this.addFilter((_a = {}, _a[field] = { lte: value }, _a));
         return this;
     };
     ApiQuery.prototype.in = function (field, value) {
         var _a;
-        this.AND_filter((_a = {}, _a[field] = { in: value }, _a));
+        this.addFilter((_a = {}, _a[field] = { in: value }, _a));
         return this;
     };
     ApiQuery.prototype.nin = function (field, value) {
         var _a;
-        this.AND_filter((_a = {}, _a[field] = { nin: value }, _a));
+        this.addFilter((_a = {}, _a[field] = { nin: value }, _a));
         return this;
     };
-    ApiQuery.prototype.AND_filter = function (filter) {
+    ApiQuery.prototype.addFilter = function (filter) {
         this._filters = __spreadArray([
             filter
         ], (this._filters || []), true);
