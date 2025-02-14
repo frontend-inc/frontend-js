@@ -750,11 +750,12 @@ export class ApiClient {
   async authenticate(token: string, options: MutateOptionsType): Promise<ExecuteResponseType> {
 		const { name='user', url } = options || {}
     this.name = name    
-		this.payload = {
-			token: token,
-		}
+    this.headers = {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    }
 		this.endpoint = `${url}/authenticate`
-		return await this.post(this.endpoint, this.payload, this.headers)
+		return await this.post(this.endpoint, {}, this.headers)
 	}
 
   async googleLogin(accessToken: string, options: MutateOptionsType): Promise<ExecuteResponseType> {
