@@ -1176,11 +1176,12 @@ var ApiClient = /** @class */ (function () {
                     case 0:
                         _a = options || {}, _b = _a.name, name = _b === void 0 ? 'user' : _b, url = _a.url;
                         this.name = name;
-                        this.payload = {
-                            token: token,
+                        this.headers = {
+                            'Content-Type': 'application/json',
+                            'Authorization': "Bearer ".concat(token)
                         };
                         this.endpoint = "".concat(url, "/authenticate");
-                        return [4 /*yield*/, this.post(this.endpoint, this.payload, this.headers)];
+                        return [4 /*yield*/, this.post(this.endpoint, {}, this.headers)];
                     case 1: return [2 /*return*/, _c.sent()];
                 }
             });
