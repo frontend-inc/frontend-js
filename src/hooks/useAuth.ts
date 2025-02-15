@@ -117,10 +117,11 @@ const useAuth = () => {
 	}
 
 	const logout = async () => {
+    setCookie(authCookie, null)
+    deleteCookie(authCookie)
 		setCurrentUser({})
 		setAuthenticated(false)
-    setToken(null)
-    deleteCookie(authCookie)
+    setToken(null)    
 	}
 
 	const googleLogin = async (accessToken: string) => {		

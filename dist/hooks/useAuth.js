@@ -163,10 +163,11 @@ var useAuth = function () {
     }); };
     var logout = function () { return __awaiter(void 0, void 0, void 0, function () {
         return __generator(this, function (_a) {
+            (0, cookies_next_1.setCookie)(authCookie, null);
+            (0, cookies_next_1.deleteCookie)(authCookie);
             setCurrentUser({});
             setAuthenticated(false);
             setToken(null);
-            (0, cookies_next_1.deleteCookie)(authCookie);
             return [2 /*return*/];
         });
     }); };
